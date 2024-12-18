@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Couleur principale #2f72b2 */
+    --primary: 209 54% 44%;
+    --primary-foreground: 0 0% 100%;
+    --primary-50: 209 54% 97%;
+    --primary-100: 209 54% 93%;
+    --primary-200: 209 54% 85%;
+    --primary-300: 209 54% 70%;
+    --primary-400: 209 54% 55%;
+    --primary-500: 209 54% 44%;
+    --primary-600: 209 54% 35%;
+    --primary-700: 209 54% 30%;
+    --primary-800: 209 54% 25%;
+    --primary-900: 209 54% 20%;
+
+    /* Couleur secondaire #fbaf1c */
+    --secondary: 40 97% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Couleur accent – vous pouvez la conserver ou modifier */
+    --accent: 144 53% 87%;  
+    --accent-foreground: 169 100% 9%;
+
+    /* Autres couleurs système existantes */
+    --background: 0 0% 100%;
+    --foreground: 169 100% 9%;
+
+    --muted: 144 53% 95%;
+    --muted-foreground: 169 100% 9%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 169 100% 9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 169 100% 9%;
+
+    --border: 144 53% 87%;
+    --input: 144 53% 87%;
+
+    --ring: var(--primary);
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 169 100% 5%;
+    --foreground: 144 53% 87%;
+
+    --primary: 209 54% 44%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 40 97% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 169 100% 15%;
+    --muted-foreground: 144 53% 70%;
+
+    --accent: 144 53% 87%;
+    --accent-foreground: 169 100% 9%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 100%;
+
+    --popover: 169 100% 5%;
+    --popover-foreground: 144 53% 87%;
+
+    --card: 169 100% 5%;
+    --card-foreground: 144 53% 87%;
+
+    --border: 169 100% 20%;
+    --input: 169 100% 20%;
+
+    --ring: var(--primary);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+
+
+/* Classes utilitaires personnalisées */
+@layer components {
+    .btn-primary {
+      @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary;
+    }
+  
+    .btn-secondary {
+      @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-secondary hover:bg-secondary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary;
+    }
+  
+    .btn-accent {
+      @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-secondary bg-accent hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent;
+    }
+  
+    .input-primary {
+      @apply block w-full rounded-md border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+    }
+  
+    .card {
+      @apply rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-md transition-shadow duration-200;
+    }
+  
+    .section-title {
+      @apply text-3xl font-extrabold text-foreground sm:text-4xl;
+    }
+  
+    .section-subtitle {
+      @apply mt-4 text-xl text-muted-foreground;
+    }
+  
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate-fadeInUp {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+  }
