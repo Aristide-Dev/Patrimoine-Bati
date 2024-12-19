@@ -17,7 +17,7 @@ export const DesktopNav = () => {
             {!item.children ? (
               <a
                 href={item.href}
-                className={`flex items-center px-2 py-2 rounded-md transition-colors uppercase txt-sm ${
+                className={`flex items-center p-2 rounded-md transition-colors uppercase text-sm ${
                   isActive
                     ? 'bg-primary-800 text-white'
                     : 'text-primary-100 hover:bg-primary-800 hover:text-white'
@@ -30,7 +30,7 @@ export const DesktopNav = () => {
               <>
                 <button
                   type="button"
-                  className="flex items-center px-3 py-2 text-primary-100 hover:bg-primary-800 hover:text-white rounded-md transition-colors uppercase txt-sm"
+                  className="flex items-center p-2 text-primary-100 hover:bg-primary-800 hover:text-white rounded-md transition-colors uppercase text-sm"
                 >
                   <item.icon className="w-4 h-4 mr-2" />
                   <span>{item.label}</span>
