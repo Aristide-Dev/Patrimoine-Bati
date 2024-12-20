@@ -1,14 +1,14 @@
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
-import {
+import { 
   ArrowRight,
-  Calculator,
-  Building2,
-  Coins,
-  PiggyBank,
+  Calculator, 
+  Building2, 
+  Coins, 
+  PiggyBank, 
   Binary,
-  Target,
-  TrendingUp,
+  Target, 
+  TrendingUp, 
   Users,
   Home,
   Newspaper,
@@ -26,31 +26,31 @@ import {
   Boxes,
   FileBarChart,
   ChevronRight
-}
-  from 'lucide-react';
+} 
+from 'lucide-react';
 
 const news = [
   {
     id: 1,
-    title: "Réunion | Mission d’évaluation du potentiel fiscal en Guinée par le FMI",
-    date: "14 novembre 2024",
-    image: "https://scontent.fcky4-1.fna.fbcdn.net/v/t39.30808-6/466874192_872730165068095_4636350882492527928_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=zf9RGpLoC3sQ7kNvgEMpZwz&_nc_zt=23&_nc_ht=scontent.fcky4-1.fna&_nc_gid=AyDuXHtsP5zdVHJW9h5u-jH&oh=00_AYD2V14RsAiQZh5cKQzHcMFLOGJfN1WnxXjswUOlwkpeYA&oe=676B32E0",
-    excerpt: "Une équipe du FMI, sous la direction de M. BADY EBE, Conseiller en Analyses macroéconomiques et budgétaires, a été reçue à la MAMRI."
+    title: "Lancement du programme de digitalisation",
+    date: "15 Mars 2024",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
+    excerpt: "La MAMRI lance son programme de transformation numérique des régies financières."
   },
   {
     id: 2,
-    title: "Réunion MAMRI – Ministère du Budget",
-    date: "09 avril 2024",
-    image: "https://i2.wp.com/mbudget.gov.gn/wp-content/uploads/436447119_730909015916878_9201247975803841543_n-1024x768.jpg?ssl=1",
-    excerpt: "L’objectif de cette" + " rencontre était d’évaluer l’avancement des projets de réformes identifiés lors des précédents Comités de Pilotage (CoPil) de la MAMRI. Parmi les sujets abordés, on peut citer\n La modernisation du processus de validation des listes minières."
+    title: "Atelier sur la mobilisation des ressources",
+    date: "12 Mars 2024",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400",
+    excerpt: "Un atelier de formation sur les nouvelles méthodes de mobilisation des ressources."
   },
   {
     id: 3,
-    title: "Le comité de pilotage de la MAMRI s’engage à améliorer la mobilisation des ressources internes de la Guinée",
-    date: "21 Juin 2023",
-    image: "https://www.guinee360.com/wp-content/uploads/2023/06/355670224_657403483088572_1165891742497353360_n-jpg.webp",
-    excerpt: "Selon le Général de Brigade Amara Camara, le monde traverse une crise multiforme qui affecte l’économie guinéenne."
-  },
+    title: "Partenariat avec l'Union Européenne",
+    date: "10 Mars 2024",
+    image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400",
+    excerpt: "Signature d'un accord de partenariat pour le renforcement des capacités."
+  }
 ];
 
 const directions = [
@@ -153,32 +153,32 @@ const siteSections = [
 export default function Welcome() {
   return (
     <AppLayout>
-      <Head
-        title="Bienvenue"
-        description="Plateforme d'appui à la mobilisation des ressources internes"
+      <Head 
+       title="Bienvenue"
+       description="Plateforme d'appui à la mobilisation des ressources internes"
       />
 
       {/* Hero Section */}
-      <section className="relative h-[750px] overflow-hidden">
+      <section className="relative h-[700px] overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://presidence.gov.gn/wp-content/uploads/2024/12/CoverSite-PRG.jpg"
+            src="https://prod.cdn-medias.jeuneafrique.com/cdn-cgi/image/q=auto,f=auto,metadata=none,width=1215,fit=cover/https://prod.cdn-medias.jeuneafrique.com/medias/2020/09/01/ja14072111150031.jpg"
             alt="MAMRI Hero"
-            className="w-full h-full object-left transform scale-105 animate-slow-zoom"
+            className="w-full h-full object-fill transform scale-105 animate-slow-zoom"
           />
-          {/* <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" /> */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
         </div>
-
+        
         <div className="relative container mx-auto px-4 h-full flex items-center">
-          <div className="w-52 sm:w-80 md:w-xl lg:w-full max-w-2xl text-white animate-fade-in-up">
-            <span className="hidden md:inline-block px-4 py-2 bg-primary/90 text-white rounded-full text-sm font-medium mb-6 transform hover:scale-105 transition-transform uppercase">
+          <div className="max-w-3xl text-white animate-fade-in-up">
+            <span className="inline-block px-4 py-2 bg-primary/90 text-white rounded-full text-sm font-medium mb-6 transform hover:scale-105 transition-transform uppercase">
               Mission d'Appui à la Mobilisation des Ressources Internes
             </span>
-            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-8 leading-tight">
-              Construire une Guinée plus forte par la Mobilisation des Ressources Internes
+            <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight">
+              Construire une Guinée plus forte par la mobilisation des ressources
             </h1>
             <p className="text-xl mb-10 leading-relaxed text-gray-200">
-              Notre mission est de renforcer la capacité de la Guinée à mobiliser ses ressources internes
+              Notre mission est de renforcer la capacité de la Guinée à mobiliser ses ressources internes 
               pour un développement durable et autonome.
             </p>
             <div className="flex flex-wrap gap-4">
@@ -212,8 +212,8 @@ export default function Welcome() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {missions.map((mission, index) => (
-              <div
-                key={index}
+              <div 
+                key={index} 
                 className="flex flex-col items-center text-center p-8 bg-white rounded-lg shadow-md transition-transform duration-200 hover:scale-105 hover:shadow-lg"
               >
                 <div className="flex items-center justify-center w-16 h-16 mb-4 bg-secondary-100 rounded-full">
@@ -254,8 +254,6 @@ export default function Welcome() {
         </div>
       </section>
 
-      
-
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
@@ -268,7 +266,7 @@ export default function Welcome() {
           {/* Organigramme */}
           <div className="flex flex-col items-center relative mx-auto shadow px-2 py-6 rounded-xl bg-white">
             {/* Niveau 1 : Président de la République */}
-            <div className="mb-0 relative">
+            <div className="mb-6 relative">
               <div className="inline-block bg-red-600 text-white px-6 py-3 rounded-md shadow-md font-semibold border-2 border-red-700">
                 Président de la République
               </div>
@@ -276,11 +274,6 @@ export default function Welcome() {
 
             {/* Ligne verticale de raccord */}
             <div className="w-0 h-6 border-l-4 border-gray-400"></div>
-
-{/* Ligne horizontale vers le niveau 3 */}
-<div className="w-full flex justify-center relative mb-6">
-  <div className="border-t-4 border-x-4 border-gray-400 w-full md:w-2/3 h-4 rounded-md"></div>
-</div>
 
             {/* Niveau 2 : Ministres principaux */}
             <div className="flex items-start justify-center space-x-16 relative mb-8">
@@ -475,7 +468,7 @@ export default function Welcome() {
           </div>
         </div>
       </section>
-
+      
 
       {/* Section Contact / FAQ */}
       <section className="py-20 bg-gradient-to-r from-primary to-primary-800">
@@ -484,17 +477,17 @@ export default function Welcome() {
             Ensemble, construisons l'avenir de la Guinée
           </h2>
           <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-            Découvrez comment nous pouvons collaborer pour renforcer la mobilisation
+            Découvrez comment nous pouvons collaborer pour renforcer la mobilisation 
             des ressources internes et contribuer au développement durable de notre pays.
           </p>
           <div className="flex flex-wrap justify-center gap-6">
-            <a
+            <a 
               href="/contact"
               className="bg-white text-primary hover:bg-gray-100 px-8 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
             >
               Contactez-nous
             </a>
-            <a
+            <a 
               href="/about"
               className="bg-primary-800 text-white hover:bg-[#8B1429] px-8 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
             >
@@ -539,7 +532,7 @@ export default function Welcome() {
           </div>
         </div>
       </section>
-
+      
     </AppLayout>
   );
 }

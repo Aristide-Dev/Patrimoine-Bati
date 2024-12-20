@@ -27,13 +27,13 @@ export const menuItems = [
     icon: Newspaper,
     actif: 'actualites.*', // route('actualites.index')
     children: [
-      { label: 'Actualités', href: 'actualites.communiques', icon: MessageSquare }, // route('actualites.communiques')
+      { label: 'Actualités', href: 'actualites.index', icon: MessageSquare }, // route('actualites.communiques')
       { label: 'Rapports et Publications', href: 'actualites.rapports', icon: FileText }, // route('actualites.rapports')
       { label: 'Médias', href: 'actualites.medias', icon: Image }, // route('actualites.medias')
     ]
   },
   {
-    label: 'Missions',
+    label: 'Organisation et Missions',
     icon: Briefcase,
     href: 'missions.index', // route('missions.index')
     children: [
@@ -92,17 +92,17 @@ export const menuItems = [
     label: 'Partenariats',
     icon: Link,
     href: 'partenariats.index', // route('partenariats.index')
-    children: [
-      { label: 'Partenaires Institutionnels (FMI, Banque Mondiale, UE, FERDI)', href: 'partenariats.institutionnels', icon: Users }, // route('partenariats.institutionnels')
-      { label: 'Rôles (Appui technique, financier)', href: 'partenariats.roles', icon: Briefcase }, // route('partenariats.roles')
-      { label: 'Projets et Résultats', href: 'partenariats.projets_resultats', icon: FileText }, // route('partenariats.projets_resultats')
-    ]
+    // children: [
+    //   { label: 'Partenaires Institutionnels (FMI, Banque Mondiale, UE, FERDI)', href: 'partenariats.institutionnels', icon: Users }, // route('partenariats.institutionnels')
+    //   { label: 'Rôles (Appui technique, financier)', href: 'partenariats.roles', icon: Briefcase }, // route('partenariats.roles')
+    //   { label: 'Projets et Résultats', href: 'partenariats.projets_resultats', icon: FileText }, // route('partenariats.projets_resultats')
+    // ]
   },
-  {
-    label: 'À Propos',
-    href: 'about', // route('about')
-    icon: FileText,
-  },
+  // {
+  //   label: 'À Propos',
+  //   href: 'about', // route('about')
+  //   icon: FileText,
+  // },
   {
     label: 'Contact',
     icon: Mail,

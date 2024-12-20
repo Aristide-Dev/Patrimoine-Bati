@@ -23,15 +23,15 @@ const Hero = () => {
           <div className="flex space-x-4">
             <a
               href="/about"
-              className="bg-[#C41E3A] hover:bg-[#A01830] px-6 py-3 rounded-lg font-medium transition-colors"
+              className="bg-primary text-gray-100 hover:text-white hover:bg-primary-700 px-6 py-3 rounded-lg font-medium transition-colors"
             >
               Découvrir notre mission
             </a>
             <a
               href="/contact"
-              className="bg-white text-gray-900 hover:bg-gray-100 px-6 py-3 rounded-lg font-medium transition-colors"
+              className="bg-secondary text-gray-800 hover:text-white hover:bg-secondary-700 px-6 py-3 rounded-lg font-medium transition-colors"
             >
-              Entrer en contact
+              Nous contacter
             </a>
           </div>
         </div>
