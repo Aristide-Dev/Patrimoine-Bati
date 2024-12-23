@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import { 
   PlayCircle, Calendar, X, Download, Share2, ChevronLeft, ChevronRight,
-  Search, Filter, ChevronDown, Eye, ZoomIn, Facebook, Twitter, Linkedin, 
-  Whatsapp, Maximize2, Minimize2
+  Search, Filter, ChevronDown, Eye, ZoomIn, Facebook, Twitter, Linkedin, Instagram
 } from 'lucide-react';
+
+
 
 
 const photos = [
@@ -96,94 +97,43 @@ const videos = [
   },
 ];
 
-const categories = [...new Set([...photos, ...videos].map(item => item.category))];
 
 export default function MediaPage() {
-  const [state, setState] = useState({
-    searchQuery: "",
-    activeTab: "photos",
-    selectedImage: null,
-    currentImageIndex: 0,
-    selectedFilter: "all",
-    isFullscreen: false,
-    showShareMenu: false,
-    isLoading: false,
-    isZoomed: false,
-    touchStart: null,
-    touchEnd: null
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("photos");
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedFilter, setSelectedFilter] = useState("all");
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showShareMenu, setShowShareMenu] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Filtrage des éléments
+  const filteredItems = activeTab === "photos" ? photos : videos;
+  const filteredAndSearchedItems = filteredItems.filter(item => {
+    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         item.category.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = selectedFilter === "all" || item.category === selectedFilter;
+    return matchesSearch && matchesFilter;
   });
 
-  const updateState = (updates) => {
-    setState(prev => ({ ...prev, ...updates }));
+  // Navigation dans le modal
+  const handlePrevImage = (e) => {
+    e?.stopPropagation();
+    setIsLoading(true);
+    setCurrentImageIndex((prev) => (prev > 0 ? prev - 1 : photos.length - 1));
   };
 
-  // Optimisation des filtres avec useMemo
-  const filteredItems = React.useMemo(() => {
-    const items = state.activeTab === "photos" ? photos : videos;
-    return items.filter(item => {
-      const searchLower = state.searchQuery.toLowerCase();
-      const matchesSearch = !state.searchQuery || 
-        item.title.toLowerCase().includes(searchLower) ||
-        item.category.toLowerCase().includes(searchLower);
-      const matchesFilter = state.selectedFilter === "all" || 
-        item.category === state.selectedFilter;
-      return matchesSearch && matchesFilter;
-    });
-  }, [state.activeTab, state.searchQuery, state.selectedFilter]);
-
-  // Gestion optimisée de la navigation
-  const navigate = useCallback((direction) => {
-    updateState({ isLoading: true });
-    const newIndex = direction === 'next'
-      ? (state.currentImageIndex + 1) % photos.length
-      : state.currentImageIndex === 0 
-        ? photos.length - 1 
-        : state.currentImageIndex - 1;
-    updateState({ currentImageIndex: newIndex });
-  }, [state.currentImageIndex]);
-
-  // Gestion du zoom
-  const handleZoom = useCallback(() => {
-    updateState({ isZoomed: !state.isZoomed });
-  }, [state.isZoomed]);
-
-  // Gestion optimisée du plein écran
-  const toggleFullscreen = useCallback(async () => {
-    try {
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
-        updateState({ isFullscreen: true });
-      } else {
-        await document.exitFullscreen();
-        updateState({ isFullscreen: false });
-      }
-    } catch (err) {
-      console.error('Erreur de plein écran:', err);
-    }
-  }, []);
-
-  // Gestion optimisée du téléchargement
-  const handleDownload = useCallback(async () => {
-    try {
-      const response = await fetch(photos[state.currentImageIndex].image);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `${photos[state.currentImageIndex].title}.jpg`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error('Erreur lors du téléchargement:', error);
-    }
-  }, [state.currentImageIndex]);
+  const handleNextImage = (e) => {
+    e?.stopPropagation();
+    setIsLoading(true);
+    setCurrentImageIndex((prev) => (prev < photos.length - 1 ? prev + 1 : 0));
+  };
 
   // Gestion du partage
-  const handleShare = useCallback((platform) => {
-    const url = photos[state.currentImageIndex].image;
-    const title = photos[state.currentImageIndex].title;
+  const handleShare = (platform) => {
+    const url = photos[currentImageIndex].image;
+    const title = photos[currentImageIndex].title;
     
     const shareUrls = {
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
@@ -193,182 +143,266 @@ export default function MediaPage() {
     };
 
     window.open(shareUrls[platform], '_blank');
-    updateState({ showShareMenu: false });
-  }, [state.currentImageIndex]);
-
-  // Gestion du swipe sur mobile
-  const handleTouchStart = (e) => {
-    updateState({ touchStart: e.touches[0].clientX });
+    setShowShareMenu(false);
   };
 
-  const handleTouchMove = (e) => {
-    updateState({ touchEnd: e.touches[0].clientX });
-  };
-
-  const handleTouchEnd = () => {
-    if (!state.touchStart || !state.touchEnd) return;
-    
-    const distance = state.touchStart - state.touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe) {
-      navigate('next');
-    } else if (isRightSwipe) {
-      navigate('prev');
+  // Gestion du téléchargement
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(photos[currentImageIndex].image);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${photos[currentImageIndex].title}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Erreur lors du téléchargement:', error);
     }
-
-    updateState({ touchStart: null, touchEnd: null });
   };
 
-  // Gestion des raccourcis clavier
+  // Gestion du plein écran
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (state.selectedImage) {
-        const actions = {
-          'ArrowLeft': () => navigate('prev'),
-          'ArrowRight': () => navigate('next'),
-          'Escape': () => updateState({ selectedImage: null }),
-          'f': toggleFullscreen,
-          'z': handleZoom
-        };
-        
-        if (actions[e.key]) {
-          e.preventDefault();
-          actions[e.key]();
-        }
+      if (selectedImage) {
+        if (e.key === 'ArrowLeft') handlePrevImage();
+        if (e.key === 'ArrowRight') handleNextImage();
+        if (e.key === 'Escape') setSelectedImage(null);
+        if (e.key === 'f') toggleFullscreen();
       }
     };
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [state.selectedImage, navigate, toggleFullscreen, handleZoom]);
+  }, [selectedImage]);
 
   // Gestion du chargement des images
   useEffect(() => {
-    if (state.selectedImage) {
+    if (selectedImage) {
       const img = new Image();
-      img.src = photos[state.currentImageIndex].image;
-      img.onload = () => updateState({ isLoading: false });
+      img.src = photos[currentImageIndex].image;
+      img.onload = () => setIsLoading(false);
     }
-  }, [state.currentImageIndex, state.selectedImage]);
+  }, [currentImageIndex, selectedImage]);
 
   return (
     <AppLayout>
       <Head title="Médiathèque MAMRI" />
 
       {/* Hero Section avec recherche et filtres */}
-      <div className="relative bg-gradient-to-r from-primary to-primary-700 overflow-hidden">
-        {/* ... (reste du code du hero inchangé) ... */}
+      <div className="relative bg-gradient-to-t from-primary to-primary-800 overflow-hidden">
+        {/* <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0')] bg-cover bg-center opacity-10"></div> */}
+        <div className="relative container mx-auto px-4 py-24">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-6xl font-bold text-white mb-6">
+              Médiathèque MAMRI
+            </h1>
+            <p className="text-xl text-white/90 mb-12">
+              Explorez notre collection de photos et vidéos retraçant les moments clés de nos activités
+            </p>
+            
+            {/* Barre de recherche et filtres */}
+            <div className="flex flex-col md:flex-row items-center gap-4 max-w-2xl mx-auto">
+              <div className="flex-1 relative w-full">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60" />
+                <input
+                  type="text"
+                  placeholder="Rechercher dans la médiathèque..."
+                  className="w-full bg-white/10 backdrop-blur-sm text-white placeholder-white/60 px-12 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/20"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Contenu principal */}
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16">
-        {/* ... (reste du code du contenu principal inchangé) ... */}
-      </div>
-
-      {/* Modal amélioré avec zoom et gestion tactile */}
-      {state.selectedImage && (
-        <div
-          className="fixed inset-0 bg-black/95 flex items-center justify-center z-50"
-          onClick={() => updateState({ selectedImage: null })}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div 
-            className="relative max-w-7xl mx-auto px-4" 
-            onClick={e => e.stopPropagation()}
-          >
-            {/* Barre d'outils supérieure */}
-            <div className="absolute top-4 right-4 flex items-center space-x-2">
+        <div className="container mx-auto px-4">
+          {/* Tabs */}
+          <div className="flex justify-center mb-12">
+            <div className="bg-white rounded-xl shadow-lg p-1 inline-flex">
               <button
-                className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors"
-                onClick={handleZoom}
+                onClick={() => setActiveTab("photos")}
+                className={`px-8 py-3 rounded-lg font-medium transition-all duration-300 ${
+                  activeTab === "photos"
+                    ? "bg-primary text-white shadow-md transform scale-105"
+                    : "text-gray-600 hover:text-primary"
+                }`}
               >
-                {state.isZoomed ? (
-                  <Minimize2 size={24} className="text-white" />
-                ) : (
-                  <Maximize2 size={24} className="text-white" />
-                )}
+                Photos ({photos.length})
               </button>
               <button
-                className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors"
-                onClick={toggleFullscreen}
+                onClick={() => setActiveTab("videos")}
+                className={`px-8 py-3 rounded-lg font-medium transition-all duration-300 ${
+                  activeTab === "videos"
+                    ? "bg-primary text-white shadow-md transform scale-105"
+                    : "text-gray-600 hover:text-primary"
+                }`}
               >
-                {state.isFullscreen ? (
-                  <Minimize2 size={24} className="text-white" />
-                ) : (
-                  <Maximize2 size={24} className="text-white" />
-                )}
-              </button>
-              <button
-                className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors"
-                onClick={() => updateState({ selectedImage: null })}
-              >
-                <X size={24} className="text-white" />
+                Vidéos ({videos.length})
               </button>
             </div>
+          </div>
+
+          {/* Grille de contenu */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredAndSearchedItems.map((item, index) => (
+              activeTab === "photos" ? (
+                <div
+                  key={item.id}
+                  className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer"
+                  onClick={() => {
+                    setSelectedImage(item.image);
+                    setCurrentImageIndex(index);
+                    setIsLoading(true);
+                  }}
+                >
+                  <div className="aspect-w-16 aspect-h-9">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm mb-3">
+                        {item.category}
+                      </span>
+                      <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center text-white/80">
+                          <Calendar size={16} className="mr-2" />
+                          <span className="text-sm">{item.date}</span>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <button className="p-2 hover:bg-white/20 rounded-full transition-colors">
+                            <ZoomIn size={20} className="text-white" />
+                          </button>
+                          <button className="p-2 hover:bg-white/20 rounded-full transition-colors">
+                            <Share2 size={20} className="text-white" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div key={item.id} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="aspect-w-16 aspect-h-9">
+                    <iframe
+                      src={item.embedUrl}
+                      title={item.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    ></iframe>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                        {item.category}
+                      </span>
+                      <span className="text-sm text-gray-500 flex items-center">
+                        <PlayCircle size={16} className="mr-1" />
+                        {item.duration}
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+                      {item.title}
+                    </h3>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center text-gray-500">
+                        <Calendar size={16} className="mr-2" />
+                        <span className="text-sm">{item.date}</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                          <Eye size={20} className="text-gray-500" />
+                        </button>
+                        <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                          <Share2 size={20} className="text-gray-500" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Modal amélioré */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-7xl mx-auto px-4" onClick={e => e.stopPropagation()}>
+            <button
+              className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X size={24} className="text-white" />
+            </button>
             
-            {/* Image avec zoom */}
             <div className="relative">
-              {state.isLoading && (
+              {isLoading && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
                 </div>
               )}
-              <div className={`
-                relative overflow-hidden transition-all duration-300
-                ${state.isZoomed ? 'cursor-zoom-out' : 'cursor-zoom-in'}
-              `}>
-                <img
-                  src={photos[state.currentImageIndex].image}
-                  alt={photos[state.currentImageIndex].title}
-                  className={`
-                    max-w-full mx-auto rounded-lg transition-all duration-300
-                    ${state.isLoading ? 'opacity-0' : 'opacity-100'}
-                    ${state.isZoomed ? 'scale-150' : 'scale-100'}
-                  `}
-                  onClick={handleZoom}
-                  onLoad={() => updateState({ isLoading: false })}
-                />
-              </div>
+              <img
+                src={photos[currentImageIndex].image}
+                alt={photos[currentImageIndex].title}
+                className={`max-w-full max-h-[80vh] mx-auto rounded-lg transition-opacity duration-300 ${
+                  isLoading ? 'opacity-0' : 'opacity-100'
+                }`}
+                onLoad={() => setIsLoading(false)}
+              />
               
-              {/* Boutons de navigation */}
               <button
                 className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate('prev');
-                }}
+                onClick={handlePrevImage}
               >
                 <ChevronLeft size={24} className="text-white" />
               </button>
               
               <button
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  navigate('next');
-                }}
+                onClick={handleNextImage}
               >
                 <ChevronRight size={24} className="text-white" />
               </button>
             </div>
 
-            {/* Informations et actions */}
             <div className="mt-4 text-white">
-              <h3 className="text-xl font-bold mb-2">
-                {photos[state.currentImageIndex].title}
-              </h3>
+              <h3 className="text-xl font-bold mb-2">{photos[currentImageIndex].title}</h3>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <span className="px-3 py-1 bg-white/10 rounded-full text-sm">
-                    {photos[state.currentImageIndex].category}
+                    {photos[currentImageIndex].category}
                   </span>
                   <span className="flex items-center">
                     <Calendar size={16} className="mr-2" />
-                    {photos[state.currentImageIndex].date}
+                    {photos[currentImageIndex].date}
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -381,19 +415,17 @@ export default function MediaPage() {
                   <div className="relative">
                     <button 
                       className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                      onClick={() => updateState({ 
-                        showShareMenu: !state.showShareMenu 
-                      })}
+                      onClick={() => setShowShareMenu(!showShareMenu)}
                     >
                       <Share2 size={20} className="text-white" />
                     </button>
-                    {state.showShareMenu && (
+                    {showShareMenu && (
                       <div className="absolute right-0 mt-2 bg-white rounded-xl shadow-lg py-2 z-10">
                         {[
                           { icon: Facebook, label: 'Facebook', platform: 'facebook' },
                           { icon: Twitter, label: 'Twitter', platform: 'twitter' },
                           { icon: Linkedin, label: 'LinkedIn', platform: 'linkedin' },
-                          { icon: Whatsapp, label: 'WhatsApp', platform: 'whatsapp' }
+                          { icon: X, label: 'WhatsApp', platform: 'whatsapp' }
                         ].map(({ icon: Icon, label, platform }) => (
                           <button
                             key={platform}
