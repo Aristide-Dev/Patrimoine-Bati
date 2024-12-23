@@ -60,13 +60,6 @@ const Footer = () => {
               <li><a href="https://dgd.gov.gn/" className="hover:text-primary">Direction Générale des Douanes</a></li>
               {/* <li><a href="https://mef.gov.gn/" className="hover:text-primary">Direction Nationale du Trésor (DNTCP)</a></li> */}
 
-
-
-
-
-
-
-
             </ul>
           </div>
 
@@ -91,7 +84,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © {new Date().getFullYear()} MAMRI - Tous droits réservés
+            © {new Date().getFullYear()} <span className="text-gray-100">MAMRI</span> - Tous droits réservés
           </p>
         </div>
       </div>

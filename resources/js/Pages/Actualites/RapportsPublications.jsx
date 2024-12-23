@@ -30,10 +30,10 @@ const reports = [
 ];
 
 const categories = [
-  { name: "Tous", href: "/rapports-publications" },
-  { name: "Rapports Annuels", href: "/rapports-publications?category=rapports-annuels" },
-  { name: "Réformes", href: "/rapports-publications?category=reformes" },
-  { name: "Études", href: "/rapports-publications?category=etudes" },
+  { name: "Tous", href: "#tous" },
+  { name: "Rapports Annuels", href: "?category=rapports-annuels" },
+  { name: "Réformes", href: "?category=reformes" },
+  { name: "Études", href: "?category=etudes" },
 ];
 
 export default function RapportsPublications() {
@@ -44,15 +44,25 @@ export default function RapportsPublications() {
         description="Consultez les rapports annuels, les études et les publications de la MAMRI."
       />
 
+      
+        {/* Titre principal */}
+        <div className="bg-gradient-to-t from-primary to-primary-800 relative overflow-hidden">
+          {/* <div className="absolute inset-0 bg-[url('https://scontent.fcky4-1.fna.fbcdn.net/v/t39.30808-6/242563153_221129380040121_6567925895488409499_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=1uESlPC7-egQ7kNvgGIjMkZ&_nc_zt=23&_nc_ht=scontent.fcky4-1.fna&_nc_gid=ALnqg5_1YksVk0pPrglfcg-&oh=00_AYAIFUQb-ZWA-V5rxLNOqNdDgXiPREjjoH93Ou-jWTgsfQ&oe=676B6417')] bg-contain bg-center bg-no-repeat opacity-80"></div> */}
+          <div className="relative container mx-auto px-4 py-24">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-6xl font-bold text-white mb-6">
+                Rapports et Publications
+              </h1>
+              <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+              Accédez aux rapports annuels, aux analyses des réformes et aux études menées par la MAMRI.
+              </p>
+            </div>
+          </div>
+        </div>
+
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           {/* Titre principal */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">Rapports et Publications</h1>
-            <p className="text-xl text-gray-600">
-              Accédez aux rapports annuels, aux analyses des réformes et aux études menées par la MAMRI.
-            </p>
-          </div>
 
           {/* Catégories */}
           <div className="flex justify-center items-center space-x-4 mb-12">
