@@ -45,46 +45,52 @@ export const menuItems = [
   {
     label: 'Les Directions de Projet',
     icon: Building2,
+    actif: 'directions.*',
     // Pas de route parent dédiée, vous pouvez laisser tel quel ou ajouter une route si vous en créez une
     children: [
       {
         label: 'Ressources Fiscales',
         icon: PieChart,
-        children: [
-          { label: 'Organisation et Missions', href: 'directions.fiscales_organisation', icon: Briefcase }, // route('directions.fiscales_organisation')
-          { label: 'Contexte, Réformes, Études', href: 'directions.fiscales_contexte', icon: FileText }, // route('directions.fiscales_contexte')
-        ]
+        href: 'directions.fiscales',
+        // children: [
+        //   { label: 'Organisation et Missions', href: 'directions.fiscales_organisation', icon: Briefcase }, // route('directions.fiscales_organisation')
+        //   { label: 'Contexte, Réformes, Études', href: 'directions.fiscales_contexte', icon: FileText }, // route('directions.fiscales_contexte')
+        // ]
       },
       {
         label: 'Ressources Douanières',
         icon: Boxes,
-        children: [
-          { label: 'Organisation et Missions', href: 'directions.douanieres_organisation', icon: Briefcase }, // route('directions.douanieres_organisation')
-          { label: 'Réformes, Résultats, Perspectives', href: 'directions.douanieres_reformes', icon: FileBarChart }, // route('directions.douanieres_reformes')
-        ]
+        href: 'directions.douanieres',
+        // children: [
+        //   { label: 'Organisation et Missions', href: 'directions.douanieres_organisation', icon: Briefcase }, // route('directions.douanieres_organisation')
+        //   { label: 'Réformes, Résultats, Perspectives', href: 'directions.douanieres_reformes', icon: FileBarChart }, // route('directions.douanieres_reformes')
+        // ]
       },
       {
         label: 'Ressources Non Fiscales',
         icon: Coins,
-        children: [
-          { label: 'Définition, Enjeux, Réformes', href: 'directions.non_fiscales_definition', icon: FileText }, // route('directions.non_fiscales_definition')
-        ]
+        href: 'directions.non_fiscales',
+        // children: [
+        //   { label: 'Définition, Enjeux, Réformes', href: 'directions.non_fiscales_definition', icon: FileText }, // route('directions.non_fiscales_definition')
+        // ]
       },
       {
         label: 'Maîtrise des Dépenses Fiscales et Apurement des Arriérés',
         icon: FileBarChart,
-        children: [
-          { label: 'Dépenses Fiscales (Évaluation, Rationalisation)', href: 'directions.depenses_fiscales', icon: FileBarChart }, // route('directions.depenses_fiscales')
-          { label: 'Arriérés Fiscaux (Réduction, Mécanismes)', href: 'directions.arrieres_fiscaux', icon: FileBarChart }, // route('directions.arrieres_fiscaux')
-        ]
+        href: 'directions.depenses_fiscales',
+        // children: [
+        //   { label: 'Dépenses Fiscales (Évaluation, Rationalisation)', href: 'directions.depenses_fiscales', icon: FileBarChart }, // route('directions.depenses_fiscales')
+        //   { label: 'Arriérés Fiscaux (Réduction, Mécanismes)', href: 'directions.arrieres_fiscaux', icon: FileBarChart }, // route('directions.arrieres_fiscaux')
+        // ]
       },
       {
         label: 'Digitalisation',
         icon: Binary,
-        children: [
-          { label: 'Enjeux, Stratégies, Diagnostic', href: 'directions.digitalisation_enjeux', icon: FileText }, // route('directions.digitalisation_enjeux')
-          { label: 'Renforcement des Capacités, Projets en Cours', href: 'directions.digitalisation_renforcement', icon: MessageSquare }, // route('directions.digitalisation_renforcement')
-        ]
+        href: 'directions.digitalisation',
+        // children: [
+        //   { label: 'Enjeux, Stratégies, Diagnostic', href: 'directions.digitalisation_enjeux', icon: FileText }, // route('directions.digitalisation_enjeux')
+        //   { label: 'Renforcement des Capacités, Projets en Cours', href: 'directions.digitalisation_renforcement', icon: MessageSquare }, // route('directions.digitalisation_renforcement')
+        // ]
       },
     ]
   },

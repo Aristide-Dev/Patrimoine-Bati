@@ -214,7 +214,7 @@ const OrganisationPage = () => {
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
               {[
                 "Ministre en charge des mines et de la géologie",
-                "Ministre en charge du plan et du développement économique",
+                "Ministre en charge du Plan et de la Coopération Internationale",
                 "Ministre en charge des télécommunications et de l’économie numérique",
                 "Gouverneur de la Banque Centrale de la République de Guinée (BCRG)",
                 "Coordinateur général de la MAMRI Rapporteur du Comité de pilotage",

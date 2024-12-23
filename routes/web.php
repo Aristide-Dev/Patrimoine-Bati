@@ -40,35 +40,27 @@ Route::prefix('directions')->group(function() {
     // Ressources fiscales
     Route::prefix('fiscales')->group(function() {
         Route::get('/', [DirectionsController::class, 'fiscales'])->name('directions.fiscales');
-        Route::get('/organisation-missions', [DirectionsController::class, 'fiscalesOrganisation'])->name('directions.fiscales_organisation');
-        Route::get('/contexte-reformes-etudes', [DirectionsController::class, 'fiscalesContexte'])->name('directions.fiscales_contexte');
     });
 
     // Ressources douanières
     Route::prefix('douanieres')->group(function() {
         Route::get('/', [DirectionsController::class, 'douanieres'])->name('directions.douanieres');
-        Route::get('/organisation-missions', [DirectionsController::class, 'douanieresOrganisation'])->name('directions.douanieres_organisation');
-        Route::get('/reformes-resultats-perspectives', [DirectionsController::class, 'douanieresReformes'])->name('directions.douanieres_reformes');
     });
 
     // Ressources non fiscales
     Route::prefix('non-fiscales')->group(function() {
         Route::get('/', [DirectionsController::class, 'nonFiscales'])->name('directions.non_fiscales');
-        Route::get('/definition-enjeux-reformes', [DirectionsController::class, 'nonFiscalesDefinition'])->name('directions.non_fiscales_definition');
     });
 
     // Maîtrise des dépenses fiscales et apurement des arriérés
     Route::prefix('depenses')->group(function() {
         Route::get('/', [DirectionsController::class, 'depenses'])->name('directions.depenses');
         Route::get('/depenses-fiscales', [DirectionsController::class, 'depensesFiscales'])->name('directions.depenses_fiscales');
-        Route::get('/arrieres-fiscaux', [DirectionsController::class, 'arrieresFiscaux'])->name('directions.arrieres_fiscaux');
     });
 
     // Digitalisation
     Route::prefix('digitalisation')->group(function() {
         Route::get('/', [DirectionsController::class, 'digitalisation'])->name('directions.digitalisation');
-        Route::get('/enjeux-strategies-diagnostic', [DirectionsController::class, 'digitalisationEnjeux'])->name('directions.digitalisation_enjeux');
-        Route::get('/renforcement-capacites-projets', [DirectionsController::class, 'digitalisationRenforcement'])->name('directions.digitalisation_renforcement');
     });
 });
 

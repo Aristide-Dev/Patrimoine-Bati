@@ -50,13 +50,13 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><a href="http://www.presidence.gov.gn/" className="hover:text-primary">Présidence de la République de Guinée</a></li>
               <li><a href="https://www.primature.gov.gn/" className="hover:text-primary">Primature</a></li>
-              <li><a href="https://mbudget.gov.gn/" className="hover:text-primary">Ministère du Budget</a></li>
               <li><a href="http://mef.gov.gn/" className="hover:text-primary">Ministère de L’Économie et des Finances</a></li>
+              <li><a href="https://mbudget.gov.gn/" className="hover:text-primary">Ministère du Budget</a></li>
               <li><a href="https://mines.gov.gn/" className="hover:text-primary">Ministère des Mines et de La Géologie</a></li>
-              <li><a href="https://mpten.gov.gn/" className="hover:text-primary">Ministère des Postes (MPTEN)</a></li>
-              <li><a href="http://www.mplan.gov.gn/" className="hover:text-primary">Ministère du Plan (MPDE)</a></li>
+              <li><a href="http://www.mplan.gov.gn/" className="hover:text-primary">Ministère du Plan et de la Coopération Internationale (MPCI)</a></li>
+              <li><a href="https://mpten.gov.gn/" className="hover:text-primary">Ministère des Postes, des Telecommunications et de l'Economie Numerique (MPTEN)</a></li>
               <li><a href="https://www.bcrg-guinee.org/" className="hover:text-primary">Banque Centrale de la République de Guinée</a></li>
-              <li><a href="https://dni.gov.gn/" className="hover:text-primary">Direction Nationale des Impôts</a></li>
+              <li><a href="https://dni.gov.gn/" className="hover:text-primary">Direction Générale des Impôts</a></li>
               <li><a href="https://dgd.gov.gn/" className="hover:text-primary">Direction Générale des Douanes</a></li>
               {/* <li><a href="https://mef.gov.gn/" className="hover:text-primary">Direction Nationale du Trésor (DNTCP)</a></li> */}
 
