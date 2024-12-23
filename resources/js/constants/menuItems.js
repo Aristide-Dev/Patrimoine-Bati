@@ -35,11 +35,11 @@ export const menuItems = [
   {
     label: 'Organisation et Missions',
     icon: Briefcase,
-    href: 'missions.index', // route('missions.index')
+    actif: 'missions.*', // route('missions.index')
     children: [
-      { label: 'Missions Générales', href: 'missions.generales', icon: Briefcase }, // route('missions.generales')
+      { label: 'Missions Générales', href: 'missions.index', icon: Briefcase }, // route('missions.generales')
       { label: 'Niveaux d’Intervention', href: 'missions.niveaux_intervention', icon: Users }, // route('missions.niveaux_intervention')
-      { label: 'Thématiques d’Intervention', href: 'missions.thematiques', icon: PieChart }, // route('missions.thematiques')
+      // { label: 'Thématiques d’Intervention', href: 'missions.thematiques', icon: PieChart }, // route('missions.thematiques')
     ]
   },
   {
