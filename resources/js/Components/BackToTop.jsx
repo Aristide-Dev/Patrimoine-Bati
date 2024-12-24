@@ -36,7 +36,7 @@ export default function BackToTop() {
     >
       <button
         onClick={scrollToTop}
-        className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white shadow-lg hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+        className="flex items-center justify-center w-12 h-12 rounded-full bg-primary-800 text-white shadow-lg hover:bg-primary-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-xl"
         aria-label="Retour en haut"
       >
         <ChevronUp className="h-6 w-6" />

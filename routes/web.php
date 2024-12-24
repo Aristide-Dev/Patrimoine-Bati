@@ -1,36 +1,37 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 
 // Importation de tous les contrôleurs
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AccueilController;
+use App\Http\Controllers\AppInitController;
 use App\Http\Controllers\AProposController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MissionsController;
+use App\Http\Controllers\ActualitesController;
 use App\Http\Controllers\DirectionsController;
 use App\Http\Controllers\PartenariatsController;
-use App\Http\Controllers\ActualitesController;
-use App\Http\Controllers\ContactController;
 
 Route::get('/', [AccueilController::class, 'index'])->name('welcome');
+Route::get('/init', [AppInitController::class, 'init'])->name('app.init');
 
 // À Propos
-Route::prefix('a-propos')->group(function() {
-    Route::get('/', [AProposController::class, 'index'])->name('about');
-    Route::get('/contexte-creation', [AProposController::class, 'contexte'])->name('about.contexte');
-    Route::get('/cadre-juridique', [AProposController::class, 'cadreJuridique'])->name('about.cadre_juridique');
-    Route::get('/objectifs-enjeux', [AProposController::class, 'objectifsEnjeux'])->name('about.objectifs_enjeux');
-    Route::get('/principes-action', [AProposController::class, 'principesAction'])->name('about.principes_action');
-    Route::get('/organisation', [AProposController::class, 'organisation'])->name('about.organisation');
-    Route::get('/partenaires', [AProposController::class, 'partenaires'])->name('about.partenaires');
-});
+// Route::prefix('a-propos')->group(function() {
+//     Route::get('/', [AProposController::class, 'index'])->name('about');
+//     Route::get('/contexte-creation', [AProposController::class, 'contexte'])->name('about.contexte');
+//     Route::get('/cadre-juridique', [AProposController::class, 'cadreJuridique'])->name('about.cadre_juridique');
+//     Route::get('/objectifs-enjeux', [AProposController::class, 'objectifsEnjeux'])->name('about.objectifs_enjeux');
+//     Route::get('/principes-action', [AProposController::class, 'principesAction'])->name('about.principes_action');
+//     Route::get('/organisation', [AProposController::class, 'organisation'])->name('about.organisation');
+//     Route::get('/partenaires', [AProposController::class, 'partenaires'])->name('about.partenaires');
+// });
 
 // Missions et Axes Stratégiques
 Route::prefix('missions')->group(function() {
     Route::get('/', [MissionsController::class, 'index'])->name('missions.index');
-    Route::get('/generales', [MissionsController::class, 'generales'])->name('missions.generales');
     Route::get('/niveaux-intervention', [MissionsController::class, 'niveauxIntervention'])->name('missions.niveaux_intervention');
     Route::get('/mot-du-coordinateur', [MissionsController::class, 'motDuCoordinateur'])->name('missions.mot_Coordinateur');
 });

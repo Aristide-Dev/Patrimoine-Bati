@@ -21,7 +21,7 @@ const Footer = () => {
                 loading="lazy"
               />
             </div>
-            <h3 className="text-xl font-bold mb-4">À propos</h3>
+            <h3 className="text-xl font-bold my-4">À propos</h3>
             <p className="text-gray-300">
               La Mission d'Appui à la Mobilisation des Ressources Internes en République de Guinée.
             </p>
@@ -48,17 +48,17 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">Liens rapides</h3>
             <ul className="space-y-2">
-              <li><a href="http://www.presidence.gov.gn/" className="hover:text-primary">Présidence de la République de Guinée</a></li>
-              <li><a href="https://www.primature.gov.gn/" className="hover:text-primary">Primature</a></li>
-              <li><a href="http://mef.gov.gn/" className="hover:text-primary">Ministère de L’Économie et des Finances</a></li>
-              <li><a href="https://mbudget.gov.gn/" className="hover:text-primary">Ministère du Budget</a></li>
-              <li><a href="https://mines.gov.gn/" className="hover:text-primary">Ministère des Mines et de La Géologie</a></li>
-              <li><a href="http://www.mplan.gov.gn/" className="hover:text-primary">Ministère du Plan et de la Coopération Internationale (MPCI)</a></li>
-              <li><a href="https://mpten.gov.gn/" className="hover:text-primary">Ministère des Postes, des Telecommunications et de l'Economie Numerique (MPTEN)</a></li>
-              <li><a href="https://www.bcrg-guinee.org/" className="hover:text-primary">Banque Centrale de la République de Guinée</a></li>
-              <li><a href="https://dni.gov.gn/" className="hover:text-primary">Direction Générale des Impôts</a></li>
-              <li><a href="https://dgd.gov.gn/" className="hover:text-primary">Direction Générale des Douanes</a></li>
-              {/* <li><a href="https://mef.gov.gn/" className="hover:text-primary">Direction Nationale du Trésor (DNTCP)</a></li> */}
+              <li><a target="_blank" href="http://www.presidence.gov.gn/" className="hover:text-primary">Présidence de la République de Guinée</a></li>
+              <li><a target="_blank" href="https://www.primature.gov.gn/" className="hover:text-primary">Primature</a></li>
+              <li><a target="_blank" href="http://mef.gov.gn/" className="hover:text-primary">Ministère de L’Économie et des Finances</a></li>
+              <li><a target="_blank" href="https://mbudget.gov.gn/" className="hover:text-primary">Ministère du Budget</a></li>
+              <li><a target="_blank" href="https://mines.gov.gn/" className="hover:text-primary">Ministère des Mines et de La Géologie</a></li>
+              <li><a target="_blank" href="http://www.mplan.gov.gn/" className="hover:text-primary">Ministère du Plan et de la Coopération Internationale (MPCI)</a></li>
+              <li><a target="_blank" href="https://mpten.gov.gn/" className="hover:text-primary">Ministère des Postes, des Telecommunications et de l'Economie Numerique (MPTEN)</a></li>
+              <li><a target="_blank" href="https://www.bcrg-guinee.org/" className="hover:text-primary">Banque Centrale de la République de Guinée</a></li>
+              <li><a target="_blank" href="https://dni.gov.gn/" className="hover:text-primary">Direction Générale des Impôts</a></li>
+              <li><a target="_blank" href="https://dgd.gov.gn/" className="hover:text-primary">Direction Générale des Douanes</a></li>
+              {/* <li><a target="_blank" href="https://mef.gov.gn/" className="hover:text-primary">Direction Nationale du Trésor (DNTCP)</a></li> */}
 
             </ul>
           </div>

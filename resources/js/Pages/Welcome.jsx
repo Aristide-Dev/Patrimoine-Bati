@@ -58,31 +58,31 @@ const directions = [
     icon: Calculator,
     title: "Ressources Fiscales",
     description: "Optimisation de la collecte fiscale",
-    href: "/directions/fiscales"
+    href: "#"
   },
   {
     icon: Building2,
     title: "Ressources Douanières",
     description: "Modernisation des douanes",
-    href: "/directions/douanieres"
+    href: "#"
   },
   {
     icon: Coins,
     title: "Ressources Non Fiscales",
     description: "Diversification des revenus",
-    href: "/directions/non-fiscales"
+    href: "#"
   },
   {
     icon: PiggyBank,
     title: "Maîtrise des Dépenses",
     description: "Gestion des exonérations",
-    href: "/directions/depenses"
+    href: "#"
   },
   {
     icon: Binary,
     title: "Digitalisation",
     description: "Transformation numérique",
-    href: "/directions/digitalisation"
+    href: "#"
   }
 ];
 
@@ -110,31 +110,31 @@ const siteSections = [
     icon: FileText,
     title: "À Propos",
     description: "Découvrez l’historique, le cadre juridique, l’organisation et les partenaires qui façonnent la MAMRI.",
-    href: "/a-propos"
+    href: "#"
   },
   {
     icon: Briefcase,
     title: "Missions",
     description: "Découvrez nos missions générales, nos niveaux d’intervention et nos thématiques clés.",
-    href: "/missions"
+    href: "#"
   },
   {
     icon: Building2,
     title: "Les Directions de Projet",
     description: "Explorez nos directions dédiées aux ressources fiscales, douanières, non fiscales, maîtrise des dépenses et digitalisation.",
-    href: "/directions/fiscales"
+    href: "#"
   },
   {
     icon: Newspaper,
     title: "Actualités et Ressources",
     description: "Consultez nos actualités, rapports, publications, médias et événements récents.",
-    href: "/actualites"
+    href: "#"
   },
   {
     icon: Link,
     title: "Partenariats",
     description: "Informez-vous sur nos partenaires institutionnels et internationaux, leurs rôles et domaines d’expertise.",
-    href: "/partenariats"
+    href: "#"
   },
   {
     icon: BookOpen,
@@ -146,7 +146,7 @@ const siteSections = [
     icon: Mail,
     title: "Contact",
     description: "Besoin d’aide ou d’informations supplémentaires ? Contactez-nous directement.",
-    href: "/contact"
+    href: "#"
   },
 ];
 
@@ -183,14 +183,14 @@ export default function Welcome() {
             </p>
             <div className="flex flex-wrap gap-4">
               <a
-                href="/about"
+                href="#"
                 className="group bg-primary hover:bg-primary-800 text-white px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center transform hover:scale-105"
               >
                 Découvrir notre mission
                 <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </a>
               <a
-                href="/contact"
+                href="#"
                 className="group bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center transform hover:scale-105"
               >
                 Nous contacter
@@ -297,13 +297,13 @@ export default function Welcome() {
           </p>
           <div className="flex flex-wrap justify-center gap-6">
             <a
-              href="/contact"
+              href="#"
               className="bg-white text-primary hover:bg-gray-100 px-8 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
             >
               Contactez-nous
             </a>
             <a
-              href="/about"
+              href="#"
               className="bg-primary-800 text-white hover:bg-[#8B1429] px-8 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
             >
               En savoir plus
@@ -317,7 +317,7 @@ export default function Welcome() {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold">Actualités</h2>
-            <a href="/actualites" className="flex items-center text-primary hover:text-primary-800">
+            <a href="#" className="flex items-center text-primary hover:text-primary-800">
               Toutes les actualités
               <ArrowRight size={20} className="ml-2" />
             </a>
@@ -336,7 +336,8 @@ export default function Welcome() {
                   <h3 className="text-xl font-semibold mt-2 mb-3">{item.title}</h3>
                   <p className="text-gray-600 mb-4">{item.excerpt}</p>
                   <a
-                    href={`/actualites/${item.id}`}
+                    href="#"
+                    // href={`/actualites/${item.id}`}
                     className="text-primary hover:text-primary-800 font-medium"
                   >
                     Lire la suite
