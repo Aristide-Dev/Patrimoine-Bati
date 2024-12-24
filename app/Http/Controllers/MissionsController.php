@@ -13,18 +13,13 @@ class MissionsController extends Controller
         return Inertia::render('Missions/Index');
     }
 
-    public function generales(): Response
+    public function motDuCoordinateur(): Response
     {
-        return Inertia::render('Missions/Generales');
+        return Inertia::render('Missions/MotDuCoordinateur');
     }
 
     public function niveauxIntervention(): Response
     {
         return Inertia::render('Missions/NiveauxIntervention');
-    }
-
-    public function thematiques(): Response
-    {
-        return Inertia::render('Missions/Thematiques');
     }
 }

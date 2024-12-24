@@ -37,6 +37,7 @@ export const menuItems = [
     icon: Briefcase,
     actif: 'missions.*', // route('missions.index')
     children: [
+      { label: 'Mot du coordinateur', href: 'missions.mot_Coordinateur', icon: Users },
       { label: 'Missions Générales', href: 'missions.index', icon: Briefcase }, // route('missions.generales')
       { label: 'Niveaux d’Intervention', href: 'missions.niveaux_intervention', icon: Users }, // route('missions.niveaux_intervention')
       // { label: 'Thématiques d’Intervention', href: 'missions.thematiques', icon: PieChart }, // route('missions.thematiques')

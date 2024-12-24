@@ -32,7 +32,7 @@ Route::prefix('missions')->group(function() {
     Route::get('/', [MissionsController::class, 'index'])->name('missions.index');
     Route::get('/generales', [MissionsController::class, 'generales'])->name('missions.generales');
     Route::get('/niveaux-intervention', [MissionsController::class, 'niveauxIntervention'])->name('missions.niveaux_intervention');
-    Route::get('/thematiques', [MissionsController::class, 'thematiques'])->name('missions.thematiques');
+    Route::get('/mot-du-coordinateur', [MissionsController::class, 'motDuCoordinateur'])->name('missions.mot_Coordinateur');
 });
 
 // Les Directions de Projet
