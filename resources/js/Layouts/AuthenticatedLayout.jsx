@@ -30,6 +30,13 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Tableau de Bord
                                 </NavLink>
+                                
+                                <NavLink
+                                    href={route('admin.news.index')}
+                                    active={route().current('admin.news.*')}
+                                >
+                                    Actualités
+                                </NavLink>
                             </div>
                         </div>
 
@@ -133,6 +140,15 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('dashboard')}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div className="space-y-1 pb-3 pt-2">
+                        <ResponsiveNavLink
+                            href={route('admin.news.index')}
+                            active={route().current('admin.news.*')}
+                        >
+                            Actualités
                         </ResponsiveNavLink>
                     </div>
 

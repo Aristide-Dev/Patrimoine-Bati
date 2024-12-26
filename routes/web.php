@@ -12,6 +12,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MissionsController;
 use App\Http\Controllers\ActualitesController;
+use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\DirectionsController;
 use App\Http\Controllers\PartenariatsController;
 
@@ -97,6 +98,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::prefix('admin-panel')->name('admin.')->middleware(['auth'])->group(function () {
+    Route::resource('news', NewsController::class);
 });
 
 require __DIR__.'/auth.php';
