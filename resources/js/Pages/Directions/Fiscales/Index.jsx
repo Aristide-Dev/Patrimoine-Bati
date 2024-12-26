@@ -68,32 +68,48 @@ const RessourcesFiscalesPage = () => {
         status: "En cours",
         progress: 75,
         impact: "Amélioration de la traçabilité fiscale",
-        deadline: "2024 Q4"
+        deadline: "2024 Q4",
       },
       {
         title: "Géocodage Fiscal",
-        description: "Localiser et enregistrer les propriétés pour une meilleure fiscalité.",
+        description: "Acquisition d'un programme d'adressage et de géocodage des propriétés immobilières pour une meilleure gestion fiscale.",
         status: "En cours",
         progress: 60,
         impact: "Optimisation des recettes locales",
-        deadline: "2025 Q2"
+        deadline: "2025 Q2",
       },
       {
         title: "Centres de Gestion Agréés",
-        description: "Soutenir les PME dans la gestion de leurs obligations fiscales.",
+        description: "Création de centres pour soutenir les PME dans la gestion de leurs obligations fiscales.",
         status: "Planifié",
         progress: 30,
         impact: "Accompagnement des petites entreprises",
-        deadline: "2025 Q3"
+        deadline: "2025 Q3",
       },
       {
         title: "Révision du Code Général des Impôts",
-        description: "Actualiser les lois fiscales pour s'adapter aux évolutions économiques.",
+        description: "Mise à jour et actualisation des lois fiscales pour s'adapter aux évolutions économiques.",
         status: "En cours",
         progress: 85,
         impact: "Clarification et simplification juridique",
-        deadline: "2024 Q3"
-      }
+        deadline: "2024 Q3",
+      },
+      {
+        title: "Paiement Obligatoire des Impôts par Virement",
+        description: "Modernisation des paiements fiscaux avec des virements obligatoires pour plus de transparence.",
+        status: "En cours",
+        progress: 50,
+        impact: "Réduction des fraudes et des paiements en espèces",
+        deadline: "2024 Q2",
+      },
+      {
+        title: "Nouveau Cadre Organique de la DGI",
+        description: "Établir une structure moderne pour la Direction Générale des Impôts (DGI).",
+        status: "Planifié",
+        progress: 40,
+        impact: "Renforcement institutionnel",
+        deadline: "2025 Q1",
+      },
     ],
     innovations: [
       {
@@ -187,13 +203,13 @@ const RessourcesFiscalesPage = () => {
                 <h3 className="text-xl font-bold mb-2">{reform.title}</h3>
                 <p className="text-gray-600 mb-3">{reform.description}</p>
                 <div className="text-sm flex justify-between mb-3">
-                  <span>Impact : {reform.impact}</span>
-                  <span>Échéance : {reform.deadline}</span>
+                  {/* <span>Impact : {reform.impact}</span> */}
+                  {/* <span>Échéance : {reform.deadline}</span> */}
                 </div>
                 <div className="w-full bg-gray-200 h-2 rounded-full">
                   <div 
                     className="bg-primary h-2 rounded-full"
-                    style={{ width: `${reform.progress}%` }}
+                    // style={{ width: `${reform.progress}%` }}
                   ></div>
                 </div>
               </div>
@@ -203,7 +219,7 @@ const RessourcesFiscalesPage = () => {
       </section>
 
       {/* Innovations */}
-      <section className="py-20 bg-gray-50">
+      {/* <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Innovations</h2>
@@ -226,7 +242,7 @@ const RessourcesFiscalesPage = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
     </AppLayout>
   );
 };
