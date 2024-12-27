@@ -1,12 +1,22 @@
+import React, { useEffect, useState } from 'react';
+import { Link, usePage } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
+    const { flash } = usePage().props;
+    //   const [showFlash, setShowFlash] = useState(!!flash.message);
+    const [showFlash, setShowFlash] = useState(!!flash?.success || !!flash?.error);
+
+    useEffect(() => {
+        if (flash.message) {
+            const timer = setTimeout(() => setShowFlash(false), 5000); // 5 secondes
+            return () => clearTimeout(timer); // Nettoyage si le composant est démonté
+        }
+    }, [flash.message]);
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -30,13 +40,34 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Tableau de Bord
                                 </NavLink>
-                                
+
                                 <NavLink
                                     href={route('admin.news.index')}
                                     active={route().current('admin.news.*')}
                                 >
                                     Actualités
                                 </NavLink>
+
+<NavLink
+    href={route('admin.medias.index')}
+    active={route().current('admin.medias.*')}
+>
+    Medias
+</NavLink>
+
+<NavLink
+    href={route('admin.reports.index')}
+    active={route().current('admin.reports.*')}
+>
+    Documents
+</NavLink>
+
+<NavLink
+    href={route('admin.users.index')}
+    active={route().current('admin.users.*')}
+>
+    Utilisateurs
+</NavLink>
                             </div>
                         </div>
 
@@ -141,14 +172,29 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
-                    </div>
-
-                    <div className="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
                             href={route('admin.news.index')}
                             active={route().current('admin.news.*')}
                         >
                             Actualités
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('admin.medias.index')}
+                            active={route().current('admin.medias.*')}
+                        >
+                            Médias
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('admin.reports.index')}
+                            active={route().current('admin.reports.*')}
+                        >
+                            Documents
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('admin.users.index')}
+                            active={route().current('admin.users.*')}
+                        >
+                            Utilisateurs
                         </ResponsiveNavLink>
                     </div>
 
@@ -186,6 +232,21 @@ export default function AuthenticatedLayout({ header, children }) {
                 </header>
             )}
 
+
+
+
+            {/* Flash Messages */}
+            {showFlash && flash?.success && (
+                <div className="fixed top-0 left-0 right-0 z-50 py-4 bg-green-500 text-white text-center transition-opacity duration-300">
+                    {flash.success}
+                </div>
+            )}
+
+            {showFlash && flash?.error && (
+                <div className="fixed top-0 left-0 right-0 z-50 py-4 bg-red-500 text-white text-center transition-opacity duration-300">
+                    {flash.error}
+                </div>
+            )}
             <main>{children}</main>
         </div>
     );

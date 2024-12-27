@@ -37,6 +37,7 @@ class AppInitController extends Controller
             'name' => $name,
             'email' => $email,
             'password' => Hash::make($password),
+            'role' => 'admin',
         ]);
         return $user;
     }

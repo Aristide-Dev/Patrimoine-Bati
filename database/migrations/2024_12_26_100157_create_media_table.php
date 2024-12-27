@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('category')->nullable();
             $table->string('embed_url')->nullable(); // URL pour les vidéos YouTube/Vimeo
             $table->unsignedInteger('duration')->nullable(); // Durée en secondes (pour les vidéos)
-            $table->morphs('mediable'); // Relation polymorphique
+            $table->nullableMorphs('mediable'); // Relation polymorphique
             $table->timestamps();
         });
     }

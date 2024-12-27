@@ -13,7 +13,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MissionsController;
 use App\Http\Controllers\ActualitesController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DirectionsController;
+use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\PartenariatsController;
 
 Route::get('/', [AccueilController::class, 'index'])->name('welcome');
@@ -108,6 +111,9 @@ Route::middleware('auth')->group(function () {
 
 Route::prefix('admin-panel')->name('admin.')->middleware(['auth'])->group(function () {
     Route::resource('news', NewsController::class);
+    Route::resource('medias', MediaController::class);
+    Route::resource('reports', ReportController::class);
+    Route::resource('users', UserController::class);
 });
 
 require __DIR__.'/auth.php';

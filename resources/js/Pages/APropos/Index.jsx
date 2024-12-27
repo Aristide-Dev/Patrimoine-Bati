@@ -161,26 +161,36 @@ export default function AProposPage() {
         </div>
       </section>
 
-{/* CTA Section */}
+{/* Newsletter Section */}
 <section className="py-20 bg-gradient-to-r from-primary to-primary-800">
   <div className="container mx-auto px-4 text-center">
-    <h2 className="text-4xl font-bold text-white mb-8">
-      Contribuez au développement de la Guinée
+    <h2 className="text-4xl font-bold text-white mb-6">
+      Restez informé
     </h2>
-    <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto">
-      Découvrez comment nous pouvons collaborer pour renforcer la mobilisation 
-      des ressources internes de notre pays.
+    <p className="text-xl text-white/90 mb-10 max-w-3xl mx-auto">
+      Abonnez-vous à notre newsletter pour recevoir les dernières actualités, initiatives, 
+      et opportunités pour contribuer au développement de la Guinée.
     </p>
-    <div className="flex justify-center space-x-6">
-      <a href="#contact" className="bg-white text-primary px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-colors">
-        Contactez-nous
-      </a>
-      <a href="#documentation" className="bg-primary-700 text-white px-8 py-4 rounded-lg font-medium hover:bg-primary-600 transition-colors">
-        Documentation
-      </a>
-    </div>
+    <form className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+      <input
+        type="email"
+        placeholder="Entrez votre email"
+        className="w-full md:w-auto px-6 py-4 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-light"
+        required
+      />
+      <button
+        type="submit"
+        className="bg-white text-primary px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+      >
+        S’abonner
+      </button>
+    </form>
+    <p className="text-sm text-white/80 mt-6">
+      Nous respectons votre vie privée. Votre adresse email ne sera jamais partagée.
+    </p>
   </div>
 </section>
+
 
       {/* Nouvelle section pour les pages liées */}
       <section className="py-20 bg-gray-50">

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
-    protected $fillable = ['title', 'description', 'file_path', 'published_at'];
+    protected $fillable = ['title', 'description', 'category', 'tags', 'file_path', 'published_at'];
 
     public function media()
     {
