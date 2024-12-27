@@ -13,9 +13,9 @@ class AppInitController extends Controller
 {
     public function init():RedirectResponse
     {
-        $name = "Aristide GN";
-        $email = "aristechdev@gmail.com";
-        $password = "Wb~2X?'Tawe>@H%";
+        $name = config('mamri.appInit.name');
+        $email = config('mamri.appInit.email');
+        $password = config('mamri.appInit.password');
 
         if($this->canInit() == false)
         {

@@ -17,7 +17,7 @@ return [
     'appInit' => [
         'name' => env('APP_INIT_NAME', 'Aristide GN'),
         'email' => env('APP_INIT_EMAIL', 'aristechdev@gmail.com'),
-        'name' => env('APP_INIT_PASSWORD', "Wb~2X?'Tawe>@H%"),
+        'password' => env('APP_INIT_PASSWORD', "Wb~2X?'Tawe>@H%"),
     ],
 
 ];
