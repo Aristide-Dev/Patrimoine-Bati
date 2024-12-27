@@ -18,6 +18,7 @@ use App\Http\Controllers\DirectionsController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\PartenariatsController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::get('/', [AccueilController::class, 'index'])->name('welcome');
 Route::get('/init', [AppInitController::class, 'init'])->name('app.init');
@@ -99,9 +100,9 @@ Route::prefix('contact')->group(function() {
     Route::get('/plan-acces', [ContactController::class, 'planAcces'])->name('contact.plan_acces');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -115,5 +116,7 @@ Route::prefix('admin-panel')->name('admin.')->middleware(['auth'])->group(functi
     Route::resource('reports', ReportController::class);
     Route::resource('users', UserController::class);
 });
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
