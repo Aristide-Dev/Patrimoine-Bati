@@ -34,21 +34,21 @@ const news = [
     id: 1,
     title: "Réunion | Mission d’évaluation du potentiel fiscal en Guinée par le FMI",
     date: "14 novembre 2024",
-    image: "https://scontent.fcky4-1.fna.fbcdn.net/v/t39.30808-6/466874192_872730165068095_4636350882492527928_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_ohc=zf9RGpLoC3sQ7kNvgEMpZwz&_nc_zt=23&_nc_ht=scontent.fcky4-1.fna&_nc_gid=AyDuXHtsP5zdVHJW9h5u-jH&oh=00_AYD2V14RsAiQZh5cKQzHcMFLOGJfN1WnxXjswUOlwkpeYA&oe=676B32E0",
+    image: "/images/actualites/Mission_d_evaluation_du_potentiel_fiscal_en_Guinée_par_le_FMI.jpg",
     excerpt: "Une équipe du FMI, sous la direction de M. BADY EBE, Conseiller en Analyses macroéconomiques et budgétaires, a été reçue à la MAMRI."
   },
   {
     id: 2,
-    title: "Réunion MAMRI – Ministère du Budget",
-    date: "09 avril 2024",
-    image: "https://i2.wp.com/mbudget.gov.gn/wp-content/uploads/436447119_730909015916878_9201247975803841543_n-1024x768.jpg?ssl=1",
-    excerpt: "L’objectif de cette" + " rencontre était d’évaluer l’avancement des projets de réformes identifiés lors des précédents Comités de Pilotage (CoPil) de la MAMRI. Parmi les sujets abordés, on peut citer\n La modernisation du processus de validation des listes minières."
+    title: "Réunion | échanges fructueux entre la MAMRI et le Ministère des Transports",
+    date: "09 Octobre 2024",
+    image: "/images/actualites/echanges_fructueux_entre_la_MAMRI_et_le_Ministère_des_Transports.jpg",
+    excerpt: "En présence des Directeurs Généraux, Directeurs Généraux Adjoints et Président du Conseil d'Administration des différentes entités du Ministère, la mission a présenté le rapport final relatif à l'identification des ressources et des réformes visant à renforcer la Mobilisation des Ressources au sein du Ministère."
   },
   {
     id: 3,
     title: "Le comité de pilotage de la MAMRI s’engage à améliorer la mobilisation des ressources internes de la Guinée",
     date: "21 Juin 2023",
-    image: "https://www.guinee360.com/wp-content/uploads/2023/06/355670224_657403483088572_1165891742497353360_n-jpg.webp",
+    image: "/images/actualites/améliorer_la_mobilisation_des_ressources_internes_d_la_Guinée.webp",
     excerpt: "Selon le Général de Brigade Amara Camara, le monde traverse une crise multiforme qui affecte l’économie guinéenne."
   },
 ];
@@ -162,7 +162,7 @@ export default function Welcome() {
       <section className="relative h-[750px] overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://presidence.gov.gn/wp-content/uploads/2024/12/CoverSite-PRG.jpg"
+            src="images/hero/CoverSite-PRG.jpg"
             alt="MAMRI Hero"
             className="w-full h-full object-left transform scale-105 animate-slow-zoom"
           />

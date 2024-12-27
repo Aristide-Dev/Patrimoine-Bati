@@ -10,7 +10,7 @@ const CoordinatorMessagePage = () => {
 
       {/* Hero Section avec image de fond et overlay */}
         <div className="relative  h-[500px] md:h-[600px] lg:h-[700px]overflow-hidden">
-            <div className="absolute inset-0 bg-[url('https://scontent.fcky4-1.fna.fbcdn.net/v/t39.30808-6/314530658_496830145803375_4276996712216104529_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=hRCHrFFd3xMQ7kNvgHaPzoh&_nc_zt=23&_nc_ht=scontent.fcky4-1.fna&_nc_gid=A3sYrt4pcIYsG7mRm1iHush&oh=00_AYDzfUaCqeFHwcxSd6u4V8juFHotgmshHr4fb4REe4aDdQ&oe=67709663')] bg-cover bg-top"></div>
+            <div className="absolute inset-0 bg-[url('/images/hero/mot_du_coordinateur_cover.jpg')] bg-cover bg-top"></div>
             <div className="absolute inset-0 bg-black/20"></div>
         </div>
 

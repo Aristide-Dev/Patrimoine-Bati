@@ -22,14 +22,14 @@ export default {
         colors: {
           // Couleurs personnalisées
           primary: {
-            DEFAULT: '#2f72b2',
+            DEFAULT: '#2F72B2',
             // Si vous souhaitez des variantes plus claires ou plus foncées :
             50: '#e6f0f7',
             100: '#cce0f0',
             200: '#99c2e1',
             300: '#66a3d2',
             400: '#3385c3',
-            500: '#2f72b2', // Couleur par défaut
+            500: '#2F72B2', // Couleur par défaut
             600: '#265a8c',
             700: '#1c4175',
             800: '#12285f',
