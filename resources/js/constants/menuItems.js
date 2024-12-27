@@ -23,96 +23,57 @@ export const menuItems = [
     icon: Home,
   },
   {
-    label: 'Actualités et Ressources',
+    label: 'À Propos',
+    icon: Briefcase,
+    actif: 'about.*', // route('apropos.index')
+    children: [
+      { label: 'Présentation', href: 'about.index', icon: FileText }, // route('apropos.presentation')
+      { label: 'Équipe et Départements', href: 'about.equipes_departements', icon: Users }, // route('about.equipe')
+      { label: 'Mission et Objectifs', href: 'about.missions', icon: Briefcase }, // route('about.missions')
+      { label: 'Mot du Coordinateur', href: 'about.mot_Coordinateur', icon: MessageSquare }, // route('apropos.coordinateur')
+    ]
+  },
+  {
+    label: 'Projets',
+    icon: Building2,
+    actif: 'directions.*', // route('directions.index')
+    children: [
+      { label: 'Introduction aux Projets', href: 'directions.projets', icon: Building2 }, // route('directions.projets')
+      { label: 'Ressources Fiscales', href: 'directions.fiscales', icon: PieChart }, // route('directions.fiscales')
+      { label: 'Ressources Douanières', href: 'directions.douanieres', icon: Boxes }, // route('directions.douanieres')
+      { label: 'Ressources Non Fiscales', href: 'directions.non_fiscales', icon: Coins }, // route('directions.ressources_non_fiscales')
+      { label: 'Dépenses et Arriérés', href: 'directions.depenses', icon: FileBarChart }, // route('directions.depenses')
+      { label: 'Digitalisation', href: 'directions.digitalisation', icon: Binary }, // route('directions.digitalisation')
+    ]
+  },
+  {
+    label: 'Actualité',
     icon: Newspaper,
     actif: 'actualites.*', // route('actualites.index')
     children: [
-      { label: 'Actualités', href: 'actualites.index', icon: MessageSquare }, // route('actualites.communiques')
+      { label: 'Actualités', href: 'actualites.index', icon: MessageSquare }, // route('actualites.articles')
       { label: 'Rapports et Publications', href: 'actualites.rapports', icon: FileText }, // route('actualites.rapports')
       { label: 'Médias', href: 'actualites.medias', icon: Image }, // route('actualites.medias')
     ]
   },
+  // {
+  //   label: 'Ressources',
+  //   icon: FileText,
+  //   actif: 'ressources.*', // route('ressources.index')
+  //   children: [
+  //     { label: 'Archives', href: 'ressources.archives', icon: FileText }, // route('ressources.archives')
+  //     { label: 'Notes Techniques', href: 'ressources.notes', icon: FileBarChart }, // route('ressources.notes')
+  //     { label: 'Rapports Annuels', href: 'ressources.rapports', icon: PieChart }, // route('ressources.rapports')
+  //   ]
+  // },
   {
-    label: 'Organisation et Missions',
-    icon: Briefcase,
-    actif: 'missions.*', // route('missions.index')
-    children: [
-      { label: 'Mot du coordinateur', href: 'missions.mot_Coordinateur', icon: Users },
-      { label: 'Missions Générales', href: 'missions.index', icon: Briefcase }, // route('missions.generales')
-      { label: 'Niveaux d’Intervention', href: 'missions.niveaux_intervention', icon: Users }, // route('missions.niveaux_intervention')
-      // { label: 'Thématiques d’Intervention', href: 'missions.thematiques', icon: PieChart }, // route('missions.thematiques')
-    ]
-  },
-  {
-    label: 'Les Directions de Projet',
-    icon: Building2,
-    actif: 'directions.*',
-    // Pas de route parent dédiée, vous pouvez laisser tel quel ou ajouter une route si vous en créez une
-    children: [
-      {
-        label: 'Ressources Fiscales',
-        icon: PieChart,
-        href: 'directions.fiscales',
-        // children: [
-        //   { label: 'Organisation et Missions', href: 'directions.fiscales_organisation', icon: Briefcase }, // route('directions.fiscales_organisation')
-        //   { label: 'Contexte, Réformes, Études', href: 'directions.fiscales_contexte', icon: FileText }, // route('directions.fiscales_contexte')
-        // ]
-      },
-      {
-        label: 'Ressources Douanières',
-        icon: Boxes,
-        href: 'directions.douanieres',
-        // children: [
-        //   { label: 'Organisation et Missions', href: 'directions.douanieres_organisation', icon: Briefcase }, // route('directions.douanieres_organisation')
-        //   { label: 'Réformes, Résultats, Perspectives', href: 'directions.douanieres_reformes', icon: FileBarChart }, // route('directions.douanieres_reformes')
-        // ]
-      },
-      {
-        label: 'Ressources Non Fiscales',
-        icon: Coins,
-        href: 'directions.non_fiscales',
-        // children: [
-        //   { label: 'Définition, Enjeux, Réformes', href: 'directions.non_fiscales_definition', icon: FileText }, // route('directions.non_fiscales_definition')
-        // ]
-      },
-      {
-        label: 'Maîtrise des Dépenses Fiscales et Apurement des Arriérés',
-        icon: FileBarChart,
-        href: 'directions.depenses_fiscales',
-        // children: [
-        //   { label: 'Dépenses Fiscales (Évaluation, Rationalisation)', href: 'directions.depenses_fiscales', icon: FileBarChart }, // route('directions.depenses_fiscales')
-        //   { label: 'Arriérés Fiscaux (Réduction, Mécanismes)', href: 'directions.arrieres_fiscaux', icon: FileBarChart }, // route('directions.arrieres_fiscaux')
-        // ]
-      },
-      {
-        label: 'Digitalisation',
-        icon: Binary,
-        href: 'directions.digitalisation',
-        // children: [
-        //   { label: 'Enjeux, Stratégies, Diagnostic', href: 'directions.digitalisation_enjeux', icon: FileText }, // route('directions.digitalisation_enjeux')
-        //   { label: 'Renforcement des Capacités, Projets en Cours', href: 'directions.digitalisation_renforcement', icon: MessageSquare }, // route('directions.digitalisation_renforcement')
-        // ]
-      },
-    ]
-  },
-  {
-    label: 'Partenariats',
+    label: 'Partenaires',
     icon: Link,
     href: 'partenariats.index', // route('partenariats.index')
-    // children: [
-    //   { label: 'Partenaires Institutionnels (FMI, Banque Mondiale, UE, FERDI)', href: 'partenariats.institutionnels', icon: Users }, // route('partenariats.institutionnels')
-    //   { label: 'Rôles (Appui technique, financier)', href: 'partenariats.roles', icon: Briefcase }, // route('partenariats.roles')
-    //   { label: 'Projets et Résultats', href: 'partenariats.projets_resultats', icon: FileText }, // route('partenariats.projets_resultats')
-    // ]
   },
-  // {
-  //   label: 'À Propos',
-  //   href: 'about', // route('about')
-  //   icon: FileText,
-  // },
   {
     label: 'Contact',
     icon: Mail,
-    href: 'contact.index' // route('contact.index')
-  }
+    href: 'contact.index', // route('contact.index')
+  },
 ];

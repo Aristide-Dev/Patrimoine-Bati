@@ -20,25 +20,31 @@ Route::get('/', [AccueilController::class, 'index'])->name('welcome');
 Route::get('/init', [AppInitController::class, 'init'])->name('app.init');
 
 // À Propos
-// Route::prefix('a-propos')->group(function() {
-//     Route::get('/', [AProposController::class, 'index'])->name('about');
-//     Route::get('/contexte-creation', [AProposController::class, 'contexte'])->name('about.contexte');
-//     Route::get('/cadre-juridique', [AProposController::class, 'cadreJuridique'])->name('about.cadre_juridique');
-//     Route::get('/objectifs-enjeux', [AProposController::class, 'objectifsEnjeux'])->name('about.objectifs_enjeux');
-//     Route::get('/principes-action', [AProposController::class, 'principesAction'])->name('about.principes_action');
-//     Route::get('/organisation', [AProposController::class, 'organisation'])->name('about.organisation');
-//     Route::get('/partenaires', [AProposController::class, 'partenaires'])->name('about.partenaires');
-// });
+Route::prefix('a-propos')->group(function() {
+    Route::get('/', [AProposController::class, 'index'])->name('about.index');
+    Route::get('/mot-du-coordinateur', [MissionsController::class, 'motDuCoordinateur'])->name('about.mot_Coordinateur');
+    Route::get('/missions-et-objectifs', [MissionsController::class, 'index'])->name('about.missions');
+    Route::get('/equipe-et-departements', [MissionsController::class, 'niveauxIntervention'])->name('about.equipes_departements');
+
+    // Route::get('/contexte-creation', [AProposController::class, 'contexte'])->name('about.contexte');
+    // Route::get('/cadre-juridique', [AProposController::class, 'cadreJuridique'])->name('about.cadre_juridique');
+    // Route::get('/objectifs-enjeux', [AProposController::class, 'objectifsEnjeux'])->name('about.objectifs_enjeux');
+    // Route::get('/principes-action', [AProposController::class, 'principesAction'])->name('about.principes_action');
+    // Route::get('/organisation', [AProposController::class, 'organisation'])->name('about.organisation');
+    // Route::get('/partenaires', [AProposController::class, 'partenaires'])->name('about.partenaires');
+});
 
 // Missions et Axes Stratégiques
-Route::prefix('missions')->group(function() {
-    Route::get('/', [MissionsController::class, 'index'])->name('missions.index');
-    Route::get('/niveaux-intervention', [MissionsController::class, 'niveauxIntervention'])->name('missions.niveaux_intervention');
-    Route::get('/mot-du-coordinateur', [MissionsController::class, 'motDuCoordinateur'])->name('missions.mot_Coordinateur');
-});
+// Route::prefix('missions')->group(function() {
+//     Route::get('/', [MissionsController::class, 'index'])->name('missions.index');
+//     Route::get('/niveaux-intervention', [MissionsController::class, 'niveauxIntervention'])->name('missions.niveaux_intervention');
+//     Route::get('/mot-du-coordinateur', [MissionsController::class, 'motDuCoordinateur'])->name('missions.mot_Coordinateur');
+// });
 
 // Les Directions de Projet
 Route::prefix('directions')->group(function() {
+    Route::get('/projets', [DirectionsController::class, 'projets'])->name('directions.projets');
+
     // Ressources fiscales
     Route::prefix('fiscales')->group(function() {
         Route::get('/', [DirectionsController::class, 'fiscales'])->name('directions.fiscales');

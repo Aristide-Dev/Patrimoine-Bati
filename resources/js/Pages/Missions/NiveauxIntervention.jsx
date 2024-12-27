@@ -23,7 +23,7 @@ const OrganisationPage = () => {
     {
       title: "Comité de Pilotage",
       icon: Users,
-      color: "bg-red-600",
+      color: "bg-[#ce1126]",
       description: "Instance politique et stratégique d'orientation",
       members: [
         "Le Président de la République (Président)",
@@ -41,7 +41,7 @@ const OrganisationPage = () => {
     {
       title: "Cadre de Dialogue",
       icon: MessageSquare,
-      color: "bg-yellow-500",
+      color: "bg-[#fcd116]",
       description: "Instance d'échanges techniques",
       members: [
         "Directeur général des Douanes",
@@ -59,7 +59,7 @@ const OrganisationPage = () => {
     {
       title: "Coordination Générale",
       icon: Network,
-      color: "bg-green-600",
+      color: "bg-[#009460]",
       description: "Support technique et méthodologique",
       members: [
         "Chef de projet",
@@ -112,7 +112,12 @@ const OrganisationPage = () => {
                 <div className={`${section.color} p-6 text-white`}>
                   <section.icon size={32} className="mb-4" />
                   <h3 className="text-2xl font-bold mb-2">{section.title}</h3>
-                  <p className="opacity-90">{section.description}</p>
+                  {index === 1 ? (
+                  <p className="opacity-90 text-black">{section.description}</p>
+                  ):
+                  (
+                  <p className="opacity-90 text-white">{section.description}</p>
+                  )}
                 </div>
                 <div className="p-6">
                   <div className="mb-6">

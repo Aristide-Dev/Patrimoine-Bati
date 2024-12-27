@@ -8,6 +8,12 @@ use Inertia\Response;
 
 class DirectionsController extends Controller
 {
+    // tous les proets
+    public function projets(): Response
+    {
+        return Inertia::render('Directions/Index');
+    }
+
     // Ressources Fiscales
     public function fiscales(): Response
     {

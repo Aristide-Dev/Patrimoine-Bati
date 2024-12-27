@@ -1,5 +1,11 @@
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
+import * as Icons from 'lucide-react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { useState, useCallback } from 'react';
+
 import {
   ArrowRight,
   Calculator,
@@ -25,7 +31,12 @@ import {
   PieChart,
   Boxes,
   FileBarChart,
-  ChevronRight
+  ChevronRight,
+  ChevronLeft,
+  Gavel,
+  Scale, 
+  Shield, 
+  CheckCircle 
 }
   from 'lucide-react';
 
@@ -58,31 +69,31 @@ const directions = [
     icon: Calculator,
     title: "Ressources Fiscales",
     description: "Optimisation de la collecte fiscale",
-    href: "#"
+    href: route('directions.fiscales')
   },
   {
     icon: Building2,
     title: "Ressources Douanières",
     description: "Modernisation des douanes",
-    href: "#"
+    href: route('directions.douanieres')
   },
   {
     icon: Coins,
     title: "Ressources Non Fiscales",
     description: "Diversification des revenus",
-    href: "#"
+    href: route('directions.non_fiscales')
   },
   {
     icon: PiggyBank,
     title: "Maîtrise des Dépenses",
     description: "Gestion des exonérations",
-    href: "#"
+    href: route('directions.depenses')
   },
   {
     icon: Binary,
     title: "Digitalisation",
     description: "Transformation numérique",
-    href: "#"
+    href: route('directions.digitalisation')
   }
 ];
 
@@ -110,96 +121,264 @@ const siteSections = [
     icon: FileText,
     title: "À Propos",
     description: "Découvrez l’historique, le cadre juridique, l’organisation et les partenaires qui façonnent la MAMRI.",
-    href: "#"
+    href: route('about.index')
   },
   {
     icon: Briefcase,
     title: "Missions",
     description: "Découvrez nos missions générales, nos niveaux d’intervention et nos thématiques clés.",
-    href: "#"
+    href: route('about.missions')
   },
   {
     icon: Building2,
     title: "Les Directions de Projet",
     description: "Explorez nos directions dédiées aux ressources fiscales, douanières, non fiscales, maîtrise des dépenses et digitalisation.",
-    href: "#"
+    href: route('directions.projets')
   },
   {
     icon: Newspaper,
     title: "Actualités et Ressources",
     description: "Consultez nos actualités, rapports, publications, médias et événements récents.",
-    href: "#"
+    href: route('actualites.index')
   },
   {
     icon: Link,
-    title: "Partenariats",
+    title: "Partenaires",
     description: "Informez-vous sur nos partenaires institutionnels et internationaux, leurs rôles et domaines d’expertise.",
-    href: "#"
+    href: route('partenariats.index')
   },
   {
     icon: BookOpen,
     title: "Documentation",
     description: "Accédez à notre documentation, cadres de référence, notes techniques et ressources informatives.",
-    href: "#"
+    href: route('actualites.rapports')
   },
   {
     icon: Mail,
     title: "Contact",
     description: "Besoin d’aide ou d’informations supplémentaires ? Contactez-nous directement.",
-    href: "#"
+    href: route('contact.index')
+  },
+];
+
+const slides = [
+  {
+    image: 'images/hero/CoverSite-PRG.jpg',
+    title: 'Construire une Guinée plus forte',
+    description: 'Mobilisation des Ressources Internes pour un développement durable.',
+    buttons: [
+      { label: 'En savoir plus', href: '#', style: 'primary' },
+      { label: 'Nous contacter', href: '#', style: 'secondary' },
+    ],
+  },
+  {
+    image: 'images/hero/SecondImage.jpg',
+    title: 'Renforcer les capacités fiscales',
+    description: 'Des réformes innovantes pour élargir l’assiette fiscale.',
+    buttons: [{ label: 'Découvrir les projets', href: '#', style: 'primary' }],
+  },
+  {
+    image: 'images/hero/ThirdImage.jpg',
+    title: 'Digitalisation et Traçabilité',
+    description: 'Améliorer la gouvernance grâce à des outils modernes.',
+    buttons: [
+      { label: 'Explorer les initiatives', href: '#', style: 'primary' },
+    ],
   },
 ];
 
 export default function Welcome() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState({});
+
+  const handleHover = useCallback((id, value) => {
+    setIsHovered(prev => ({ ...prev, [id]: value }));
+  }, []);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 6000,
+    fade: true,
+    beforeChange: (_, next) => setActiveSlide(next),
+    nextArrow: <Icons.ChevronRight className="slick-arrow slick-next" />,
+    prevArrow: <Icons.ChevronLeft className="slick-arrow slick-prev" />,
+    customPaging: i => (
+      <div className={`w-3 h-3 rounded-full transition-all duration-300 ${i === activeSlide ? 'bg-white scale-125' : 'bg-white/50'}`} />
+    ),
+  };
+
   return (
     <AppLayout>
-      <Head
-        title="Bienvenue"
-        description="Plateforme d'appui à la mobilisation des ressources internes"
-      />
+      <Head title="Bienvenue" description="Plateforme d'appui à la mobilisation des ressources internes" />
 
-      {/* Hero Section */}
-      <section className="relative h-[750px] overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="images/hero/CoverSite-PRG.jpg"
-            alt="MAMRI Hero"
-            className="w-full h-full object-left transform scale-105 animate-slow-zoom"
-          />
-          {/* <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" /> */}
-        </div>
+      {/* Hero Section avec animations améliorées */}
+      <section className="relative overflow-hidden">
+        <Slider {...settings}>
+          {slides.map((slide, index) => (
+            <div key={index} className="relative h-[80vh] min-h-[600px]">
+              <div className="absolute inset-0">
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-full object-cover transform scale-105 animate-ken-burns"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30" />
+              </div>
+              <div className="relative container mx-auto px-4 h-full flex items-center">
+                <div className="text-white max-w-2xl animate-fade-in-up">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
+                    {slide.title}
+                  </h1>
+                  <p className="text-xl mb-10 leading-relaxed text-gray-200">
+                    {slide.description}
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    {slide.buttons.map((button, idx) => (
+                      <a
+                        key={idx}
+                        href={button.href}
+                        className={`group px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center transform hover:scale-105 ${button.style === 'primary'
+                          ? 'bg-primary text-white hover:bg-primary-800'
+                          : 'bg-white text-gray-900 hover:bg-gray-100'
+                          }`}
+                      >
+                        {button.label}
+                        <Icons.ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </section>
 
-        <div className="relative container mx-auto px-4 h-full flex items-center">
-          <div className="w-52 sm:w-80 md:w-xl lg:w-full max-w-2xl text-white animate-fade-in-up">
-            <span className="hidden md:inline-block px-4 py-2 bg-primary/90 text-white rounded-full text-sm font-medium mb-6 transform hover:scale-105 transition-transform uppercase">
-              Mission d'Appui à la Mobilisation des Ressources Internes
-            </span>
-            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-8 leading-tight">
-              Construire une Guinée plus forte par la Mobilisation des Ressources Internes
-            </h1>
-            <p className="text-xl mb-10 leading-relaxed text-gray-200">
-              Notre mission est de renforcer la capacité de la Guinée à mobiliser ses ressources internes
-              pour un développement durable et autonome.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="#"
-                className="group bg-primary hover:bg-primary-800 text-white px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center transform hover:scale-105"
-              >
-                Découvrir notre mission
-                <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <a
-                href="#"
-                className="group bg-white text-gray-900 hover:bg-gray-100 px-8 py-4 rounded-lg font-medium transition-all duration-300 flex items-center transform hover:scale-105"
-              >
-                Nous contacter
-                <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </a>
+      <section className="relative mx-auto bg-gray-100 w-full">
+        <div className="container mx-auto px-4 py-20  bg-white">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Colonne gauche : Profil du Coordinateur */}
+            <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
+              <div className="relative overflow-hidden">
+                <img
+                  src="/images/mohamed_lamine_doumbouya_coordinateur_mamri_2024.png"
+                  alt="Dr Mohamed Lamine DOUMBOUYA"
+                  className="w-full h-[400px] object-cover transform group-hover:scale-105 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-2">Dr Mohamed Lamine DOUMBOUYA</h3>
+                  <p className="text-white/90">Coordonnateur Général de la MAMRI</p>
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-gray-600 mb-6 line-clamp-4">
+                  "Notre mission est de renforcer la mobilisation des ressources internes pour
+                  un développement durable de la Guinée."
+                </p>
+                <a
+                  href={route('about.mot_Coordinateur')}
+                  className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg 
+                     shadow-lg hover:bg-primary-800 transition-all duration-300 group-hover:translate-y-[-2px]"
+                >
+                  Mot du Coordonnateur
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+              </div>
+            </div>
+
+            {/* Colonne centrale : Chantiers de la transition */}
+            <div className="bg-white border-2 border-gray-200 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+              <div className="p-6 bg-gradient-to-r from-primary to-primary-800 text-white">
+                <h2 className="text-2xl font-bold text-center">Chantiers de la Transition</h2>
+              </div>
+              <div className="p-6 space-y-6">
+                {[
+                  {
+                    icon: Users,
+                    title: "LA REFONDATION DE L'ETAT",
+                    description: "Prôner un fonctionnement dépersonnalisé et dépolitisé des institutions."
+                  },
+                  {
+                    icon: Scale,
+                    title: "L'APAISEMENT SOCIOPOLITIQUE",
+                    description: "Apaiser les esprits et détendre une atmosphère sociopolitique."
+                  },
+                  {
+                    icon: Gavel,
+                    title: "LES RÉFORMES INSTITUTIONNELLES",
+                    description: "Modernisation et renforcement des institutions publiques."
+                  },
+                  {
+                    icon: Shield,
+                    title: "LA LUTTE CONTRE LES PRÉVARICATIONS",
+                    description: "Combat contre la corruption et les détournements."
+                  }
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="group p-4 rounded-xl hover:bg-gray-50 transition-all duration-300
+                       transform hover:translate-x-2"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className="flex-shrink-0">
+                        <item.icon className="w-10 h-10 text-primary group-hover:scale-110 transition-transform" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-gray-900 group-hover:text-primary transition-colors">
+                          {item.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm mt-1">{item.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Colonne droite : Mission */}
+            <div className="bg-white border-2 border-gray-200 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
+              <div className="p-6 bg-gradient-to-r from-primary to-primary-800 rounded-t-2xl text-white">
+                <h2 className="text-2xl font-bold text-center">Notre Mission</h2>
+              </div>
+              <div className="p-6">
+                <div className="space-y-6">
+                  {[
+                    "Intensifier la mobilisation des ressources internes pour le développement.",
+                    "Moderniser les systèmes de collecte et de gestion des ressources.",
+                    "Renforcer la transparence et l'efficacité des processus.",
+                    "Développer des partenariats stratégiques nationaux et internationaux."
+                  ].map((mission, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start space-x-3 group hover:translate-x-2 transition-transform"
+                    >
+                      <CheckCircle className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
+                      <p className="text-gray-700">{mission}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-8 text-center">
+                  <a
+                    href={route('about.index')}
+                    className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg
+                       shadow-lg hover:bg-primary-800 transition-all duration-300 group"
+                  >
+                    En savoir plus
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
 
       {/* Missions */}
       <section className="py-16 bg-gray-50">
@@ -349,6 +528,53 @@ export default function Welcome() {
         </div>
       </section>
 
+      <style jsx>{`
+        /* Animations personnalisées */
+        @keyframes ken-burns {
+          0% { transform: scale(1); }
+          100% { transform: scale(1.1); }
+        }
+
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-ken-burns {
+          animation: ken-burns 20s ease-out infinite alternate;
+        }
+
+        .animate-fade-in-up {
+          animation: fade-in-up 0.6s ease-out forwards;
+        }
+
+        /* Styles du slider */
+        .slick-dots {
+          bottom: 2rem;
+        }
+
+        .slick-arrow {
+          z-index: 10;
+          width: 3rem;
+          height: 3rem;
+          background: white;
+          border-radius: 50%;
+          transition: all 0.3s ease;
+        }
+
+        .slick-arrow:hover {
+          background: #f3f4f6;
+          transform: scale(1.1);
+        }
+
+        /* Autres styles personnalisés... */
+      `}</style>
     </AppLayout>
   );
 }
