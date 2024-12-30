@@ -35,7 +35,7 @@ export default function AProposPage() {
       title: "Mission et Objectifs",
       description: "Découvrez notre mission d'intensification et d'accélération de la mobilisation des ressources internes, ainsi que nos objectifs stratégiques pour le développement de la Guinée.",
       icon: Target,
-      image: "https://images.unsplash.com/photo-1554224155-6d2f99c7716e",
+      image: "/images/Armoiries-Republique-de-Guinee-V1-1.png",
       link: route('about.index'),
       highlights: [
         "Mobilisation des ressources",
@@ -47,7 +47,7 @@ export default function AProposPage() {
       title: "Équipe et Départements",
       description: "Rencontrez notre équipe de professionnels dévoués et explorez nos différents départements spécialisés qui œuvrent ensemble pour atteindre nos objectifs.",
       icon: Users,
-      image: "https://www.guineenondi.com/wp-content/uploads/2023/12/408793365_755748986587354_4612216314183945735_n-735x400.jpg",
+      image: "/images/408793365_755748986587354_4612216314183945735_n-735x400.jpg",
       link: route('about.index'),
       highlights: [
         "Structure organisationnelle",

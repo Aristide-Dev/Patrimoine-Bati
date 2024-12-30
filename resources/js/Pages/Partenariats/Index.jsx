@@ -6,7 +6,7 @@ const PartenairesPage = () => {
   const partenaires = [
     {
       nom: "Banque Africaine de Développement",
-      logo: "https://mamri.gov.gn/wp-content/uploads/2021/05/Banque-Africaine-de-Developpement.jpg",
+      logo: "/images/partenaires/Banque-Africaine-de-Developpement.jpg",
       actions: [
         "Évaluation de la performance du système d’administration fiscal",
         "Modernisation du modèle technique d’administration fiscale",
@@ -15,7 +15,7 @@ const PartenairesPage = () => {
     },
     {
       nom: "Agence Française de Développement",
-      logo: "https://mamri.gov.gn/wp-content/uploads/2021/05/Agence-Francaise-de-Developpement.jpg",
+      logo: "/images/partenaires/Agence-Francaise-de-Developpement.jpg",
       actions: [
         "Réforme du système de financement des collectivités locales",
         "Appui Institutionnel"
@@ -23,7 +23,7 @@ const PartenairesPage = () => {
     },
     {
       nom: "Expertise France",
-      logo: "https://mamri.gov.gn/wp-content/uploads/2021/07/new_logo.png",
+      logo: "/images/partenaires/expert_france.png",
       actions: [
         "Appui institutionnel à la modernisation",
         "Digitalisation des processus internes",

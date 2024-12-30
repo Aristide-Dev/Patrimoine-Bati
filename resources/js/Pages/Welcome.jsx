@@ -167,22 +167,22 @@ const slides = [
     title: 'Construire une Guinée plus forte',
     description: 'Mobilisation des Ressources Internes pour un développement durable.',
     buttons: [
-      { label: 'En savoir plus', href: '#', style: 'primary' },
-      { label: 'Nous contacter', href: '#', style: 'secondary' },
+      { label: 'En savoir plus', href: route('about.index'), style: 'primary' },
+      { label: 'Nous contacter', href: route('contact.index'), style: 'secondary' },
     ],
   },
   {
     image: 'images/hero/Equipe technique MAMRI_medium.png',
     title: 'Renforcer les capacités fiscales',
     description: 'Des réformes innovantes pour élargir l’assiette fiscale.',
-    buttons: [{ label: 'Découvrir les projets', href: '#', style: 'primary' }],
+    buttons: [{ label: 'Découvrir les projets', href: route('directions.projets'), style: 'primary' }],
   },
   {
     image: 'images/hero/mamri_cover.jpg',
     title: 'Digitalisation et Traçabilité',
     description: 'Améliorer la gouvernance grâce à des outils modernes.',
     buttons: [
-      { label: 'Explorer les initiatives', href: '#', style: 'primary' },
+      { label: 'Explorer les initiatives', href: route('directions.digitalisation'), style: 'primary' },
     ],
   },
 ];

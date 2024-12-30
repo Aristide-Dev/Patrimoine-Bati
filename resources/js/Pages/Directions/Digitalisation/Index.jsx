@@ -40,7 +40,7 @@ const DigitalisationPage = () => {
         category: "Ressources Fiscales",
         title: "Portail eTax",
         description: "Télédéclaration et télépaiement des impôts et taxes",
-        image: "https://etax.gov.gn/_espaces/ETAX/common/logo/etax.png",
+        image: "/images/projets/etax.png",
         progress: 75,
         features: ["Déclarations en ligne", "Paiements électroniques", "Suivi en temps réel"]
       },
@@ -48,7 +48,7 @@ const DigitalisationPage = () => {
         category: "Ressources Non Fiscales",
         title: "Guichet Unique GUCEG",
         description: "Facilitation du commerce extérieur",
-        image: "https://scontent.fcky4-1.fna.fbcdn.net/v/t39.30808-1/277585409_429058912355123_1530214436960393308_n.png?_nc_cat=111&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=784z-ylaZBIQ7kNvgGFKz51&_nc_zt=24&_nc_ht=scontent.fcky4-1.fna&_nc_gid=A_d6eeRx9ruo86ePmQvsb3C&oh=00_AYDC2oPHGvGJXe7RSZ9yBDvp9YDuKyfK_eLdann0znMH_g&oe=676F4EEC",
+        image: "/images/projets/Guichet_Unique_du_Commerce_Extérieur_de_Guinee.png",
         progress: 85,
         features: ["Procédures simplifiées", "Traitement accéléré", "Transparence accrue"]
       },
@@ -56,7 +56,7 @@ const DigitalisationPage = () => {
         category: "Ressources Douanières",
         title: "Sydonia World",
         description: "Migration et modernisation du système d'information",
-        image: "https://elearning.asycuda.org/pluginfile.php/298/course/overviewfiles/logo_SYDONIAWorld%20%28002%29.png",
+        image: "/images/projets//logo_SYDONIAWorld.png",
         progress: 90,
         features: ["Gestion intégrée", "Traçabilité complète", "Interopérabilité"]
       }
