@@ -2,22 +2,30 @@ import React, { useState } from "react";
 import { useForm } from "@inertiajs/react";
 import InputError from '@/Components/InputError';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Upload, Link, Image, Video, FileText, Clock, Tag, X } from 'lucide-react';
+import { Upload, Link, Image, Video, FileText, Clock, Calendar, X } from 'lucide-react';
 
 export default function MediaForm({ media = null }) {
-    const [isFileUpload, setIsFileUpload] = useState(false);
-    const [previewUrl, setPreviewUrl] = useState(media?.url || null);
+    
+    const isExternalUrl = (url) => {
+        return url.startsWith('http://') || url.startsWith('https://') || url.startsWith('wwww');
+    };
+    const [isFileUpload, setIsFileUpload] = useState(isExternalUrl(media.url) ? false : true);
+    const [previewUrl, setPreviewUrl] = useState(isExternalUrl(media.url) ? media.url : `/storage/${media.url}` || null);
     const [isNewCategory, setIsNewCategory] = useState(false);
     
     const { data, setData, post, put, processing, errors } = useForm({
         type: media?.type || "image",
         title: media?.title || "",
-        url: media?.url || "",
+        url: isExternalUrl(media.url) ? media.url : '' || "",
         file: null,
         description: media?.description || "",
         category: media?.category || "",
         embed_url: media?.embed_url || "",
         duration: media?.duration || "",
+        published_at: media?.published_at
+        ? new Date(media.published_at.split('-').reverse().join('-'))
+        : '',
+    
     });
 
     const categories = [
@@ -29,6 +37,9 @@ export default function MediaForm({ media = null }) {
         "Reportages",
         "Autres"
     ];
+
+    
+
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -234,7 +245,7 @@ export default function MediaForm({ media = null }) {
                                 <div className="space-y-4">
                                     <input
                                         type="url"
-                                        value={data.url}
+                                        value={isExternalUrl(media.url) ? media.url : null}
                                         onChange={(e) => setData("url", e.target.value)}
                                         className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary"
                                         placeholder={`Entrez l'URL du ${data.type}`}
@@ -243,6 +254,33 @@ export default function MediaForm({ media = null }) {
                                 </div>
                             )}
                         </div>
+
+                        
+                        {/* Date de publication */}
+                        <div>
+                            <div className="bg-white rounded-xl shadow-sm p-6">
+                                <div className="flex items-center mb-4">
+                                    <Calendar className="w-5 h-5 text-gray-400 mr-2" />
+                                    <label className="text-lg font-medium text-gray-900">
+                                        Publication
+                                    </label>
+                                </div>
+                                <input
+                                    type="date"
+                                    value={
+                                        media?.published_at
+                                            ? new Date(media.published_at)
+                                                .toISOString()
+                                                .split('T')[0] // Convertit en format YYYY-MM-DD
+                                            : ''
+                                    }
+                                    onChange={(e) => setData('published_at', e.target.value)}
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary"
+                                />
+                            </div>
+                            <InputError message={errors.published_at} className="mt-2" />
+                        </div>
+
 
                         {/* Description */}
                         <div>

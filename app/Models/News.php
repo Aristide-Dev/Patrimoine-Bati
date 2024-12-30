@@ -22,6 +22,7 @@ class News extends Model
     {
         return [
             'tags' => 'array',
+            'published_at' => 'date',
             'featured' => 'boolean',
         ];
     }
