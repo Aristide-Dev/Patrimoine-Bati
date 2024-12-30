@@ -195,6 +195,69 @@ export default function MediaPage() {
     );
   }, [state.viewMode]);
 
+
+  // Gestion du partage
+const handleShare = useCallback((platform) => {
+  const media = state.selectedMedia;
+  if (!media) return;
+
+  const shareData = {
+    title: media.title,
+    url: isExternalUrl(media.url) ? media.url : `${window.location.origin}/storage/${media.url}`
+  };
+
+  const shareUrls = {
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`,
+    twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.title)}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareData.url)}`,
+  };
+
+  window.open(shareUrls[platform], '_blank');
+}, [state.selectedMedia]);
+
+// Gestion du téléchargement
+const handleDownload = useCallback(async () => {
+  const media = state.selectedMedia;
+  if (!media || media.type !== 'image') return;
+
+  try {
+    const response = await fetch(isExternalUrl(media.url) ? media.url : `/storage/${media.url}`);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${media.title}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error('Erreur lors du téléchargement:', error);
+  }
+}, [state.selectedMedia]);
+
+// Gestion des raccourcis clavier
+useEffect(() => {
+  const handleKeyPress = (e) => {
+    if (!state.selectedMedia) return;
+
+    const actions = {
+      'ArrowLeft': () => handleNavigation('prev'),
+      'ArrowRight': () => handleNavigation('next'),
+      'Escape': () => updateState({ selectedMedia: null }),
+    };
+
+    if (actions[e.key]) {
+      e.preventDefault();
+      actions[e.key]();
+    }
+  };
+
+  window.addEventListener('keydown', handleKeyPress);
+  return () => window.removeEventListener('keydown', handleKeyPress);
+}, [state.selectedMedia, handleNavigation]);
+
+
   return (
     <AppLayout>
       <Head title="Médiathèque MAMRI" />
@@ -331,46 +394,130 @@ export default function MediaPage() {
       
 
       <div className="py-6">
-        {state.selectedMedia && (
-          <div className="fixed inset-0 bg-black/75 flex items-center justify-center z-50">
+      {state.selectedMedia && (
+  <div 
+    className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+    onClick={() => updateState({ selectedMedia: null })}
+  >
+    <div 
+      className="relative w-full max-w-6xl px-4"
+      onClick={e => e.stopPropagation()}
+    >
+      {/* Boutons de contrôle */}
+      <div className="absolute top-4 right-4 flex space-x-2 z-10">
+        <button 
+          className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+          onClick={() => updateState({ showShareMenu: !state.showShareMenu })}
+        >
+          <Share2 className="w-6 h-6 text-white" />
+        </button>
+        {state.selectedMedia.type === 'image' && (
+          <button 
+            className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+            onClick={handleDownload}
+          >
+            <Download className="w-6 h-6 text-white" />
+          </button>
+        )}
+        <button 
+          className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+          onClick={() => updateState({ selectedMedia: null })}
+        >
+          <X className="w-6 h-6 text-white" />
+        </button>
+      </div>
+
+      {/* Menu de partage */}
+      {state.showShareMenu && (
+        <div className="absolute top-16 right-4 bg-white rounded-xl shadow-lg py-2 z-10">
+          {[
+            { platform: 'facebook', icon: Facebook, label: 'Facebook' },
+            { platform: 'twitter', icon: Twitter, label: 'Twitter' },
+            { platform: 'linkedin', icon: Linkedin, label: 'LinkedIn' },
+          ].map(({ platform, icon: Icon, label }) => (
             <button
-              className="absolute top-4 left-4 text-white"
-              onClick={() => updateState({ selectedMedia: null })}
+              key={platform}
+              onClick={() => handleShare(platform)}
+              className="w-full px-4 py-2 flex items-center hover:bg-gray-100 transition-colors"
             >
-              Close
+              <Icon className="w-5 h-5 mr-3" />
+              {label}
             </button>
-            <div className="relative w-full max-w-4xl">
-              <button
-                className="absolute left-0 top-1/2 -translate-y-1/2 text-white"
-                onClick={() => handleNavigation('prev')}
-              >
-                <ChevronLeft size={32} />
-              </button>
-              <div className="bg-white p-4 rounded-lg shadow-lg">
-                {state.selectedMedia.type === 'image' ? (
-                  <img
-                    src={state.selectedMedia.url.startsWith('http') ? state.selectedMedia.url : `/storage/${state.selectedMedia.url}`}
-                    alt={state.selectedMedia.title}
-                    className="w-full"
-                  />
-                ) : (
-                  <iframe
-                    src={state.selectedMedia.embed_url}
-                    title={state.selectedMedia.title}
-                    className="w-full h-96"
-                    allowFullScreen
-                  />
-                )}
-              </div>
-              <button
-                className="absolute right-0 top-1/2 -translate-y-1/2 text-white"
-                onClick={() => handleNavigation('next')}
-              >
-                <ChevronRight size={32} />
-              </button>
-            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Navigation */}
+      <button
+        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleNavigation('prev');
+        }}
+      >
+        <ChevronLeft className="w-6 h-6 text-white" />
+      </button>
+
+      {/* Contenu */}
+      <div className="relative">
+        {state.isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent"></div>
           </div>
         )}
+        
+        {state.selectedMedia.type === 'image' ? (
+          <img
+            src={isExternalUrl(state.selectedMedia.url) ? state.selectedMedia.url : `/storage/${state.selectedMedia.url}`}
+            alt={state.selectedMedia.title}
+            className={`max-h-[80vh] mx-auto rounded-lg transition-opacity duration-300 ${
+              state.isLoading ? 'opacity-0' : 'opacity-100'
+            }`}
+            onLoad={() => updateState({ isLoading: false })}
+          />
+        ) : (
+          <div className="aspect-w-16 aspect-h-9">
+            <iframe
+              src={state.selectedMedia.embed_url}
+              title={state.selectedMedia.title}
+              className="w-full h-full rounded-lg"
+              allowFullScreen
+            />
+          </div>
+        )}
+      </div>
+
+      <button
+        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleNavigation('next');
+        }}
+      >
+        <ChevronRight className="w-6 h-6 text-white" />
+      </button>
+
+      {/* Informations */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
+        <div className="text-white">
+          <div className="flex items-center space-x-3 mb-2">
+            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">
+              {state.selectedMedia.category}
+            </span>
+            <span className="flex items-center text-sm">
+              <Calendar className="w-4 h-4 mr-1" />
+              {new Date(state.selectedMedia.created_at).toLocaleDateString()}
+            </span>
+          </div>
+          <h3 className="text-xl font-bold mb-2">{state.selectedMedia.title}</h3>
+          {state.selectedMedia.description && (
+            <p className="text-white/80">{state.selectedMedia.description}</p>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
       </div>
     </AppLayout>
   );
