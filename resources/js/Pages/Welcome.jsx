@@ -172,13 +172,13 @@ const slides = [
     ],
   },
   {
-    image: 'images/hero/SecondImage.jpg',
+    image: 'images/hero/Equipe technique MAMRI_medium.png',
     title: 'Renforcer les capacités fiscales',
     description: 'Des réformes innovantes pour élargir l’assiette fiscale.',
     buttons: [{ label: 'Découvrir les projets', href: '#', style: 'primary' }],
   },
   {
-    image: 'images/hero/ThirdImage.jpg',
+    image: 'images/hero/mamri_cover.jpg',
     title: 'Digitalisation et Traçabilité',
     description: 'Améliorer la gouvernance grâce à des outils modernes.',
     buttons: [
@@ -208,7 +208,7 @@ export default function Welcome() {
     nextArrow: <Icons.ChevronRight className="slick-arrow slick-next" />,
     prevArrow: <Icons.ChevronLeft className="slick-arrow slick-prev" />,
     customPaging: i => (
-      <div className={`w-3 h-3 rounded-full transition-all duration-300 ${i === activeSlide ? 'bg-white scale-125' : 'bg-white/50'}`} />
+      <div className={`w-3 h-3 rounded-full transition-all duration-300 ${i === activeSlide ? 'bg-primary-600 scale-125' : 'bg-white/50'}`} />
     ),
   };
 
@@ -220,7 +220,7 @@ export default function Welcome() {
       <section className="relative overflow-hidden">
         <Slider {...settings}>
           {slides.map((slide, index) => (
-            <div key={index} className="relative h-[80vh] min-h-[600px]">
+            <div key={index} className="relative h-[50vh] min-h-[500px]">
               <div className="absolute inset-0">
                 <img
                   src={slide.image}
