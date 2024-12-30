@@ -1,51 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { 
   Search, Filter, Grid, List, Image, Video, 
-  Download, Share2, Trash2, Edit, Plus, Calendar,
-  ChevronLeft, ChevronRight, X
+  Download, Share2, Trash2, Edit, Plus, ChevronLeft, ChevronRight, X, ImageIcon, VideoIcon
 } from 'lucide-react';
 
-export default function Index({ medias, categories = [] }) {
-    console.log('medias', medias)
+export default function MediaIndex({ categories = [] }) {
+  const [medias, setMedias] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [view, setView] = useState('grid');
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [filters, setFilters] = useState({
     search: '',
     type: 'all',
-    category: 'all'
+    category: 'all',
   });
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 12;
 
-  const filteredMedia = medias.filter(media => {
-    return (
-      (filters.search === '' || 
-        media.title.toLowerCase().includes(filters.search.toLowerCase()) ||
-        media.description.toLowerCase().includes(filters.search.toLowerCase())) &&
-      (filters.type === 'all' || media.type === filters.type) &&
-      (filters.category === 'all' || media.category === filters.category)
-    );
-  });
-
-  const isExternalUrl = (url) => {
-    return url.startsWith('http://') || url.startsWith('https://') || url.startsWith('wwww');
+  const fetchMedia = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get('/api/medias', {
+        params: {
+          type: filters.type !== 'all' ? filters.type : undefined,
+          category: filters.category !== 'all' ? filters.category : undefined,
+          search: filters.search || undefined,
+        },
+      });
+      setMedias(response.data);
+    } catch (error) {
+      console.error('Erreur lors du chargement des médias:', error);
+    } finally {
+      setLoading(false);
+    }
   };
-  
 
-  const paginatedMedia = filteredMedia.slice(
+  useEffect(() => {
+    fetchMedia();
+  }, [filters]);
+
+  const paginatedMedia = medias.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const totalPages = Math.ceil(filteredMedia.length / itemsPerPage);
+  const totalPages = Math.ceil(medias.length / itemsPerPage);
 
   const handleDelete = async (id) => {
     if (window.confirm('Êtes-vous sûr de vouloir supprimer ce média ?')) {
       try {
-        await axios.delete(route('admin.medias.destroy', id));
-        // Rafraîchir la liste
+        await axios.delete(`/api/medias/${id}`);
+        fetchMedia(); // Recharger la liste après suppression
       } catch (error) {
         console.error('Erreur lors de la suppression:', error);
       }
@@ -54,8 +62,10 @@ export default function Index({ medias, categories = [] }) {
 
   const handleShare = (media) => {
     navigator.clipboard.writeText(media.url);
-    // Afficher une notification de succès
+    alert('URL copiée dans le presse-papier');
   };
+
+  const isExternalUrl = (url) => url.startsWith('http://') || url.startsWith('https://');
 
   return (
     <AuthenticatedLayout>
@@ -106,8 +116,10 @@ export default function Index({ medias, categories = [] }) {
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
             >
               <option value="all">Toutes les catégories</option>
-              {categories.map(category => (
-                <option key={category} value={category}>{category}</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
               ))}
             </select>
 
@@ -129,7 +141,11 @@ export default function Index({ medias, categories = [] }) {
         </div>
 
         {/* Liste des médias */}
-        {view === 'grid' ? (
+        {loading ? (
+          <div className="text-center py-20">
+            <p>Chargement des médias...</p>
+          </div>
+        ) : view === 'grid' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {paginatedMedia.map((media) => (
               <div key={media.id} className="bg-white rounded-xl shadow-sm overflow-hidden group">
@@ -142,10 +158,12 @@ export default function Index({ medias, categories = [] }) {
                       onClick={() => setSelectedMedia(media)}
                     />
                   ) : (
-                    <video
-                      src={isExternalUrl(media.url) ? media.url : `/storage/${media.url}`}
+                    <iframe
                       className="w-full h-full object-cover"
-                      onClick={() => setSelectedMedia(media)}
+                      src={isExternalUrl(media.embed_url) ? media.embed_url : `/storage/${media.embed_url}`}
+                      title={media.title}
+                      frameBorder="0"
+                      allowFullScreen
                     />
                   )}
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -186,28 +204,28 @@ export default function Index({ medias, categories = [] }) {
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Média
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Type
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Catégorie
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+          <table className="min-w-full bg-white rounded-xl shadow-sm overflow-hidden">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Média
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Type
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Catégorie
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Date
+                </th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+
+            <tbody className="bg-white divide-y divide-gray-200">
                 {paginatedMedia.map((media) => (
                   <tr key={media.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -215,15 +233,27 @@ export default function Index({ medias, categories = [] }) {
                         <div className="h-10 w-10 flex-shrink-0">
                           {media.type === 'image' ? (
                             <img
-                              src={media.url}
+                              src={isExternalUrl(media.url) ? media.url : `/storage/${media.url}`}
                               alt={media.title}
                               className="h-10 w-10 rounded-lg object-cover"
                             />
                           ) : (
-                            <video
-                              src={media.url}
-                              className="h-10 w-10 rounded-lg object-cover"
-                            />
+                            
+                            <iframe 
+                              className="h-10 w-10 rounded-lg object-cover" 
+                              src={isExternalUrl(media.embed_url) ? media.embed_url : `/storage/${media.embed_url}`}
+                              title="YouTube video player" 
+                              frameborder="0" 
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                              referrerpolicy="strict-origin-when-cross-origin" 
+                              allowfullscreen
+                              onClick={() => setSelectedMedia(media)}
+                            >
+                          </iframe>
+                            // <video
+                            //   src={media.url}
+                            //   className="h-10 w-10 rounded-lg object-cover"
+                            // />
                           )}
                         </div>
                         <div className="ml-4">
@@ -233,7 +263,12 @@ export default function Index({ medias, categories = [] }) {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                        {media.type}
+                        {media.type === "video" ? (
+                          <VideoIcon className='text-red-500'/>
+                        ):(
+                          
+                          <ImageIcon className='text-blue-500'/>
+                        )}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -268,77 +303,37 @@ export default function Index({ medias, categories = [] }) {
                   </tr>
                 ))}
               </tbody>
-            </table>
-          </div>
+          </table>
         )}
 
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex justify-center mt-8">
-            <nav className="flex items-center gap-2">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="p-2 rounded-lg border hover:bg-gray-50 disabled:opacity-50"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
-                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                disabled={currentPage === 1}
-                className="p-2 rounded-lg border hover:bg-gray-50 disabled:opacity-50"
+                key={page}
+                onClick={() => setCurrentPage(page)}
+                className={`px-4 py-2 rounded-lg ${
+                  currentPage === page ? 'bg-primary text-white' : 'hover:bg-gray-50'
+                }`}
               >
-                <ChevronLeft className="w-5 h-5" />
+                {page}
               </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`px-4 py-2 rounded-lg ${
-                    currentPage === page
-                      ? 'bg-primary text-white'
-                      : 'hover:bg-gray-50'
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
-              <button
-                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                disabled={currentPage === totalPages}
-                className="p-2 rounded-lg border hover:bg-gray-50 disabled:opacity-50"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </nav>
-          </div>
-        )}
-
-        {/* Modal de prévisualisation */}
-        {selectedMedia && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="max-w-4xl w-full mx-4 bg-white rounded-xl overflow-hidden">
-              <div className="p-4 flex justify-between items-center border-b">
-                <h3 className="text-lg font-semibold">{selectedMedia.title}</h3>
-                <button
-                  onClick={() => setSelectedMedia(null)}
-                  className="p-1 hover:bg-gray-100 rounded-full"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-              <div className="relative aspect-video">
-                {selectedMedia.type === 'image' ? (
-                  <img
-                    src={selectedMedia.url}
-                    alt={selectedMedia.title}
-                    className="w-full h-full object-contain"
-                  />
-                ) : (
-                  <video
-                    src={selectedMedia.url}
-                    controls
-                    className="w-full h-full"
-                  />
-                )}
-              </div>
-              <div className="p-4 bg-gray-50">
-                <p className="text-sm text-gray-600">{selectedMedia.description}</p>
-              </div>
-            </div>
+            ))}
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="p-2 rounded-lg border hover:bg-gray-50 disabled:opacity-50"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
           </div>
         )}
       </div>

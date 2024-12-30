@@ -13,8 +13,17 @@ class MediaController extends Controller
     public function index()
     {
         // $medias = Media::latest()->paginate(10);
-        $medias = Media::latest()->get();
-        return Inertia::render('Admin/Medias/Index', ['medias' => $medias]);
+        // $medias = Media::latest()->get();
+        $categories = [
+            "Événements officiels",
+            "Réunions",
+            "Conférences",
+            "Formations",
+            "Interviews",
+            "Reportages",
+            "Autres",
+        ];
+        return Inertia::render('Admin/Medias/Index', ['categories' =>$categories]);
     }
 
     public function create()
@@ -49,6 +58,7 @@ class MediaController extends Controller
 
     public function edit(Media $media)
     {
+        // dd($media);
         return Inertia::render('Admin/Medias/Create', ['media' => $media]);
     }
 
@@ -66,6 +76,7 @@ class MediaController extends Controller
             'duration' => 'nullable|integer',
             'published_at' => 'nullable|date',
         ]);
+        // dd($validatedData);
 
         try {
             // Gestion du fichier téléchargé
@@ -79,7 +90,7 @@ class MediaController extends Controller
                 $validatedData['url'] = $request->file('file')->store('uploads/media', 'public');
             }
 
-            if($validatedData['url'] == null || $validatedData['url'] = '')
+            if($validatedData['url'] == null || $validatedData['url'] == '')
             {
                 unset($validatedData['url']);
             }

@@ -1,34 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { useForm } from "@inertiajs/react";
 import InputError from '@/Components/InputError';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Upload, Link, Image, Video, FileText, Clock, Calendar, X } from 'lucide-react';
 
 export default function MediaForm({ media = null }) {
-    
-    const isExternalUrl = (url) => {
-        return url.startsWith('http://') || url.startsWith('https://') || url.startsWith('wwww');
-    };
-    const [isFileUpload, setIsFileUpload] = useState(isExternalUrl(media.url) ? false : true);
-    const [previewUrl, setPreviewUrl] = useState(isExternalUrl(media.url) ? media.url : `/storage/${media.url}` || null);
+    const isExternalUrl = useCallback((url) => {
+        return url.startsWith('http://') || url.startsWith('https://') || url.startsWith('www');
+    }, []);
+
+    const [isFileUpload, setIsFileUpload] = useState(() => !isExternalUrl(media?.url || ""));
+    const [previewUrl, setPreviewUrl] = useState(() =>
+        isExternalUrl(media?.url || "") ? media?.url : `/storage/${media?.url}` || null
+    );
     const [isNewCategory, setIsNewCategory] = useState(false);
-    
+
     const { data, setData, post, put, processing, errors } = useForm({
         type: media?.type || "image",
         title: media?.title || "",
-        url: isExternalUrl(media.url) ? media.url : '' || "",
+        url: media?.url || "",
         file: null,
         description: media?.description || "",
         category: media?.category || "",
         embed_url: media?.embed_url || "",
         duration: media?.duration || "",
         published_at: media?.published_at
-        ? new Date(media.published_at.split('-').reverse().join('-'))
-        : '',
-    
+            ? new Date(media.published_at)
+            .toISOString()
+            .split('T')[0]
+            : '',
+
     });
 
-    const categories = [
+    const categories = useMemo(() => [
         "Événements officiels",
         "Réunions",
         "Conférences",
@@ -36,49 +40,42 @@ export default function MediaForm({ media = null }) {
         "Interviews",
         "Reportages",
         "Autres"
-    ];
+    ], []);
 
-    
-
-
-    const handleFileChange = (e) => {
+    const handleFileChange = useCallback((e) => {
         const file = e.target.files[0];
         if (file) {
             setData("file", file);
             setPreviewUrl(URL.createObjectURL(file));
         }
-    };
+    }, [setData]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = useCallback((e) => {
         e.preventDefault();
         const formData = new FormData();
         Object.keys(data).forEach(key => {
             if (data[key] !== null) formData.append(key, data[key]);
         });
 
-        const form_route = media ? 
-            route("admin.medias.update", media.id) : 
-            route("admin.medias.store");
+        const formRoute = media
+            ? route("admin.medias.update", media.id)
+            : route("admin.medias.store");
 
-        if (media) {
-            put(form_route, formData);
-        } else {
-            post(form_route, formData);
-        }
-    };
+        media ? put(formRoute, formData) : post(formRoute, formData);
+    }, [data, media, post, put]);
 
     return (
         <AuthenticatedLayout>
             <div className="max-w-4xl mx-auto py-8 px-4">
                 <div className="bg-white rounded-xl shadow-lg p-8">
-                    <div className="border-b pb-6 mb-6">
+                    <header className="border-b pb-6 mb-6">
                         <h1 className="text-3xl font-bold text-gray-900">
                             {media ? "Modifier" : "Ajouter"} un Média
                         </h1>
                         <p className="mt-2 text-gray-600">
                             Remplissez les informations ci-dessous pour {media ? "modifier" : "ajouter"} un média dans la médiathèque.
                         </p>
-                    </div>
+                    </header>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Type de média */}
@@ -93,9 +90,10 @@ export default function MediaForm({ media = null }) {
                                             key={type}
                                             type="button"
                                             onClick={() => setData("type", type)}
+                                            aria-label={`Type: ${type}`}
                                             className={`flex items-center px-4 py-2 rounded-lg border ${
-                                                data.type === type 
-                                                    ? 'bg-primary text-white border-primary' 
+                                                data.type === type
+                                                    ? 'bg-primary text-white border-primary'
                                                     : 'border-gray-300 hover:bg-gray-50'
                                             }`}
                                         >
@@ -120,9 +118,10 @@ export default function MediaForm({ media = null }) {
                                             key={method.label}
                                             type="button"
                                             onClick={() => setIsFileUpload(method.value)}
+                                            aria-label={`Méthode: ${method.label}`}
                                             className={`flex items-center px-4 py-2 rounded-lg border ${
-                                                isFileUpload === method.value 
-                                                    ? 'bg-primary text-white border-primary' 
+                                                isFileUpload === method.value
+                                                    ? 'bg-primary text-white border-primary'
                                                     : 'border-gray-300 hover:bg-gray-50'
                                             }`}
                                         >
@@ -134,7 +133,6 @@ export default function MediaForm({ media = null }) {
                             </div>
                         </div>
 
-                        
                         {/* Titre et Catégorie */}
                         <div className="grid grid-cols-2 gap-6">
                             <div>
@@ -156,28 +154,17 @@ export default function MediaForm({ media = null }) {
                                     Catégorie
                                 </label>
                                 {!isNewCategory ? (
-                                    <div>
-                                        <select
-                                            value={data.category}
-                                            onChange={(e) => setData("category", e.target.value)}
-                                            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary"
-                                        >
-                                            <option value="">Sélectionnez une catégorie</option>
-                                            {categories.map(cat => (
-                                                <option key={cat} value={cat}>{cat}</option>
-                                            ))}
-                                            <option className="bg-yellow-400 hover:bg-yellow-500 focus:bg-yellow-500" value="new">Nouvelle Categorie...</option>
-                                        </select>
-                                        {data.category === "new" && (
-                                            <button
-                                                type="button"
-                                                onClick={() => setIsNewCategory(true)}
-                                                className="text-blue-500 mt-2"
-                                            >
-                                                Ajouter une nouvelle catégorie
-                                            </button>
-                                        )}
-                                    </div>
+                                    <select
+                                        value={data.category}
+                                        onChange={(e) => setData("category", e.target.value)}
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary"
+                                    >
+                                        <option value="">Sélectionnez une catégorie</option>
+                                        {categories.map(cat => (
+                                            <option key={cat} value={cat}>{cat}</option>
+                                        ))}
+                                        <option value="new">Nouvelle catégorie...</option>
+                                    </select>
                                 ) : (
                                     <input
                                         type="text"
@@ -194,27 +181,23 @@ export default function MediaForm({ media = null }) {
                         {/* Zone de téléchargement/URL */}
                         <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
                             {isFileUpload ? (
-                                <div className="space-y-4">
-                                    <div className="flex items-center justify-center">
-                                        <input
-                                            type="file"
-                                            onChange={handleFileChange}
-                                            className="hidden"
-                                            id="file-upload"
-                                            accept={data.type === 'image' ? 'image/*' : 'video/*'}
-                                        />
-                                        <label
-                                            htmlFor="file-upload"
-                                            className="cursor-pointer flex flex-col items-center space-y-2"
-                                        >
-                                            <Upload className="w-12 h-12 text-gray-400" />
-                                            <span className="text-sm text-gray-600">
-                                                Cliquez pour sélectionner un fichier ou glissez-le ici
-                                            </span>
-                                        </label>
-                                    </div>
+                                <div>
+                                    <input
+                                        type="file"
+                                        id="file-upload"
+                                        className="hidden"
+                                        accept={data.type === 'image' ? 'image/*' : 'video/*'}
+                                        onChange={handleFileChange}
+                                    />
+                                    <label
+                                        htmlFor="file-upload"
+                                        className="flex items-center justify-center space-y-2 cursor-pointer"
+                                    >
+                                        <Upload className="w-12 h-12 text-gray-400" />
+                                        <span className="text-sm text-gray-600">Cliquez pour sélectionner un fichier ou glissez-le ici</span>
+                                    </label>
                                     {previewUrl && (
-                                        <div className="relative w-full h-48">
+                                        <div className="relative w-full h-48 mt-4">
                                             {data.type === 'image' ? (
                                                 <img
                                                     src={previewUrl}
@@ -224,8 +207,8 @@ export default function MediaForm({ media = null }) {
                                             ) : (
                                                 <video
                                                     src={previewUrl}
-                                                    className="w-full h-full object-cover rounded-lg"
                                                     controls
+                                                    className="w-full h-full object-cover rounded-lg"
                                                 />
                                             )}
                                             <button
@@ -234,7 +217,7 @@ export default function MediaForm({ media = null }) {
                                                     setPreviewUrl(null);
                                                     setData("file", null);
                                                 }}
-                                                className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
+                                                className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
                                             >
                                                 <X className="w-4 h-4" />
                                             </button>
@@ -242,19 +225,15 @@ export default function MediaForm({ media = null }) {
                                     )}
                                 </div>
                             ) : (
-                                <div className="space-y-4">
-                                    <input
-                                        type="url"
-                                        value={isExternalUrl(media.url) ? media.url : null}
-                                        onChange={(e) => setData("url", e.target.value)}
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary"
-                                        placeholder={`Entrez l'URL du ${data.type}`}
-                                    />
-                                    <InputError message={errors.url} />
-                                </div>
+                                <input
+                                    type="url"
+                                    value={data.url}
+                                    onChange={(e) => setData("url", e.target.value)}
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary"
+                                    placeholder={`Entrez l'URL du ${data.type}`}
+                                />
                             )}
                         </div>
-
                         
                         {/* Date de publication */}
                         <div>
@@ -267,12 +246,10 @@ export default function MediaForm({ media = null }) {
                                 </div>
                                 <input
                                     type="date"
+                                    id="published_at"
+                                    name="published_at"
                                     value={
-                                        media?.published_at
-                                            ? new Date(media.published_at)
-                                                .toISOString()
-                                                .split('T')[0] // Convertit en format YYYY-MM-DD
-                                            : ''
+                                        data?.published_at ?? ''
                                     }
                                     onChange={(e) => setData('published_at', e.target.value)}
                                     className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary"
@@ -280,7 +257,6 @@ export default function MediaForm({ media = null }) {
                             </div>
                             <InputError message={errors.published_at} className="mt-2" />
                         </div>
-
 
                         {/* Description */}
                         <div>
@@ -344,6 +320,7 @@ export default function MediaForm({ media = null }) {
                                 {processing ? "En cours..." : media ? "Mettre à jour" : "Créer"}
                             </button>
                         </div>
+
                     </form>
                 </div>
             </div>

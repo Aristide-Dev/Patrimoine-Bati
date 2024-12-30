@@ -8,6 +8,7 @@ class Media extends Model
 {
     protected $fillable = ['type', 'title', 'url', 'description', 'category', 'embed_url', 'duration', 'published_at'];
 
+    
     public function mediable()
     {
         return $this->morphTo();
