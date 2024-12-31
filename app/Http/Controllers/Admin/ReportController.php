@@ -32,7 +32,7 @@ class ReportController extends Controller
             'published_at' => 'nullable|date',
         ]);
 
-        $filePath = $request->file('file')->store('reports');
+        $filePath = $request->file('file')->store('reports', 'public');
 
         Report::create([
             'title' => $request->title,
@@ -65,7 +65,7 @@ class ReportController extends Controller
 
         if ($request->hasFile('file')) {
             Storage::delete($report->file_path);
-            $report->file_path = $request->file('file')->store('reports');
+            $report->file_path = $request->file('file')->store('reports', 'public');
         }
 
         $report->update([

@@ -236,12 +236,14 @@ export default function DocumentList({ documents }) {
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button
+                    <a
+                      href={'/storage/'+doc.file_path}
+                      download
                       title="Télécharger"
                       className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-full"
                     >
                       <Download className="w-5 h-5" />
-                    </button>
+                    </a>
                     <a href={route('admin.reports.edit', {id: doc.id})}
                       title="Modifier"
                       className="p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 rounded-full"
