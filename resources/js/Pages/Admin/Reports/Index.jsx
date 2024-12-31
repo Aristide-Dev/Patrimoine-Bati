@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { FileIcon, defaultStyles  } from "react-file-icon";
 import { 
   FileText, Search, Filter, Download, Trash2, Edit,
   Eye, Plus, Calendar, User, Tag, ChevronDown, X,
@@ -22,14 +23,54 @@ export default function DocumentList({ documents }) {
     { id: 'others', label: 'Autres' }
   ];
 
-  const getFileIcon = (fileType) => {
-    switch (fileType) {
-      case 'pdf': return <FileText className="w-6 h-6 text-red-500" />;
-      case 'image': return <FileImage className="w-6 h-6 text-blue-500" />;
-      case 'archive': return <FileArchive className="w-6 h-6 text-yellow-500" />;
-      default: return <FileText className="w-6 h-6 text-gray-500" />;
+  // const getFileIcon = (fileType) => {
+  //   switch (fileType) {
+  //     case 'pdf': return <FileText className="w-6 h-6 text-red-500" />;
+  //     case 'image': return <FileImage className="w-6 h-6 text-blue-500" />;
+  //     case 'archive': return <FileArchive className="w-6 h-6 text-yellow-500" />;
+  //     default: return <FileText className="w-6 h-6 text-gray-500" />;
+  //   }
+  // };
+
+  const getExtention = (fileName) =>{
+    return fileName.split('.').pop().toLowerCase();
+  }
+  
+
+  const getFileIcon = (fileName) => {
+    const extension = fileName.split('.').pop().toLowerCase();
+  
+    switch (extension) {
+      case 'pdf':
+        return <FileText className="w-6 h-6 text-red-500" />;
+      case 'jpg':
+      case 'jpeg':
+      case 'png':
+      case 'gif':
+        return <FileImage className="w-6 h-6 text-blue-500" />;
+      case 'zip':
+      case 'rar':
+      case '7z':
+        return <FileArchive className="w-6 h-6 text-yellow-500" />;
+      case 'docx':
+      case 'doc':
+        return <FileText className="w-6 h-6 text-blue-700" />;
+      case 'xlsx':
+      case 'xls':
+        return <FileText className="w-6 h-6 text-green-600" />;
+      case 'pptx':
+      case 'ppt':
+        return <FileText className="w-6 h-6 text-orange-500" />;
+      case 'txt':
+        return <FileText className="w-6 h-6 text-gray-500" />;
+      case 'mp3':
+      case 'wav':
+        return <FileText className="w-6 h-6 text-purple-500" />;
+      default:
+        return <FileText className="w-6 h-6 text-gray-400" />;
     }
   };
+  
 
   const filteredDocuments = documents
     .filter(doc => {
@@ -164,7 +205,9 @@ export default function DocumentList({ documents }) {
               <div key={doc.id} className="p-4 hover:bg-gray-50 transition-colors">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
-                    {getFileIcon(doc.file_type)}
+                    <div className="w-10 h-full">
+                    <FileIcon extension={getExtention(doc.file_path)} {...defaultStyles[getExtention(doc.file_path)]}  className="" />
+                    </div>
                     <div>
                       <h3 className="text-lg font-medium text-gray-900">
                         {doc.title}
@@ -179,9 +222,9 @@ export default function DocumentList({ documents }) {
                           <Calendar className="w-4 h-4 mr-1" />
                           {new Date(doc.created_at).toLocaleDateString()}
                         </span>
-                        <span className="flex items-center">
-                          <User className="w-4 h-4 mr-1" />
-                          {doc.author}
+                        <span className="flex items-center font-bold uppercase">
+                          {/* <User className="w-4 h-4 mr-1" /> */}
+                          {getExtention(doc.file_path)}
                         </span>
                         {doc.category && (
                           <span className="flex items-center">
