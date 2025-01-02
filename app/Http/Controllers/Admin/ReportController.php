@@ -34,25 +34,31 @@ class ReportController extends Controller
             'tags' => 'nullable|array',
             'published_at' => 'nullable|date',
         ]);
-            $filePath = null;
+    
+        $filePath = null;
+    
         if ($request->hasFile('file')) {
-            $filePath = uniqid()."_".$request->file->getClientOriginalName();
-            $request->file->storeAs('reports', $filePath);
+            try {
+                $originalFileName = $request->file->getClientOriginalName();
+                $sanitizedFileName = str_replace(' ', '_', preg_replace('/[^a-zA-Z0-9\._-]/', '', $originalFileName));
+                $filePath = $request->file('file')->storeAs('reports/' . date('Y/m'), uniqid() . "_" . $sanitizedFileName);
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'Erreur lors du téléchargement du fichier.');
+            }
         }
-
-        // $filePath = $request->file('file')->store('reports');
-
+    
         Report::create([
             'title' => $request->title,
             'description' => $request->description,
             'category' => $request->category,
-            'tags' => $request->tags,
+            'tags' => $request->tags ? json_encode($request->tags) : null,
             'file_path' => $filePath,
             'published_at' => $request->published_at,
         ]);
-
+    
         return redirect()->route('admin.reports.index')->with('success', 'Rapport créé avec succès.');
     }
+    
 
     public function edit(Report $report)
     {
