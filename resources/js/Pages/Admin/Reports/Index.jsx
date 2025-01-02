@@ -8,20 +8,20 @@ import {
   SortAsc, SortDesc, FileArchive, FileImage
 } from 'lucide-react';
 
-export default function DocumentList({ documents }) {
+export default function DocumentList({ documents, categories }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
   const [showFilters, setShowFilters] = useState(false);
 
-  const categories = [
-    { id: 'all', label: 'Tous les documents' },
-    { id: 'reports', label: 'Rapports' },
-    { id: 'presentations', label: 'Présentations' },
-    { id: 'forms', label: 'Formulaires' },
-    { id: 'others', label: 'Autres' }
-  ];
+  // const categories = [
+  //   { id: 'all', label: 'Tous les documents' },
+  //   { id: 'reports', label: 'Rapports' },
+  //   { id: 'presentations', label: 'Présentations' },
+  //   { id: 'forms', label: 'Formulaires' },
+  //   { id: 'others', label: 'Autres' }
+  // ];
 
   // const getFileIcon = (fileType) => {
   //   switch (fileType) {
@@ -206,7 +206,7 @@ export default function DocumentList({ documents }) {
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
                     <div className="w-10 h-full">
-                    <FileIcon extension={getExtention(doc.file_path)} {...defaultStyles[getExtention(doc.file_path)]}  className="" />
+                    <FileIcon id={doc.id} extension={getExtention(doc.file_path)} {...defaultStyles[getExtention(doc.file_path)]}  className="" />
                     </div>
                     <div>
                       <h3 className="text-lg font-medium text-gray-900">

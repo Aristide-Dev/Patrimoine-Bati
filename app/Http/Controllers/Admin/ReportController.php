@@ -6,33 +6,41 @@ use Inertia\Inertia;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Container\Attributes\Storage;
+use Illuminate\Support\Facades\Storage;
+// use Illuminate\Container\Attributes\Storage;
 
 class ReportController extends Controller
 {
     public function index()
     {
         $reports = Report::latest()->get();
-        return Inertia::render('Admin/Reports/Index', ['documents' => $reports]);
+        $categories = Report::CATEGORIES_LIST;
+        return Inertia::render('Admin/Reports/Index', ['documents' => $reports, 'categories' => $categories]);
     }
 
     public function create()
     {
-        return Inertia::render('Admin/Reports/Create');
+        $categories = Report::CATEGORIES_LIST;
+        return Inertia::render('Admin/Reports/Create', ['categories' => $categories]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'file' => 'required|file|mimes:pdf|max:20480', // PDF, max 20MB
+            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:20480',
             'description' => 'nullable|string',
             'category' => 'nullable|string',
             'tags' => 'nullable|array',
             'published_at' => 'nullable|date',
         ]);
+            $filePath = null;
+        if ($request->hasFile('file')) {
+            $filePath = uniqid()."_".$request->file->getClientOriginalName();
+            $request->file->storeAs('reports', $filePath);
+        }
 
-        $filePath = $request->file('file')->store('reports');
+        // $filePath = $request->file('file')->store('reports');
 
         Report::create([
             'title' => $request->title,
@@ -48,14 +56,15 @@ class ReportController extends Controller
 
     public function edit(Report $report)
     {
-        return Inertia::render('Admin/Reports/Create', ['report' => $report]);
+        $categories = Report::CATEGORIES_LIST;
+        return Inertia::render('Admin/Reports/Create', ['report' => $report, 'categories' => $categories]);
     }
 
     public function update(Request $request, Report $report)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'file' => 'nullable|file|mimes:pdf|max:20480', // PDF, max 20MB
+            'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:20480',
             'description' => 'nullable|string',
             'category' => 'nullable|string',
             // 'tags' => 'nullable|array',
@@ -63,10 +72,18 @@ class ReportController extends Controller
         ]);
         // dd($request);
 
+        
+        $filePath = null;
         if ($request->hasFile('file')) {
-            Storage::delete($report->file_path);
-            $report->file_path = $request->file('file')->store('reports');
+            Storage::delete('reports/'.$report->file_path);
+            $filePath = uniqid()."_".$request->file->getClientOriginalName();
+            $report->file_path = $request->file->storeAs('reports', $filePath);
         }
+
+        // if ($request->hasFile('file')) {
+        //     Storage::delete($report->file_path);
+        //     $report->file_path = $request->file('file')->store('reports');
+        // }
 
         $report->update([
             'title' => $request->title,
