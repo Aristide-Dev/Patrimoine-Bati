@@ -205,15 +205,15 @@ export default function DocumentList({ documents, categories }) {
               <div key={doc.id} className="p-4 hover:bg-gray-50 transition-colors">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
-                    <div className="w-10 h-full">
-                    <FileIcon id={doc.id} extension={getExtention(doc.file_path)} {...defaultStyles[getExtention(doc.file_path)]}  className="" />
+                    <div className={`${doc.description ? 'w-10' : 'w-10'} "h-w-1/5"`}>
+                    <FileIcon id={doc.id*30} extension={getExtention(doc.file_path)} {...defaultStyles[getExtention(doc.file_path)]}  className="" />
                     </div>
-                    <div>
+                    <div className='w-4/5'>
                       <h3 className="text-lg font-medium text-gray-900">
                         {doc.title}
                       </h3>
                       {doc.description && (
-                        <p className="mt-1 text-sm text-gray-500 line-clamp-2">
+                        <p className="mt-1 text-sm text-gray-500 line-clamp-1">
                           {doc.description}
                         </p>
                       )}

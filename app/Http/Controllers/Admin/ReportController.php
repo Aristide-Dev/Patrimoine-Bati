@@ -28,7 +28,7 @@ class ReportController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:20480',
+            'file' => 'required|file|max:20480',
             'description' => 'nullable|string',
             'category' => 'nullable|string',
             'tags' => 'nullable|array',
@@ -68,40 +68,46 @@ class ReportController extends Controller
 
     public function update(Request $request, Report $report)
     {
+        // Validation
         $request->validate([
             'title' => 'required|string|max:255',
-            'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx|max:20480',
+            'file' => 'nullable|file|max:20480',
             'description' => 'nullable|string',
             'category' => 'nullable|string',
-            // 'tags' => 'nullable|array',
             'published_at' => 'nullable|date',
         ]);
-        // dd($request);
-
-        
-        $filePath = null;
-        if ($request->hasFile('file')) {
-            Storage::delete('reports/'.$report->file_path);
-            $filePath = uniqid()."_".$request->file->getClientOriginalName();
-            $report->file_path = $request->file->storeAs('reports', $filePath);
+    
+        try {
+            // Handle file upload if a new file is provided
+            if ($request->hasFile('file')) {
+                // Delete the old file if it exists
+                if ($report->file_path && Storage::exists('reports/' . $report->file_path)) {
+                    Storage::delete('reports/' . $report->file_path);
+                }
+    
+                // Store the new file with a unique name
+                $filePath = uniqid() . "_" . $request->file('file')->getClientOriginalName();
+                $report->file_path = $request->file('file')->storeAs('reports', $filePath);
+            }
+    
+            // Update the report
+            $report->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'category' => $request->category,
+                'tags' => $request->tags ?? $report->tags, // Retain existing tags if not provided
+                'file_path' => $report->file_path,
+                'published_at' => $request->published_at,
+            ]);
+    
+            // Redirect back with a success message
+            return redirect()->route('admin.reports.index')->with('success', 'Rapport mis à jour avec succès.');
+        } catch (\Exception $e) {
+            // Handle any errors that occur during the process
+            return redirect()->back()->with('error', 'Une erreur est survenue lors de la mise à jour du rapport.')->withInput();
         }
-
-        // if ($request->hasFile('file')) {
-        //     Storage::delete($report->file_path);
-        //     $report->file_path = $request->file('file')->store('reports');
-        // }
-
-        $report->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'category' => $request->category,
-            'tags' => $request->tags ?? null,
-            'file_path' => $report->file_path,
-            'published_at' => $request->published_at,
-        ]);
-
-        return redirect()->route('admin.reports.index')->with('success', 'Rapport mis à jour avec succès.');
     }
+    
 
     public function destroy(Report $report)
     {
