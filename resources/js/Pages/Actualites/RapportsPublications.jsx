@@ -4,16 +4,18 @@ import AppLayout from "@/Layouts/AppLayout";
 import { FileText, ArrowRight, Calendar } from "lucide-react";
 import axios from "axios";
 
-export default function RapportsPublications() {
+export default function RapportsPublications({categories}) {
   const [reports, setReports] = useState([]);
-  const [categories, setCategories] = useState([
-    { name: "Tous", value: "Tous" },
-    { name: "Rapports Annuels", value: "Rapports Annuels" },
-    { name: "Réformes", value: "Réformes" },
-    { name: "Études", value: "Études" },
-  ]);
+  // const [categories, setCategories] = useState([
+  //   { name: "Tous", value: "Tous" },
+  //   { name: "Rapports Annuels", value: "Rapports Annuels" },
+  //   { name: "Réformes", value: "Réformes" },
+  //   { name: "Études", value: "Études" },
+  // ]);
   const [filters, setFilters] = useState({ category: "Tous", search: "" });
   const [loading, setLoading] = useState(false);
+
+  console.log('categories', categories);
 
   React.useEffect(() => {
     fetchReports();
@@ -66,15 +68,23 @@ export default function RapportsPublications() {
         <div className="container mx-auto px-4">
           {/* Catégories */}
           <div className="flex justify-center items-center space-x-4 mb-12">
+              <button
+                    onClick={() => setFilters((prev) => ({ ...prev, category: 'Tous' }))}
+                    className={`px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 rounded-lg transition ${
+                      filters.category === 'Tous' ? "bg-primary text-white" : ""
+                    }`}
+                  >
+                Tous
+              </button>
             {categories.map((category, index) => (
               <button
                 key={index}
-                onClick={() => setFilters((prev) => ({ ...prev, category: category.value }))}
+                onClick={() => setFilters((prev) => ({ ...prev, category: category.id }))}
                 className={`px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-200 rounded-lg transition ${
-                  filters.category === category.value ? "bg-primary text-white" : ""
+                  filters.category === category.id ? "bg-primary text-white" : ""
                 }`}
               >
-                {category.name}
+                {category.label}
               </button>
             ))}
           </div>
@@ -101,16 +111,16 @@ const ReportCard = ({ report }) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="bg-primary-100 rounded-lg shadow-xl overflow-hidden flex flex-col">
+    <div className="bg-white border group hover:bg-primary transition-colors rounded-lg shadow-2xl overflow-hidden flex flex-col">
       <div className="p-6">
-        <span className="inline-block px-3 py-1 bg-primary-500 text-white rounded-full text-xs font-medium mb-4">
+        <span className="inline-block px-3 py-1 bg-primary-500 group-hover:bg-white text-white group-hover:text-primary rounded-full text-xs font-medium mb-4">
           {report.category}
         </span>
-        <h3 className="text-xl font-semibold text-gray-800 mb-3">
+        <h3 className="text-xl font-semibold text-gray-800 group-hover:text-gray-100 mb-3">
           {report.title}
         </h3>
         {report.description && (
-        <p className="text-gray-600 text-sm mb-4">
+        <p className="text-gray-600 group-hover:text-gray-300 text-sm mb-4">
           {expanded
             ? report.description
             : truncate(report.description, 100)}
@@ -119,21 +129,21 @@ const ReportCard = ({ report }) => {
         {report.description && report.description.length > 100 && (
           <button
             onClick={() => setExpanded(!expanded)}
-            className="text-primary-500 hover:text-primary-700 text-sm font-medium"
+            className="text-primary-500 group-hover:text-yellow-400 group-hover:hover:text-yellow-600 text-sm font-medium"
           >
             {expanded ? "Lire moins" : "Lire la suite"}
           </button>
         )}
-        <div className="flex items-center text-gray-500 text-sm mb-4">
+        <div className="flex items-center text-gray-500 group-hover:text-primary-900 text-sm mb-4">
           <Calendar className="mr-2" size={16} />
           {new Date(report.published_at).toLocaleDateString()}
         </div>
         <a
           href={`/api/reports/${report.id}/download`}
-          className="text-primary-500 hover:text-primary-700 font-medium flex items-center mt-auto"
+          className="text-white bg-primary group-hover:bg-primary-900 px-5 py-2 rounded-xl font-medium flex items-center mt-auto"
           download
         >
-          Télécharger <ArrowRight className="ml-2" size={20} />
+          Télécharger <ArrowRight className="ml-2" size={30} />
         </a>
       </div>
     </div>

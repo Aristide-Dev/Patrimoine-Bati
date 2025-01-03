@@ -21,7 +21,7 @@ class ArticleController extends Controller
                 $query->where('category', $category);
             })
             ->orderBy($request->get('sort', 'created_at'), $request->get('direction', 'desc'))
-            ->paginate($request->get('per_page', 10));
+            ->paginate($request->get('per_page', 1));
             
             // Décoder les tags en tableau pour chaque article
             $articles->getCollection()->transform(function ($article) {

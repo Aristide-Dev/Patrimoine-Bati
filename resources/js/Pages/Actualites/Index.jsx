@@ -188,7 +188,7 @@ export default function ActualitesPage() {
                             <Share2 className="w-5 h-5" />
                           </button>
                           <a
-                            href={`/articles/${article.id}`}
+                            href={route('actualites.show', article.id)}
                             className="flex items-center text-primary hover:text-primary-dark"
                           >
                             Lire

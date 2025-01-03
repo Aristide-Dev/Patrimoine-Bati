@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {
@@ -26,13 +26,15 @@ export default function Edit({ news }) {
       // Si 'news.tags' est déjà un array, on l'utilise tel quel.
       // Sinon, on split la string s'il y a des virgules, ou on met []
       tags: news.tags || [],
-      featured: news.featured || false,
+      featured: news.featured ? news.featured === true ? 1 : news.featured === 1 ? 1 : 0 : 0,
       published_at: news.published_at || '',
     },
     imagePreview: news.image ? `/storage/${news.image}` : null,
-    errors: {},
     processing: false,
   });
+
+  
+  const { errors } = usePage().props
 
   /**
    * Met à jour un champ particulier dans formState.data
@@ -90,9 +92,12 @@ export default function Edit({ news }) {
       }
     });
 
+    console.log("formState.data",formState.data);
+
     // Envoi via Inertia
     router.post(route('admin.news.update', news.id), formData, {
       forceFormData: true,
+      _method: 'put',
       onStart: () =>
         setFormState((prev) => ({
           ...prev,
@@ -155,7 +160,7 @@ export default function Edit({ news }) {
                   className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary"
                   placeholder="Entrez le titre de l'actualité"
                 />
-                <InputError message={formState.errors.title} className="mt-2" />
+                <InputError message={errors.title} className="mt-2" />
               </div>
 
               {/* Résumé */}
@@ -176,7 +181,7 @@ export default function Edit({ news }) {
                   placeholder="Bref résumé de l'actualité"
                 ></textarea>
                 <InputError
-                  message={formState.errors.excerpt}
+                  message={errors.excerpt}
                   className="mt-2"
                 />
               </div>
@@ -199,7 +204,7 @@ export default function Edit({ news }) {
                   placeholder="Contenu détaillé de l'actualité"
                 ></textarea>
                 <InputError
-                  message={formState.errors.content}
+                  message={errors.content}
                   className="mt-2"
                 />
               </div>
@@ -232,9 +237,9 @@ export default function Edit({ news }) {
                             imagePreview: null,
                           }))
                         }
-                        className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-lg hover:bg-gray-100"
+                        className="absolute top-2 right-2 p-2 bg-red-300 rounded-full shadow-lg hover:bg-red-500 text-white"
                       >
-                        <X className="w-4 h-4 text-gray-600" />
+                        <X className="w-4 h-4 text-white" />
                       </button>
                     </div>
                   ) : (
@@ -256,7 +261,7 @@ export default function Edit({ news }) {
                     </div>
                   )}
                 </div>
-                <InputError message={formState.errors.image} className="mt-2" />
+                <InputError message={errors.image} className="mt-2" />
               </div>
 
               {/* Catégorie et Tags */}
@@ -280,7 +285,7 @@ export default function Edit({ news }) {
                       placeholder="Catégorie"
                     />
                     <InputError
-                      message={formState.errors.category}
+                      message={errors.category}
                       className="mt-2"
                     />
                   </div>
@@ -306,7 +311,7 @@ export default function Edit({ news }) {
                       placeholder="Séparez les tags par des virgules"
                     />
                     <InputError
-                      message={formState.errors.tags}
+                      message={errors.tags}
                       className="mt-2"
                     />
                   </div>
@@ -321,7 +326,7 @@ export default function Edit({ news }) {
                     id="featured"
                     name="featured"
                     checked={formState.data.featured}
-                    onChange={(e) => handleInputChange('featured', e.target.checked)}
+                    onChange={(e) => handleInputChange('featured', e.target.checked === true ? 1:0)}
                     className="w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
                   />
                   <label
@@ -332,7 +337,7 @@ export default function Edit({ news }) {
                   </label>
                 </div>
                     <InputError
-                      message={formState.errors.featured}
+                      message={errors.featured}
                       className="mt-2"
                     />
               </div>
@@ -354,7 +359,7 @@ export default function Edit({ news }) {
                   className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary"
                 />
                 <InputError
-                  message={formState.errors.published_at}
+                  message={errors.published_at}
                   className="mt-2"
                 />
               </div>

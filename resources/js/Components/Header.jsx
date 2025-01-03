@@ -9,7 +9,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className=" bg-gradient-to-r from-primary to-primary-800 shadow-md">
+    <header className="fixed w-full z-50 bg-gradient-to-r from-primary to-primary-800 shadow-md">
       <TopBar />
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">

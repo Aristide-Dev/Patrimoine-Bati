@@ -31,7 +31,7 @@ class NewsController extends Controller
             'category' => 'nullable|string|max:255',
             'tags' => 'nullable|array',
             'tags.*' => 'string|max:50',
-            'featured' => 'required|boolean',
+            'featured' => 'nullable|boolean',
             'published_at' => 'nullable|date',
         ]);
         // dd($request);
@@ -73,7 +73,7 @@ class NewsController extends Controller
             'category' => 'nullable|string|max:255',
             'tags' => 'nullable|array',
             // 'tags.*' => 'string|max:50',
-            'featured' => 'boolean',
+            'featured' => 'nullable|boolean',
             'published_at' => 'nullable|date',
         ]);
 
@@ -93,6 +93,8 @@ class NewsController extends Controller
         }else{
             unset($validated['image']);
         }
+
+        $validated['featured'] = $validated['featured'] ? true:false;
 
 
         $validated['tags'] = json_encode($validated['tags'] ?? []);

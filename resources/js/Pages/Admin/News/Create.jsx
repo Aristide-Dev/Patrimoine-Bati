@@ -4,7 +4,7 @@ import InputError from '@/Components/InputError';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { 
   FileImage, Tags, Calendar, Newspaper, 
-  AlignLeft, BookOpen, Save, ArrowLeft
+  AlignLeft, BookOpen, Save, ArrowLeft, X
 } from 'lucide-react';
 
 export default function Create() {
@@ -131,10 +131,11 @@ export default function Create() {
                           setImagePreview(null);
                           setData('image', null);
                         }}
-                        className="absolute top-2 right-2 p-1 bg-white rounded-full shadow-sm hover:bg-gray-100"
+                        className="absolute top-2 right-2 p-2 bg-red-300 rounded-full shadow-lg hover:bg-red-500 text-white"
                       >
                         <span className="sr-only">Supprimer</span>
-                        ×
+                        
+                        <X className="w-4 h-4 text-white" />
                       </button>
                     </div>
                   ) : (

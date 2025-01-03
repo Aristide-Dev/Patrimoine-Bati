@@ -14,6 +14,7 @@ export default function DocumentList({ documents, categories }) {
   const [sortBy, setSortBy] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
   const [showFilters, setShowFilters] = useState(false);
+  console.log('categories', categories);
 
   // const categories = [
   //   { id: 'all', label: 'Tous les documents' },
