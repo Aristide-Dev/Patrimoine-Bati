@@ -87,7 +87,7 @@ Route::prefix('partenariats')->group(function() {
 // Actualités et Ressources
 Route::prefix('actualites')->group(function() {
     Route::get('/', [ActualitesController::class, 'index'])->name('actualites.index');
-    Route::get('/{id}', [ActualitesController::class, 'show'])->name('actualites.show');
+    Route::get('/{slug}', [ActualitesController::class, 'show'])->name('actualites.show');
 
     Route::get('/communiques-ateliers-seminaires', [ActualitesController::class, 'communiques'])->name('actualites.communiques');
     Route::get('/rapports-publications', [ActualitesController::class, 'rapports'])->name('actualites.rapports');

@@ -189,7 +189,7 @@ export default function ArticleDetails({ article, similarArticles }) {
               {similarArticles.map((similar) => (
                 <a
                   key={similar.id}
-                  href={route('actualites.show', similar.id)}
+                  href={route('actualites.show', {slug:similar.slug})}
                   className="group bg-white border rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 >
                   <div className="relative h-48">

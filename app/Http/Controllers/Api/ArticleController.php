@@ -31,4 +31,19 @@ class ArticleController extends Controller
 
         return response()->json($articles);
     }
+    public function featured(Request $request)
+    {
+        // Appliquer des filtres et pagination
+        $articles = News::where('featured', true)
+            ->limit(3)
+            ->get();
+            
+            // Décoder les tags en tableau pour chaque article
+            // $articles->getCollection()->transform(function ($article) {
+            //     $article->tags = json_decode($article->tags, true) ?? [];
+            //     return $article;
+            // });
+
+        return response()->json($articles);
+    }
 }

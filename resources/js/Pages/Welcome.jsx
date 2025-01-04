@@ -4,7 +4,7 @@ import * as Icons from 'lucide-react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import {
   ArrowRight,
@@ -34,9 +34,9 @@ import {
   ChevronRight,
   ChevronLeft,
   Gavel,
-  Scale, 
-  Shield, 
-  CheckCircle 
+  Scale,
+  Shield,
+  CheckCircle
 }
   from 'lucide-react';
 
@@ -190,6 +190,8 @@ const slides = [
 export default function Welcome() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isHovered, setIsHovered] = useState({});
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const handleHover = useCallback((id, value) => {
     setIsHovered(prev => ({ ...prev, [id]: value }));
@@ -211,6 +213,23 @@ export default function Welcome() {
       <div className={`w-3 h-3 rounded-full transition-all duration-300 ${i === activeSlide ? 'bg-primary-600 scale-125' : 'bg-white/50'}`} />
     ),
   };
+
+  const fetchArticles = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(route('public.articles.featured'));
+      setArticles(response.data);
+      console.log("response.data",response.data);
+    } catch (error) {
+      console.error('Erreur lors du chargement des articles:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchArticles();
+  }, [fetchArticles]);
 
   return (
     <AppLayout>
@@ -493,39 +512,48 @@ export default function Welcome() {
 
       {/* Actualités */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold">Actualités</h2>
-            <a href="#" className="flex items-center text-primary hover:text-primary-800">
-              Toutes les actualités
-              <ArrowRight size={20} className="ml-2" />
-            </a>
+        {loading ? (
+          <div className="flex justify-center items-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
           </div>
+        ) : (
+          <>
+            {/* Articles Grid */}
+            <div className="container mx-auto px-4">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-3xl font-bold">Actualités</h2>
+                <a href={route('actualites.index')} className="flex items-center text-primary hover:text-primary-800">
+                  Toutes les actualités
+                  <ArrowRight size={20} className="ml-2" />
+                </a>
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {news.map((item) => (
-              <article key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <span className="text-sm text-gray-500">{item.date}</span>
-                  <h3 className="text-xl font-semibold mt-2 mb-3">{item.title}</h3>
-                  <p className="text-gray-600 mb-4">{item.excerpt}</p>
-                  <a
-                    href="#"
-                    // href={`/actualites/${item.id}`}
-                    className="text-primary hover:text-primary-800 font-medium"
-                  >
-                    Lire la suite
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {articles?.map((item) => (
+                  <article key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img
+                      src={"/storage/"+item.image}
+                      alt={item.title}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-6">
+                      <span className="text-sm text-gray-500">{new Date(item.published_at).toLocaleDateString()}</span>
+                      <h3 className="text-xl font-semibold mt-2 mb-3">{item.title}</h3>
+                      <p className="text-gray-600 mb-4">{item.excerpt}</p>
+                      <a
+                        href={route('actualites.show', {slug:item.slug})}
+                        // href={`/actualites/${item.id}`}
+                        className="text-primary hover:text-primary-800 font-medium"
+                      >
+                        Lire la suite
+                      </a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </section>
 
       <style jsx>{`

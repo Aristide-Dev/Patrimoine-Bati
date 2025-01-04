@@ -20,9 +20,15 @@ class ActualitesController extends Controller
         return Inertia::render('Actualites/CommuniquesAteliersSeminaires');
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $article = News::findOrFail($id);
+        $article = News::where('slug',$slug)->first();
+        if(!$article)
+        {
+            abort(404);
+        }
+        // Incrémenter les vues
+        $article->increment('views');
         $similarArticles = News::where('category', $article->category)
             ->where('id', '!=', $article->id)
             ->limit(3)

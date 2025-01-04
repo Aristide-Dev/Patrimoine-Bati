@@ -12,6 +12,7 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get('/articles', [ArticleController::class, 'index'])->name('public.articles');
+Route::get('/articles/featured', [ArticleController::class, 'featured'])->name('public.articles.featured');
 Route::get('/medias', [MediaController::class, 'index'])->name('api.medias.list');
 
 Route::prefix('reports')->name('api.repports.')->group(function () {

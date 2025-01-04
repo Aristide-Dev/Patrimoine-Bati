@@ -97,18 +97,18 @@ export default function ActualitesPage() {
                   </button>
 
                   {state.showFilters && (
-                    <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2 z-10">
+                    <div className="absolute z-50 right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2">
                       <div className="px-4 py-2 border-b border-gray-100">
                         <h3 className="font-semibold text-gray-900">Trier par</h3>
                       </div>
                       {[
                         { value: 'created_at', label: 'Date' },
                         { value: 'views', label: 'Popularité' },
-                        { value: 'title', label: 'Titre' }
+                        { value: 'title', label: 'Titre' },
                       ].map(option => (
                         <button
                           key={option.value}
-                          className={`w-full px-4 py-2 text-left hover:bg-gray-50 ${
+                          className={`w-full px-4 py-2 text-left hover:bg-gray-50 bg-primary-200 ${
                             state.sortBy === option.value ? 'text-primary font-medium' : 'text-gray-700'
                           }`}
                           onClick={() => updateState({ 
@@ -159,7 +159,7 @@ export default function ActualitesPage() {
                     <div className="p-6">
                       <div className="flex items-center text-sm text-gray-500 mb-3">
                         <Calendar className="w-4 h-4 mr-2" />
-                        {new Date(article.created_at).toLocaleDateString()}
+                        {new Date(article.published_at).toLocaleDateString()}
                       </div>
 
                       <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
@@ -188,7 +188,7 @@ export default function ActualitesPage() {
                             <Share2 className="w-5 h-5" />
                           </button>
                           <a
-                            href={route('actualites.show', article.id)}
+                            href={route('actualites.show', {slug:article.slug})}
                             className="flex items-center text-primary hover:text-primary-dark"
                           >
                             Lire
