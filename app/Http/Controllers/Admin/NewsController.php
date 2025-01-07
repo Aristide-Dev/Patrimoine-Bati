@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\News;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -31,7 +32,7 @@ class NewsController extends Controller
             'category' => 'nullable|string|max:255',
             'tags' => 'nullable|array',
             'tags.*' => 'string|max:50',
-            'featured' => 'required|boolean',
+            'featured' => 'nullable|boolean',
             'published_at' => 'nullable|date',
         ]);
         // dd($request);
@@ -49,6 +50,9 @@ class NewsController extends Controller
         }
 
         $validated['tags'] = json_encode($validated['tags'] ?? []);
+
+        $validated['slug'] = News::generateUniqueSlug($validated['title']);
+        $validated['read_time'] = News::calculateReadingTime($validated['content']);
 
         News::create($validated);
 
@@ -73,7 +77,7 @@ class NewsController extends Controller
             'category' => 'nullable|string|max:255',
             'tags' => 'nullable|array',
             // 'tags.*' => 'string|max:50',
-            'featured' => 'boolean',
+            'featured' => 'nullable|boolean',
             'published_at' => 'nullable|date',
         ]);
 
@@ -94,8 +98,17 @@ class NewsController extends Controller
             unset($validated['image']);
         }
 
+        $validated['featured'] = $validated['featured'] ? true:false;
+
 
         $validated['tags'] = json_encode($validated['tags'] ?? []);
+
+        $validated['slug'] = News::generateUniqueSlug($validated['title'], $news->id);
+        if ($news->content !== $validated['content']) {
+            $validated['read_time'] = News::calculateReadingTime($validated['content']); // Recalcul si le contenu change
+        }
+
+        // dd($validated['read_time']);
 
         $news->update($validated);
 

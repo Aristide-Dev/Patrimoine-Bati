@@ -21,13 +21,28 @@ class ArticleController extends Controller
                 $query->where('category', $category);
             })
             ->orderBy($request->get('sort', 'created_at'), $request->get('direction', 'desc'))
-            ->paginate($request->get('per_page', 10));
+            ->paginate($request->get('per_page', 1));
             
             // Décoder les tags en tableau pour chaque article
             $articles->getCollection()->transform(function ($article) {
                 $article->tags = json_decode($article->tags, true) ?? [];
                 return $article;
             });
+
+        return response()->json($articles);
+    }
+    public function featured(Request $request)
+    {
+        // Appliquer des filtres et pagination
+        $articles = News::where('featured', true)
+            ->limit(3)
+            ->get();
+            
+            // Décoder les tags en tableau pour chaque article
+            // $articles->getCollection()->transform(function ($article) {
+            //     $article->tags = json_decode($article->tags, true) ?? [];
+            //     return $article;
+            // });
 
         return response()->json($articles);
     }

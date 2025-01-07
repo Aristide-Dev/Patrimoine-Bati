@@ -8,20 +8,21 @@ import {
   SortAsc, SortDesc, FileArchive, FileImage
 } from 'lucide-react';
 
-export default function DocumentList({ documents }) {
+export default function DocumentList({ documents, categories }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
   const [showFilters, setShowFilters] = useState(false);
+  console.log('categories', categories);
 
-  const categories = [
-    { id: 'all', label: 'Tous les documents' },
-    { id: 'reports', label: 'Rapports' },
-    { id: 'presentations', label: 'Présentations' },
-    { id: 'forms', label: 'Formulaires' },
-    { id: 'others', label: 'Autres' }
-  ];
+  // const categories = [
+  //   { id: 'all', label: 'Tous les documents' },
+  //   { id: 'reports', label: 'Rapports' },
+  //   { id: 'presentations', label: 'Présentations' },
+  //   { id: 'forms', label: 'Formulaires' },
+  //   { id: 'others', label: 'Autres' }
+  // ];
 
   // const getFileIcon = (fileType) => {
   //   switch (fileType) {
@@ -205,15 +206,15 @@ export default function DocumentList({ documents }) {
               <div key={doc.id} className="p-4 hover:bg-gray-50 transition-colors">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
-                    <div className="w-10 h-full">
-                    <FileIcon extension={getExtention(doc.file_path)} {...defaultStyles[getExtention(doc.file_path)]}  className="" />
+                    <div className={`${doc.description ? 'w-10' : 'w-10'} "h-w-1/5"`}>
+                    <FileIcon id={doc.id*30} extension={getExtention(doc.file_path)} {...defaultStyles[getExtention(doc.file_path)]}  className="" />
                     </div>
-                    <div>
+                    <div className='w-4/5'>
                       <h3 className="text-lg font-medium text-gray-900">
                         {doc.title}
                       </h3>
                       {doc.description && (
-                        <p className="mt-1 text-sm text-gray-500 line-clamp-2">
+                        <p className="mt-1 text-sm text-gray-500 line-clamp-1">
                           {doc.description}
                         </p>
                       )}

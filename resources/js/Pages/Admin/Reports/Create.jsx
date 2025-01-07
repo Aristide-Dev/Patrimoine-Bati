@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import InputError from '@/Components/InputError';
+import { router, usePage } from '@inertiajs/react';
 import { 
   Upload, File, FileText, Image, Video, Music,
   Calendar, Tag, X, Plus, Save, AlertCircle
 } from 'lucide-react';
 
-export default function DocumentForm({ report = null }) {
+export default function DocumentForm({ report = null, categories }) {
     const [dragActive, setDragActive] = useState(false);
     const [preview, setPreview] = useState(null);
+    const { errors } = usePage().props
 
-    const { data, setData, post, put, processing, errors } = useForm({
+    const { data, setData, post, put, processing } = useForm({
         title: report?.title || '',
         description: report?.description || '',
         category: report?.category || '',
@@ -25,7 +28,7 @@ export default function DocumentForm({ report = null }) {
     const fileTypes = {
         document: {
             icon: FileText,
-            accept: '.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx',
+            accept: '.pdf,.doc,.docx,.docx,.xls,.xlsx,.ppt,.pptx',
             label: 'Documents (PDF, Word, Excel, PowerPoint)',
         },
         // image: {
@@ -45,13 +48,13 @@ export default function DocumentForm({ report = null }) {
         // },
     };
 
-    const categories = [
-        'Rapports Annuels',
-        'Présentations',
-        'Documents Techniques',
-        'Médias',
-        'Ressources',
-    ];
+    // const categories = [
+    //     'Rapports Annuels',
+    //     'Présentations',
+    //     'Documents Techniques',
+    //     'Médias',
+    //     'Ressources',
+    // ];
 
     const languages = [
         { code: 'fr', label: 'Français' },
@@ -107,7 +110,8 @@ export default function DocumentForm({ report = null }) {
         });
 
         if (report) {
-            put(route('admin.reports.update', report.id), formData);
+            formData.append('_method', 'put');
+            router.post(route('admin.reports.update', report.id), formData);
         } else {
             post(route('admin.reports.store'), formData);
         }
@@ -126,7 +130,7 @@ export default function DocumentForm({ report = null }) {
                         </p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data">
                         {/* Type de fichier */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {Object.entries(fileTypes).map(([type, { icon: Icon, label }]) => (
@@ -204,10 +208,12 @@ export default function DocumentForm({ report = null }) {
                                 </div>
                             )}
                         </div>
+                        <InputError message={errors.file} className="mt-2" />
 
                         {/* Prévisualisation pour les images */}
                         {preview && (
-                            <div className="relative">
+                            <>
+                                <div className="relative">
                                 <img
                                     src={preview}
                                     alt="Prévisualisation"
@@ -221,6 +227,8 @@ export default function DocumentForm({ report = null }) {
                                     <X className="w-4 h-4" />
                                 </button>
                             </div>
+                            <InputError message={errors.file} className="mt-2" />
+                            </>
                         )}
 
                         {/* Informations du document */}
@@ -236,9 +244,7 @@ export default function DocumentForm({ report = null }) {
                                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                                     placeholder="Titre du document"
                                 />
-                                {errors.title && (
-                                    <p className="mt-1 text-sm text-red-500">{errors.title}</p>
-                                )}
+                            <InputError message={errors.title} className="mt-2" />
                             </div>
 
                             <div>
@@ -253,11 +259,12 @@ export default function DocumentForm({ report = null }) {
                                 >
                                     <option value="">Sélectionner une catégorie</option>
                                     {categories.map(category => (
-                                        <option key={category} value={category}>
-                                            {category}
+                                        <option key={category.id} value={category.id}>
+                                            {category.label}
                                         </option>
                                     ))}
                                 </select>
+                                <InputError message={errors.category} className="mt-2" />
                             </div>
 
                             <div className="md:col-span-2">
@@ -271,6 +278,7 @@ export default function DocumentForm({ report = null }) {
                                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                                     placeholder="Description du document"
                                 />
+                                <InputError message={errors.description} className="mt-2" />
                             </div>
 
                             <div>
@@ -283,6 +291,7 @@ export default function DocumentForm({ report = null }) {
                                     onChange={(e) => setData('published_at', e.target.value)}
                                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                                 />
+                                <InputError message={errors.published_at} className="mt-2" />
                             </div>
 
                             <div>
