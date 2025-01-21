@@ -12,6 +12,8 @@ export default defineConfig({
     ],
     build: {
         chunkSizeWarningLimit: 5600,
+        minify: 'esbuild', // Utilisation de l'optimisation de minification
+        target: 'esnext', // Cible ES plus moderne pour améliorer la performance
             rollupOptions: {
                 output:{
                     manualChunks(id) {
