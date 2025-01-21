@@ -172,7 +172,7 @@ const slides = [
     ],
   },
   {
-    image: 'images/hero/Equipe technique MAMRI_medium.png',
+    image: 'images/hero/mot_du_coordinateur_cover.jpg',
     title: 'Renforcer les capacités fiscales',
     description: 'Des réformes innovantes pour élargir l’assiette fiscale.',
     buttons: [{ label: 'Découvrir les projets', href: route('directions.projets'), style: 'primary' }],
