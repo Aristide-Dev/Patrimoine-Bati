@@ -175,7 +175,7 @@ export default function MediaIndex({ categories = [] }) {
                         <Share2 className="w-5 h-5" />
                       </button>
                       <a
-                        href={media.url}
+                        href={isExternalUrl(media.url) ? media.url : `/storage/${media.url}`}
                         download
                         className="p-2 bg-white rounded-full hover:bg-gray-100"
                       >

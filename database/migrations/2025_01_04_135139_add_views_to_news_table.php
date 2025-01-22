@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('news', function (Blueprint $table) {
-            $table->unsignedBigInteger('views')->default(0)->after('reading_time');
+            $table->unsignedBigInteger('views')->default(0)->after('read_time');
         });
     }
 
