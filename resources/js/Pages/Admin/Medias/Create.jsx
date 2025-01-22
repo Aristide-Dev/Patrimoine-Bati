@@ -15,7 +15,7 @@ export default function MediaForm({ media = null }) {
     );
     const [isNewCategory, setIsNewCategory] = useState(false);
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, progress, processing, errors } = useForm({
         type: "image",
         title: "",
         url: "",
@@ -47,34 +47,21 @@ export default function MediaForm({ media = null }) {
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
-        const formData = new FormData();
         
-        // Ajouter seulement les champs nécessaires selon le type
-        formData.append('type', data.type);
-        formData.append('title', data.title);
-        formData.append('description', data.description);
-        formData.append('category', data.category);
-        formData.append('published_at', data.published_at);
-
-        // Gérer le fichier ou l'URL selon le mode
-        if (isFileUpload) {
-            if (data.file) {
-                formData.append('file', data.file);
-            }
-        } else {
-            formData.append('url', data.url);
-        }
-
-        // Ajouter les champs spécifiques aux vidéos
-        if (data.type === 'video') {
-            formData.append('embed_url', data.embed_url);
-            formData.append('duration', data.duration);
-        }
-
-        post(route("admin.medias.store"), formData, {
+        post(route("admin.medias.store"), {
+            type: data.type,
+            title: data.title,
+            description: data.description,
+            category: data.category,
+            published_at: data.published_at,
+            ...(isFileUpload ? { file: data.file } : { url: data.url }),
+            ...(data.type === 'video' && {
+                embed_url: data.embed_url,
+                duration: data.duration
+            })
+        }, {
             forceFormData: true,
             onSuccess: () => {
-                // Redirection après succès
                 window.location.href = route("admin.medias.index");
             },
         });
@@ -338,6 +325,19 @@ export default function MediaForm({ media = null }) {
                         </div>
 
                     </form>
+
+                    {/* Ajout de l'indicateur de progression */}
+                    {progress && (
+                        <div className="mt-2">
+                            <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                <div 
+                                    className="bg-primary h-2.5 rounded-full" 
+                                    style={{ width: `${progress.percentage}%` }}
+                                />
+                            </div>
+                            <span className="text-sm text-gray-600">{progress.percentage}%</span>
+                        </div>
+                    )}
                 </div>
             </div>
         </AuthenticatedLayout>
