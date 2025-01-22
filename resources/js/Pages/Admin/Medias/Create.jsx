@@ -15,21 +15,16 @@ export default function MediaForm({ media = null }) {
     );
     const [isNewCategory, setIsNewCategory] = useState(false);
 
-    const { data, setData, post, put, processing, errors } = useForm({
-        type: media?.type || "image",
-        title: media?.title || "",
-        url: media?.url || "",
+    const { data, setData, post, processing, errors } = useForm({
+        type: "image",
+        title: "",
+        url: "",
         file: null,
-        description: media?.description || "",
-        category: media?.category || "",
-        embed_url: media?.embed_url || "",
-        duration: media?.duration || "",
-        published_at: media?.published_at
-            ? new Date(media.published_at)
-            .toISOString()
-            .split('T')[0]
-            : '',
-
+        description: "",
+        category: "",
+        embed_url: "",
+        duration: "",
+        published_at: "",
     });
 
     const categories = useMemo(() => [
@@ -53,16 +48,37 @@ export default function MediaForm({ media = null }) {
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
         const formData = new FormData();
-        Object.keys(data).forEach(key => {
-            if (data[key] !== null) formData.append(key, data[key]);
+        
+        // Ajouter seulement les champs nécessaires selon le type
+        formData.append('type', data.type);
+        formData.append('title', data.title);
+        formData.append('description', data.description);
+        formData.append('category', data.category);
+        formData.append('published_at', data.published_at);
+
+        // Gérer le fichier ou l'URL selon le mode
+        if (isFileUpload) {
+            if (data.file) {
+                formData.append('file', data.file);
+            }
+        } else {
+            formData.append('url', data.url);
+        }
+
+        // Ajouter les champs spécifiques aux vidéos
+        if (data.type === 'video') {
+            formData.append('embed_url', data.embed_url);
+            formData.append('duration', data.duration);
+        }
+
+        post(route("admin.medias.store"), formData, {
+            forceFormData: true,
+            onSuccess: () => {
+                // Redirection après succès
+                window.location.href = route("admin.medias.index");
+            },
         });
-
-        const formRoute = media
-            ? route("admin.medias.update", media.id)
-            : route("admin.medias.store");
-
-        media ? put(formRoute, formData) : post(formRoute, formData);
-    }, [data, media, post, put]);
+    }, [data, isFileUpload, post]);
 
     return (
         <AuthenticatedLayout>

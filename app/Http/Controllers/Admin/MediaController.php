@@ -119,6 +119,6 @@ class MediaController extends Controller
         }
 
         $media->delete();
-        return redirect()->back()->with('success', 'Média supprimé avec succès.');
+        return back()->with('success', 'Média supprimé avec succès.');
     }
 }

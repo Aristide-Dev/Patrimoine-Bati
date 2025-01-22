@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Head } from '@inertiajs/react';
+import { useForm, Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { 
   Search, Filter, Grid, List, Image, Video, 
@@ -8,10 +8,15 @@ import {
 } from 'lucide-react';
 
 export default function MediaIndex({ categories = [] }) {
+
+  const { delete:destroy } = useForm({
+    id: null,
+  });
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [selectedMedia, setSelectedMedia] = useState(null);
   const [medias, setMedias] = useState([]);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState('grid');
-  const [selectedMedia, setSelectedMedia] = useState(null);
   const [filters, setFilters] = useState({
     search: '',
     type: 'all',
@@ -50,18 +55,27 @@ export default function MediaIndex({ categories = [] }) {
   const totalPages = Math.ceil(medias.length / itemsPerPage);
 
   const handleDelete = async (id) => {
-    if (window.confirm('Êtes-vous sûr de vouloir supprimer ce média ?')) {
-      try {
-        await axios.delete(`/api/medias/${id}`);
-        fetchMedia(); // Recharger la liste après suppression
-      } catch (error) {
-        console.error('Erreur lors de la suppression:', error);
-      }
+    setSelectedMedia(id);
+    setDeleteModalVisible(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await destroy(`/admin-panel/medias/${selectedMedia}`);
+      fetchMedia();
+      setDeleteModalVisible(false);
+    } catch (error) {
+      console.error('Erreur lors de la suppression:', error);
     }
   };
 
   const handleShare = (media) => {
-    navigator.clipboard.writeText(media.url);
+    const baseUrl = window.location.origin;
+    const fullUrl = isExternalUrl(media.url) 
+      ? media.url 
+      : `${baseUrl}/storage/${media.url}`;
+    
+    navigator.clipboard.writeText(fullUrl);
     alert('URL copiée dans le presse-papier');
   };
 
@@ -70,6 +84,30 @@ export default function MediaIndex({ categories = [] }) {
   return (
     <AuthenticatedLayout>
       <Head title="Médiathèque" />
+
+      {/* Ajouter le modal de confirmation avant le contenu principal */}
+      {deleteModalVisible && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
+            <h3 className="text-lg font-semibold mb-4">Confirmer la suppression</h3>
+            <p className="text-gray-600 mb-6">Êtes-vous sûr de vouloir supprimer ce média ?</p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setDeleteModalVisible(false)}
+                className="px-4 py-2 rounded-lg border hover:bg-gray-50"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={confirmDelete}
+                className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
+              >
+                Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* En-tête avec recherche et filtres */}
