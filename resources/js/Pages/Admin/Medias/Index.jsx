@@ -180,9 +180,14 @@ export default function MediaIndex({ categories = [] }) {
 
         {/* Liste des médias */}
         {loading ? (
-          <div className="text-center py-20">
-            <p>Chargement des médias...</p>
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
+          <div className="flex flex-col items-center">
+            <div className="w-16 h-16 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+            <p className="mt-4 text-lg font-semibold text-white animate-pulse">
+              Chargement en cours...
+            </p>
           </div>
+        </div>
         ) : view === 'grid' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {paginatedMedia.map((media) => (

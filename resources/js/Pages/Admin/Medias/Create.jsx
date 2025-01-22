@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { useForm } from "@inertiajs/react";
+import { useForm, Head } from "@inertiajs/react";
 import InputError from '@/Components/InputError';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Upload, Link, Image, Video, FileText, Clock, Calendar, X } from 'lucide-react';
 
 export default function MediaForm({ media = null }) {
     const isExternalUrl = useCallback((url) => {
-        return url.startsWith('http://') || url.startsWith('https://') || url.startsWith('www');
+        return url?.startsWith('http://') || url?.startsWith('https://') || url?.startsWith('www');
     }, []);
 
     const [isFileUpload, setIsFileUpload] = useState(() => !isExternalUrl(media?.url || ""));
@@ -15,16 +15,21 @@ export default function MediaForm({ media = null }) {
     );
     const [isNewCategory, setIsNewCategory] = useState(false);
 
-    const { data, setData, post, progress, processing, errors } = useForm({
-        type: "image",
-        title: "",
-        url: "",
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        return new Date(dateString).toISOString().split('T')[0];
+    };
+
+    const { data, setData, post, put, progress, processing, errors } = useForm({
+        type: media?.type || "image",
+        title: media?.title || "",
+        url: media?.url || "",
         file: null,
-        description: "",
-        category: "",
-        embed_url: "",
-        duration: "",
-        published_at: "",
+        description: media?.description || "",
+        category: media?.category || "",
+        embed_url: media?.embed_url || "",
+        duration: media?.duration || "",
+        published_at: formatDate(media?.published_at) || "",
     });
 
     const categories = useMemo(() => [
@@ -48,35 +53,78 @@ export default function MediaForm({ media = null }) {
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
         
-        post(route("admin.medias.store"), {
+        const formData = {
             type: data.type,
             title: data.title,
             description: data.description,
             category: data.category,
             published_at: data.published_at,
-            ...(isFileUpload ? { file: data.file } : { url: data.url }),
+            ...(isFileUpload 
+                ? (data.file ? { file: data.file } : {}) 
+                : { url: data.url }
+            ),
             ...(data.type === 'video' && {
                 embed_url: data.embed_url,
                 duration: data.duration
             })
-        }, {
+        };
+
+        const options = {
             forceFormData: true,
             onSuccess: () => {
                 window.location.href = route("admin.medias.index");
             },
-        });
-    }, [data, isFileUpload, post]);
+        };
+
+        if (media) {
+            put(route("admin.medias.update", media.id), formData, options);
+        } else {
+            post(route("admin.medias.store"), formData, options);
+        }
+    }, [data, isFileUpload, media, post, put]);
+
+    // Fonction utilitaire pour obtenir toutes les erreurs uniques
+    const getAllErrors = useCallback(() => {
+        return Object.values(errors).filter(error => error);
+    }, [errors]);
 
     return (
         <AuthenticatedLayout>
+            {/* Loader global */}
+            {processing && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
+                <div className="flex flex-col items-center">
+                  <div className="w-16 h-16 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
+                  <p className="mt-4 text-lg font-semibold text-white animate-pulse">
+                    Chargement en cours...
+                  </p>
+                </div>
+              </div>
+            )}
+
+            <Head title={media ? "Modifier un média" : "Ajouter un média"} />
             <div className="max-w-4xl mx-auto py-8 px-4">
                 <div className="bg-white rounded-xl shadow-lg p-8">
+                    {/* Affichage des erreurs en en-tête */}
+                    {getAllErrors().length > 0 && (
+                        <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+                            <div className="font-medium text-red-800 mb-2">
+                                Veuillez corriger les erreurs suivantes :
+                            </div>
+                            <ul className="list-disc list-inside text-sm text-red-600">
+                                {getAllErrors().map((error, index) => (
+                                    <li key={index}>{error}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
                     <header className="border-b pb-6 mb-6">
                         <h1 className="text-3xl font-bold text-gray-900">
                             {media ? "Modifier" : "Ajouter"} un Média
                         </h1>
                         <p className="mt-2 text-gray-600">
-                            Remplissez les informations ci-dessous pour {media ? "modifier" : "ajouter"} un média dans la médiathèque.
+                            Les champs marqués d'un * sont obligatoires.
                         </p>
                     </header>
 
@@ -85,7 +133,7 @@ export default function MediaForm({ media = null }) {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Type de média
+                                    Type de média *
                                 </label>
                                 <div className="flex space-x-4">
                                     {['image', 'video'].map(type => (
@@ -140,7 +188,7 @@ export default function MediaForm({ media = null }) {
                         <div className="grid grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Titre
+                                    Titre *
                                 </label>
                                 <input
                                     type="text"
@@ -182,7 +230,10 @@ export default function MediaForm({ media = null }) {
                         </div>
 
                         {/* Zone de téléchargement/URL */}
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                {isFileUpload ? "Fichier *" : "URL *"}
+                            </label>
                             {isFileUpload ? (
                                 <div>
                                     <input
@@ -251,9 +302,7 @@ export default function MediaForm({ media = null }) {
                                     type="date"
                                     id="published_at"
                                     name="published_at"
-                                    value={
-                                        data?.published_at ?? ''
-                                    }
+                                    value={data.published_at}
                                     onChange={(e) => setData('published_at', e.target.value)}
                                     className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary"
                                 />
@@ -265,6 +314,7 @@ export default function MediaForm({ media = null }) {
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Description
+                                <span className="text-sm text-gray-500 ml-1">(optionnel)</span>
                             </label>
                             <textarea
                                 value={data.description}
@@ -282,6 +332,7 @@ export default function MediaForm({ media = null }) {
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
                                         URL d'intégration
+                                        <span className="text-sm text-gray-500 ml-1">(optionnel)</span>
                                     </label>
                                     <input
                                         type="url"
@@ -293,7 +344,8 @@ export default function MediaForm({ media = null }) {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Durée (en secondes)
+                                        Durée
+                                        <span className="text-sm text-gray-500 ml-1">(optionnel)</span>
                                     </label>
                                     <input
                                         type="number"

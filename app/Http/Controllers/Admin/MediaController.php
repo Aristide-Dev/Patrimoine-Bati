@@ -33,27 +33,51 @@ class MediaController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        // Vérifier si au moins un champ est rempli
+        if ($request->only(['title', 'description', 'category', 'url', 'file', 'embed_url', 'duration', 'published_at']) === []) {
+            return back()->withErrors(['general' => 'Au moins un champ doit être rempli.']);
+        }
+
+        // Règles de validation de base
+        $rules = [
             'type' => 'required|in:image,video',
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'category' => 'nullable|string|max:255',
-            'url' => 'nullable|url',
-            'file' => 'nullable|file',
             'embed_url' => 'nullable|url',
             'duration' => 'nullable|integer',
             'published_at' => 'nullable|date',
-        ]);
+        ];
 
-        // Si un fichier est téléchargé
+        // Ajout des règles conditionnelles selon le mode d'upload
         if ($request->hasFile('file')) {
-            $validatedData['url'] = $request->file('file')->store('uploads/media', 'public');
+            $rules['file'] = 'required|file|mimes:jpeg,png,jpg,gif,mp4,avi,mkv|max:10240';
+        } elseif ($request->has('url')) {
+            if (str_starts_with($request->url, 'http')) {
+                $rules['url'] = 'required|url';
+            } else {
+                $rules['url'] = 'required|string';
+            }
         }
 
-        // Enregistrer le média
-        Media::create($validatedData);
+        // Validation des données entrantes
+        $validatedData = $request->validate($rules);
 
-        return redirect()->route('admin.medias.index')->with('success', 'Média créé avec succès.');
+        try {
+            // Si un fichier est téléchargé
+            if ($request->hasFile('file')) {
+                $validatedData['url'] = $request->file('file')->store('uploads/media', 'public');
+            }
+
+            // Créer le média
+            Media::create($validatedData);
+
+            return redirect()->route('admin.medias.index')
+                ->with('success', 'Média créé avec succès.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.medias.index')
+                ->with('error', 'Une erreur s\'est produite lors de la création du média : ' . $e->getMessage());
+        }
     }
 
     public function edit(Media $media)
@@ -64,25 +88,54 @@ class MediaController extends Controller
 
     public function update(Request $request, Media $media)
     {
-        // Validation des données entrantes
-        $validatedData = $request->validate([
+        // Vérifier si au moins un champ est rempli
+        if ($request->only(['title', 'description', 'category', 'url', 'file', 'embed_url', 'duration', 'published_at']) === []) {
+            return back()->withErrors(['general' => 'Au moins un champ doit être rempli.']);
+        }
+
+        // Règles de validation de base
+        $rules = [
             'type' => 'required|in:image,video',
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'category' => 'nullable|string|max:255',
-            'url' => 'nullable|url',
-            'file' => 'nullable|file|mimes:jpeg,png,jpg,gif,mp4,avi,mkv|max:10240', // Limite de 10 Mo pour les fichiers
             'embed_url' => 'nullable|url',
             'duration' => 'nullable|integer',
             'published_at' => 'nullable|date',
-        ]);
-        // dd($validatedData);
+        ];
+
+        // Ajout des règles conditionnelles selon le mode d'upload
+        if ($request->hasFile('file')) {
+            $rules['file'] = 'required|file|mimes:jpeg,png,jpg,gif,mp4,avi,mkv|max:10240';
+        } elseif ($request->has('url')) {
+            if (str_starts_with($request->url, 'http')) {
+                $rules['url'] = 'required|url';
+            } else {
+                $rules['url'] = 'required|string';
+            }
+        }
+
+        // Validation des données entrantes
+        $validatedData = $request->validate($rules);
 
         try {
+            // Vérifier si les données sont identiques aux données existantes
+            $hasChanges = false;
+            foreach ($validatedData as $key => $value) {
+                if ($media->$key != $value) {
+                    $hasChanges = true;
+                    break;
+                }
+            }
+
+            if (!$hasChanges && !$request->hasFile('file')) {
+                return back()->withErrors(['general' => 'Aucune modification n\'a été effectuée.']);
+            }
+
             // Gestion du fichier téléchargé
             if ($request->hasFile('file')) {
                 // Supprimer l'ancien fichier si nécessaire
-                if ($media->url && Storage::disk('public')->exists($media->url)) {
+                if ($media->url && !str_starts_with($media->url, 'http') && Storage::disk('public')->exists($media->url)) {
                     Storage::disk('public')->delete($media->url);
                 }
 
@@ -90,21 +143,17 @@ class MediaController extends Controller
                 $validatedData['url'] = $request->file('file')->store('uploads/media', 'public');
             }
 
-            if($validatedData['url'] == null || $validatedData['url'] == '')
-            {
+            // Ne pas écraser l'URL existante si aucune nouvelle URL ou fichier n'est fourni
+            if (!isset($validatedData['url']) && !$request->hasFile('file')) {
                 unset($validatedData['url']);
             }
-
-            // dd($validatedData);
 
             // Mettre à jour les données du média
             $media->update($validatedData);
 
-            // Rediriger avec un message de succès
             return redirect()->route('admin.medias.index')
                 ->with('success', 'Média mis à jour avec succès.');
         } catch (\Exception $e) {
-            // Gestion des erreurs
             return redirect()->route('admin.medias.index')
                 ->with('error', 'Une erreur s\'est produite lors de la mise à jour du média : ' . $e->getMessage());
         }
