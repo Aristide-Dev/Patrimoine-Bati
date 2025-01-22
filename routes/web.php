@@ -87,11 +87,11 @@ Route::prefix('partenariats')->group(function() {
 // Actualités et Ressources
 Route::prefix('actualites')->group(function() {
     Route::get('/', [ActualitesController::class, 'index'])->name('actualites.index');
-    Route::get('/{slug}', [ActualitesController::class, 'show'])->name('actualites.show');
 
     Route::get('/communiques-ateliers-seminaires', [ActualitesController::class, 'communiques'])->name('actualites.communiques');
     Route::get('/rapports-publications', [ActualitesController::class, 'rapports'])->name('actualites.rapports');
     Route::get('/medias', [ActualitesController::class, 'medias'])->name('actualites.medias');
+    Route::get('/{slug}', [ActualitesController::class, 'show'])->name('actualites.show');
 });
 
 // Contact
