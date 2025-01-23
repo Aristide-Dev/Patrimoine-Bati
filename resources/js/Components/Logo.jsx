@@ -8,9 +8,9 @@ export const Logo = () => (
     className="h-16 w-auto"
   /> */}
   <img 
-    src="https://www.affichesguineennes.com/wp-content/uploads/2021/02/logo-mamri.png" 
+    src="/images/logo/logo-mamri.png" 
     alt="Logo MAMRI" 
-    className="h-16 w-auto"
+    className="h-16 w-36"
   />
   </a>
 );

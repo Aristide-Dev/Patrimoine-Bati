@@ -19,9 +19,11 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\PartenariatsController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\SearchController;
 
 Route::get('/', [AccueilController::class, 'index'])->name('welcome');
 Route::get('/init', [AppInitController::class, 'init'])->name('app.init');
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 
 // À Propos
 Route::prefix('a-propos')->group(function() {
@@ -120,5 +122,6 @@ Route::prefix('admin-panel')->name('admin.')->middleware(['auth'])->group(functi
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
 
 require __DIR__.'/auth.php';
