@@ -65,7 +65,10 @@ export default function MediaForm({ media = null }) {
             return;
         }
 
+        console.log(media? 'put' : 'post');
+
         const formData = {
+            _method: media ? 'put' : 'post', // Forcer la méthode PUT pour l'édition
             type: data.type,
             title: data.title,
             description: data.description,
@@ -88,14 +91,14 @@ export default function MediaForm({ media = null }) {
             },
         };
 
-        if (media) {
-            // Pour la modification, utiliser PUT
-            router.put(route("admin.medias.update", media.id), formData, options);
-        } else {
-            // Pour la création, utiliser POST
-            router.post(route("admin.medias.store"), formData, options);
-        }
-    }, [data, isFileUpload, media, post, put]);
+        // Toujours utiliser post avec le method spoofing
+        router.post(media 
+            ? route("admin.medias.update", media.id)
+            : route("admin.medias.store"), 
+            formData, 
+            options
+        );
+    }, [data, isFileUpload, media, post]);
 
     // Fonction utilitaire pour obtenir toutes les erreurs uniques
     const getAllErrors = useCallback(() => {
@@ -138,7 +141,7 @@ export default function MediaForm({ media = null }) {
                             {media ? "Modifier" : "Ajouter"} un Média
                         </h1>
                         <p className="mt-2 text-gray-600">
-                            Les champs marqués d'un * sont obligatoires.
+                            Les champs marqués d'un  <span className="text-red-500">*</span> sont obligatoires.
                         </p>
                     </header>
 
@@ -147,7 +150,7 @@ export default function MediaForm({ media = null }) {
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Type de média *
+                                    Type de média  <span className="text-red-500">*</span>
                                 </label>
                                 <div className="flex space-x-4">
                                     {['image', 'video'].map(type => (
@@ -202,7 +205,7 @@ export default function MediaForm({ media = null }) {
                         <div className="grid grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Titre *
+                                    Titre  <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     type="text"
