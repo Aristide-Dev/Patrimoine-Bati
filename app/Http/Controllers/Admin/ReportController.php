@@ -41,7 +41,7 @@ class ReportController extends Controller
             try {
                 $originalFileName = $request->file->getClientOriginalName();
                 $sanitizedFileName = str_replace(' ', '_', preg_replace('/[^a-zA-Z0-9\._-]/', '', $originalFileName));
-                $filePath = $request->file('file')->storeAs('reports/' . date('Y/m'), uniqid() . "_" . $sanitizedFileName);
+                $filePath = $request->file('file')->storeAs('reports/' . date('Y/m'), uniqid() . "_" . $sanitizedFileName, 'public');
             } catch (\Exception $e) {
                 return redirect()->back()->with('error', 'Erreur lors du téléchargement du fichier.');
             }
@@ -87,7 +87,7 @@ class ReportController extends Controller
     
                 // Store the new file with a unique name
                 $filePath = uniqid() . "_" . $request->file('file')->getClientOriginalName();
-                $report->file_path = $request->file('file')->storeAs('reports', $filePath);
+                $report->file_path = $request->file('file')->storeAs('reports', $filePath, 'public');
             }
     
             // Update the report
