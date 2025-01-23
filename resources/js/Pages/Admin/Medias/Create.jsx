@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { useForm, Head } from "@inertiajs/react";
+import { useForm, Head, router } from "@inertiajs/react";
 import InputError from '@/Components/InputError';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Upload, Link, Image, Video, FileText, Clock, Calendar, X } from 'lucide-react';
@@ -52,7 +52,19 @@ export default function MediaForm({ media = null }) {
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
-        
+
+        // Vérifier si au moins un champ est rempli
+        const hasContent = Object.entries(data).some(([key, value]) => {
+            if (key === 'type') return false; // Ignorer le type qui est toujours présent
+            if (value === null || value === undefined || value === '') return false;
+            return true;
+        });
+
+        if (!hasContent) {
+            alert('Veuillez remplir au moins un champ avant de soumettre le formulaire.');
+            return;
+        }
+
         const formData = {
             type: data.type,
             title: data.title,
@@ -77,9 +89,11 @@ export default function MediaForm({ media = null }) {
         };
 
         if (media) {
-            put(route("admin.medias.update", media.id), formData, options);
+            // Pour la modification, utiliser PUT
+            router.put(route("admin.medias.update", media.id), formData, options);
         } else {
-            post(route("admin.medias.store"), formData, options);
+            // Pour la création, utiliser POST
+            router.post(route("admin.medias.store"), formData, options);
         }
     }, [data, isFileUpload, media, post, put]);
 
@@ -128,7 +142,7 @@ export default function MediaForm({ media = null }) {
                         </p>
                     </header>
 
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data">
                         {/* Type de média */}
                         <div className="grid grid-cols-2 gap-4">
                             <div>
@@ -378,7 +392,7 @@ export default function MediaForm({ media = null }) {
 
                     </form>
 
-                    {/* Ajout de l'indicateur de progression */}
+                    {/* Afficher la barre de progression */}
                     {progress && (
                         <div className="mt-2">
                             <div className="w-full bg-gray-200 rounded-full h-2.5">

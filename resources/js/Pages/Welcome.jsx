@@ -485,6 +485,11 @@ export default function Welcome() {
 
       {/* Section Contact / FAQ */}
       <section className="py-20 bg-gradient-to-r from-primary to-primary-800">
+        
+      {/* <a href="/">
+          <img src="/images/logo/Armoiries-Republique-de-Guinee-V2.png" alt="Logo de la MAMRI" className="w-1/2 md:w-1/4 mx-auto" />
+        </a> */}
+        <img src="/images/logo/Armoiries-Republique-de-Guinee-V2.png" alt="Logo de la MAMRI" className="w-1/2 md:w-1/4 mx-auto" />
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
             Ensemble, construisons l'avenir de la Guinée
@@ -496,13 +501,13 @@ export default function Welcome() {
           <div className="flex flex-wrap justify-center gap-6">
             <a
               href="#"
-              className="bg-white text-primary hover:bg-gray-100 px-8 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+              className="bg-gray-100 text-primary hover:bg-white hover:text-primary-800 px-8 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
             >
               Contactez-nous
             </a>
             <a
               href="#"
-              className="bg-primary-800 text-white hover:bg-[#8B1429] px-8 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+              className="bg-primary-800 text-white hover:bg-primary px-8 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
             >
               En savoir plus
             </a>
