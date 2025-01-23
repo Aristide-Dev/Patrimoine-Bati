@@ -52,6 +52,7 @@ export default function MediaForm({ media = null }) {
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
+        setData('processing', true);
 
         // Vérifier si au moins un champ est rempli
         const hasContent = Object.entries(data).some(([key, value]) => {
