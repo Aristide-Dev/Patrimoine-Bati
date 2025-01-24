@@ -28,8 +28,11 @@ export default function AuthenticatedLayout({ header, children }) {
         { name: 'Actualités', route: 'admin.news.index', active: route().current('admin.news.*')  },
         { name: 'Medias', route: 'admin.medias.index', active: route().current('admin.medias.*')  },
         { name: 'Documents', route: 'admin.reports.index', active: route().current('admin.reports.*')  },
-        { name: 'Utilisateurs', route: 'admin.users.index', active: route().current('admin.users.*')  }
+        // { name: 'Utilisateurs', route: 'admin.users.index', active: route().current('admin.users.*')  }
     ];
+    if (user.role === 'admin') {
+        navigationItems.push({ name: 'Utilisateurs', route: 'admin.users.index', active: route().current('admin.users.*')  });
+    }
 
     // Gestion des messages flash
     useEffect(() => {
