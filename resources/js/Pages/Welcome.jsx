@@ -16,53 +16,16 @@ import {
   Target,
   TrendingUp,
   Users,
-  Home,
-  Newspaper,
-  BarChart3,
-  FileText,
-  BookOpen,
-  Link,
-  Mail,
-  HelpCircle,
-  MessageSquare,
-  Image,
-  Calendar,
-  Briefcase,
-  PieChart,
-  Boxes,
-  FileBarChart,
-  ChevronRight,
-  ChevronLeft,
   Gavel,
   Scale,
   Shield,
-  CheckCircle
+  CheckCircle,
+  HandCoins,
+  CircuitBoard,
+  ShieldCheck,
+  Handshake
 }
   from 'lucide-react';
-
-const news = [
-  {
-    id: 1,
-    title: "Réunion | Mission d’évaluation du potentiel fiscal en Guinée par le FMI",
-    date: "14 novembre 2024",
-    image: "/images/actualites/Mission_d_evaluation_du_potentiel_fiscal_en_Guinée_par_le_FMI.jpg",
-    excerpt: "Une équipe du FMI, sous la direction de M. BADY EBE, Conseiller en Analyses macroéconomiques et budgétaires, a été reçue à la MAMRI."
-  },
-  {
-    id: 2,
-    title: "Réunion | échanges fructueux entre la MAMRI et le Ministère des Transports",
-    date: "09 Octobre 2024",
-    image: "/images/actualites/echanges_fructueux_entre_la_MAMRI_et_le_Ministère_des_Transports.jpg",
-    excerpt: "En présence des Directeurs Généraux, Directeurs Généraux Adjoints et Président du Conseil d'Administration des différentes entités du Ministère, la mission a présenté le rapport final relatif à l'identification des ressources et des réformes visant à renforcer la Mobilisation des Ressources au sein du Ministère."
-  },
-  {
-    id: 3,
-    title: "Le comité de pilotage de la MAMRI s’engage à améliorer la mobilisation des ressources internes de la Guinée",
-    date: "21 Juin 2023",
-    image: "/images/actualites/améliorer_la_mobilisation_des_ressources_internes_d_la_Guinée.webp",
-    excerpt: "Selon le Général de Brigade Amara Camara, le monde traverse une crise multiforme qui affecte l’économie guinéenne."
-  },
-];
 
 const directions = [
   {
@@ -115,52 +78,6 @@ const missions = [
   }
 ];
 
-// Présentation des différentes sections du site
-const siteSections = [
-  {
-    icon: FileText,
-    title: "À Propos",
-    description: "Découvrez l’historique, le cadre juridique, l’organisation et les partenaires qui façonnent la MAMRI.",
-    href: route('about.index')
-  },
-  {
-    icon: Briefcase,
-    title: "Missions",
-    description: "Découvrez nos missions générales, nos niveaux d’intervention et nos thématiques clés.",
-    href: route('about.missions')
-  },
-  {
-    icon: Building2,
-    title: "Les Directions de Projet",
-    description: "Explorez nos directions dédiées aux ressources fiscales, douanières, non fiscales, maîtrise des dépenses et digitalisation.",
-    href: route('directions.projets')
-  },
-  {
-    icon: Newspaper,
-    title: "Actualités et Ressources",
-    description: "Consultez nos actualités, rapports, publications, médias et événements récents.",
-    href: route('actualites.index')
-  },
-  {
-    icon: Link,
-    title: "Partenaires",
-    description: "Informez-vous sur nos partenaires institutionnels et internationaux, leurs rôles et domaines d’expertise.",
-    href: route('partenariats.index')
-  },
-  {
-    icon: BookOpen,
-    title: "Documentation",
-    description: "Accédez à notre documentation, cadres de référence, notes techniques et ressources informatives.",
-    href: route('actualites.rapports')
-  },
-  {
-    icon: Mail,
-    title: "Contact",
-    description: "Besoin d’aide ou d’informations supplémentaires ? Contactez-nous directement.",
-    href: route('contact.index')
-  },
-];
-
 const slides = [
   {
     image: 'images/hero/CoverSite-PRG.jpg',
@@ -189,13 +106,8 @@ const slides = [
 
 export default function Welcome() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [isHovered, setIsHovered] = useState({});
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const handleHover = useCallback((id, value) => {
-    setIsHovered(prev => ({ ...prev, [id]: value }));
-  }, []);
 
   const settings = {
     dots: true,
@@ -360,40 +272,58 @@ export default function Welcome() {
               </div>
             </div>
 
-            {/* Colonne droite : Mission */}
-            <div className="bg-white border-2 border-gray-200 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
-              <div className="p-6 bg-gradient-to-r from-primary to-primary-800 rounded-t-2xl text-white">
-                <h2 className="text-2xl font-bold text-center">Notre Mission</h2>
-              </div>
-              <div className="p-6">
-                <div className="space-y-6">
-                  {[
-                    "Intensifier la mobilisation des ressources internes pour le développement.",
-                    "Moderniser les systèmes de collecte et de gestion des ressources.",
-                    "Renforcer la transparence et l'efficacité des processus.",
-                    "Développer des partenariats stratégiques nationaux et internationaux."
-                  ].map((mission, index) => (
-                    <div
-                      key={index}
-                      className="flex items-start space-x-3 group hover:translate-x-2 transition-transform"
-                    >
-                      <CheckCircle className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
-                      <p className="text-gray-700">{mission}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-8 text-center">
-                  <a
-                    href={route('about.index')}
-                    className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg
-                       shadow-lg hover:bg-primary-800 transition-all duration-300 group"
-                  >
-                    En savoir plus
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </div>
-              </div>
-            </div>
+            {/* Colonne droite : Mission */}<div className="bg-white border-2 border-gray-200 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
+  <div className="p-6 bg-gradient-to-r from-primary to-primary-800 rounded-t-2xl text-white">
+    <h2 className="text-2xl font-bold text-center">Notre Mission</h2>
+  </div>
+  <div className="p-6">
+    <div className="space-y-6">
+      {[
+        {
+          title: "Mobilisation des ressources",
+          description: "Intensifier la mobilisation des ressources internes pour le développement.",
+          icon: <HandCoins className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
+        },
+        {
+          title: "Modernisation des systèmes",
+          description: "Moderniser les systèmes de collecte et de gestion des ressources.",
+          icon: <CircuitBoard className="w-6 h-6 text-primary-600 mt-1 flex-shrink-0" />
+        },
+        {
+          title: "Transparence opérationnelle",
+          description: "Renforcer la transparence et l'efficacité des processus.",
+          icon: <ShieldCheck className="w-6 h-6 text-primary-700 mt-1 flex-shrink-0" />
+        },
+        {
+          title: "Partenariats stratégiques",
+          description: "Développer des partenariats stratégiques nationaux et internationaux.",
+          icon: <Handshake className="w-6 h-6 text-primary-800 mt-1 flex-shrink-0" />
+        }
+      ].map((mission, index) => (
+        <div
+          key={index}
+          className="flex items-start space-x-3 group hover:translate-x-2 transition-transform"
+        >
+          {mission.icon}
+          <div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-1">{mission.title}</h3>
+            <p className="text-gray-700">{mission.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div className="mt-8 text-center">
+      <a
+        href={route('about.index')}
+        className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg
+         shadow-lg hover:bg-primary-800 transition-all duration-300 group"
+      >
+        En savoir plus
+        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+      </a>
+    </div>
+  </div>
+</div>
           </div>
         </div>
       </section>
@@ -453,67 +383,6 @@ export default function Welcome() {
       </section>
 
 
-
-      {/* Présentation des Sections du Site */}
-      <section className="py-16 bg-gradient-to-r from-gray-50 to-gray-200">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12 max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Explorez l’ensemble de nos Sections</h2>
-            <p className="text-xl text-gray-600">
-              Naviguez parmi les différentes rubriques pour en savoir plus sur notre mission, nos initiatives, nos partenaires et nos ressources.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {siteSections.map((section, index) => (
-              <a
-                key={index}
-                href={section.href}
-                className="flex flex-col p-6 bg-gray-50 rounded-lg shadow hover:shadow-lg transition-shadow hover:bg-gray-100 text-center items-center"
-              >
-                <div className="flex items-center justify-center w-16 h-16 mb-4 bg-secondary-100 rounded-full">
-                  <section.icon className="w-8 h-8 text-secondary" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">{section.title}</h3>
-                <p className="text-gray-700 text-sm leading-relaxed mb-4">{section.description}</p>
-                <span className="text-primary-700 hover:underline font-medium">En savoir plus</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-      {/* Section Contact / FAQ */}
-      <section className="py-20 bg-gradient-to-r from-primary to-primary-800">
-        
-      {/* <a href="/">
-          <img src="/images/logo/Armoiries-Republique-de-Guinee-V2.png" alt="Logo de la MAMRI" className="w-1/2 md:w-1/4 mx-auto" />
-        </a> */}
-        <img src="/images/logo/Armoiries-Republique-de-Guinee-V2.png" alt="Logo de la MAMRI" className="w-1/2 rounded-full md:w-1/4 mx-auto bg-white" />
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Ensemble, construisons l'avenir de la Guinée
-          </h2>
-          <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-            Découvrez comment nous pouvons collaborer pour renforcer la mobilisation
-            des ressources internes et contribuer au développement durable de notre pays.
-          </p>
-          <div className="flex flex-wrap justify-center gap-6">
-            <a
-              href="#"
-              className="bg-gray-100 text-primary hover:bg-white hover:text-primary-800 px-8 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
-            >
-              Contactez-nous
-            </a>
-            <a
-              href="#"
-              className="bg-primary-800 text-white hover:bg-primary px-8 py-4 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
-            >
-              En savoir plus
-            </a>
-          </div>
-        </div>
-      </section>
 
       {/* Actualités */}
       <section className="py-16 bg-white">

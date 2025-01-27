@@ -9,15 +9,15 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed w-full z-50 bg-gradient-to-r from-primary to-primary-800 shadow-md">
-      <TopBar />
+    <header className="fixed w-full z-50 bg-white shadow-xl">
+      {/* <TopBar /> */}
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           <Logo />
           <DesktopNav />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-md hover:bg-gray-100 bg-primary-300"
+            className="md:hidden p-2 rounded-md hover:bg-primary-800 bg-primary-500 text-white"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}

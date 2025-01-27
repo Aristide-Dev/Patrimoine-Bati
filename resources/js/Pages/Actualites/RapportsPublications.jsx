@@ -3,6 +3,7 @@ import { Head } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
 import { FileText, ArrowRight, Calendar } from "lucide-react";
 import axios from "axios";
+import { Skeleton, ReportCardSkeleton } from "@/Components/Skeleton";
 
 export default function RapportsPublications({categories}) {
   const [reports, setReports] = useState([]);
@@ -14,6 +15,7 @@ export default function RapportsPublications({categories}) {
   // ]);
   const [filters, setFilters] = useState({ category: "Tous", search: "" });
   const [loading, setLoading] = useState(false);
+
 
   console.log('categories', categories);
 
@@ -91,7 +93,12 @@ export default function RapportsPublications({categories}) {
 
           {/* Liste des rapports */}
           {loading ? (
-            <div className="text-center text-gray-600">Chargement...</div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <ReportCardSkeleton key={index} />
+              ))}
+            </div>
+            // <div className="text-center text-gray-600">Chargement...</div>
           ) : reports.length === 0 ? (
             <div className="text-center text-gray-600">Aucun rapport trouvé.</div>
           ) : (

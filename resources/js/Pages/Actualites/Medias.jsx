@@ -6,6 +6,7 @@ import {
   Search, Filter, ChevronDown, Eye, ZoomIn, Facebook, Twitter, Linkedin,
   Instagram, Grid, List, SortAsc, SortDesc, FileText, Image as ImageIcon
 } from 'lucide-react';
+import { Skeleton, MediaCardSkeleton, MediaModalSkeleton } from "@/Components/Skeleton";
 
 export default function MediaPage() {
   // États
@@ -257,6 +258,22 @@ export default function MediaPage() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [state.selectedMedia, handleNavigation]);
 
+  // // Composant Skeleton pour un média
+  // const MediaSkeleton = () => (
+  //   <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+  //     <div className="aspect-w-16 aspect-h-9">
+  //       <div className="w-full h-full bg-gray-200 animate-pulse" />
+  //     </div>
+  //     <div className="p-4">
+  //       <div className="flex gap-2 mb-3">
+  //         <div className="h-6 w-20 bg-gray-200 rounded-full animate-pulse" />
+  //         <div className="h-6 w-32 bg-gray-200 rounded-full animate-pulse" />
+  //       </div>
+  //       <div className="h-6 w-3/4 bg-gray-200 rounded animate-pulse mb-2" />
+  //       <div className="h-4 w-1/2 bg-gray-200 rounded animate-pulse" />
+  //     </div>
+  //   </div>
+  // );
 
   return (
     <AppLayout>
@@ -383,7 +400,18 @@ export default function MediaPage() {
             ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
             : 'grid-cols-1'
           }`}>
-          {paginatedMedia().map((media, index) => renderMediaItem(media, index))}
+          {state.isLoading ? (
+            // Afficher les skeletons pendant le chargement
+            Array.from({ length: 6 }).map((_, index) => (
+              state.activeTab === 'photo' ? (
+                <MediaCardSkeleton key={index} />
+              ) : (
+                <MediaModalSkeleton key={index} />
+              )
+            ))
+          ) : (
+            paginatedMedia().map((media, index) => renderMediaItem(media, index))
+          )}
         </div>
 
       </div>
@@ -455,31 +483,30 @@ export default function MediaPage() {
                 <ChevronLeft className="w-6 h-6 text-white" />
               </button>
 
-              {/* Contenu */}
+              {/* Contenu avec Skeleton */}
               <div className="relative">
-                {state.isLoading && (
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-4 border-white border-t-transparent"></div>
-                  </div>
-                )}
-
-                {state.selectedMedia.type === 'image' ? (
-                  <img
-                    src={isExternalUrl(state.selectedMedia.url) ? state.selectedMedia.url : `/storage/${state.selectedMedia.url}`}
-                    alt={state.selectedMedia.title}
-                    className={`max-h-[80vh] mx-auto rounded-lg transition-opacity duration-300 ${state.isLoading ? 'opacity-0' : 'opacity-100'
-                      }`}
-                    onLoad={() => updateState({ isLoading: false })}
-                  />
-                ) : (
+                {state.isLoading ? (
                   <div className="aspect-w-16 aspect-h-9">
-                    <iframe
-                      src={state.selectedMedia.embed_url}
-                      title={state.selectedMedia.title}
-                      className="w-full h-full rounded-lg"
-                      allowFullScreen
-                    />
+                    <div className="w-full h-full bg-gray-700 animate-pulse rounded-lg" />
                   </div>
+                ) : (
+                  state.selectedMedia.type === 'image' ? (
+                    <img
+                      src={isExternalUrl(state.selectedMedia.url) ? state.selectedMedia.url : `/storage/${state.selectedMedia.url}`}
+                      alt={state.selectedMedia.title}
+                      className="max-h-[80vh] mx-auto rounded-lg transition-opacity duration-300"
+                      onLoad={() => updateState({ isLoading: false })}
+                    />
+                  ) : (
+                    <div className="aspect-w-16 aspect-h-9">
+                      <iframe
+                        src={state.selectedMedia.embed_url}
+                        title={state.selectedMedia.title}
+                        className="w-full h-full rounded-lg"
+                        allowFullScreen
+                      />
+                    </div>
+                  )
                 )}
               </div>
 
@@ -493,23 +520,34 @@ export default function MediaPage() {
                 <ChevronRight className="w-6 h-6 text-white" />
               </button>
 
-              {/* Informations */}
+              {/* Informations avec Skeleton */}
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
-                <div className="text-white">
-                  <div className="flex items-center space-x-3 mb-2">
-                    <span className="px-3 py-1 bg-white/20 rounded-full text-sm">
-                      {state.selectedMedia.category}
-                    </span>
-                    <span className="flex items-center text-sm">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      {new Date(state.selectedMedia.created_at).toLocaleDateString()}
-                    </span>
+                {state.isLoading ? (
+                  <div className="space-y-4">
+                    <div className="flex gap-3">
+                      <div className="h-6 w-24 bg-white/20 rounded-full animate-pulse" />
+                      <div className="h-6 w-32 bg-white/20 rounded-full animate-pulse" />
+                    </div>
+                    <div className="h-8 w-3/4 bg-white/20 rounded animate-pulse" />
+                    <div className="h-4 w-1/2 bg-white/20 rounded animate-pulse" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{state.selectedMedia.title}</h3>
-                  {state.selectedMedia.description && (
-                    <p className="text-white/80">{state.selectedMedia.description}</p>
-                  )}
-                </div>
+                ) : (
+                  <div className="text-white">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <span className="px-3 py-1 bg-white/20 rounded-full text-sm">
+                        {state.selectedMedia.category}
+                      </span>
+                      <span className="flex items-center text-sm">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        {new Date(state.selectedMedia.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">{state.selectedMedia.title}</h3>
+                    {state.selectedMedia.description && (
+                      <p className="text-white/80">{state.selectedMedia.description}</p>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

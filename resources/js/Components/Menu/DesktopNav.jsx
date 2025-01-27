@@ -22,10 +22,10 @@ export const DesktopNav = () => {
             {!item.children ? (
               <a
                 href={item.href && item.href !== '#' ? route(item.href) : '#'}
-                className={`flex items-center px-2 py-1 rounded-md transition-colors text-md font-medium ${
+                className={`flex items-center px-3 py-2 rounded-md transition-colors text-md font-medium ${
                   isActive
                     ? 'bg-primary-800 text-white'
-                    : 'text-primary-100 hover:bg-primary-700'
+                    : 'text-primary-800 hover:bg-primary-700 hover:text-white'
                 }`}
               >
                 {item.icon && <item.icon className="w-4 h-4 mr-2" />}
@@ -37,10 +37,10 @@ export const DesktopNav = () => {
                   type="button"
                   aria-haspopup="true"
                   aria-expanded="false"
-                  className={`flex items-center px-2 py-1 rounded-md transition-colors text-md font-medium ${
+                  className={`flex items-center px-3 py-2 rounded-md transition-colors text-md font-medium ${
                     isDropdownActive
                       ? 'bg-primary-800 text-white'
-                      : 'text-primary-100 hover:bg-primary-700'
+                      : 'text-primary-800 hover:bg-primary-700 hover:text-white'
                   }`}
                 >
                   {item.icon && <item.icon className="w-4 h-4 mr-2" />}

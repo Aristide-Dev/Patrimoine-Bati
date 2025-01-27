@@ -36,7 +36,7 @@ export default function AProposPage() {
       description: "Découvrez notre mission d'intensification et d'accélération de la mobilisation des ressources internes, ainsi que nos objectifs stratégiques pour le développement de la Guinée.",
       icon: Target,
       image: "/images/Armoiries-Republique-de-Guinee-V1-1.png",
-      link: route('about.index'),
+      link: route('about.missions'),
       highlights: [
         "Mobilisation des ressources",
         "Réformes structurelles",
@@ -48,7 +48,7 @@ export default function AProposPage() {
       description: "Rencontrez notre équipe de professionnels dévoués et explorez nos différents départements spécialisés qui œuvrent ensemble pour atteindre nos objectifs.",
       icon: Users,
       image: "/images/408793365_755748986587354_4612216314183945735_n-735x400.jpg",
-      link: route('about.index'),
+      link: route('about.equipes_departements'),
       highlights: [
         "Structure organisationnelle",
         "Départements spécialisés",
@@ -60,7 +60,7 @@ export default function AProposPage() {
       description: "Message du Dr Mohamed Lamine DOUMBOUYA, Coordinateur Général de la MAMRI, sur notre vision et nos engagements pour l'avenir.",
       icon: MessageSquare,
       image: "/images/mohamed-lamine-doumbouya.png",
-      link: route('about.index'),
+      link: route('about.mot_Coordinateur'),
       highlights: [
         "Vision stratégique",
         "Engagements",
@@ -83,10 +83,10 @@ export default function AProposPage() {
             le développement durable de la Guinée
           </p>
           <div className="mt-12 flex justify-center space-x-6">
-            <a href="#mission" className="bg-white text-primary px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-colors">
+            <a href={route('about.missions')} className="bg-white text-primary px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-colors">
               Notre Mission
             </a>
-            <a href="#contact" className="bg-primary-700 text-white px-8 py-4 rounded-lg font-medium hover:bg-primary-600 transition-colors">
+            <a href={route('contact.index')} className="bg-primary-700 text-white px-8 py-4 rounded-lg font-medium hover:bg-primary-600 transition-colors">
               Nous Contacter
             </a>
           </div>
@@ -161,35 +161,35 @@ export default function AProposPage() {
         </div>
       </section>
 
-{/* Newsletter Section */}
-<section className="py-20 bg-gradient-to-r from-primary to-primary-800">
-  <div className="container mx-auto px-4 text-center">
-    <h2 className="text-4xl font-bold text-white mb-6">
-      Restez informé
-    </h2>
-    <p className="text-xl text-white/90 mb-10 max-w-3xl mx-auto">
-      Abonnez-vous à notre newsletter pour recevoir les dernières actualités, initiatives, 
-      et opportunités pour contribuer au développement de la Guinée.
-    </p>
-    <form className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
-      <input
-        type="email"
-        placeholder="Entrez votre email"
-        className="w-full md:w-auto px-6 py-4 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-light"
-        required
-      />
-      <button
-        type="submit"
-        className="bg-white text-primary px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-colors"
-      >
-        S’abonner
-      </button>
-    </form>
-    <p className="text-sm text-white/80 mt-6">
-      Nous respectons votre vie privée. Votre adresse email ne sera jamais partagée.
-    </p>
-  </div>
-</section>
+      {/* Newsletter Section */}
+      <section className="py-20 bg-gradient-to-r from-primary to-primary-800">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl font-bold text-white mb-6">
+            Restez informé
+          </h2>
+          <p className="text-xl text-white/90 mb-10 max-w-3xl mx-auto">
+            Abonnez-vous à notre newsletter pour recevoir les dernières actualités, initiatives, 
+            et opportunités pour contribuer au développement de la Guinée.
+          </p>
+          <form className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+            <input
+              type="email"
+              placeholder="Entrez votre email"
+              className="w-full md:w-auto px-6 py-4 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-light"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-white text-primary px-8 py-4 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+            >
+              S’abonner
+            </button>
+          </form>
+          <p className="text-sm text-white/80 mt-6">
+            Nous respectons votre vie privée. Votre adresse email ne sera jamais partagée.
+          </p>
+        </div>
+      </section>
 
 
       {/* Nouvelle section pour les pages liées */}
