@@ -169,7 +169,7 @@ const OrganisationPage = () => {
 
             {/* Ligne horizontale vers le niveau 3 */}
             <div className="w-full flex justify-center relative mb-6">
-              <div className="border-t-4 border-x-4 border-gray-400 w-full md:w-2/3 h-4 rounded-md"></div>
+              <div className="border-t-4 border-x-4 border-gray-400 w-full md:w-2/3 h-4"></div>
             </div>
 
             {/* Niveau 2 : Ministres principaux */}
@@ -207,7 +207,7 @@ const OrganisationPage = () => {
 
             {/* Ligne horizontale vers le niveau 3 */}
             <div className="w-full flex justify-center relative mb-6">
-              <div className="border-t-4 border-gray-400 w-full md:w-2/3 h-4"></div>
+              <div className="border-t-4 border-x-4 border-gray-400 w-full h-4"></div>
             </div>
 
             {/* Niveau 3 : Ministres et autres membres */}
@@ -218,8 +218,8 @@ const OrganisationPage = () => {
                 "Ministre en charge des Télécommunications et de l’Economie Numérique",
                 "Gouverneur de la Banque Centrale de la République de Guinée (BCRG)",
                 "Coordinateur général de la MAMRI Rapporteur du Comité de pilotage",
-                "Personnalité Qualifiée Indépendante",
-                "Personnalité Qualifiée Indépendante",
+                "2 Personnalités Qualifiées Indépendantes",
+                "Les Partenaires au développement (invités observateurs )",
               ].map((texte, idx) => (
                 <div key={idx} className="flex flex-col items-center">
                   {/* Ligne verticale */}
