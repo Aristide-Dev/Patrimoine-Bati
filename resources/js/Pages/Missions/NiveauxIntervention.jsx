@@ -21,13 +21,31 @@ const OrganisationPage = () => {
 
   const sections = [
     {
+      title: "Coordination Générale",
+      icon: Network,
+      color: "to-sky-500",
+      description: "Support technique et méthodologique",
+      members: [
+        "Directeurs de Projets",
+        "Chargés de missions",
+        "Chargée de communication",
+        // "Équipe Technique Permanente"
+      ],
+      responsibilities: [
+        "Analyse et information",
+        "Coproduction de propositions",
+        "Suivi des initiatives",
+        "Communication et valorisation"
+      ]
+    },
+    {
       title: "Comité de Pilotage",
       icon: Users,
       color: "to-indigo-500",
       description: "Instance politique et stratégique d'orientation",
       members: [
         "Le Président de la République (Président)",
-        "Le Premier Ministre (Représentant)",
+        // "Le Premier Ministre (Représentant)",
         "Le Ministre de l'Economie et des Finances (1er VP)",
         "Le Ministre du Budget (2ème VP)"
       ],
@@ -54,24 +72,6 @@ const OrganisationPage = () => {
         "Suivi de la mise en œuvre",
         "Coordination administrative",
         "Veille sur la qualité"
-      ]
-    },
-    {
-      title: "Coordination Générale",
-      icon: Network,
-      color: "to-sky-500",
-      description: "Support technique et méthodologique",
-      members: [
-        "Chef de projet",
-        "Chargé de mission",
-        "Chargé de communication",
-        "Équipe Technique Permanente"
-      ],
-      responsibilities: [
-        "Analyse et information",
-        "Coproduction de propositions",
-        "Suivi des initiatives",
-        "Communication et valorisation"
       ]
     }
   ];
@@ -157,34 +157,34 @@ const OrganisationPage = () => {
           </div>
           
           <div className="flex flex-col items-center relative mx-auto shadow px-2 py-6 rounded-xl bg-white">
-            {/* Niveau 1 : Président de la République */}
+            {/* Niveau 1 : Ministre Secrétaire General à la Présidence */}
             <div className="mb-0 relative">
               <div className="inline-block bg-red-600 text-white px-6 py-3 rounded-md shadow-md font-semibold border-2 border-red-700">
-                Président de la République
+                Ministre Secrétaire General à la Présidence
               </div>
             </div>
 
             {/* Ligne verticale de raccord */}
             <div className="w-0 h-6 border-l-4 border-gray-400"></div>
 
-{/* Ligne horizontale vers le niveau 3 */}
-<div className="w-full flex justify-center relative mb-6">
-  <div className="border-t-4 border-x-4 border-gray-400 w-full md:w-2/3 h-4 rounded-md"></div>
-</div>
+            {/* Ligne horizontale vers le niveau 3 */}
+            <div className="w-full flex justify-center relative mb-6">
+              <div className="border-t-4 border-x-4 border-gray-400 w-full md:w-2/3 h-4 rounded-md"></div>
+            </div>
 
             {/* Niveau 2 : Ministres principaux */}
             <div className="flex items-start justify-center space-x-16 relative mb-8">
               {[
                 {
                   title: "Ministre en charge",
-                  role: "de l’économie et des finances",
+                  role: "de l’Economie et des Finances",
                   bgColor: "bg-yellow-100",
                   textColor: "text-yellow-800",
                   borderColor: "border-yellow-300",
                 },
                 {
-                  title: "Ministre en charge",
-                  role: "du budget",
+                  title: "Ministre en Charge",
+                  role: "du Budget",
                   bgColor: "bg-yellow-100",
                   textColor: "text-yellow-800",
                   borderColor: "border-yellow-300",
@@ -213,13 +213,13 @@ const OrganisationPage = () => {
             {/* Niveau 3 : Ministres et autres membres */}
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
               {[
-                "Ministre en charge des mines et de la géologie",
+                "Ministre en charge des Mines et de la Géologie",
                 "Ministre en charge du Plan et de la Coopération Internationale",
-                "Ministre en charge des télécommunications et de l’économie numérique",
+                "Ministre en charge des Télécommunications et de l’Economie Numérique",
                 "Gouverneur de la Banque Centrale de la République de Guinée (BCRG)",
                 "Coordinateur général de la MAMRI Rapporteur du Comité de pilotage",
-                "Personnalité qualifiée indépendante",
-                "Personnalité qualifiée indépendante",
+                "Personnalité Qualifiée Indépendante",
+                "Personnalité Qualifiée Indépendante",
               ].map((texte, idx) => (
                 <div key={idx} className="flex flex-col items-center">
                   {/* Ligne verticale */}
