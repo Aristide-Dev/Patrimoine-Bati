@@ -13,28 +13,28 @@ const missions = [
     title: "Mobilisation des Ressources",
     description: "Accroître rapidement, fortement et durablement la mobilisation des ressources internes en République de Guinée.",
     icon: Target,
-    color: "bg-red-50 text-red-600",
+    color: "bg-primary-100 text-primary-800",
   },
   {
     id: 2,
     title: "Modernisation Fiscale",
     description: "Appui à la modernisation de la fiscalité d'État, de la fiscalité locale et des taxes locales pour une meilleure collecte.",
     icon: PieChart,
-    color: "bg-blue-50 text-blue-600",
+    color: "bg-primary-100 text-primary-800",
   },
   {
     id: 3,
     title: "Réforme Administrative",
     description: "Transformation des structures, refonte des processus, et digitalisation des régies financières publiques.",
     icon: Settings,
-    color: "bg-green-50 text-green-600",
+    color: "bg-primary-100 text-primary-800",
   },
   {
     id: 4,
     title: "Gouvernance Financière",
     description: "Optimisation de la gouvernance et des politiques financières de l'État pour une gestion efficace.",
     icon: Shield,
-    color: "bg-purple-50 text-purple-600",
+    color: "bg-primary-100 text-primary-800",
   }
 ];
 
@@ -155,7 +155,7 @@ export default function OrganisationMissionsPage() {
               >
                 <div className={`p-6 ${mission.color} group-hover:bg-opacity-75 transition-colors`}>
                   <mission.icon size={32} className="mb-4" />
-                  <h3 className="text-xl font-bold mb-2">{mission.title}</h3>
+                  <h3 className="text-lg font-bold mb-2">{mission.title}</h3>
                 </div>
                 <div className="p-6">
                   <p className="text-gray-600">{mission.description}</p>

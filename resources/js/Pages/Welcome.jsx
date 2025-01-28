@@ -344,8 +344,8 @@ export default function Welcome() {
                 key={index}
                 className="flex flex-col items-center text-center p-8 bg-white rounded-lg shadow-md transition-transform duration-200 hover:scale-105 hover:shadow-lg"
               >
-                <div className="flex items-center justify-center w-16 h-16 mb-4 bg-secondary-100 rounded-full">
-                  <mission.icon className="w-8 h-8 text-secondary" />
+                <div className="flex items-center justify-center w-16 h-16 mb-4 bg-primary-100 rounded-full">
+                  <mission.icon className="w-8 h-8 text-primary-800" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">{mission.title}</h3>
                 <p className="text-gray-700 leading-relaxed">
@@ -371,8 +371,8 @@ export default function Welcome() {
                 href={direction.href}
                 className="flex flex-col items-start p-6 bg-white rounded-lg shadow-md transform transition duration-200 hover:scale-105 hover:shadow-lg hover:bg-gray-100"
               >
-                <div className="flex items-center justify-center w-14 h-14 rounded-full bg-secondary-100 mb-4">
-                  <direction.icon className="w-8 h-8 text-secondary" />
+                <div className="flex items-center justify-center w-14 h-14 rounded-full bg-primary-100 mb-4">
+                  <direction.icon className="w-8 h-8 text-primary-800" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">{direction.title}</h3>
                 <p className="text-gray-700 text-sm leading-relaxed">{direction.description}</p>

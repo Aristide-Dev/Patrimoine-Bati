@@ -20,7 +20,7 @@ const CoordinatorMessagePage = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-bl from-yellow-200 to-yellow-600 bg-clip-text text-transparent mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold bg-gradient-to-bl from-primary-200 to-primary-600 bg-clip-text text-transparent mb-6">
                         Le Mot du Coordonnateur
                     </h1>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">

@@ -96,8 +96,8 @@ export default function AProposPage() {
       {/* Présentation Principale */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="p-8 bg-gradient-to-r from-primary/10 to-transparent">
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl overflow-hidden">
+            <div className="p-8 bg-transparent">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 Mission d'Appui à la Mobilisation des Ressources Internes
               </h2>
@@ -157,6 +157,22 @@ export default function AProposPage() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Nos Valeurs */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Nos Valeurs</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {valeurs.map((valeur, idx) => (
+              <div key={idx} className="text-center group hover:bg-primary hover:text-white rounded-xl p-6 transition-all duration-300">
+                <valeur.icon className="w-12 h-12 mx-auto mb-4 text-primary group-hover:text-white transition-colors" />
+                <h3 className="text-xl font-bold mb-2">{valeur.title}</h3>
+                <p className="text-gray-600 group-hover:text-white/90">{valeur.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -239,22 +255,6 @@ export default function AProposPage() {
                     <ArrowRight className="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
                   </a>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Nos Valeurs */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Nos Valeurs</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {valeurs.map((valeur, idx) => (
-              <div key={idx} className="text-center group hover:bg-primary hover:text-white rounded-xl p-6 transition-all duration-300">
-                <valeur.icon className="w-12 h-12 mx-auto mb-4 text-primary group-hover:text-white transition-colors" />
-                <h3 className="text-xl font-bold mb-2">{valeur.title}</h3>
-                <p className="text-gray-600 group-hover:text-white/90">{valeur.description}</p>
               </div>
             ))}
           </div>

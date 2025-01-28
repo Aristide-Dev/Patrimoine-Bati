@@ -22,6 +22,20 @@ const Footer = () => {
             <p className="text-gray-300 text-center md:text-left text-balance">
               La Mission d'Appui à la Mobilisation des Ressources Internes en République de Guinée.
             </p>
+            
+          <img
+            className="h-20 w-52 object-contain hover:scale-105 transition-transform duration-300"
+            src="https://pbs.twimg.com/media/GW_OxLnWcAAwaXI?format=jpg&name=large"
+            alt="Emblème national"
+            loading="lazy"
+          />
+            
+          <img
+            className="h-20 w-52 object-contain hover:scale-105 transition-transform duration-300"
+            src="https://simandou2040.gn/wp-content/uploads/2024/09/Design-sans-titre-1-1.png"
+            alt="Emblème national"
+            loading="lazy"
+          />
           </div>
 
           {/* Section Contact */}
@@ -172,8 +186,13 @@ const Footer = () => {
             alt="Emblème national"
             loading="lazy"
           />
-          <p className="text-gray-300 text-xl">
-            <span className="font-medium text-white">Simandou 2040</span> - 
+          <img
+            className="h-12 w-auto"
+            src="https://simandou2040.gn/wp-content/uploads/2024/09/Design-sans-titre-1-1.png"
+            alt="Emblème national"
+            loading="lazy"
+          />
+          <p className="text-gray-300 text-xl"> 
             © {new Date().getFullYear()} <span className="font-medium text-white">MAMRI</span> - 
             Tous droits réservés
           </p>
