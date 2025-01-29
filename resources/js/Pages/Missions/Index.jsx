@@ -137,7 +137,7 @@ export default function OrganisationMissionsPage() {
       </div>
 
       {/* Section Missions */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-100 shadow-lg">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Nos Missions</h2>
@@ -147,7 +147,7 @@ export default function OrganisationMissionsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {missions.map((mission) => (
               <div
                 key={mission.id}
@@ -167,7 +167,7 @@ export default function OrganisationMissionsPage() {
       </section>
 
       {/* Section Composantes */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Composantes</h2>
@@ -176,7 +176,7 @@ export default function OrganisationMissionsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {components.map((component, index) => (
               <div
                 key={index}
@@ -192,7 +192,7 @@ export default function OrganisationMissionsPage() {
       </section>
 
       {/* Section Principes d'Action */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-100 shadow-lg">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Principes d'Action</h2>
@@ -201,7 +201,7 @@ export default function OrganisationMissionsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
             {principles.map((principle, index) => (
               <div
                 key={index}
@@ -217,7 +217,7 @@ export default function OrganisationMissionsPage() {
       </section>
 
       {/* Section Objectifs */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Nos Objectifs</h2>
@@ -226,7 +226,7 @@ export default function OrganisationMissionsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {objectives.map((objective, index) => (
               <div
                 key={index}

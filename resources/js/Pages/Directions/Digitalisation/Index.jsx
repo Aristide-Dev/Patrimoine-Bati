@@ -147,7 +147,7 @@ const DigitalisationPage = () => {
       </div>
 
       {/* Présentation */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
@@ -156,7 +156,7 @@ const DigitalisationPage = () => {
                 {content.overview.description}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               {content.overview.keyPoints.map((point, idx) => (
                 <div key={idx} className="bg-gray-50 rounded-xl p-6 text-center">
                   <CheckCircle className="w-8 h-8 text-primary mx-auto mb-4" />
@@ -169,9 +169,9 @@ const DigitalisationPage = () => {
       </section>
 
       {/* État des Lieux */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-100 shadow-xl">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-8xl mx-auto">
             <div className="bg-white rounded-2xl p-8 shadow-lg">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -195,7 +195,7 @@ const DigitalisationPage = () => {
       </section>
 
       {/* Réalisations */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Réalisations 2020-2021</h2>
@@ -204,7 +204,7 @@ const DigitalisationPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {content.achievements.map((achievement, idx) => (
               <div key={idx} className="bg-white rounded-xl shadow-lg overflow-hidden group">
                 <div className="relative h-48">
@@ -260,7 +260,7 @@ const DigitalisationPage = () => {
       </section>
 
       {/* Objectifs */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-100 shadow-xl">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Objectifs Stratégiques</h2>
@@ -269,7 +269,7 @@ const DigitalisationPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {content.objectives.map((objective, idx) => (
               <div key={idx} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all group">
                 <objective.icon className="w-12 h-12 text-primary mb-6 group-hover:scale-110 transition-transform" />
@@ -291,7 +291,7 @@ const DigitalisationPage = () => {
       </section>
 
       {/* Défis et Solutions */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-100 shadow-xl">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Défis et Solutions</h2>
@@ -300,7 +300,7 @@ const DigitalisationPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {content.challenges.map((challenge, idx) => (
               <div key={idx} className="bg-white rounded-xl shadow-lg overflow-hidden">
                 <div className="p-6">
@@ -330,7 +330,7 @@ const DigitalisationPage = () => {
       </section>
 
       {/* CTA Section */}
-      {/* <section className="py-20 bg-primary">
+      {/* <section className="py-10 bg-primary">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-white mb-8">
             Participez à la transformation numérique

@@ -94,9 +94,9 @@ const RessourcesNonFiscalesPage = () => {
       </div>
 
       {/* Statistiques et Évolution */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
             {/* Évolution des recettes */}
             <div className="bg-gray-50 rounded-xl p-8 shadow-lg">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Évolution des Recettes Non Fiscales</h2>
@@ -144,7 +144,7 @@ const RessourcesNonFiscalesPage = () => {
 
 
       {/* Section Contexte et Nature des RNF */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-100 shadow-xl">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Contexte et Nature des RNF</h2>
@@ -152,7 +152,7 @@ const RessourcesNonFiscalesPage = () => {
               Comprendre la nature et l’importance des Ressources Non Fiscales dans la mobilisation des recettes de l'État.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div className="bg-white rounded-xl p-6 shadow-xl hover:shadow-2xl">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Qu'est-ce que les RNF ?</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -178,7 +178,7 @@ const RessourcesNonFiscalesPage = () => {
       </section>
 
       {/* Section Nature Juridique */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Nature Juridique des RNF</h2>
@@ -187,7 +187,7 @@ const RessourcesNonFiscalesPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div className="bg-white rounded-xl p-8 shadow-lg">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Définition</h3>
               <p className="text-gray-600 leading-relaxed mb-6">
@@ -253,7 +253,7 @@ const RessourcesNonFiscalesPage = () => {
       </section>
 
       {/* Section Axes de Travail */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-100 shadow-xl">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Axes de Travail</h2>
@@ -262,7 +262,7 @@ const RessourcesNonFiscalesPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {[
               {
                 icon: Users,
@@ -298,7 +298,7 @@ const RessourcesNonFiscalesPage = () => {
 
 
       {/* Objectifs et Réformes */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Objectifs Stratégiques</h2>
@@ -307,7 +307,7 @@ const RessourcesNonFiscalesPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mb-16">
             {content.objectives.map((objective, idx) => (
               <div key={idx} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all">
                 <objective.icon className="w-12 h-12 text-primary mb-6" />
@@ -324,7 +324,7 @@ const RessourcesNonFiscalesPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div className="bg-white rounded-xl p-6 shadow-lg">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Contexte et Observations</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -352,7 +352,7 @@ const RessourcesNonFiscalesPage = () => {
 
           <div className="mt-20">
             <h2 className="text-4xl font-bold text-gray-900 mb-6 text-center">Réformes en Cours</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               {content.reforms.map((reform, idx) => (
                 <div key={idx} className="bg-white rounded-xl p-6 shadow-lg">
                   <div className="flex justify-between items-start mb-4">
@@ -382,7 +382,7 @@ const RessourcesNonFiscalesPage = () => {
       </section>
 
       {/* Section CTA */}
-      {/* <section className="py-20 bg-primary">
+      {/* <section className="py-10 bg-primary">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-white mb-8">
             Participez à l'amélioration des ressources non fiscales

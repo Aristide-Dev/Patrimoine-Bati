@@ -100,9 +100,9 @@ const RessourcesDouanieresPage = () => {
       </div>
 
       {/* Contexte et Performance */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {/* Contexte */}
             <div className="bg-gray-50 rounded-xl p-8 shadow-lg">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">{content.context.title}</h2>
@@ -153,7 +153,7 @@ const RessourcesDouanieresPage = () => {
       </section>
 
       {/* Réformes et Impact */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-100 shadow-xl">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Réformes Majeures et Impact</h2>
@@ -162,7 +162,7 @@ const RessourcesDouanieresPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
             {content.reforms.map((reform, idx) => (
               <div key={idx} className="bg-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{reform.title}</h3>
@@ -183,13 +183,13 @@ const RessourcesDouanieresPage = () => {
       </section>
 
       {/* Défis et Réalisations */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Défis */}
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-8">Défis Majeurs</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                 {content.challenges.map((challenge, idx) => (
                   <div key={idx} className="bg-gray-50 rounded-lg p-6">
                     <challenge.icon className="w-8 h-8 text-primary mb-4" />
@@ -226,7 +226,7 @@ const RessourcesDouanieresPage = () => {
       </section>
 
       {/* Statistiques Clés */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-100 shadow-xl">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-6">Statistiques Clés</h2>
@@ -235,7 +235,7 @@ const RessourcesDouanieresPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
             {[
               { title: "49,29%", subtitle: "Contribution des Douanes", description: "Part des recettes internes provenant des douanes." },
               { title: "96%", subtitle: "Objectifs atteints", description: "Taux de réalisation des objectifs 2021." },
@@ -252,7 +252,7 @@ const RessourcesDouanieresPage = () => {
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           {/* Titre Section */}
           <div className="text-center mb-16">
@@ -263,7 +263,7 @@ const RessourcesDouanieresPage = () => {
           </div>
 
           {/* Cartes Statistiques */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 mb-12">
             <div className="bg-white rounded-xl p-6 shadow-lg">
               <h3 className="text-xl font-bold text-gray-900 mb-4">Proportion des Régies</h3>
               <div className="space-y-4">
@@ -370,7 +370,7 @@ const RessourcesDouanieresPage = () => {
 
 
       {/* Section Appel à l'Action */}
-      {/* <section className="py-20 bg-primary">
+      {/* <section className="py-10 bg-primary">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-white mb-8">
             Participez à la Modernisation Douanière

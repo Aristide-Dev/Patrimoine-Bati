@@ -103,7 +103,7 @@ const OrganisationPage = () => {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">Structure Organisationnelle</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {sections.map((section, index) => (
               <div 
                 key={index}
@@ -173,7 +173,7 @@ const OrganisationPage = () => {
             </div>
 
             {/* Niveau 2 : Ministres principaux */}
-            <div className="flex items-start justify-center space-x-16 relative mb-8">
+            <div className="flex items-start justify-center space-x-16 relative mb-8 mx-0">
               {[
                 {
                   title: "Ministre en charge",
@@ -211,7 +211,7 @@ const OrganisationPage = () => {
             </div>
 
             {/* Niveau 3 : Ministres et autres membres */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-1">
               {[
                 "Ministre en charge des Mines et de la Géologie",
                 "Ministre en charge du Plan et de la Coopération Internationale",
@@ -241,7 +241,7 @@ const OrganisationPage = () => {
           <h2 className="text-4xl font-bold text-center mb-12">
             Informations Complémentaires
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {[
               {
                 icon: Calendar,

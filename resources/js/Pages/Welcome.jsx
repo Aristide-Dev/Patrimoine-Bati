@@ -192,7 +192,7 @@ export default function Welcome() {
 
       <section className="relative mx-auto bg-gray-100 w-full">
         <div className="container mx-auto px-4 py-20  bg-white">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {/* Colonne gauche : Profil du Coordinateur */}
             <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
               <div className="relative overflow-hidden">
@@ -338,7 +338,7 @@ export default function Welcome() {
               Découvrez notre mission, nos objectifs et notre approche pour le développement durable de la Guinée.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {missions.map((mission, index) => (
               <div
                 key={index}
@@ -364,7 +364,7 @@ export default function Welcome() {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-200 mb-4">Nos Directions de Projet</h2>
             <p className="text-xl text-gray-100">Accédez rapidement aux principales initiatives visant à renforcer la mobilisation des ressources.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2">
             {directions.map((direction, index) => (
               <a
                 key={index}
@@ -402,7 +402,7 @@ export default function Welcome() {
                 </a>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 {articles?.map((item) => (
                   <article key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
                     <img

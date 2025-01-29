@@ -67,7 +67,7 @@ const MaitriseDepensesPage = () => {
                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
                         Chiffres Clés
                     </h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
                         {content.stats.depensesFiscales.map((stat, idx) => (
                             <div
                                 key={idx}
@@ -94,7 +94,7 @@ const MaitriseDepensesPage = () => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                         {[
                             {
                                 title: "Entente de Règlement",
@@ -147,7 +147,7 @@ const MaitriseDepensesPage = () => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
                         {/* Graphique des dépenses */}
                         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
                             <div className="p-6 bg-gray-50">
@@ -199,7 +199,7 @@ const MaitriseDepensesPage = () => {
                                 <p className="text-gray-600">Part des dépenses fiscales dans les recettes totales</p>
                             </div>
                             <div className="p-6">
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-2">
                                     <div className="bg-gray-50 p-4 rounded-lg text-center">
                                         <p className="text-sm text-gray-600">Part des Recettes 2017</p>
                                         <p className="text-2xl font-bold text-primary">21,70%</p>
@@ -233,7 +233,7 @@ const MaitriseDepensesPage = () => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                         <div className="bg-white rounded-xl p-8 shadow-lg">
                             <h3 className="text-2xl font-bold text-gray-900 mb-6">Union Européenne</h3>
                             <p className="text-gray-600 mb-6">
@@ -289,7 +289,7 @@ const MaitriseDepensesPage = () => {
                     <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 text-center mb-8">
                         Nos Objectifs
                     </h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                         {content.objectives.map((objective, idx) => (
                             <div
                                 key={idx}

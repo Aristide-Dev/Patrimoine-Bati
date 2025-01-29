@@ -146,7 +146,7 @@ const RessourcesFiscalesPage = () => {
           <p className="text-xl leading-relaxed max-w-3xl mx-auto">
             Moderniser le système fiscal guinéen pour une gestion efficace et transparente des ressources internes.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-1 mt-12">
             {sections.stats.map((stat, idx) => (
               <div key={idx} className="bg-white/10 rounded-lg p-4">
                 <div className="text-sm uppercase">{stat.label}</div>
@@ -158,7 +158,7 @@ const RessourcesFiscalesPage = () => {
       </div>
 
       {/* Objectifs */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Nos Objectifs</h2>
@@ -166,7 +166,7 @@ const RessourcesFiscalesPage = () => {
               Une approche claire pour maximiser les recettes fiscales tout en renforçant la confiance des citoyens.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
             {sections.objectives.map((objective, idx) => (
               <div key={idx} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-2xl transition-all">
                 <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
@@ -189,7 +189,7 @@ const RessourcesFiscalesPage = () => {
       </section>
 
       {/* Réformes */}
-      <section className="py-20 bg-white">
+      <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Réformes Majeures</h2>
@@ -197,9 +197,9 @@ const RessourcesFiscalesPage = () => {
               Des initiatives concrètes pour une fiscalité moderne et efficace.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {sections.reforms.map((reform, idx) => (
-              <div key={idx} className="bg-gray-50 p-6 rounded-xl shadow-lg">
+              <div key={idx} className="bg-gray-50 p-6 rounded-xl shadow-2xl">
                 <h3 className="text-xl font-bold mb-2">{reform.title}</h3>
                 <p className="text-gray-600 mb-3">{reform.description}</p>
                 <div className="text-sm flex justify-between mb-3">
@@ -219,7 +219,7 @@ const RessourcesFiscalesPage = () => {
       </section>
 
       {/* Innovations */}
-      {/* <section className="py-20 bg-gray-50">
+      {/* <section className="py-10 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Innovations</h2>
@@ -227,7 +227,7 @@ const RessourcesFiscalesPage = () => {
               Intégrer les technologies de pointe pour un système fiscal de nouvelle génération.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {sections.innovations.map((innovation, idx) => (
               <div key={idx} className="bg-white p-6 rounded-xl shadow-lg">
                 <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">

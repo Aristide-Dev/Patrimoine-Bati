@@ -129,9 +129,9 @@ export default function AProposPage() {
       {/* Historique et Chiffres */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* Timeline */}
-            <div className="space-y-8">
+            <div className="space-y-4">
               <h3 className="text-2xl font-bold text-gray-900 mb-8">Notre Histoire</h3>
               {historique.map((item, idx) => (
                 <div key={idx} className="flex items-start space-x-4">
@@ -148,10 +148,10 @@ export default function AProposPage() {
 
             {/* Chiffres clés */}
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Chiffres Clés</h3>
-              <div className="grid grid-cols-2 gap-6">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Chiffres Clés</h3>
+              <div className="grid grid-cols-2 gap-2">
                 {chiffresClés.map((stat, idx) => (
-                  <div key={idx} className="bg-white p-6 rounded-xl shadow-lg">
+                  <div key={idx} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
                     <div className="text-3xl font-bold text-primary mb-2">{stat.value}</div>
                     <div className="text-gray-600">{stat.label}</div>
                   </div>
@@ -166,7 +166,7 @@ export default function AProposPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Nos Valeurs</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
             {valeurs.map((valeur, idx) => (
               <div key={idx} className="text-center group hover:bg-primary hover:text-white rounded-xl p-6 transition-all duration-300">
                 <valeur.icon className="w-12 h-12 mx-auto mb-4 text-primary group-hover:text-white transition-colors" />
@@ -220,7 +220,7 @@ export default function AProposPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {linkedPages.map((page, idx) => (
               <div key={idx} className="group bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all">
                 <div className="relative h-48 overflow-hidden">
