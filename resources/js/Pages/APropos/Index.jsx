@@ -48,7 +48,7 @@ export default function AProposPage() {
       description: "Rencontrez notre équipe de professionnels dévoués et explorez nos différents départements spécialisés qui œuvrent ensemble pour atteindre nos objectifs.",
       icon: Users,
       image: "/images/408793365_755748986587354_4612216314183945735_n-735x400.jpg",
-      link: route('about.equipes_departements'),
+      link: route('about.organisation'),
       highlights: [
         "Structure organisationnelle",
         "Départements spécialisés",
