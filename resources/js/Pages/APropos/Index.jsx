@@ -74,8 +74,8 @@ export default function AProposPage() {
       <Head title="À Propos - MAMRI" />
 
       {/* Hero Section Améliorée */}
-      <div className="relative bg-gradient-to-r from-primary to-primary-800 py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557804506-669a67965ba0')] bg-cover bg-center opacity-10" />
+      <div className="relative bg-black py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://simandou2040.gn/wp-content/uploads/2024/11/RT-Simandou1.jpg')] bg-cover bg-center opacity-50" />
         <div className="relative container mx-auto px-4 text-center">
           <h1 className="text-6xl font-bold text-white mb-6">À Propos de la MAMRI</h1>
           <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">

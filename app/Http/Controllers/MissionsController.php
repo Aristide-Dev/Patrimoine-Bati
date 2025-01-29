@@ -18,8 +18,8 @@ class MissionsController extends Controller
         return Inertia::render('Missions/MotDuCoordinateur');
     }
 
-    public function niveauxIntervention(): Response
+    public function organisation(): Response
     {
-        return Inertia::render('Missions/NiveauxIntervention');
+        return Inertia::render('Missions/Organisation');
     }
 }

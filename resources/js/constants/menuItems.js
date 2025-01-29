@@ -28,7 +28,7 @@ export const menuItems = [
     actif: 'about.*', // route('apropos.index')
     children: [
       { label: 'Présentation', href: 'about.index', icon: FileText }, // route('apropos.presentation')
-      { label: 'Équipe et Départements', href: 'about.equipes_departements', icon: Users }, // route('about.equipe')
+      { label: 'Organisation', href: 'about.organisation', icon: Users }, // route('about.equipe')
       { label: 'Mission et Objectifs', href: 'about.missions', icon: Briefcase }, // route('about.missions')
       { label: 'Mot du Coordinateur', href: 'about.mot_Coordinateur', icon: MessageSquare }, // route('apropos.coordinateur')
     ]

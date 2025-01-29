@@ -30,7 +30,7 @@ Route::prefix('a-propos')->group(function() {
     Route::get('/', [AProposController::class, 'index'])->name('about.index');
     Route::get('/mot-du-coordinateur', [MissionsController::class, 'motDuCoordinateur'])->name('about.mot_Coordinateur');
     Route::get('/missions-et-objectifs', [MissionsController::class, 'index'])->name('about.missions');
-    Route::get('/equipe-et-departements', [MissionsController::class, 'niveauxIntervention'])->name('about.equipes_departements');
+    Route::get('/organisation', [MissionsController::class, 'organisation'])->name('about.organisation');
 
     // Route::get('/contexte-creation', [AProposController::class, 'contexte'])->name('about.contexte');
     // Route::get('/cadre-juridique', [AProposController::class, 'cadreJuridique'])->name('about.cadre_juridique');
