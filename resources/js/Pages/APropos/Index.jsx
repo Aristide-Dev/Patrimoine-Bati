@@ -10,7 +10,8 @@ import {
 
 export default function AProposPage() {
   const historique = [
-    { year: '2021', event: 'Création de la MAMRI par décret présidentiel' },
+    { year: '2019', event: 'Création de la MAMRI par décret présidentiel' },
+    { year: '2021', event: 'Lancement du processus d’évaluation du système d’administration fiscale de la République de Guinée' },
     { year: '2022', event: 'Lancement des premières réformes structurelles' },
     { year: '2023', event: 'Mise en place de la digitalisation des services' },
     { year: '2024', event: 'Extension des programmes de mobilisation' }
@@ -103,7 +104,7 @@ export default function AProposPage() {
               </h2>
               <p className="text-lg text-gray-700 leading-relaxed mb-8">
                 La MAMRI est un organe stratégique rattaché à la Présidence de la République, 
-                créée par le décret D/2021/064/PRG/SGG du 25 février 2021. Notre mission 
+                créée par le décret D/2019/050/PRG/SGG en date du 31 janvier 2019. Notre mission 
                 principale est d'intensifier et d'accélérer la mobilisation des ressources 
                 internes pour répondre aux besoins de financement de l'économie nationale.
               </p>
