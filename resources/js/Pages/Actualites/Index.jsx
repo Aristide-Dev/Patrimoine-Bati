@@ -74,7 +74,7 @@ export default function ActualitesPage() {
                 Découvrez les dernières actualités et initiatives de la MAMRI
               </p>
 
-              <div className="flex flex-col md:flex-row items-center gap-4">
+              <div className="flex flex-col md:flex-row items-center gap-2">
                 <div className="relative flex-1 w-full">
                   <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60" />
                   <input
@@ -136,7 +136,7 @@ export default function ActualitesPage() {
           ) : (
             <>
               {/* Articles Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                 {articles.data?.map((article) => (
                   <article key={article.id} className="bg-white rounded-xl shadow-sm overflow-hidden group">
                     <div className="relative aspect-video">
@@ -169,7 +169,7 @@ export default function ActualitesPage() {
                       <p className="text-gray-600 mb-4 line-clamp-2">{article.excerpt}</p>
 
                       <div className="flex items-center justify-between pt-4 border-t">
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
                           <span className="flex items-center">
                             <Eye className="w-4 h-4 mr-1" />
                             {article.views}

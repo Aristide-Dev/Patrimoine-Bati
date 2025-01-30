@@ -17,7 +17,7 @@ const Footer = () => {
   const usefulLinks = [
     { 
       href: "http://www.presidence.gov.gn/", 
-      text: "Présidence",
+      text: "Présidence de la République de Guinée",
     },
     { 
       href: "https://www.primature.gov.gn/", 
@@ -25,35 +25,35 @@ const Footer = () => {
     },
     { 
       href: "http://mef.gov.gn/", 
-      text: "Ministère Économie",
+      text: "Ministère de L’Économie et des Finances",
     },
     { 
       href: "https://mbudget.gov.gn/", 
-      text: "Ministère Budget",
+      text: "Ministère du Budget",
     },
     { 
       href: "https://mines.gov.gn/", 
-      text: "Ministère Mines",
+      text: "Ministère des Mines et de La Géologie",
     },
     { 
       href: "http://www.mplan.gov.gn/", 
-      text: "MPCI",
+      text: "Ministère du Plan et de la Coopération Internationale (MPCI)",
     },
     { 
       href: "https://mpten.gov.gn/", 
-      text: "Postes et Télécoms",
+      text: "Ministère des Postes, des Telecommunications et de l'Economie Numerique (MPTEN)",
     },
     { 
       href: "https://www.bcrg-guinee.org/", 
-      text: "Banque Centrale",
+      text: "Banque Centrale de la République de Guinée",
     },
     { 
-      href: "https://dni.gov.gn/", 
-      text: "Direction Générale Impôts",
+      href: "https://dgi.gov.gn/", 
+      text: "Direction Générale des Impôts",
     },
     { 
       href: "https://dgd.gov.gn/", 
-      text: "Direction Générale Douanes",
+      text: "Direction Générale des Douanes",
     },
   ];
 
@@ -87,14 +87,14 @@ const Footer = () => {
   const contactInfos = [
     {icon: <Phone />, content: <a href="tel:+224629001379">(+224) 629 00 13 79</a>},
     {icon: <Mail />, content: <a href="mailto:contacts@mamri.gov.gn">contacts@mamri.gov.gn</a>},
-    {icon: <MapPin />, content: "Sandervalia 6ème AV, Conakry- République de Guinée"}
+    {icon: <MapPin />, content: "Manquepas, Avenue de la République (942 Av). Conakry- République de Guinée"}
   ];
 
   return (
     <footer className="bg-gradient-to-r from-primary to-primary-800 text-white" role="contentinfo">
       <PreloadResources />
       
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 lg:gap-12">
           
           {/* Section Logo et Description */}

@@ -35,14 +35,14 @@ export default function SearchResults({ query, articles = [], medias = [], docum
         <AppLayout>
             <Head title={`Résultats de recherche pour "${query}"`} />
 
-            <div className="py-12 mt-10">
+            <div className="py-6 mt-10">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <h1 className="text-3xl font-bold mb-8">
                         Résultats de recherche pour "{query}"
                     </h1>
 
                     {loading && (
-                        <div className="text-center py-12">
+                        <div className="text-center py-6">
                             <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
                             <p className="text-xl text-gray-600 mt-4">Recherche en cours...</p>
                         </div>
@@ -173,7 +173,7 @@ export default function SearchResults({ query, articles = [], medias = [], docum
                     )}
 
                     {!loading && articles.length === 0 && medias.length === 0 && documents.length === 0 && (
-                        <div className="text-center py-12">
+                        <div className="text-center py-6">
                             <p className="text-xl text-gray-600">
                                 Aucun résultat trouvé pour votre recherche.
                             </p>

@@ -35,6 +35,11 @@ export default function MediaPage() {
     setState(prev => ({ ...prev, ...updates }));
   }, []);
 
+  
+const delay = ms => new Promise(
+  resolve => setTimeout(resolve, ms)
+);
+
   // Gestion des filtres et de la recherche
   const filteredMedia = useCallback(() => {
     return state.medias.filter(media => {
@@ -66,6 +71,8 @@ export default function MediaPage() {
   // Chargement des médias
   const fetchMedia = useCallback(async () => {
     updateState({ isLoading: true });
+
+    await delay(5000);
     try {
       const response = await axios.get('/api/medias', {
         params: {
@@ -130,7 +137,7 @@ export default function MediaPage() {
   const renderMediaItem = useCallback((media, index) => {
     const isImage = media.type === 'image';
     const itemClasses = `
-      ${state.viewMode === 'grid' ? 'aspect-w-16 aspect-h-9' : 'flex gap-4 items-center'}
+      ${state.viewMode === 'grid' ? 'aspect-w-16 aspect-h-9' : 'flex gap-2 items-center'}
       group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl 
       transition-all duration-300 transform hover:-translate-y-1 cursor-pointer
     `;
@@ -289,7 +296,7 @@ export default function MediaPage() {
             </p>
 
             {/* Barre de recherche et filtres */}
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col md:flex-row gap-2">
               <div className="flex-1 relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60" />
                 <input
@@ -323,11 +330,11 @@ export default function MediaPage() {
       </div>
 
       {/* Contenu principal */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-6">
         {/* Filtres étendus */}
         {state.showFilters && (
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Catégorie
@@ -396,7 +403,7 @@ export default function MediaPage() {
         </div>
 
         {/* Grille de médias */}
-        <div className={`grid gap-6 ${state.viewMode === 'grid'
+        <div className={`grid gap-2 ${state.viewMode === 'grid'
             ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
             : 'grid-cols-1'
           }`}>
@@ -524,7 +531,7 @@ export default function MediaPage() {
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
                 {state.isLoading ? (
                   <div className="space-y-4">
-                    <div className="flex gap-3">
+                    <div className="flex gap-2">
                       <div className="h-6 w-24 bg-white/20 rounded-full animate-pulse" />
                       <div className="h-6 w-32 bg-white/20 rounded-full animate-pulse" />
                     </div>

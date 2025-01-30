@@ -4,22 +4,22 @@ import AppLayout from '@/Layouts/AppLayout';
 import {
     MapPin, Phone, Mail, Clock, Globe,
     Send, MessageSquare, Users, ChevronRight,
-    Facebook, Twitter, Linkedin
+    Facebook, Twitter, Linkedin, Youtube
 } from 'lucide-react';
 
 const ContactPage = () => {
     const contactInfo = {
-        address: "Sandervalia 6ème AV, Conakry- République de Guinée",
+        address: "Manquepas, Avenue de la République (942 Av). Conakry- République de Guinée",
         phone: "+224 629001379",
         email: "contacts@mamri.gov.gn",
         hours: {
             weekdays: "8h30 - 17h00",
-            weekend: "Fermé"
         },
         social: [
-            { name: "Facebook", icon: Facebook, url: "#" },
-            { name: "Twitter", icon: Twitter, url: "#" },
-            { name: "LinkedIn", icon: Linkedin, url: "#" }
+            { name: "Facebook", icon: Facebook, url: "https://www.facebook.com/MAMRIGN" },
+            { name: "Twitter", icon: Twitter, url: "https://twitter.com/MAMRI_GN" },
+            { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/company/mamri-r%C3%A9publique-de-guin%C3%A9e/" },
+            { name: "Youtube", icon: Youtube, url: "https://www.youtube.com/channel/UC-_gdoMNdf_aG_3HMi6QCfA" },
         ]
     };
 
@@ -154,10 +154,6 @@ const ContactPage = () => {
                                         <span className="font-medium">Lundi - Vendredi</span>
                                         <span className="text-primary">{contactInfo.hours.weekdays}</span>
                                     </div>
-                                    <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                                        <span className="font-medium">Samedi - Dimanche</span>
-                                        <span className="text-gray-500">{contactInfo.hours.weekend}</span>
-                                    </div>
                                 </div>
                             </div>
 
@@ -200,11 +196,11 @@ const ContactPage = () => {
                                 <div className="bg-white rounded-xl shadow-lg overflow-hidden h-[400px] hover:shadow-xl transition-shadow">
                                     <iframe
                                         title="Localisation MAMRI"
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d800.5796523897819!2d-13.706968770863591!3d9.5079366222563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xf1cd1b147c73733%3A0xef26078b9ed492b8!2sMAMRI!5e1!3m2!1sfr!2s!4v1621270921737!5m2!1sfr!2s"
+                                        src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3048.607615927253!2d-13.706586000000001!3d9.507902999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zOcKwMzAnMjguNSJOIDEzwrA0MicyMy43Ilc!5e1!3m2!1sen!2s!4v1738234704663!5m2!1sen!2s"
                                         width="100%"
                                         height="100%"
                                         style={{ border: 0 }}
-                                        allowFullScreen=""
+                                        allowFullScreen="1"
                                         loading="lazy"
                                         className="hover:opacity-90 transition-opacity"
                                     ></iframe>
@@ -220,7 +216,7 @@ const ContactPage = () => {
                                         <MapPin className="w-6 h-6 text-primary mt-1 mr-3 flex-shrink-0" />
                                         <div>
                                             <h4 className="font-medium text-gray-900 mb-1">Adresse complète</h4>
-                                            <p className="text-gray-600">Sandervalia 6ème AV, Conakry- République de Guinée</p>
+                                            <p className="text-gray-600">Manquepas, Avenue de la République (942 Av). Conakry- République de Guinée</p>
                                         </div>
                                     </div>
 
@@ -237,17 +233,21 @@ const ContactPage = () => {
                                         <ul className="space-y-2">
                                             <li className="flex items-center text-gray-600">
                                                 <ChevronRight className="w-4 h-4 text-primary mr-2" />
-                                                <span>Près de l'ambassade du Japon</span>
+                                                <span>150m de l’Hopital Ignace Deen</span>
                                             </li>
                                             <li className="flex items-center text-gray-600">
                                                 <ChevronRight className="w-4 h-4 text-primary mr-2" />
-                                                <span>À côté du Ministère des Finances</span>
+                                                <span>50m du Boulevard Diallo Telly</span>
+                                            </li>
+                                            <li className="flex items-center text-gray-600">
+                                                <ChevronRight className="w-4 h-4 text-primary mr-2" />
+                                                <span>SAHAM Assurance</span>
                                             </li>
                                         </ul>
                                     </div>
 
                                     <a
-                                        href="https://maps.app.goo.gl/UBJcza7CegrBZxR4A"
+                                        href="https://maps.app.goo.gl/9c3HeroC2FJXGHCP9"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center justify-center w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors"

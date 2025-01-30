@@ -35,6 +35,7 @@ class ArticleController extends Controller
     {
         // Appliquer des filtres et pagination
         $articles = News::where('featured', true)
+            ->orderBy('created_at', 'desc') // On trie du plus récent au plus ancien
             ->limit(3)
             ->get();
             

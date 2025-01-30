@@ -131,7 +131,7 @@ export default function Welcome() {
     try {
       const response = await axios.get(route('public.articles.featured'));
       setArticles(response.data);
-      console.log("response.data",response.data);
+      console.log("response.data", response.data);
     } catch (error) {
       console.error('Erreur lors du chargement des articles:', error);
     } finally {
@@ -191,7 +191,7 @@ export default function Welcome() {
       </section>
 
       <section className="relative mx-auto bg-gray-100 w-full">
-        <div className="container mx-auto px-4 py-20  bg-white">
+        <div className="container mx-auto px-4 py-10  bg-white">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
             {/* Colonne gauche : Profil du Coordinateur */}
             <div className="bg-white border-2 border-gray-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
@@ -273,57 +273,57 @@ export default function Welcome() {
             </div>
 
             {/* Colonne droite : Mission */}<div className="bg-white border-2 border-gray-200 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300">
-  <div className="p-6 bg-gradient-to-r from-primary to-primary-800 rounded-t-2xl text-white">
-    <h2 className="text-2xl font-bold text-center">Notre Mission</h2>
-  </div>
-  <div className="p-6">
-    <div className="space-y-6">
-      {[
-        {
-          title: "Mobilisation des ressources",
-          description: "Intensifier la mobilisation des ressources internes pour le développement.",
-          icon: <HandCoins className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
-        },
-        {
-          title: "Modernisation des systèmes",
-          description: "Moderniser les systèmes de collecte et de gestion des ressources.",
-          icon: <CircuitBoard className="w-6 h-6 text-primary-600 mt-1 flex-shrink-0" />
-        },
-        {
-          title: "Transparence opérationnelle",
-          description: "Renforcer la transparence et l'efficacité des processus.",
-          icon: <ShieldCheck className="w-6 h-6 text-primary-700 mt-1 flex-shrink-0" />
-        },
-        {
-          title: "Partenariats stratégiques",
-          description: "Développer des partenariats stratégiques nationaux et internationaux.",
-          icon: <Handshake className="w-6 h-6 text-primary-800 mt-1 flex-shrink-0" />
-        }
-      ].map((mission, index) => (
-        <div
-          key={index}
-          className="flex items-start space-x-3 group hover:translate-x-2 transition-transform"
-        >
-          {mission.icon}
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-1">{mission.title}</h3>
-            <p className="text-gray-700">{mission.description}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-    <div className="mt-8 text-center">
-      <a
-        href={route('about.index')}
-        className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg
+              <div className="p-6 bg-gradient-to-r from-primary to-primary-800 rounded-t-2xl text-white">
+                <h2 className="text-2xl font-bold text-center">Notre Mission</h2>
+              </div>
+              <div className="p-6">
+                <div className="space-y-6">
+                  {[
+                    {
+                      title: "Mobilisation des ressources",
+                      description: "Intensifier la mobilisation des ressources internes pour le développement.",
+                      icon: <HandCoins className="w-6 h-6 text-primary-500 mt-1 flex-shrink-0" />
+                    },
+                    {
+                      title: "Modernisation des systèmes",
+                      description: "Moderniser les systèmes de collecte et de gestion des ressources.",
+                      icon: <CircuitBoard className="w-6 h-6 text-primary-600 mt-1 flex-shrink-0" />
+                    },
+                    {
+                      title: "Transparence opérationnelle",
+                      description: "Renforcer la transparence et l'efficacité des processus.",
+                      icon: <ShieldCheck className="w-6 h-6 text-primary-700 mt-1 flex-shrink-0" />
+                    },
+                    {
+                      title: "Partenariats stratégiques",
+                      description: "Développer des partenariats stratégiques nationaux et internationaux.",
+                      icon: <Handshake className="w-6 h-6 text-primary-800 mt-1 flex-shrink-0" />
+                    }
+                  ].map((mission, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start space-x-3 group hover:translate-x-2 transition-transform"
+                    >
+                      {mission.icon}
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1">{mission.title}</h3>
+                        <p className="text-gray-700">{mission.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-8 text-center">
+                  <a
+                    href={route('about.index')}
+                    className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg
          shadow-lg hover:bg-primary-800 transition-all duration-300 group"
-      >
-        En savoir plus
-        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-      </a>
-    </div>
-  </div>
-</div>
+                  >
+                    En savoir plus
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -406,7 +406,7 @@ export default function Welcome() {
                 {articles?.map((item) => (
                   <article key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
                     <img
-                      src={"/storage/"+item.image}
+                      src={"/storage/" + item.image}
                       alt={item.title}
                       className="w-full h-48 object-cover"
                     />
@@ -415,7 +415,7 @@ export default function Welcome() {
                       <h3 className="text-xl font-semibold mt-2 mb-3">{item.title}</h3>
                       <p className="text-gray-600 mb-4">{item.excerpt}</p>
                       <a
-                        href={route('actualites.show', {slug:item.slug})}
+                        href={route('actualites.show', { slug: item.slug })}
                         // href={`/actualites/${item.id}`}
                         className="text-primary hover:text-primary-800 font-medium"
                       >

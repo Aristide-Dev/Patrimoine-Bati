@@ -306,7 +306,7 @@ export default function MediaPage() {
       </div>
 
       {/* Contenu principal */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-6">
         {/* Filtres étendus */}
         {state.showFilters && (
           <div className="bg-white rounded-xl shadow-lg p-6 mb-8">

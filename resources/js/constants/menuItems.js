@@ -38,7 +38,7 @@ export const menuItems = [
     icon: Building2,
     actif: 'directions.*', // route('directions.index')
     children: [
-      { label: 'Introduction aux Projets', href: 'directions.projets', icon: Building2 }, // route('directions.projets')
+      { label: 'Présentation', href: 'directions.projets', icon: Building2 }, // route('directions.projets')
       { label: 'Ressources Fiscales', href: 'directions.fiscales', icon: PieChart }, // route('directions.fiscales')
       { label: 'Ressources Douanières', href: 'directions.douanieres', icon: Boxes }, // route('directions.douanieres')
       { label: 'Ressources Non Fiscales', href: 'directions.non_fiscales', icon: Coins }, // route('directions.ressources_non_fiscales')
