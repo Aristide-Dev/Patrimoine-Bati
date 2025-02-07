@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, router, usePage } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import Editor from '@/Components/LexicalEditor/Editor';
 import {
   FileImage,
   Tags,
@@ -186,7 +187,7 @@ export default function Edit({ news }) {
                 />
               </div>
 
-              {/* Contenu */}
+              {/* Contenu - Utilisation du nouvel éditeur */}
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <div className="flex items-center mb-4">
                   <BookOpen className="w-5 h-5 text-gray-400 mr-2" />
@@ -194,15 +195,10 @@ export default function Edit({ news }) {
                     Contenu
                   </label>
                 </div>
-                <textarea
-                  value={formState.data.content}
-                  onChange={(e) =>
-                    handleInputChange('content', e.target.value)
-                  }
-                  rows="10"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary"
-                  placeholder="Contenu détaillé de l'actualité"
-                ></textarea>
+                <Editor
+                  initialContent={formState.data.content}
+                  onChange={(content) => handleInputChange('content', content)}
+                />
                 <InputError
                   message={errors.content}
                   className="mt-2"

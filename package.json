@@ -9,6 +9,7 @@
         "@headlessui/react": "^2.0.0",
         "@inertiajs/react": "^2.0.0",
         "@tailwindcss/forms": "^0.5.3",
+        "@tailwindcss/typography": "^0.5.16",
         "@vitejs/plugin-react": "^4.2.0",
         "autoprefixer": "^10.4.12",
         "axios": "^1.7.4",
@@ -21,7 +22,15 @@
         "vite": "^6.0"
     },
     "dependencies": {
+        "@lexical/code": "^0.23.1",
+        "@lexical/file": "^0.23.1",
+        "@lexical/link": "^0.23.1",
+        "@lexical/list": "^0.23.1",
+        "@lexical/react": "^0.23.1",
+        "@lexical/rich-text": "^0.23.1",
+        "@lexical/table": "^0.23.1",
         "framer-motion": "^11.15.0",
+        "lexical": "^0.23.1",
         "lucide-react": "^0.468.0",
         "react-file-icon": "^1.5.0",
         "react-share": "^5.1.1",

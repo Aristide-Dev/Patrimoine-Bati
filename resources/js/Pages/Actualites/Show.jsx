@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { usePage, Head } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
+import ContentRenderer from '@/Components/LexicalEditor/ContentRenderer';
 import { 
   Calendar, Tag, Clock, Share2, Facebook, Twitter, 
   Linkedin, Copy, ChevronLeft, ChevronRight,
@@ -128,7 +129,7 @@ export default function ArticleDetails({ article, similarArticles }) {
             </h1>
 
             <div className="prose prose-lg max-w-none">
-              {article.content}
+              <ContentRenderer content={article.content} />
             </div>
 
             {/* Actions */}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm, Link } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import Editor from '@/Components/LexicalEditor/Editor';
 import { 
   FileImage, Tags, Calendar, Newspaper, 
   AlignLeft, BookOpen, Save, ArrowLeft, X
@@ -32,6 +33,11 @@ export default function Create() {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleEditorChange = (newContent) => {
+    const content = JSON.stringify(newContent);
+    setData('content', content);
   };
 
   const handleSubmit = (e) => {
@@ -98,13 +104,10 @@ export default function Create() {
                   <BookOpen className="w-5 h-5 text-gray-400 mr-2" />
                   <label className="text-lg font-medium text-gray-900">Contenu</label>
                 </div>
-                <textarea
-                  value={data.content}
-                  onChange={(e) => setData('content', e.target.value)}
-                  rows="10"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
-                  placeholder="Contenu détaillé de l'actualité"
-                ></textarea>
+                <Editor
+                  onChange={handleEditorChange}
+                  initialContent={data.content}
+                />
                 <InputError message={errors.content} className="mt-2" />
               </div>
             </div>
