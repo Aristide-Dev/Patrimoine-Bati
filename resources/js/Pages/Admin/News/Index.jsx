@@ -177,12 +177,12 @@ export default function Index({ news }) {
                   </div>
                   
                   <div className="flex items-center space-x-2">
-                    <Link
+                    {/* <Link
                       href={route('admin.news.show', item.id)}
                       className="p-1 text-gray-400 hover:text-primary transition-colors"
                     >
                       <Eye className="w-5 h-5" />
-                    </Link>
+                    </Link> */}
                     <Link
                       href={route('admin.news.edit', item.id)}
                       className="p-1 text-gray-400 hover:text-yellow-600 transition-colors"
