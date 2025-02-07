@@ -1,24 +1,20 @@
 deployment:
   type: "git"
-  branch: "master" # ou "main", selon votre branche par défaut
-  hooks:
-    predeploy:
-      - "composer install --no-dev --optimize-autoloader" # Pour installer les dépendances Laravel
-      - "npm install" # Pour installer les dépendances React
-      - "npm run build" # Pour générer la version de production de Vite
-    deployment:
-       tasks:
-        - export DEPLOYPATH=/home/mamr6413/public_html/
-        - /bin/cp -R images $DEPLOYPATH
-        - /bin/cp -R build $DEPLOYPATH
-        - /bin/cp favicon.ico $DEPLOYPATH
-        - /bin/cp index.php $DEPLOYPATH
-        - /bin/cp robots.txt $DEPLOYPATH
-    postdeploy:
-      - "php artisan Key:generate" # Generer la clé de hashage
-      - "php artisan storage:link" # Generer le raccourci de storage dans public
-      - "php artisan migrate --force" # Si vous avez besoin de migrer votre base de données
-      - "php artisan optimize" # Optimiser les configurations
-      # - "php artisan config:cache" # Optimiser les configurations
-      # - "php artisan route:cache" # Optimiser les routes
-      # - "php artisan view:cache" # Optimiser les vues
+  branch: "master"
+  deployment:
+    tasks:
+      - export DEPLOYPATH=/home/patrimoinebatipublic/public_html/
+      - /bin/cp -R * $DEPLOYPATH
+      
+      # Configuration du site statique
+      - /bin/cp .htaccess $DEPLOYPATH
+      - /bin/cp index.html $DEPLOYPATH
+      - /bin/cp -R assets $DEPLOYPATH
+      - /bin/cp -R css $DEPLOYPATH
+      - /bin/cp -R js $DEPLOYPATH
+      - /bin/cp -R images $DEPLOYPATH
+
+      # Permissions
+      - /bin/chmod 755 $DEPLOYPATH
+      - /bin/find $DEPLOYPATH -type d -exec /bin/chmod 755 {} \;
+      - /bin/find $DEPLOYPATH -type f -exec /bin/chmod 644 {} \;

@@ -3,11 +3,12 @@ import {
   Phone, Mail, MapPin, Facebook, Twitter, Youtube, Linkedin,
   Globe, Landmark, Building2, Banknote, FileText, Scale, Users, ScrollText
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 // Composant pour le préchargement des ressources
 const PreloadResources = () => (
   <>
-    <link rel="preload" href="/images/logo/logo-mamri-02.png" as="image" />
+    <link rel="preload" href="/images/logo/logo-PBP-02.png" as="image" />
     <link rel="preload" href="/images/logo/brandingGn.png" as="image" />
     <link rel="preload" href="/images/logo/Logo-S2040-pour-Fond-Noir.png" as="image" />
   </>
@@ -24,54 +25,30 @@ const Footer = () => {
       text: "Primature",
     },
     { 
-      href: "http://mef.gov.gn/", 
-      text: "Ministère de L’Économie et des Finances",
+      href: "http://www.habitat.gov.gn/", 
+      text: "Ministère de l'Habitat",
     },
     { 
-      href: "https://mbudget.gov.gn/", 
-      text: "Ministère du Budget",
-    },
-    { 
-      href: "https://mines.gov.gn/", 
-      text: "Ministère des Mines et de La Géologie",
-    },
-    { 
-      href: "http://www.mplan.gov.gn/", 
-      text: "Ministère du Plan et de la Coopération Internationale (MPCI)",
-    },
-    { 
-      href: "https://mpten.gov.gn/", 
-      text: "Ministère des Postes, des Telecommunications et de l'Economie Numerique (MPTEN)",
-    },
-    { 
-      href: "https://www.bcrg-guinee.org/", 
-      text: "Banque Centrale de la République de Guinée",
-    },
-    { 
-      href: "https://dgi.gov.gn/", 
-      text: "Direction Générale des Impôts",
-    },
-    { 
-      href: "https://dgd.gov.gn/", 
-      text: "Direction Générale des Douanes",
+      href: "http://www.investinguinea.gov.gn/", 
+      text: "Agence de Promotion des Investissements Privés",
     },
   ];
 
   const socialMedia = [
     { 
-      href: "https://www.facebook.com/MAMRIGN", 
+      href: "https://www.facebook.com/PBPGN", 
       icon: <Facebook />, 
       label: "Facebook",
       color: "#1877F2" 
     },
     { 
-      href: "https://twitter.com/MAMRI_GN", 
+      href: "https://twitter.com/PBP_GN", 
       icon: <Twitter />, 
       label: "Twitter",
       color: "#1DA1F2" 
     },
     { 
-      href: "https://www.linkedin.com/company/mamri-r%C3%A9publique-de-guin%C3%A9e/", 
+      href: "https://www.linkedin.com/company/PBP-r%C3%A9publique-de-guin%C3%A9e/", 
       icon: <Linkedin />, 
       label: "LinkedIn",
       color: "#0A66C2" 
@@ -85,9 +62,24 @@ const Footer = () => {
   ];
 
   const contactInfos = [
-    {icon: <Phone />, content: <a href="tel:+224629001379">(+224) 629 00 13 79</a>},
-    {icon: <Mail />, content: <a href="mailto:contacts@mamri.gov.gn">contacts@mamri.gov.gn</a>},
-    {icon: <MapPin />, content: "Manquepas, Avenue de la République (942 Av). Conakry- République de Guinée"}
+    {
+      icon: <Phone />, 
+      content: [
+        <a href="tel:+224655358284">(+224) 655-35-82-84</a>,
+        <a href="tel:+224611981928">(+224) 611-98-19-28</a>
+      ]
+    },
+    {
+      icon: <Mail />, 
+      content: [
+        <a href="mailto:contact@patrimoinebatipublic.com">contact@patrimoinebatipublic.com</a>,
+        <a href="mailto:serviceaccueil@patrimoinebatipublic.com">serviceaccueil@patrimoinebatipublic.com</a>
+      ]
+    },
+    {
+      icon: <MapPin />, 
+      content: "PORTS CONTENEURS DE CONAKRY, KALOUM REP. DE GUINEE"
+    }
   ];
 
   return (
@@ -101,26 +93,19 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start space-y-4">
             <img
               className="h-16 w-48 object-contain hover:scale-105 transition-transform duration-300"
-              src="/images/logo/logo-mamri-02.png"
-              alt="Logo MAMRI"
+              src="/images/logo/logo-pbp.png"
+              alt="Logo PBP"
               loading="eager"
             />
             <p className="text-lg text-justify text-gray-300 md:text-left text-balance">
-              La Mission d'Appui à la Mobilisation des Ressources Internes en République de Guinée.
+              Direction Générale du Patrimoine Bâti Public - Gestion et valorisation du patrimoine immobilier de l'État
             </p>
-            <img
-              className="h-full w-52 object-contain hover:scale-105 transition-transform duration-300"
-              src="/images/logo/Logo-S2040-pour-Fond-Noir.png"
-              alt="Projet Simandou 2040"
-              loading="lazy"
-              decoding="async"
-            />
           </div>
 
           {/* Section Contact */}
           <div className="space-y-4">
             <h3 className="text-xl font-bold flex items-center gap-2">
-              <Phone className="w-5 h-5 text-primary-200" aria-hidden="true" />
+              <Phone className="w-5 h-5 text-secondary" aria-hidden="true" />
               <span>Contact</span>
             </h3>
             <address className="not-italic space-y-3">
@@ -128,11 +113,19 @@ const Footer = () => {
                 <div key={index} className="flex items-start group">
                   {React.cloneElement(item.icon, {
                     size: 18,
-                    className: "mt-1 mr-3 text-primary-200 shrink-0",
+                    className: "mt-1 mr-3 text-secondary shrink-0",
                     'aria-hidden': true
                   })}
-                  <span className="hover:text-primary-200 transition-colors">
-                    {item.content}
+                  <span className="hover:text-secondary transition-colors">
+                    {Array.isArray(item.content) ? (
+                      <div className="flex flex-col gap-1">
+                        {item.content.map((content, i) => (
+                          <span key={i}>{content}</span>
+                        ))}
+                      </div>
+                    ) : (
+                      item.content
+                    )}
                   </span>
                 </div>
               ))}
@@ -140,29 +133,21 @@ const Footer = () => {
           </div>
 
           {/* Section Liens utiles */}
-          <div className="md:col-span-2 lg:col-span-2">
-            <h3 className="text-xl font-bold flex items-center gap-2 mb-4 relative">
-              <Globe className="w-5 h-5 text-primary-200" aria-hidden="true" />
-              <span className="flex-1 border-b-2 border-primary-200 pb-1">Liens utiles</span>
-            </h3>
-            <nav aria-label="Liens institutionnels">
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
-                {usefulLinks.map((link, index) => (
-                  <li key={index}>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 hover:text-primary-200 hover:underline transition-colors py-1"
-                      aria-label={`Visiter le site de ${link.text}`}
-                    >
-                      {link.icon}
-                      <span className="text-balance">{link.text}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+          <div className="md:col-span-2">
+            <h3 className="text-xl font-bold mb-4">Liens utiles</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {usefulLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-secondary transition-colors"
+                >
+                  {link.text}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -205,7 +190,7 @@ const Footer = () => {
             decoding="async"
           />
           <p className="text-gray-300 text-xl"> 
-            © {new Date().getFullYear()} <span className="font-medium text-white">MAMRI</span> - Tous droits réservés
+            © {new Date().getFullYear()} <span className="font-medium text-white">PBP</span> - Tous droits réservés
           </p>
         </div>
       </div>

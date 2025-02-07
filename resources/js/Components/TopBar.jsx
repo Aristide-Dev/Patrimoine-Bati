@@ -37,7 +37,7 @@ export const TopBar = () => {
                     </div>
                     <div className="flex items-center">
                         <Mail size={16} className="mr-2" />
-                        <span className="text-sm">contacts@mamri.gov.gn</span>
+                        <span className="text-sm">contacts@PBP.gov.gn</span>
                     </div>
                 </div>
                 <div className="flex items-center relative">

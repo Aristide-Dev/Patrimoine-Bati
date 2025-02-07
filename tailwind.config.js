@@ -20,50 +20,38 @@ export default {
       },
       extend: {
         colors: {
-          // Couleurs personnalisées
           primary: {
-            DEFAULT: '#2F72B2',
-            // Si vous souhaitez des variantes plus claires ou plus foncées :
-            50: '#e6f0f7',
-            100: '#cce0f0',
-            200: '#99c2e1',
-            300: '#66a3d2',
-            400: '#3385c3',
-            500: '#2F72B2', // Couleur par défaut
-            600: '#265a8c',
-            700: '#1c4175',
-            800: '#12285f',
-            900: '#091042',
+            DEFAULT: '#1B3C6B',
+            50: '#E6EBF2',
+            100: '#CCd7E5',
+            200: '#99AFCB',
+            300: '#6687B1',
+            400: '#335F97',
+            500: '#1B3C6B',
+            600: '#163056',
+            700: '#102441',
+            800: '#0B182C',
+            900: '#050C17',
           },
           secondary: {
-            DEFAULT: '#fbaf1c',
-            // Variantes secondaires (optionnel)
-            50: '#fff5e0',
-            100: '#ffeac2',
-            200: '#ffd184',
-            300: '#ffb746',
-            400: '#fba921',
-            500: '#fbaf1c', // Couleur par défaut
-            600: '#c88c16',
-            700: '#966911',
-            800: '#65460b',
-            900: '#332306',
+            DEFAULT: '#D4A017',
+            50: '#FCF4E0',
+            100: '#F9E9C1',
+            200: '#F3D483',
+            300: '#EDBF45',
+            400: '#E7A917',
+            500: '#D4A017',
+            600: '#AA8012',
+            700: '#7F600E',
+            800: '#554009',
+            900: '#2A2005',
           },
           
-          // Vos autres couleurs existantes
-          'mamri-green': '#00B14F',
-          'mamri-white': '#FFFFFF',
-          'mamri-dark': '#002E27',
-          'mamri-light': '#CCEFDC',
-  
           border: 'hsl(var(--border))',
           input: 'hsl(var(--input))',
           ring: 'hsl(var(--ring))',
           background: 'hsl(var(--background))',
           foreground: 'hsl(var(--foreground))',
-  
-          // Vous pouvez conserver ou retirer ces définitions variables si vous n'en avez pas besoin
-          // card, popover, etc.
         },
         borderRadius: {
           lg: 'var(--radius)',

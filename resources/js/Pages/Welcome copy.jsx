@@ -35,7 +35,7 @@ const news = [
     title: "Lancement du programme de digitalisation",
     date: "15 Mars 2024",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
-    excerpt: "La MAMRI lance son programme de transformation numérique des régies financières."
+    excerpt: "La PBP lance son programme de transformation numérique des régies financières."
   },
   {
     id: 2,
@@ -109,7 +109,7 @@ const siteSections = [
   {
     icon: FileText,
     title: "À Propos",
-    description: "Découvrez l’historique, le cadre juridique, l’organisation et les partenaires qui façonnent la MAMRI.",
+    description: "Découvrez l’historique, le cadre juridique, l’organisation et les partenaires qui façonnent la PBP.",
     href: "/a-propos"
   },
   {
@@ -163,7 +163,7 @@ export default function Welcome() {
         <div className="absolute inset-0">
           <img
             src="https://prod.cdn-medias.jeuneafrique.com/cdn-cgi/image/q=auto,f=auto,metadata=none,width=1215,fit=cover/https://prod.cdn-medias.jeuneafrique.com/medias/2020/09/01/ja14072111150031.jpg"
-            alt="MAMRI Hero"
+            alt="PBP Hero"
             className="w-full h-full object-fill transform scale-105 animate-slow-zoom"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/40" />
@@ -257,7 +257,7 @@ export default function Welcome() {
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-            Le Comité de Pilotage de la MAMRI
+            Le Comité de Pilotage de la PBP
           </h2>
           <p className="text-lg text-gray-700 mb-12 max-w-2xl mx-auto text-justify">
             Le Comité de Pilotage est placé sous l’autorité du Président de la République. Il regroupe les ministres et responsables clés chargés de la mobilisation des ressources internes, ainsi que des personnalités qualifiées indépendantes.
@@ -320,7 +320,7 @@ export default function Welcome() {
                 "Ministre en charge du plan et du développement économique",
                 "Ministre en charge des télécommunications et de l’économie numérique",
                 "Gouverneur de la Banque Centrale de la République de Guinée (BCRG)",
-                "Coordinateur général de la MAMRI Rapporteur du Comité de pilotage",
+                "Coordinateur général de la PBP Rapporteur du Comité de pilotage",
                 "Personnalité qualifiée indépendante",
                 "Personnalité qualifiée indépendante",
               ].map((texte, idx) => (
@@ -343,7 +343,7 @@ export default function Welcome() {
                 Rôle et responsabilités
                 </h2>
                 <p className="mt-3 text-gray-800">
-                Le Comité de Pilotage (COPIL) est chargé d’examiner, valider et superviser les initiatives stratégiques de la MAMRI. Il garantit une coordination interministérielle efficace et promeut des synergies avec les partenaires au développement.
+                Le Comité de Pilotage (COPIL) est chargé d’examiner, valider et superviser les initiatives stratégiques de la PBP. Il garantit une coordination interministérielle efficace et promeut des synergies avec les partenaires au développement.
                 </p>
               </div>
 
@@ -392,7 +392,7 @@ export default function Welcome() {
                         <li>Le Ministre chargé des Mines et de la Géologie</li>
                         <li>Le Ministre chargé des Télécommunications et de l’Economie numérique</li>
                         <li>Le Gouverneur de la Banque Centrale de la République de Guinée</li>
-                        <li>Le Coordinateur général et Rapporteur du Comité de pilotage de la MAMRI</li>
+                        <li>Le Coordinateur général et Rapporteur du Comité de pilotage de la PBP</li>
                         <li>2 personnalités qualifiées indépendantes</li>
                         <li>Les Partenaires au développement (invités observateurs )</li>
                       </ul>
@@ -426,7 +426,7 @@ export default function Welcome() {
           <div className="mt-12">
             <h3 className="text-2xl font-bold text-gray-800 mb-4">Détails et Responsabilités</h3>
             <p className="text-gray-700 mb-6">
-              Le Comité de Pilotage (COPIL) est chargé d’examiner, valider et superviser les initiatives stratégiques de la MAMRI. Il garantit une coordination interministérielle efficace et promeut des synergies avec les partenaires au développement.
+              Le Comité de Pilotage (COPIL) est chargé d’examiner, valider et superviser les initiatives stratégiques de la PBP. Il garantit une coordination interministérielle efficace et promeut des synergies avec les partenaires au développement.
             </p>
             <ul className="list-disc list-inside text-gray-700 space-y-2">
               <li>Examine et valide les propositions de réforme soumises.</li>

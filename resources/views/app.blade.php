@@ -5,9 +5,9 @@
         {{-- <meta name="viewport" content="width=device-width, initial-scale=1"> --}}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title inertia>{{ config('app.name', 'MAMRI') }}</title>
+        <title inertia>{{ config('app.name', 'PBP') }}</title>
         
-        <link rel="icon" type="image/x-icon" href="/mamri.ico">
+        <link rel="icon" type="image/x-icon" href="/PBP.ico">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
