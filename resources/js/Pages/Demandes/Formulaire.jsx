@@ -120,7 +120,7 @@ export default function Formulaire({ typesDemande, communes, situations, typesBi
   return (
     <AppLayout>
       <Head title="Formulaire de Demande" />
-      <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8 min-h-screen">
+      <div className="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 min-h-screen">
         <Card className="p-6 shadow-xl">
           <h2 className="text-2xl font-bold mb-6 text-primary-800">Nouvelle Demande de Logement</h2>
           <form onSubmit={handleSubmit} className="space-y-8">

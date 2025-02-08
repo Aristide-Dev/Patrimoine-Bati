@@ -12,7 +12,8 @@ const pageData = {
   hero: {
     title: 'Valorisons ensemble notre Patrimoine Public',
     subtitle: 'Une gestion transparente et innovante, au cœur de l\'action publique pour l\'État et ses citoyens.',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop',
+    image: '/images/hero/cover1.jpeg',
+    // image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop',
     cta1: 'Explorer nos projets',
     cta2: 'Découvrir nos services',
   },
@@ -43,7 +44,7 @@ const pageData = {
           'Adopter des pratiques écologiques et responsables pour la rénovation et la valorisation de nos infrastructures.',
       },
     ],
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab',
+    image: 'https://scontent.fcky4-1.fna.fbcdn.net/v/t39.30808-6/469352301_573798272254395_3511859206050717311_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=x792JtY1iYEQ7kNvgGCsTY3&_nc_zt=23&_nc_ht=scontent.fcky4-1.fna&_nc_gid=AZzaT2gQ-J0HjCPflFt_P2-&oh=00_AYAjBGSS6r4jjis3Jubd32jS9feu_ifLbmGhW6EI0gEwCg&oe=67ADAF8C',
   },
   stats: [
     {
@@ -82,7 +83,7 @@ const pageData = {
           'Maintenance proactive',
           'Optimisation de l\'occupation',
         ],
-        color: 'bg-blue-50',
+        color: 'bg-white',
       },
       {
         icon: 'Home',
@@ -95,7 +96,7 @@ const pageData = {
           'Suivi régulier',
           'Entretien et rénovation',
         ],
-        color: 'bg-green-50',
+        color: 'bg-white',
       },
       {
         icon: 'TrendingUp',
@@ -108,7 +109,7 @@ const pageData = {
           'Développement de projets innovants',
           'Augmentation des revenus locatifs',
         ],
-        color: 'bg-purple-50',
+        color: 'bg-white',
       },
       {
         icon: 'Shield',
@@ -121,7 +122,7 @@ const pageData = {
           'Prévention proactive',
           'Mise en conformité des infrastructures',
         ],
-        color: 'bg-orange-50',
+        color: 'bg-white',
       },
     ],
   },
@@ -185,30 +186,40 @@ export default function Home() {
         style={{ backgroundImage: `url(${hero.image})` }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        <div className="relative z-10 text-center text-white">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl font-bold mb-4"
-          >
-            {hero.title}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl mb-8"
-          >
-            {hero.subtitle}
-          </motion.p>
-          <div className="flex justify-center gap-4">
-            <Link href="/projects" className="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full">
-              <Icons.ArrowRight /> {hero.cta1}
-            </Link>
-            <Link href="/services" className="flex items-center gap-2 bg-secondary text-white px-6 py-3 rounded-full">
-              <Icons.Info /> {hero.cta2}
-            </Link>
+        <div className="absolute inset-0">
+          <div className="h-full flex items-center justify-center px-4">
+            <div className="max-w-5xl mx-auto text-center">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight"
+              >
+                {hero.title}
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto"
+              >
+                {hero.subtitle}
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+              >
+                <Link href="/projects" className="inline-flex items-center px-8 py-4 bg-white text-blue-900 rounded-lg hover:bg-gray-100 transition-colors font-semibold">
+                  <Icons.ArrowRight className="mr-2" size={20} />
+                  {hero.cta1}
+                </Link>
+                <Link href="/services" className="inline-flex items-center px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors font-semibold">
+                  <Icons.Info className="mr-2" size={20} />
+                  {hero.cta2}
+                </Link>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -227,7 +238,7 @@ export default function Home() {
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
                 {presentation.description}
               </p>
-              
+
               <div className="grid sm:grid-cols-2 gap-6">
                 {presentation.missions.map((mission, index) => (
                   <motion.div
@@ -247,7 +258,7 @@ export default function Home() {
                 ))}
               </div>
             </motion.div>
-            
+
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -262,7 +273,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
               </div>
-              
+
               <div className="absolute -bottom-6 -left-6 bg-primary text-white p-8 rounded-xl shadow-xl">
                 <p className="text-lg font-semibold">
                   "Un engagement pour un patrimoine public moderne, durable et accessible"
@@ -273,28 +284,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          {stats.map((stat, index) => {
-            const Icon = Icons[stat.icon];
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="text-center p-6 rounded-lg shadow-md bg-white"
-              >
-                <div className="text-4xl text-primary mb-4">
-                  {Icon && <Icon size={48} />}
-                </div>
-                <AnimatedNumber value={stat.value} />
-                <h3 className="text-2xl font-bold mb-2">{stat.label}</h3>
-                <p className="text-gray-600">{stat.description}</p>
-              </motion.div>
-            );
-          })}
+      {/* Stats Section - Redesign moderne */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {stats.map((stat, index) => {
+              const Icon = Icons[stat.icon];
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.2 }}
+                  className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+                >
+                  <div className="flex items-center space-x-4 mb-4">
+                    <div className="p-3 bg-blue-100 rounded-lg">
+                      <Icon className="text-blue-600" size={28} />
+                    </div>
+                    <h3 className="text-4xl font-bold text-gray-900">
+                      {stat.value}
+                    </h3>
+                  </div>
+                  <h4 className="text-xl font-semibold text-gray-800 mb-2">
+                    {stat.label}
+                  </h4>
+                  <p className="text-gray-600">
+                    {stat.description}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -326,7 +347,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
-                  className={`p-6 rounded-lg shadow-md ${area.color}`}
+                  className={`p-6 rounded-lg shadow-xl hover:shadow-2xl ${area.color}`}
                 >
                   <div className="text-4xl text-primary mb-4">
                     {Icon && <Icon size={48} />}
@@ -349,86 +370,106 @@ export default function Home() {
       </section>
 
       {/* Actualités Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl font-bold text-center mb-12"
-          >
-            Actualités
-          </motion.h2>
-          <motion.p
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-center text-gray-600 mb-16"
+            className="text-center mb-16"
           >
-            Tenez-vous informé des dernières initiatives et projets de la DGPBP.
-          </motion.p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Actualités</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Découvrez les dernières initiatives et projets de la DGPBP
+            </p>
+          </motion.div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {latestNews.map((news, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="p-6 rounded-lg shadow-md bg-white"
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
               >
-                <img src={news.image} alt={news.title} className="w-full h-48 object-cover rounded-lg mb-4" />
-                <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-                  <span>{news.category}</span>
-                  <span>•</span>
-                  <span>{news.date}</span>
-                  <span>•</span>
-                  <span>{news.author}</span>
+                <div className="relative h-48">
+                  <img
+                    src={news.image}
+                    alt={news.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 bg-blue-600 text-white text-sm rounded-full">
+                      {news.category}
+                    </span>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-2">{news.title}</h3>
-                <p className="text-gray-600 mb-4">{news.excerpt}</p>
-                <Link href={`/news/${news.id}`} className="text-primary font-bold flex items-center gap-2">
-                  Lire la suite <Icons.ArrowRight />
-                </Link>
+                <div className="p-6">
+                  <div className="text-sm text-gray-500 mb-2">
+                    {new Date(news.date).toLocaleDateString('fr-FR', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric'
+                    })}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    {news.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    {news.excerpt}
+                  </p>
+                  <Link
+                    href={`/news/${news.id}`}
+                    className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700"
+                   >
+                    Lire la suite
+                    <Icons.ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </div>
               </motion.div>
             ))}
-          </div>
-          <div className="text-center mt-8">
-            <Link href="/news" className="text-primary font-bold flex items-center gap-2">
-              Voir toutes les actualités <Icons.ArrowRight />
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-16 bg-gray-100">
-        <div className="container mx-auto text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl font-bold mb-6"
-          >
-            Contactez-nous
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-600 mb-8"
-          >
-            Notre équipe est disponible pour répondre à toutes vos questions et vous accompagner dans vos démarches.
-          </motion.p>
-          <div className="flex justify-center gap-8">
-            <button className="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full">
-              <Icons.Phone /> Nous appeler
-            </button>
-            <button className="flex items-center gap-2 bg-secondary text-white px-6 py-3 rounded-full">
-              <Icons.Mail /> Nous écrire
-            </button>
+      {/* Contact Section - Nouveau design */}
+      <section className="py-20 bg-blue-900 text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="text-4xl font-bold mb-6"
+            >
+              Contactez-nous
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl text-blue-100 mb-8"
+            >
+              Notre équipe est à votre disposition pour répondre à vos questions
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <button className="inline-flex items-center px-8 py-4 bg-white text-blue-900 rounded-lg hover:bg-gray-100 transition-colors font-semibold">
+                <Icons.Phone className="mr-2" size={20} />
+                Nous appeler
+              </button>
+              <button className="inline-flex items-center px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors font-semibold">
+                <Icons.Mail className="mr-2" size={20} />
+                Nous écrire
+              </button>
+            </motion.div>
           </div>
         </div>
       </section>
+
     </AppLayout>
   );
 }
