@@ -17,40 +17,49 @@ import {
 export const menuItems = [
   {
     label: 'Accueil',
-    route: 'home',
+    href: 'home',
+    icon: Home,
   },
   {
     label: 'Patrimoine',
-    subItems: [
-      { label: 'Carte', route: 'patrimoine.map' },
-      { label: 'Catégories', route: 'patrimoine.categories' },
-      { label: 'Localisations', route: 'patrimoine.locations' },
-      { label: 'Historiques', route: 'patrimoine.historic' }
+    icon: Building2,
+    actif: 'patrimoine.*',
+    children: [
+      { label: 'Carte', href: 'patrimoine.map', icon: MapPin },
+      { label: 'Catégories', href: 'patrimoine.categories', icon: LayoutGrid },
+      { label: 'Localisations', href: 'patrimoine.locations', icon: Search },
+      { label: 'Historiques', href: 'patrimoine.historic', icon: History }
     ]
   },
   {
     label: 'Services',
-    subItems: [
-      { label: 'Logements', route: 'services.housing' },
-      { label: 'Baux Commerciaux', route: 'services.commercial' },
-      { label: 'Procédures', route: 'services.procedures' },
-      { label: 'FAQ', route: 'services.faq' }
+    icon: Key,
+    actif: 'services.*',
+    children: [
+      { label: 'Logements', href: 'services.housing', icon: Key },
+      { label: 'Baux Commerciaux', href: 'services.commercial', icon: Building2 },
+      { label: 'Procédures', href: 'services.procedures', icon: FileText },
+      { label: 'FAQ', href: 'services.faq', icon: MessageSquare }
     ]
   },
   {
     label: 'Documentation',
-    subItems: [
-      { label: 'Guides', route: 'documentation.guides' },
-      { label: 'Réglementation', route: 'documentation.regulations' },
-      { label: 'Formulaires', route: 'documentation.forms' }
+    icon: BookOpen,
+    actif: 'documentation.*',
+    children: [
+      { label: 'Guides', href: 'documentation.guides', icon: BookOpen },
+      { label: 'Réglementation', href: 'documentation.regulations', icon: FileText },
+      { label: 'Formulaires', href: 'documentation.forms', icon: FileText }
     ]
   },
   {
     label: 'Médiathèque',
-    subItems: [
-      { label: 'Photos', route: 'media.photos' },
-      { label: 'Vidéos', route: 'media.videos' },
-      { label: 'Publications', route: 'media.publications' }
+    icon: Image,
+    actif: 'media.*',
+    children: [
+      { label: 'Photos', href: 'media.photos', icon: Image },
+      { label: 'Vidéos', href: 'media.videos', icon: MessageSquare },
+      { label: 'Publications', href: 'media.publications', icon: FileText }
     ]
-  },
+  }
 ];

@@ -28,9 +28,9 @@ export const TopBar = () => {
     }, [searchQuery]);
 
     return (
-        <div className="bg-white text-primary-800 py-2">
-            <div className="container mx-auto px-4 flex justify-between items-center">
-                <div className="flex flex-col md:flex-row items-center space-x-4">
+        <div className="bg-white/30 text-white py-2">
+            <div className="container mx-auto px-4 flex space-y-4 md:space-y-0 flex-col md:flex-row justify-between items-center">
+                <div className="flex items-center space-x-4 pb-2 border-b-2 border-primary md:border-none">
                     <div className="flex items-center">
                         <Phone size={16} className="mr-2" />
                         <span className="text-sm">(+224) 629 00 13 79</span>
@@ -48,7 +48,7 @@ export const TopBar = () => {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Rechercher articles, médias, documents..."
-                                className="px-4 py-1 pr-8 rounded-full border border-gray-300 focus:outline-none focus:border-primary-500 w-64"
+                                className="px-4 py-1 pr-8 rounded-full border border-gray-300 focus:outline-none focus:border-primary-500 w-64 ring-3 ring-primary-800"
                                 autoFocus
                                 aria-label="Champ de recherche"
                             />
@@ -71,9 +71,9 @@ export const TopBar = () => {
                             aria-label="Ouvrir la recherche"
                         >
                             {loading ? (
-                                <div className="loader border-t-2 border-primary-500 border-solid rounded-full h-6 w-6 animate-spin"></div>
+                                <div className="loader border-t-2 border-primary-300 border-solid rounded-full h-6 w-6 animate-spin "></div>
                             ) : (
-                                <Search size={16} />
+                                <Search size={20}  className='font-bold text-primary-100'/>
                             )}
                         </button>
                     )}

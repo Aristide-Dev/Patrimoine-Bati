@@ -1,7 +1,7 @@
 export default function ApplicationLogo(props) {
     return (
         <img 
-      src="/images/logo/logo-PBP-02.png" 
+      src="/images/logo/logo-pbp.png" 
       alt="Logo PBP" 
       {...props}
     />

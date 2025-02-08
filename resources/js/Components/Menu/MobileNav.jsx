@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { menuItems } from '../../constants/menuItems';
 
-export default function MobileNav({ isOpen }) {
+export const MobileNav = ({ isOpen }) => {
   const [openSubmenus, setOpenSubmenus] = useState({});
 
   const toggleSubmenu = (label) => {

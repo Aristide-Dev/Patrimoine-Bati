@@ -29,6 +29,11 @@ Route::prefix('services')->group(function () {
     Route::get('/faq', [ServicesController::class, 'faq'])->name('services.faq');
 });
 
+// À Propos
+Route::prefix('about')->group(function () {
+    Route::get('/', [AboutController::class, 'index'])->name('about.index');
+});
+
 // Documentation
 Route::prefix('documentation')->group(function () {
     Route::get('/guides', [DocumentationController::class, 'guides'])->name('documentation.guides');
