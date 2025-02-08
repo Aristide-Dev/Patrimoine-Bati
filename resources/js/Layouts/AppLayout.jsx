@@ -66,7 +66,7 @@ export default function AppLayout({ children }) {
         </div>
       )}
 
-      <main className="flex-grow pt-20">
+      <main className="flex-grow pt-20 mt-14">
         {children}
       </main>
 

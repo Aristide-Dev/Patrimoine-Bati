@@ -1,17 +1,14 @@
 import { 
   Home,
   Building2,
-  MapPin,
   FileText,
   Image,
   Mail,
   Users,
-  History,
   MessageSquare,
   Key,
-  Search,
-  LayoutGrid,
-  BookOpen
+  BookOpen,
+  Building
 } from 'lucide-react';
 
 export const menuItems = [
@@ -19,17 +16,6 @@ export const menuItems = [
     label: 'Accueil',
     href: 'home',
     icon: Home,
-  },
-  {
-    label: 'Patrimoine',
-    icon: Building2,
-    actif: 'patrimoine.*',
-    children: [
-      { label: 'Carte', href: 'patrimoine.map', icon: MapPin },
-      { label: 'Catégories', href: 'patrimoine.categories', icon: LayoutGrid },
-      { label: 'Localisations', href: 'patrimoine.locations', icon: Search },
-      { label: 'Historiques', href: 'patrimoine.historic', icon: History }
-    ]
   },
   {
     label: 'Services',
@@ -61,5 +47,10 @@ export const menuItems = [
       { label: 'Vidéos', href: 'media.videos', icon: MessageSquare },
       { label: 'Publications', href: 'media.publications', icon: FileText }
     ]
+  },
+  {
+    label: 'Demander un Logement',
+    icon: FileText,
+    href: 'demandes.formulaire',
   }
 ];

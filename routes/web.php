@@ -6,20 +6,12 @@ use Illuminate\Foundation\Application;
 
 // Importation de tous les contrôleurs
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PatrimoineController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\DemandeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-// Patrimoine
-Route::prefix('patrimoine')->group(function () {
-    Route::get('/map', [PatrimoineController::class, 'map'])->name('patrimoine.map');
-    Route::get('/categories', [PatrimoineController::class, 'categories'])->name('patrimoine.categories');
-    Route::get('/locations', [PatrimoineController::class, 'locations'])->name('patrimoine.locations');
-    Route::get('/historic', [PatrimoineController::class, 'historic'])->name('patrimoine.historic');
-});
 
 // Services
 Route::prefix('services')->group(function () {
@@ -46,6 +38,12 @@ Route::prefix('media')->group(function () {
     Route::get('/photos', [MediaController::class, 'photos'])->name('media.photos');
     Route::get('/videos', [MediaController::class, 'videos'])->name('media.videos');
     Route::get('/publications', [MediaController::class, 'publications'])->name('media.publications');
+});
+
+// Demandes
+Route::prefix('demandes')->group(function () {
+    Route::get('/formulaire', [DemandeController::class, 'formulaire'])->name('demandes.formulaire');
+    Route::post('/store', [DemandeController::class, 'store'])->name('demandes.store');
 });
 
 // Authentication
