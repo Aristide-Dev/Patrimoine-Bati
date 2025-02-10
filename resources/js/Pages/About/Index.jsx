@@ -1,80 +1,189 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
-import { Users, Target, Award, History, Mail, Phone, MapPin } from 'lucide-react';
+import { 
+  Target, Award, Users, Shield, Lightbulb, ArrowRight, Clock, MapPin, Building2, Archive, 
+  CheckCircle, TrendingUp, Globe
+} from 'lucide-react';
 
 export default function About() {
   return (
     <AppLayout>
       <Head title="Qui sommes-nous ?" />
       
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-primary-900 to-primary-800 py-24">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-primary-900/90 mix-blend-multiply" />
-        </div>
-        <div className="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Direction Générale du Patrimoine Bâti Public
-          </h1>
-          <p className="mt-6 max-w-3xl text-xl text-primary-100">
-            Notre Patrimoine Bâti Public, notre fierté !
-          </p>
+      {/* Hero Section Modernisé */}
+      <div className="relative min-h-[600px] flex items-center overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-90" 
+          style={{backgroundImage: "url('/images/about03.jpg')"}}
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        
+
+        <div className="relative container mx-auto px-4 z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+              Direction Générale du Patrimoine Bâti Public
+            </h1>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-10 leading-relaxed">
+              Transformer la gestion immobilière publique par l'innovation, la transparence et l'excellence opérationnelle.
+            </p>
+            <div className="flex justify-center space-x-6">
+              <a 
+                href={route('contact.index')} 
+                className="px-10 py-4 bg-white text-primary-800 rounded-lg font-semibold 
+                hover:bg-gray-100 transition-all duration-300 flex items-center group"
+              >
+                Nous Contacter
+                <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a 
+                href={route('contact.index')} 
+                className="px-10 py-4 border-2 border-white text-white rounded-lg font-semibold 
+                hover:bg-white/20 transition-all duration-300 flex items-center group"
+              >
+                Nos Projets
+                <Building2 className="ml-3 group-hover:scale-110 transition-transform" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Histoire Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">Notre Histoire</h2>
-            <div className="mt-10 space-y-10">
-              {timelineData.map((item, index) => (
-                <div key={index} className="relative">
-                  <div className="relative flex items-center group">
-                    <div className="h-16 w-16 flex items-center justify-center rounded-full bg-primary-100 text-primary-600 font-bold text-xl shrink-0">
-                      {item.year}
-                    </div>
-                    <div className="ml-6 bg-white p-6 rounded-lg shadow-lg flex-grow">
-                      <p className="text-gray-600">{item.content}</p>
-                    </div>
-                  </div>
+      {/* Section Présentation */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">
+            La DGPBP : Notre Engagement
+          </h2>
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                Depuis sa création en 1959, la Direction Générale du Patrimoine Bâti Public (DGPBP) 
+                est le garant stratégique de la valorisation et de la modernisation du patrimoine immobilier de l'État guinéen.
+              </p>
+              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                Notre mission va au-delà de la simple gestion immobilière. Nous incarnons une vision 
+                transformative qui allie préservation historique et innovation technologique.
+              </p>
+              <div className="flex items-center space-x-4 mt-8">
+                <CheckCircle className="w-10 h-10 text-primary-600" />
+                <span className="text-xl font-semibold text-gray-800">
+                  Engagés pour l'excellence et la transparence
+                </span>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="bg-primary-50 rounded-2xl p-8 shadow-lg">
+                <div className="flex items-center mb-6">
+                  <TrendingUp className="w-10 h-10 mr-4 text-primary-600" />
+                  <h3 className="text-2xl font-bold text-gray-900">Nos Chiffres Clés</h3>
                 </div>
-              ))}
+                <ul className="space-y-4">
+                  <li className="flex justify-between border-b pb-2 border-primary-100">
+                    <span className="text-gray-700">Bâtiments Gérés</span>
+                    <span className="font-bold text-primary-600">350+</span>
+                  </li>
+                  <li className="flex justify-between border-b pb-2 border-primary-100">
+                    <span className="text-gray-700">Années d'Expérience</span>
+                    <span className="font-bold text-primary-600">65+</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span className="text-gray-700">Projets en Cours</span>
+                    <span className="font-bold text-primary-600">25</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Vision & Missions Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Vision */}
-            <div className="bg-white rounded-2xl shadow-xl p-8">
-              <div className="inline-flex items-center justify-center p-2 bg-primary-100 rounded-lg mb-5">
-                <Target className="h-6 w-6 text-primary-600" />
+      {/* Histoire Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+            Notre Parcours Historique
+          </h2>
+          <div className="relative">
+            {timelineData.map((item, index) => (
+              <div 
+                key={index} 
+                className={`relative pb-12 grid grid-cols-12 gap-4 items-center 
+                  ${index % 2 === 0 ? 'timeline-item-left' : 'timeline-item-right'}`}
+              >
+                {/* Vertical Line */}
+                {index !== timelineData.length - 1 && (
+                  <div className="absolute left-1/2 transform -translate-x-1/2 h-full 
+                    border-l-4 border-primary-200 top-10 -z-10" />
+                )}
+                
+                {/* Year Marker */}
+                <div 
+                  className={`col-span-2 flex items-center justify-center 
+                    ${index % 2 === 0 ? 'order-first' : 'order-last'}`}
+                >
+                  <div className="w-20 h-20 bg-white border-4 border-primary-200 
+                    rounded-full flex items-center justify-center shadow-lg">
+                    <span className="text-2xl font-bold text-primary-600">{item.year}</span>
+                  </div>
+                </div>
+                
+                {/* Content */}
+                <div 
+                  className={`col-span-10 bg-white p-8 rounded-2xl shadow-xl 
+                    transform transition-transform duration-300 hover:-translate-y-2
+                    ${index % 2 === 0 ? 'order-last' : 'order-first'}`}
+                >
+                  <div className="flex items-center mb-4">
+                    <div className="mr-6">{item.icon}</div>
+                    <p className="text-gray-700 text-lg font-medium">{item.content}</p>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Notre Vision</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Créer un cadre de gestion optimale du Patrimoine Bâti Public pour repositionner l'Etat, 
-                en tant que propriétaire, au cœur du processus de production de logements et d'immeubles administratifs.
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Vision & Missions Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Vision */}
+            <div className="bg-gradient-to-br from-primary-50 to-white p-8 rounded-2xl shadow-xl">
+              <div className="flex items-center mb-6">
+                <div className="p-3 bg-primary-100 rounded-lg mr-4">
+                  <Globe className="h-8 w-8 text-primary-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">Notre Vision</h3>
+              </div>
+              <p className="text-gray-700 leading-relaxed">
+                Être un modèle de référence nationale et internationale en matière de gestion 
+                immobilière publique, en combinant innovation technologique, durabilité environnementale 
+                et optimisation des ressources.
               </p>
             </div>
 
             {/* Missions */}
-            <div className="bg-white rounded-2xl shadow-xl p-8">
-              <div className="inline-flex items-center justify-center p-2 bg-primary-100 rounded-lg mb-5">
-                <Target className="h-6 w-6 text-primary-600" />
+            <div className="bg-gradient-to-br from-primary-50 to-white p-8 rounded-2xl shadow-xl">
+              <div className="flex items-center mb-6">
+                <div className="p-3 bg-primary-100 rounded-lg mr-4">
+                  <Archive className="h-8 w-8 text-primary-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">Nos Missions</h3>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Nos Missions</h3>
               <ul className="space-y-4">
                 {missions.map((mission, index) => (
-                  <li key={index} className="flex items-start">
-                    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-sm font-medium">
+                  <li key={index} className="flex items-center group">
+                    <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center 
+                      justify-center mr-4 text-primary-600 font-bold
+                      group-hover:bg-primary-200 transition-all">
                       {index + 1}
                     </div>
-                    <span className="ml-3 text-gray-600">{mission}</span>
+                    <span className="text-gray-700 group-hover:text-primary-700 transition-colors">
+                      {mission}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -84,78 +193,29 @@ export default function About() {
       </section>
 
       {/* Valeurs Section */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-extrabold text-center text-gray-900 mb-12">Nos Valeurs</h2>
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+            Nos Valeurs Fondamentales
+          </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <div key={index} className="relative group">
-                <div className="absolute inset-0 bg-primary-600 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="relative bg-white p-6 rounded-2xl shadow-lg group-hover:translate-y-[-4px] transition-transform duration-300">
-                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-                    <span className="text-primary-600 font-bold">{index + 1}</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{value.title}</h3>
-                  <p className="text-gray-600">{value.description}</p>
+              <div 
+                key={index} 
+                className="bg-white rounded-2xl p-6 shadow-lg 
+                  transform transition-all duration-300 
+                  hover:-translate-y-4 hover:shadow-xl group"
+              >
+                <div className="w-16 h-16 bg-primary-100 rounded-xl flex items-center 
+                  justify-center mb-6 group-hover:bg-primary-200 transition-colors">
+                  {value.icon}
                 </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-primary-700 transition-colors">
+                  {value.title}
+                </h3>
+                <p className="text-gray-600">{value.description}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="grid lg:grid-cols-2">
-              <div className="p-8 bg-primary-900 text-white">
-                <h2 className="text-2xl font-bold mb-8">Contactez-nous</h2>
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <MapPin className="w-6 h-6 text-primary-300 mt-1" />
-                    <div className="ml-4">
-                      <p className="font-medium text-primary-300">Adresse</p>
-                      <p className="mt-1">PORTS CONTENEURS DE CONAKRY, KALOUM REP. DE GUINEE</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Phone className="w-6 h-6 text-primary-300 mt-1" />
-                    <div className="ml-4">
-                      <p className="font-medium text-primary-300">Téléphone</p>
-                      <p className="mt-1">+224 655-35-82-84 / +224 611-98-19-28</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Mail className="w-6 h-6 text-primary-300 mt-1" />
-                    <div className="ml-4">
-                      <p className="font-medium text-primary-300">Email</p>
-                      <p className="mt-1">contact@patrimoinebatipublic.com</p>
-                      <p>serviceacceuil@patrimoinebatipublic.com</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="p-8">
-                <form className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Nom complet</label>
-                    <input type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Email</label>
-                    <input type="email" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">Message</label>
-                    <textarea rows="4" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500"></textarea>
-                  </div>
-                  <button type="submit" className="w-full bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                    Envoyer
-                  </button>
-                </form>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -164,36 +224,60 @@ export default function About() {
 }
 
 const timelineData = [
-  { year: '1959', content: "Création de l'Entreprise Nationale des Bâtiments (ENB)" },
-  { year: '1960', content: "Le Service des Logements prend en charge la gestion des bâtiments gouvernementaux" },
-  { year: '1976', content: "Création du SAFBA, SERRBA et SNC" },
-  { year: '1990', content: "La structure devient une Direction Nationale" },
-  { year: '2021', content: "Restructuration majeure suite au décret du 06 Juin 2022" }
+  { 
+    year: '1959', 
+    content: "Création de l'Entreprise Nationale des Bâtiments (ENB)",
+    icon: <Clock className="w-8 h-8 text-primary-600" />
+  },
+  { 
+    year: '1960', 
+    content: "Le Service des Logements prend en charge la gestion des bâtiments gouvernementaux",
+    icon: <MapPin className="w-8 h-8 text-primary-600" />
+  },
+  { 
+    year: '1976', 
+    content: "Création du SAFBA, SERRBA et SNC pour renforcer la gestion immobilière",
+    icon: <Building2 className="w-8 h-8 text-primary-600" />
+  },
+  { 
+    year: '1990', 
+    content: "Évolution vers une Direction Nationale avec des responsabilités élargies",
+    icon: <TrendingUp className="w-8 h-8 text-primary-600" />
+  },
+  { 
+    year: '2021', 
+    content: "Transformation stratégique suite au décret du 06 Juin 2022, modernisant la structure",
+    icon: <Globe className="w-8 h-8 text-primary-600" />
+  }
 ];
 
 const missions = [
-  "Concevoir et mettre en œuvre la politique de conservation",
-  "Assurer l'administration du patrimoine immobilier",
-  "Procéder à l'affectation des bâtiments",
-  "Coordonner les travaux de rénovation",
-  "Rechercher des partenaires potentiels"
+  "Élaborer et mettre en œuvre la politique de conservation du patrimoine",
+  "Administrer et optimiser le patrimoine immobilier de l'État",
+  "Piloter l'affectation stratégique des bâtiments",
+  "Coordonner et superviser les projets de rénovation",
+  "Développer des partenariats innovants et durables"
 ];
 
 const values = [
   {
     title: "Intégrité",
-    description: "Travailler en toute conscience professionnelle et avec probité morale."
+    description: "Agir avec transparence, éthique et responsabilité à chaque étape.",
+    icon: <Shield className="w-8 h-8 text-primary-600" />
   },
   {
-    title: "Respect",
-    description: "S'aligner sur les règles de bonne conduite et respecter les engagements."
+    title: "Collaboration",
+    description: "Favoriser le travail d'équipe et le partage des connaissances.",
+    icon: <Users className="w-8 h-8 text-primary-600" />
   },
   {
-    title: "Équipe",
-    description: "Favoriser l'entente et la complémentarité pour une meilleure performance."
+    title: "Innovation",
+    description: "Encourager la créativité et l'amélioration continue des processus.",
+    icon: <Lightbulb className="w-8 h-8 text-primary-600" />
   },
   {
-    title: "Créativité",
-    description: "Innover pour accélérer les projets et améliorer la performance globale."
+    title: "Performance",
+    description: "Rechercher l'excellence opérationnelle et la qualité du service.",
+    icon: <Target className="w-8 h-8 text-primary-600" />
   }
 ];

@@ -203,6 +203,8 @@ export default function Home() {
 
   return (
     <AppLayout>
+
+      <Head title={meta.title} description={meta.description} />
       {/* Hero Section */}
       <section
         className="relative h-screen flex items-center justify-center bg-cover bg-center"

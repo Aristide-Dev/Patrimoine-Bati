@@ -24,13 +24,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Qui sommes-nous
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 
-// Documentation
-Route::prefix('documentation')->group(function () {
-    Route::get('/guides', [DocumentationController::class, 'guides'])->name('documentation.guides');
-    Route::get('/regulations', [DocumentationController::class, 'regulations'])->name('documentation.regulations');
-    Route::get('/forms', [DocumentationController::class, 'forms'])->name('documentation.forms');
-});
-
 
 // Actualités et Ressources
 Route::prefix('actualites')->group(function() {
@@ -40,13 +33,6 @@ Route::prefix('actualites')->group(function() {
     Route::get('/rapports-publications', [ActualitesController::class, 'rapports'])->name('actualites.rapports');
     Route::get('/medias', [ActualitesController::class, 'medias'])->name('actualites.medias');
     Route::get('/{slug}', [ActualitesController::class, 'show'])->name('actualites.show');
-});
-
-// Médiathèque
-Route::prefix('media')->group(function () {
-    Route::get('/photos', [MediaController::class, 'photos'])->name('media.photos');
-    Route::get('/videos', [MediaController::class, 'videos'])->name('media.videos');
-    Route::get('/publications', [MediaController::class, 'publications'])->name('media.publications');
 });
 
 // Demandes
