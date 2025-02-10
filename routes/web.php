@@ -11,6 +11,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\AppInitController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ActualitesController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\UserController;
