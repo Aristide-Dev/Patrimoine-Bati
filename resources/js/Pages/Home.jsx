@@ -12,7 +12,7 @@ const pageData = {
   hero: {
     title: 'Valorisons ensemble notre Patrimoine Public',
     subtitle: 'Une gestion transparente et innovante, au cœur de l\'action publique pour l\'État et ses citoyens.',
-    image: '/images/hero/cover1.jpeg',
+    image: 'https://guinee3.net/wp-content/uploads/2024/11/1732962751078-1079x641.jpg',
     // image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop',
     cta1: 'Explorer nos projets',
     cta2: 'Découvrir nos services',

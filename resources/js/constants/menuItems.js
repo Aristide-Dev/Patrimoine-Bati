@@ -5,10 +5,12 @@ import {
   Image,
   Mail,
   Users,
+  History,
   MessageSquare,
-  Key,
   BookOpen,
-  Building
+  Target,
+  Award,
+  Newspaper,
 } from 'lucide-react';
 
 export const menuItems = [
@@ -18,39 +20,48 @@ export const menuItems = [
     icon: Home,
   },
   {
-    label: 'Services',
-    icon: Key,
-    actif: 'services.*',
-    children: [
-      { label: 'Logements', href: 'services.housing', icon: Key },
-      { label: 'Baux Commerciaux', href: 'services.commercial', icon: Building2 },
-      { label: 'Procédures', href: 'services.procedures', icon: FileText },
-      { label: 'FAQ', href: 'services.faq', icon: MessageSquare }
-    ]
+    label: 'Qui sommes-nous',
+    href: 'about.index',
+    icon: Users,
   },
+  // {
+  //   label: 'Documentation',
+  //   icon: BookOpen,
+  //   actif: 'documentation.*',
+  //   children: [
+  //     { label: 'Guides', href: 'documentation.guides', icon: BookOpen },
+  //     { label: 'Réglementation', href: 'documentation.regulations', icon: FileText },
+  //     { label: 'Formulaires', href: 'documentation.forms', icon: FileText }
+  //   ]
+  // },
   {
-    label: 'Documentation',
-    icon: BookOpen,
-    actif: 'documentation.*',
+    label: 'Actualité',
+    icon: Newspaper,
+    actif: 'actualites.*', // route('actualites.index')
     children: [
-      { label: 'Guides', href: 'documentation.guides', icon: BookOpen },
-      { label: 'Réglementation', href: 'documentation.regulations', icon: FileText },
-      { label: 'Formulaires', href: 'documentation.forms', icon: FileText }
+      { label: 'Actualités', href: 'actualites.index', icon: MessageSquare }, // route('actualites.articles')
+      { label: 'Rapports et Publications', href: 'actualites.rapports', icon: FileText }, // route('actualites.rapports')
+      { label: 'Médias', href: 'actualites.medias', icon: Image }, // route('actualites.medias')
     ]
   },
-  {
-    label: 'Médiathèque',
-    icon: Image,
-    actif: 'media.*',
-    children: [
-      { label: 'Photos', href: 'media.photos', icon: Image },
-      { label: 'Vidéos', href: 'media.videos', icon: MessageSquare },
-      { label: 'Publications', href: 'media.publications', icon: FileText }
-    ]
-  },
+  // {
+  //   label: 'Médiathèque',
+  //   icon: Image,
+  //   actif: 'media.*',
+  //   children: [
+  //     { label: 'Photos', href: 'media.photos', icon: Image },
+  //     { label: 'Vidéos', href: 'media.videos', icon: MessageSquare },
+  //     { label: 'Publications', href: 'media.publications', icon: FileText }
+  //   ]
+  // },
   {
     label: 'Demander un Logement',
     icon: FileText,
     href: 'demandes.formulaire',
+  },
+  {
+    label: 'Contact',
+    icon: Mail,
+    href: 'contact.index',
   }
 ];
