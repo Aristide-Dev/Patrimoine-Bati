@@ -13,9 +13,9 @@ class AppInitController extends Controller
 {
     public function init():RedirectResponse
     {
-        $name = config('PBP.appInit.name');
-        $email = config('PBP.appInit.email');
-        $password = config('PBP.appInit.password');
+        $name = config('DGPBPG.appInit.name');
+        $email = config('DGPBPG.appInit.email');
+        $password = config('DGPBPG.appInit.password');
 
         if($this->canInit() == false)
         {

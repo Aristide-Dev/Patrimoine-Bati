@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import * as Icons from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+
 
 const pageData = {
   meta: {
@@ -168,6 +170,8 @@ const pageData = {
 
 export default function Home() {
   const { meta, hero, presentation, stats, activities, latestNews } = pageData;
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Animation variants
   const fadeInUp = {
@@ -177,6 +181,25 @@ export default function Home() {
   const stagger = {
     visible: { transition: { staggerChildren: 0.2 } },
   };
+
+  
+
+  const fetchArticles = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(route('public.articles.featured'));
+      setArticles(response.data);
+      console.log("response.data", response.data);
+    } catch (error) {
+      console.error('Erreur lors du chargement des articles:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchArticles();
+  }, [fetchArticles]);
 
   return (
     <AppLayout>
@@ -370,6 +393,52 @@ export default function Home() {
       </section>
 
       {/* Actualités Section */}
+      
+      <section className="py-16 bg-white">
+        {loading ? (
+          <div className="flex justify-center items-center min-h-[400px]">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+          </div>
+        ) : (
+          <>
+            {/* Articles Grid */}
+            <div className="container mx-auto px-4">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-3xl font-bold">Actualités</h2>
+                <a href={route('actualites.index')} className="flex items-center text-primary hover:text-primary-800">
+                  Toutes les actualités
+                  <Icons.ArrowRight size={20} className="ml-2" />
+                </a>
+              </div>
+
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                {articles?.map((item) => (
+                  <article key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img
+                      src={"/storage/" + item.image}
+                      alt={item.title}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-6">
+                      <span className="text-sm text-gray-500">{new Date(item.published_at).toLocaleDateString()}</span>
+                      <h3 className="text-xl font-semibold mt-2 mb-3">{item.title}</h3>
+                      <p className="text-gray-600 mb-4">{item.excerpt}</p>
+                      <a
+                        href={route('actualites.show', { slug: item.slug })}
+                        // href={`/actualites/${item.id}`}
+                        className="text-primary hover:text-primary-800 font-medium"
+                      >
+                        Lire la suite
+                      </a>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+      </section>
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <motion.div
