@@ -7,7 +7,6 @@ use Illuminate\Foundation\Application;
 // Importation de tous les contrôleurs
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\MediaController;
 use App\Http\Controllers\AppInitController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemandeController;
@@ -16,6 +15,7 @@ use App\Http\Controllers\ActualitesController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\Admin\DashboardController;
 
