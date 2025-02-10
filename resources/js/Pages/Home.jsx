@@ -393,7 +393,6 @@ export default function Home() {
       </section>
 
       {/* Actualités Section */}
-      
       <section className="py-16 bg-white">
         {loading ? (
           <div className="flex justify-center items-center min-h-[400px]">
@@ -438,67 +437,6 @@ export default function Home() {
             </div>
           </>
         )}
-      </section>
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Actualités</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez les dernières initiatives et projets de la DGPBP
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {latestNews.map((news, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-              >
-                <div className="relative h-48">
-                  <img
-                    src={news.image}
-                    alt={news.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-blue-600 text-white text-sm rounded-full">
-                      {news.category}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="text-sm text-gray-500 mb-2">
-                    {new Date(news.date).toLocaleDateString('fr-FR', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric'
-                    })}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {news.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    {news.excerpt}
-                  </p>
-                  <Link
-                    href={`/news/${news.id}`}
-                    className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700"
-                   >
-                    Lire la suite
-                    <Icons.ArrowRight className="ml-2" size={16} />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* Contact Section - Nouveau design */}
