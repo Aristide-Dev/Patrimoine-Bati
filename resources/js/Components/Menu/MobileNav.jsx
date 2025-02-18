@@ -25,7 +25,7 @@ export const MobileNav = ({ isOpen, onClose }) => {
 
   return (
     <nav 
-      className={`fixed min-h-4/5 inset-x-0 top-[var(--header-height)] bottom-0 bg-gradient-to-b from-primary-900/98 to-primary-800/98 backdrop-blur-md overflow-y-auto md:hidden z-50
+      className={`fixed min-h-4/5 inset-x-0 top-36 bottom-0 bg-gradient-to-b from-primary-900/98 to-primary-800/98 backdrop-blur-md overflow-y-auto md:hidden z-50
         animate-in slide-in-from-right duration-300
       `}
       role="navigation"
