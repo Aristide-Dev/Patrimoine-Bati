@@ -50,7 +50,7 @@ export default function RapportsPublications({categories}) {
     <AppLayout>
       <Head 
         title="Rapports et Publications"
-        description="Consultez les rapports annuels, les études et les publications de la MAMRI."
+        description="Consultez les rapports annuels, les études et les publications de la DGPBP."
       />
 
       <div className="bg-gradient-to-t from-primary to-primary-800 relative overflow-hidden">
@@ -60,7 +60,7 @@ export default function RapportsPublications({categories}) {
               Rapports et Publications
             </h1>
             <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-              Accédez aux rapports annuels, aux analyses des réformes et aux études menées par la MAMRI.
+              Accédez aux rapports annuels, aux analyses des réformes et aux études menées par la DGPBP.
             </p>
           </div>
         </div>

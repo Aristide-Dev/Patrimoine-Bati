@@ -46,8 +46,9 @@ const pageData = {
           'Adopter des pratiques écologiques et responsables pour la rénovation et la valorisation de nos infrastructures.',
       },
     ],
-    image: 'https://scontent.fcky4-1.fna.fbcdn.net/v/t39.30808-6/469352301_573798272254395_3511859206050717311_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=x792JtY1iYEQ7kNvgGCsTY3&_nc_zt=23&_nc_ht=scontent.fcky4-1.fna&_nc_gid=AZzaT2gQ-J0HjCPflFt_P2-&oh=00_AYAjBGSS6r4jjis3Jubd32jS9feu_ifLbmGhW6EI0gEwCg&oe=67ADAF8C',
+    image: '/images/hero/photo_de_couverture.jpg',
   },
+
   stats: [
     {
       icon: 'Building2',
@@ -68,6 +69,7 @@ const pageData = {
       description: 'Valorisation stratégique de nos actifs immobiliers.',
     },
   ],
+
   activities: {
     title: 'Nos Actions',
     subtitle: 'Des missions claires pour valoriser le patrimoine public',
@@ -128,6 +130,7 @@ const pageData = {
       },
     ],
   },
+
   latestNews: [
     {
       id: 1,
@@ -209,7 +212,7 @@ export default function Home() {
       <section
         className="relative h-screen flex items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: `url(${hero.image})` }}
-      >
+       >
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="absolute inset-0">
           <div className="h-full flex items-center justify-center px-4">
@@ -239,7 +242,7 @@ export default function Home() {
                   <Icons.ArrowRight className="mr-2" size={20} />
                   {hero.cta1}
                 </Link>
-                <Link href="/services" className="inline-flex items-center px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors font-semibold">
+                <Link href="/services" className="inline-flex items-center px-8 py-4 bg-white/30 border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors font-bold">
                   <Icons.Info className="mr-2" size={20} />
                   {hero.cta2}
                 </Link>

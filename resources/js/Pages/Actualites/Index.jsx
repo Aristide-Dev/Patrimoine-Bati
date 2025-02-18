@@ -61,7 +61,7 @@ export default function ActualitesPage() {
 
   return (
     <AppLayout>
-      <Head title="Actualités MAMRI" />
+      <Head title="Actualités DGPBP" />
       
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
         {/* Hero Section */}
@@ -71,7 +71,7 @@ export default function ActualitesPage() {
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-6xl font-bold text-white mb-6">Actualités & Événements</h1>
               <p className="text-xl text-white/90 mb-12">
-                Découvrez les dernières actualités et initiatives de la MAMRI
+                Découvrez les dernières actualités et initiatives de la DGPBP
               </p>
 
               <div className="flex flex-col md:flex-row items-center gap-2">

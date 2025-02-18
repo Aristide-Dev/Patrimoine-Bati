@@ -124,15 +124,15 @@ const Footer = () => {
     <footer className="bg-gradient-to-br from-primary via-primary-700 to-primary-800 text-white shadow-2xl" role="contentinfo">
       <PreloadResources />
       
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12">
+      <div className="container mx-auto px-4 py-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
           
           {/* Section Logo et Description */}
           <div 
             className="flex flex-col items-center md:items-start space-y-6"
             onMouseEnter={() => setHoveredSection('logo')}
             onMouseLeave={() => setHoveredSection(null)}
-          >
+           >
             <div className="group relative overflow-hidden rounded-lg">
               <img
                 className="h-20 w-56 object-contain transform transition-all duration-500 group-hover:scale-110"
@@ -163,7 +163,7 @@ const Footer = () => {
             className="space-y-6"
             onMouseEnter={() => setHoveredSection('contact')}
             onMouseLeave={() => setHoveredSection(null)}
-          >
+           >
             <h3 className="text-2xl font-bold flex items-center gap-3 text-secondary">
               <Phone className="w-6 h-6" aria-hidden="true" />
               <span>Contact</span>
@@ -197,19 +197,19 @@ const Footer = () => {
 
           {/* Section Liens utiles */}
           <div 
-            className="md:col-span-2 space-y-6"
+            className="md:col-span-2 space-y-2"
             onMouseEnter={() => setHoveredSection('links')}
             onMouseLeave={() => setHoveredSection(null)}
           >
-            <h3 className="text-2xl font-bold text-secondary">Liens utiles</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <h3 className="text-lg font-bold text-secondary">Liens utiles</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
               {usefulLinks.map((link, index) => (
                 <a
                   key={index}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-gray-200 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-all duration-300 group"
+                  className="flex items-center gap-1 text-gray-200 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-all duration-300 group"
                 >
                   <span className="text-secondary group-hover:scale-110 transition-transform duration-300">
                     {link.icon}
@@ -224,7 +224,7 @@ const Footer = () => {
         </div>
 
         {/* Section Réseaux sociaux */}
-        <div className="mt-16 pt-8 border-t border-white/10">
+        {/* <div className="mt-16 pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <h3 className="text-2xl font-bold text-center md:text-left text-secondary">
               Suivez nos actualités
@@ -249,7 +249,7 @@ const Footer = () => {
               </div>
             </nav>
           </div>
-        </div>
+        </div> */}
 
         {/* Section Copyright */}
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-center gap-6 text-center">
@@ -264,7 +264,7 @@ const Footer = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
           <p className="text-gray-200 text-xl"> 
-            © {new Date().getFullYear()} <span className="font-medium text-white">PBP</span> - Tous droits réservés
+            © {new Date().getFullYear()} <span className="font-medium text-white">DGPBP</span> - Tous droits réservés
           </p>
         </div>
       </div>
