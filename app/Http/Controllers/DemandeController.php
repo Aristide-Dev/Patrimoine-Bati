@@ -82,4 +82,9 @@ class DemandeController extends Controller
 
         return redirect()->back()->with('success', 'Votre demande a été enregistrée avec succès.');
     }
+
+    public function newDemande()
+    {
+        return Inertia::render('Demandes/NewDemande');
+    }
 } 

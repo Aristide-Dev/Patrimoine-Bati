@@ -39,6 +39,7 @@ Route::prefix('actualites')->group(function() {
 // Demandes
 Route::prefix('demandes')->group(function () {
     Route::get('/formulaire', [DemandeController::class, 'formulaire'])->name('demandes.formulaire');
+    Route::get('/nouvelle-demande', [DemandeController::class, 'newDemande'])->name('demandes.new');
     Route::post('/store', [DemandeController::class, 'store'])->name('demandes.store');
 });
 
