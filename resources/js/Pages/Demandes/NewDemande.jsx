@@ -169,7 +169,7 @@ export default function NewDemande() {
     const isValid = validateCurrentStep();
     
     if (isValid) {
-      setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
+    setCurrentStep((prev) => Math.min(prev + 1, totalSteps));
       window.scrollTo(0, 0);
     } else {
       toast.error("Validation échouée", {
@@ -398,16 +398,16 @@ export default function NewDemande() {
                     <h3 className="text-lg font-medium mb-4">{title}</h3>
                     {currentStep === index + 1 && renderStepContent()}
                     
-                    <div className="flex justify-between mt-8">
-                      <Button
-                        variant="outline"
-                        onClick={previousStep}
+          <div className="flex justify-between mt-8">
+            <Button
+              variant="outline"
+              onClick={previousStep}
                         disabled={index + 1 === 1 || processing}
                         className="flex items-center"
-                      >
+            >
                         <ArrowLeft className="mr-2 h-4 w-4" />
-                        Précédent
-                      </Button>
+              Précédent
+            </Button>
                       
                       {index + 1 < totalSteps ? (
                         <Button
@@ -419,16 +419,16 @@ export default function NewDemande() {
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                       ) : (
-                        <Button
+            <Button
                           onClick={handleSubmit}
                           disabled={processing || !stepValidation[index + 1]}
                           className="flex items-center bg-green-600 hover:bg-green-700"
-                        >
-                          {processing && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            >
+              {processing && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                           Soumettre la demande
-                        </Button>
+            </Button>
                       )}
-                    </div>
+          </div>
                   </TabsContent>
                 ))}
               </Tabs>

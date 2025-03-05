@@ -435,27 +435,3 @@ export default function Home() {
     </AppLayout>
   );
 }
-
-// Helper component for animated numbers
-const AnimatedNumber = ({ value }) => {
-  const [displayValue, setDisplayValue] = React.useState(0);
-  React.useEffect(() => {
-    const number = parseInt(value.replace(/\D/g, ''));
-    if (!isNaN(number)) {
-      const animate = () => {
-        let start = 0;
-        const duration = 2000;
-        const startTime = Date.now();
-        const update = () => {
-          const elapsed = Date.now() - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          setDisplayValue(Math.floor(progress * number));
-          if (progress < 1) requestAnimationFrame(update);
-        };
-        requestAnimationFrame(update);
-      };
-      animate();
-    }
-  }, [value]);
-  return <span>{displayValue.toLocaleString()}+</span>;
-};
