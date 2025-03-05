@@ -30,15 +30,15 @@ const slides = [
         ctaLink1: '/projets',
         ctaLink2: '/realisations',
     },
-    {
-        image: 'https://presidence.gov.gn/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-03-at-19.08.48-2550x1434.jpeg',
-        title: 'Réhabilitation et Innovation',
-        subtitle: 'Des solutions innovantes pour la maintenance et l\'amélioration continue.',
-        cta1: 'Stratégies de réhabilitation',
-        cta2: 'Normes et standards',
-        ctaLink1: '/strategie-rehabilitation',
-        ctaLink2: '/normes-standards',
-    }
+    // {
+    //     image: 'https://presidence.gov.gn/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-03-at-19.08.48-2550x1434.jpeg',
+    //     title: 'Réhabilitation et Innovation',
+    //     subtitle: 'Des solutions innovantes pour la maintenance et l\'amélioration continue.',
+    //     cta1: 'Stratégies de réhabilitation',
+    //     cta2: 'Normes et standards',
+    //     ctaLink1: '/strategie-rehabilitation',
+    //     ctaLink2: '/normes-standards',
+    // }
 ];
 
 export const Hero = () => {
@@ -49,7 +49,7 @@ export const Hero = () => {
                 effect="fade"
                 speed={1500}
                 autoplay={{
-                    delay: 5000,
+                    delay: 8000,
                     disableOnInteraction: false,
                 }}
                 fadeEffect={{
