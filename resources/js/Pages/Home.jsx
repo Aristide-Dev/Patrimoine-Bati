@@ -15,7 +15,7 @@ const pageData = {
     description: 'Gestion innovante et durable du patrimoine immobilier de l\'État - Une vision moderne pour un avenir transparent.',
   },
   hero: {
-    title: 'Valorisons ensemble notre Patrimoine Public',
+    title: 'Valorisons notre héritage commun',
     subtitle: 'Une gestion transparente et innovante, au cœur de l\'action publique pour l\'État et ses citoyens.',
     image: '/images/hero/home.jpg',
     cta1: 'Explorer nos projets',
