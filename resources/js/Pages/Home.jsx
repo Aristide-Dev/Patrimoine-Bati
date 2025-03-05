@@ -4,6 +4,9 @@ import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import * as Icons from 'lucide-react';
 import { useState, useEffect, useCallback } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
+import { Hero } from '@/Components/Hero';
 
 
 const pageData = {
@@ -135,7 +138,7 @@ const pageData = {
       id: 1,
       title: 'Réhabilitation du patrimoine immobilier',
       excerpt:
-        'Lancement d’un ambitieux programme de réhabilitation des bâtiments administratifs à Conakry.',
+        'Lancement d\'un ambitieux programme de réhabilitation des bâtiments administratifs à Conakry.',
       content:
         'Dans le cadre de notre stratégie de modernisation, nous lançons un vaste programme de réhabilitation des bâtiments administratifs de la capitale, visant à moderniser les espaces de travail tout en préservant l\'essence historique de notre patrimoine.',
       date: '2024-03-15',
@@ -171,20 +174,9 @@ const pageData = {
 };
 
 export default function Home() {
-  const { meta, hero, presentation, stats, activities, latestNews } = pageData;
+  const { meta, presentation, stats, activities, latestNews } = pageData;
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-  };
-  const stagger = {
-    visible: { transition: { staggerChildren: 0.2 } },
-  };
-
-  
 
   const fetchArticles = useCallback(async () => {
     setLoading(true);
@@ -205,51 +197,10 @@ export default function Home() {
 
   return (
     <AppLayout>
-
       <Head title={meta.title} description={meta.description} />
+      
       {/* Hero Section */}
-      <section
-        className="relative h-screen flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: `url(${hero.image})` }}
-       >
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        <div className="absolute inset-0">
-          <div className="h-full flex items-center justify-center px-4">
-            <div className="max-w-5xl mx-auto text-center">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight"
-              >
-                {hero.title}
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto"
-              >
-                {hero.subtitle}
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
-              >
-                <Link href="/projects" className="inline-flex items-center px-8 py-4 bg-white text-blue-900 rounded-lg hover:bg-gray-100 transition-colors font-semibold">
-                  <Icons.ArrowRight className="mr-2" size={20} />
-                  {hero.cta1}
-                </Link>
-                <Link href="/services" className="inline-flex items-center px-8 py-4 bg-white/30 border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors font-bold">
-                  <Icons.Info className="mr-2" size={20} />
-                  {hero.cta2}
-                </Link>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* Présentation Section */}
       <section className="py-24 bg-white">

@@ -12,7 +12,6 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Ne pas cacher le header si le menu mobile est ouvert
       if (isMenuOpen) {
         setVisible(true);
         return;
@@ -55,43 +54,49 @@ const Header = () => {
   return (
     <>
       <header 
-        className={`fixed w-full transition-all duration-300 ease-in-out
+        className={`fixed w-full transition-all duration-500 ease-in-out
           ${visible ? 'translate-y-0' : '-translate-y-full'}
-          ${isScrolled ? 'bg-gradient-to-r from-primary to-primary-800 shadow-2xl' : 'bg-gradient-to-r from-primary/95 to-primary-800/95 backdrop-blur-sm'}
+          ${isScrolled ? 'bg-gradient-to-r from-primary-900 to-primary-800 shadow-xl' : 'bg-gradient-to-r from-primary-800/95 to-primary-700/95 backdrop-blur-md'}
           ${isMenuOpen ? 'z-50' : 'z-30'}
         `}
       >
         <div 
-          className={`w-full transition-all duration-300 ease-in-out
-            ${isScrolled && !isMenuOpen ? 'opacity-0 h-0' : 'opacity-100'}
+          className={`w-full transition-all duration-500 ease-in-out
+            ${isScrolled && !isMenuOpen ? 'opacity-0 h-0 transform -translate-y-full' : 'opacity-100 transform translate-y-0'}
           `}
         >
           <TopBar />
         </div>
 
-        <div className="relative mx-auto px-4">
-          <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled && !isMenuOpen ? 'py-2' : 'py-4'}`}>
+        <div className="relative mx-auto px-4 container">
+          <div className={`flex items-center justify-between transition-all duration-300 ${isScrolled && !isMenuOpen ? 'py-3' : 'py-4'}`}>
             <a 
               href="/" 
-              className="flex items-center group relative overflow-hidden rounded-lg"
+              className="flex items-center group relative overflow-hidden rounded-xl"
               aria-label="Retour à l'accueil"
             >
-              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <img 
-                src="/images/logo/logo-pbp.png" 
-                alt="Logo PBP" 
-                className={`transition-all duration-300 transform group-hover:scale-105
-                  ${isScrolled && !isMenuOpen ? 'h-12 w-auto' : 'h-16 w-auto'}
-                `}
-              />
+              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+              <div className="relative overflow-hidden rounded-xl">
+                <img 
+                  src="/images/logo/logo-pbp.png" 
+                  alt="Logo PBP" 
+                  className={`transition-all duration-300 transform group-hover:scale-105
+                    ${isScrolled && !isMenuOpen ? 'h-12 w-auto' : 'h-16 w-auto'}
+                  `}
+                />
+              </div>
             </a>
 
             <DesktopNav />
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`md:hidden p-2 rounded-lg transition-all duration-300 ease-in-out
-                ${isMenuOpen ? 'bg-white text-primary' : 'hover:bg-white/10 text-white'}
+              className={`md:hidden relative z-50 p-2.5 rounded-lg 
+                transition-all duration-300 ease-in-out
+                ${isMenuOpen 
+                  ? 'bg-white text-primary-800 hover:bg-gray-100 shadow-lg' 
+                  : 'hover:bg-white/15 text-white'}
+                transform hover:scale-105 active:scale-95
               `}
               aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
               aria-expanded={isMenuOpen}
@@ -99,12 +104,12 @@ const Header = () => {
               <div className="relative w-6 h-6">
                 <X 
                   className={`absolute inset-0 transition-all duration-300
-                    ${isMenuOpen ? 'opacity-100 rotate-0' : 'opacity-0 rotate-90'}
+                    ${isMenuOpen ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 rotate-90 scale-75'}
                   `} 
                 />
                 <Menu 
                   className={`absolute inset-0 transition-all duration-300
-                    ${isMenuOpen ? 'opacity-0 -rotate-90' : 'opacity-100 rotate-0'}
+                    ${isMenuOpen ? 'opacity-0 -rotate-90 scale-75' : 'opacity-100 rotate-0 scale-100'}
                   `} 
                 />
               </div>
@@ -113,16 +118,17 @@ const Header = () => {
         </div>
       </header>
 
-      {/* Overlay pour le menu mobile */}
+      {/* Overlay amélioré pour le menu mobile */}
       <div 
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden
-          ${isMenuOpen ? 'opacity-100 visible z-40' : 'opacity-0 invisible -z-10'}
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm transition-all duration-500 md:hidden
+          ${isMenuOpen 
+            ? 'opacity-100 visible z-40' 
+            : 'opacity-0 invisible -z-10'}
         `}
         onClick={() => setIsMenuOpen(false)}
         aria-hidden="true"
       />
 
-      {/* Le menu mobile est maintenant rendu en dehors du header */}
       <MobileNav 
         isOpen={isMenuOpen} 
         onClose={() => setIsMenuOpen(false)}
