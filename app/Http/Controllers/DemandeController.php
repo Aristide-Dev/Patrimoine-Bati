@@ -10,6 +10,7 @@ class DemandeController extends Controller
 {
     public function formulaire()
     {
+        return Inertia::render('Demandes/NewDemande');
         $formData = [
             'typesDemande' => [
                 'logement' => 'Logement Administratif',
