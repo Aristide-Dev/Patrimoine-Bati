@@ -15,7 +15,7 @@ const pageData = {
     description: 'Gestion innovante et durable du patrimoine immobilier de l\'État - Une vision moderne pour un avenir transparent.',
   },
   hero: {
-    title: 'Valorisons notre héritage commun',
+    title: 'Valorisons ensemble notre Patrimoine Public',
     subtitle: 'Une gestion transparente et innovante, au cœur de l\'action publique pour l\'État et ses citoyens.',
     image: '/images/hero/home.jpg',
     cta1: 'Explorer nos projets',
@@ -23,7 +23,7 @@ const pageData = {
   },
   presentation: {
     title: 'La Direction Générale du Patrimoine Bâti Public',
-    subtitle: 'Innovons pour un État moderne',
+    subtitle: 'Valorisons notre héritage commun',
     description:
       'La DGPBP est l\'institution dédiée à la gestion, la valorisation et la modernisation du patrimoine immobilier de l\'État guinéen. Notre mission, essentielle dans la transformation de l\'État, repose sur une gouvernance rigoureuse et une vision innovante.',
     missions: [
