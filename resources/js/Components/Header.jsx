@@ -81,7 +81,7 @@ const Header = () => {
                 src="/images/logo/logo-pbp.png" 
                 alt="Logo PBP" 
                 className={`transition-all duration-300 transform group-hover:scale-105
-                  ${isScrolled && !isMenuOpen ? 'h-12 w-32' : 'h-16 w-36'}
+                  ${isScrolled && !isMenuOpen ? 'h-12 w-auto' : 'h-16 w-auto'}
                 `}
               />
             </a>
