@@ -31,7 +31,7 @@ export const TopBar = () => {
         <div className="bg-gradient-to-r from-primary-800 via-primary-700 to-primary-800 text-white shadow-lg border-b border-white/10">
             <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 {/* Left Section: Logos and Contact Info */}
-                <div className="flex flex-col md:flex-row items-center space-y-3 md:space-y-0 md:space-x-8 w-full">
+                <div className="flex flex-col md:flex-row items-center  justify-center space-y-3 md:space-y-0 md:space-x-8 w-full">
                     <div className="flex items-center space-x-6">
                         <div className="relative group">
                             <div className="absolute -inset-2 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -51,7 +51,7 @@ export const TopBar = () => {
                         </div>
                     </div>
                     
-                    <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-white/90">
+                    {/* <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-white/90">
                         <div className="flex items-center space-x-3 group hover:text-white transition-colors duration-300">
                             <div className="p-2 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors duration-300">
                                 <Phone size={18} className="text-white" />
@@ -68,7 +68,7 @@ export const TopBar = () => {
                                 contacts@PBP.gov.gn
                             </span>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Right Section: Search */}
