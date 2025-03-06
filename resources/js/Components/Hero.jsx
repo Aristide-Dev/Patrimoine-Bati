@@ -40,7 +40,7 @@ const slides = [
         // ctaLink2: '/services',
     },
     {
-        image: 'https://soges-sa.com/images/2025/01/19/barrage3.jpeg',
+        image: 'https://ledjely.com/wp-content/uploads/2023/01/IMG-3973-1536x1025.jpg',
         // title: 'Patrimoine Historique',
         // subtitle: 'Préservation et valorisation des édifices emblématiques de notre nation.',
         // cta1: 'Explorer notre patrimoine',
@@ -340,7 +340,7 @@ export const Hero = () => {
                 </div>
 
                 {/* Styles de pagination améliorés */}
-                <style jsx global>{`
+                <style jsx>{`
                     .swiper-pagination {
                         bottom: 2.5rem !important;
                     }

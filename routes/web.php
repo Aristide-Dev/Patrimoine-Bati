@@ -41,6 +41,7 @@ Route::prefix('demandes')->group(function () {
     Route::get('/formulaire', [DemandeController::class, 'formulaire'])->name('demandes.formulaire');
     Route::get('/nouvelle-demande', [DemandeController::class, 'newDemande'])->name('demandes.new');
     Route::post('/store', [DemandeController::class, 'store'])->name('demandes.store');
+    Route::get('/processus-obtention', [DemandeController::class, 'processusObtention'])->name('demandes.processus');
 });
 
 // Contact

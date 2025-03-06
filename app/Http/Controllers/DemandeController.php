@@ -88,4 +88,9 @@ class DemandeController extends Controller
     {
         return Inertia::render('Demandes/NewDemande');
     }
+
+    public function processusObtention()
+    {
+        return Inertia::render('Demandes/ProcessusObtention');
+    }
 } 
