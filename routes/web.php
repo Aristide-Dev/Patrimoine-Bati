@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\Admin\DashboardController;
-
+use App\Http\Controllers\Admin\InvoiceController;
 Route::get('/init', [AppInitController::class, 'init'])->name('app.init');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -60,6 +60,10 @@ Route::prefix('admin-panel')->name('admin.')->middleware(['auth'])->group(functi
     Route::resource('medias', MediaController::class);
     Route::resource('reports', ReportController::class);
     Route::resource('users', UserController::class);
+
+    
+    Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');

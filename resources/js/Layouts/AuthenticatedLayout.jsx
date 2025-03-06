@@ -24,12 +24,16 @@ export default function AuthenticatedLayout({ header, children }) {
 
     // Navigation items configuration
     const navigationItems = [
+
         { name: 'Tableau de Bord', route: 'dashboard', active: route().current('dashboard') },
-        { name: 'Actualités', route: 'admin.news.index', active: route().current('admin.news.*')  },
-        { name: 'Medias', route: 'admin.medias.index', active: route().current('admin.medias.*')  },
-        { name: 'Documents', route: 'admin.reports.index', active: route().current('admin.reports.*')  },
-        // { name: 'Utilisateurs', route: 'admin.users.index', active: route().current('admin.users.*')  }
+        { name: 'Paiements/Factures', route: 'admin.invoices.index', active: route().current('admin.invoices.*')  }
     ];
+    if(user.role === 'admin' || user.role === 'editor'){
+        navigationItems.push({ name: 'Utilisateurs', route: 'admin.users.index', active: route().current('admin.users.*')  });
+        navigationItems.push({ name: 'Actualités', route: 'admin.news.index', active: route().current('admin.news.*')  });
+        navigationItems.push({ name: 'Medias', route: 'admin.medias.index', active: route().current('admin.medias.*')  });
+        navigationItems.push({ name: 'Documents', route: 'admin.reports.index', active: route().current('admin.reports.*')  });
+    }
     if (user.role === 'admin') {
         navigationItems.push({ name: 'Utilisateurs', route: 'admin.users.index', active: route().current('admin.users.*')  });
     }
