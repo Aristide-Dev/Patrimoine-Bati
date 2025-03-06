@@ -46,7 +46,7 @@ export const TopBar = () => {
                             <img 
                                 src="/images/logo/SIMANDOU2024.png" 
                                 alt="Logo Ministère" 
-                                className="h-16 w-20 relative transition-transform duration-300 group-hover:scale-105"
+                                className="h-14 w-32 relative bg-black/50 object-cover transform transition-all duration-500 group-hover:scale-105"
                             />
                         </div>
                     </div>

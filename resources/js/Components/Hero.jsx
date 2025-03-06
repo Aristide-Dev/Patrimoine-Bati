@@ -31,7 +31,7 @@ const slides = [
         // ctaLink2: '/realisations',
     },
     {
-        image: 'https://pbs.twimg.com/media/GBiwyJ6W8AAw4Ak.jpg',
+        image: 'https://www.lerenifleur224.com/wp-content/uploads/2024/06/FB_IMG_1718921162220.jpg',
         title: 'Excellence Opérationnelle',
         subtitle: 'Modernisation des infrastructures administratives pour un service public de qualité.',
         // cta1: 'Nos réalisations',
@@ -40,7 +40,7 @@ const slides = [
         // ctaLink2: '/services',
     },
     {
-        image: 'https://guineedirect.org/wp-content/uploads/2022/04/IMG-20220413-WA0001.jpg',
+        image: 'https://soges-sa.com/images/2025/01/19/barrage3.jpeg',
         // title: 'Patrimoine Historique',
         // subtitle: 'Préservation et valorisation des édifices emblématiques de notre nation.',
         // cta1: 'Explorer notre patrimoine',
