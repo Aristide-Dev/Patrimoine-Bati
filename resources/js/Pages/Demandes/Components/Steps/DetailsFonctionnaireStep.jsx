@@ -171,7 +171,7 @@ export default function DetailsFonctionnaireStep({ data, setData, errors }) {
               value={data.lieu_travail}
               onChange={(e) => setData('lieu_travail', e.target.value)}
               className="focus:border-blue-500 transition-colors"
-              placeholder="Ex: Dakar Centre"
+              placeholder="Ex: Boffa Centre"
             />
             <InputError message={errors.lieu_travail} className="mt-1 text-sm" />
           </div>

@@ -92,7 +92,7 @@ export default function InformationsPersonnellesStep({ data, setData, errors }) 
               value={data.lieu_naissance}
               onChange={(e) => setData('lieu_naissance', e.target.value)}
               className="focus:border-blue-500 transition-colors"
-              placeholder="Ex: Dakar"
+              placeholder="Ex: Macenta"
             />
             <InputError message={errors.lieu_naissance} className="mt-1 text-sm" />
           </div>
@@ -119,12 +119,13 @@ export default function InformationsPersonnellesStep({ data, setData, errors }) 
                 <SelectValue placeholder="Sélectionnez votre nationalité" />
               </SelectTrigger>
               <SelectContent searchable>
-                <SelectItem value="senegalaise">Sénégalaise</SelectItem>
+                <SelectItem Select={true} value="guinéenne">Guinéenne</SelectItem>
+                {/* <SelectItem value="senegalaise">Sénégalaise</SelectItem>
                 <SelectItem value="malienne">Malienne</SelectItem>
                 <SelectItem value="ivoirienne">Ivoirienne</SelectItem>
                 <SelectItem value="française">Française</SelectItem>
                 <SelectItem value="gambienne">Gambienne</SelectItem>
-                <SelectItem value="autre">Autre</SelectItem>
+                <SelectItem value="autre">Autre</SelectItem> */}
               </SelectContent>
             </Select>
             <InputError message={errors.nationalite} className="mt-1 text-sm" />
@@ -160,7 +161,7 @@ export default function InformationsPersonnellesStep({ data, setData, errors }) 
               value={data.email}
               onChange={(e) => setData('email', e.target.value)}
               className={`border ${errors.email ? 'border-red-500' : 'focus:border-blue-500'} transition-colors`}
-              placeholder="exemple@domaine.com"
+              placeholder="amadoudia@exemple.com"
             />
             <InputError message={errors.email} className="mt-1 text-sm" />
           </div>
@@ -175,7 +176,7 @@ export default function InformationsPersonnellesStep({ data, setData, errors }) 
               value={data.telephone}
               onChange={(e) => setData('telephone', e.target.value)}
               className={`border ${errors.telephone ? 'border-red-500' : 'focus:border-blue-500'} transition-colors`}
-              placeholder="Ex: 77 123 45 67"
+              placeholder="Ex: 6xx xx xx xx"
             />
             <InputError message={errors.telephone} className="mt-1 text-sm" />
           </div>
