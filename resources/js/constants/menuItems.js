@@ -10,7 +10,7 @@ import {
   MessageSquare,
   BookOpen,
   Target,
-  Award,
+  Search,
   Newspaper,
   File
 } from 'lucide-react';
@@ -51,7 +51,8 @@ export const menuItems = [
     icon: Users,
     actif: 'demandes.*', // route('actualites.index')
     children: [
-      { label: 'Processus d\'obtention', href: 'demandes.processus', icon: FileText }, 
+      { label: 'Processus d\'obtention', href: 'demandes.processus', icon: FileText },
+      { label: 'Vérifier ma demande', href: 'demandes.verifier', icon: Search }, 
       { label: 'Faire une Demande', href: 'demandes.new', icon: File }, // route('actualites.articles')
       { label: 'Se Connecter à mon compte', href: 'login', icon: User }, // route('actualites.rapports')// route('actualites.medias')
     ]
@@ -67,7 +68,7 @@ export const menuItems = [
   //   ]
   // },
   {
-    label: 'Contact',
+    label: 'Nous Contacter',
     icon: Mail,
     href: 'contact.index',
   }

@@ -28,11 +28,19 @@ export const TopBar = () => {
     }, [searchQuery]);
 
     return (
-        <div className="bg-gradient-to-r from-primary-800 via-primary-700 to-primary-800 text-white shadow-lg border-b border-white/10">
+        <div className="bg-white text-black shadow-lg border-b border-white/10">
             <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 {/* Left Section: Logos and Contact Info */}
                 <div className="flex flex-col md:flex-row items-center  justify-center space-y-3 md:space-y-0 md:space-x-8 w-full">
                     <div className="flex items-center space-x-6">
+                        <div className="relative group">
+                            <div className="absolute -inset-2 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <img 
+                                src="https://presidence.gov.gn/wp-content/uploads/2022/01/cropped-Site-Logo.png" 
+                                alt="Logo République de Guinée" 
+                                className="h-14 w-auto relative transition-transform duration-300 group-hover:scale-105"
+                            />
+                        </div>
                         <div className="relative group">
                             <div className="absolute -inset-2 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             <img 
@@ -46,7 +54,7 @@ export const TopBar = () => {
                             <img 
                                 src="/images/logo/SIMANDOU2024.png" 
                                 alt="Logo Ministère" 
-                                className="h-14 w-32 relative bg-black/50 object-cover transform transition-all duration-500 group-hover:scale-105"
+                                className="h-14 w-32 relative bg-black object-cover transform transition-all duration-500 group-hover:scale-105"
                             />
                         </div>
                     </div>

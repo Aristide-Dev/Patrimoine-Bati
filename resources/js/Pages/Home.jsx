@@ -7,6 +7,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { Hero } from '@/Components/Hero';
+import { CheckCircle } from 'lucide-react';
 
 
 const pageData = {
@@ -394,6 +395,153 @@ export default function Home() {
         )}
       </section>
 
+      {/* Nouvelle section : Réalisations */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Nos Réalisations Majeures
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Découvrez quelques-uns de nos projets phares qui illustrent notre engagement 
+              pour la valorisation du patrimoine bâti public.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Projet 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="group relative overflow-hidden rounded-2xl shadow-lg"
+            >
+              <div className="relative h-[400px]">
+                <img
+                  src="https://agpguinee.com/wp-content/uploads/2024/11/466095512_976193697876214_755281667588092543_n-1-1024x575.jpg"
+                  alt="Institut National de Santé Publique de Guinée (INSP)"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-2">Institut National de Santé Publique de Guinée (INSP)</h3>
+                  <p className="text-gray-200">Construction de l'Institut National de Santé Publique de Guinée (INSP) à Coyah</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Projet 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="group relative overflow-hidden rounded-2xl shadow-lg"
+            >
+              <div className="relative h-[400px]">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfP2gSlAnSM7SlFaqJsl6JR3_hu-9fP9f3EPDOlG7yvTmKJDIqwl3JDSakp965YEw0sdI&usqp=CAU"
+                  alt="Cité ministérielle de Koloma"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-2">Pont unique de tanènè</h3>
+                  <p className="text-gray-200">Construction du Pont unique de tanènè</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Projet 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="group relative overflow-hidden rounded-2xl shadow-lg"
+            >
+              <div className="relative h-[400px]">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHc-HDSRTsw7TNH_L0DTETuKEC3FwJr2zmIw&s"
+                  alt="Réhabilitation des logements administratifs"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-2">Rénovation de l'hôpital Donka</h3>
+                  <p className="text-gray-200">Programme de Rénovation et d'extention de l'hôpital Donka</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Nouvelle section : Engagement */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <h2 className="text-4xl font-bold text-gray-900">
+                Notre Engagement pour un Patrimoine Durable
+              </h2>
+              <p className="text-lg text-gray-600">
+                La DGPBP s'engage dans une démarche de développement durable pour 
+                préserver et valoriser le patrimoine bâti public. Notre approche 
+                combine innovation technologique et respect de l'environnement.
+              </p>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-primary-600 flex-shrink-0 mt-1" />
+                  <span className="text-gray-700">
+                    Optimisation énergétique des bâtiments publics
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-primary-600 flex-shrink-0 mt-1" />
+                  <span className="text-gray-700">
+                    Utilisation de matériaux durables et locaux
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="h-6 w-6 text-primary-600 flex-shrink-0 mt-1" />
+                  <span className="text-gray-700">
+                    Gestion responsable des ressources
+                  </span>
+                </li>
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="relative h-[500px] rounded-2xl overflow-hidden shadow-xl"
+            >
+              <img
+                src="/images/ccf_3.jpeg"
+                alt="Engagement durable"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section - Nouveau design */}
       <section className="py-20 bg-blue-900 text-white">
         <div className="container mx-auto px-4">
@@ -419,14 +567,14 @@ export default function Home() {
               transition={{ delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <button className="inline-flex items-center px-8 py-4 bg-white text-blue-900 rounded-lg hover:bg-gray-100 transition-colors font-semibold">
+              <a href="tel:+224655358284" className="inline-flex items-center px-8 py-4 bg-white text-blue-900 rounded-lg hover:bg-gray-100 transition-colors font-semibold">
                 <Icons.Phone className="mr-2" size={20} />
                 Nous appeler
-              </button>
-              <button className="inline-flex items-center px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors font-semibold">
+              </a>
+              <a href={route('contact.index')} className="inline-flex items-center px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors font-semibold">
                 <Icons.Mail className="mr-2" size={20} />
                 Nous écrire
-              </button>
+              </a>
             </motion.div>
           </div>
         </div>

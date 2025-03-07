@@ -42,6 +42,8 @@ Route::prefix('demandes')->group(function () {
     Route::get('/nouvelle-demande', [DemandeController::class, 'newDemande'])->name('demandes.new');
     Route::post('/store', [DemandeController::class, 'store'])->name('demandes.store');
     Route::get('/processus-obtention', [DemandeController::class, 'processusObtention'])->name('demandes.processus');
+    Route::get('/verifier', [DemandeController::class, 'verifier'])->name('demandes.verifier');
+    Route::get('/verification', [DemandeController::class, 'verification'])->name('demandes.verification');
 });
 
 // Contact

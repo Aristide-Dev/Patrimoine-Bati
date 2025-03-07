@@ -27,44 +27,19 @@ const Footer = () => {
       icon: <Building2 className="w-4 h-4" />
     },
     { 
-      href: "http://mef.gov.gn/", 
-      text: "Ministère de L'Économie et des Finances",
-      icon: <Banknote className="w-4 h-4" />
+      href: "https://habitat.gov.gn/", 
+      text: "Ministère de l’Urbanisme, de l’Habitat et de l’Aménagement du territoire",
+      icon: <Building2 className="w-4 h-4" />
     },
     { 
-      href: "https://mbudget.gov.gn/", 
-      text: "Ministère du Budget",
+      href: "https://www.sonapign.com/", 
+      text: "Société Nationale d'Aménagement et de Promotion Immobilière",
       icon: <FileText className="w-4 h-4" />
     },
     { 
-      href: "https://mines.gov.gn/", 
-      text: "Ministère des Mines et de La Géologie",
+      href: "https://inscription.aguifil.com/users/sign_in", 
+      text: "Agence Guinéenne pour le Financement du Logement",
       icon: <Scale className="w-4 h-4" />
-    },
-    { 
-      href: "http://www.mplan.gov.gn/", 
-      text: "Ministère du Plan et de la Coopération Internationale (MPCI)",
-      icon: <Users className="w-4 h-4" />
-    },
-    { 
-      href: "https://mpten.gov.gn/", 
-      text: "Ministère des Postes, des Telecommunications et de l'Economie Numerique",
-      icon: <Globe className="w-4 h-4" />
-    },
-    { 
-      href: "https://www.bcrg-guinee.org/", 
-      text: "Banque Centrale de la République de Guinée",
-      icon: <Landmark className="w-4 h-4" />
-    },
-    { 
-      href: "https://dgi.gov.gn/", 
-      text: "Direction Générale des Impôts",
-      icon: <ScrollText className="w-4 h-4" />
-    },
-    { 
-      href: "https://dgd.gov.gn/", 
-      text: "Direction Générale des Douanes",
-      icon: <Building2 className="w-4 h-4" />
     },
   ];
 
@@ -202,7 +177,7 @@ const Footer = () => {
             onMouseLeave={() => setHoveredSection(null)}
           >
             <h3 className="text-lg font-bold text-secondary">Liens utiles</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
+            <div className="grid grid-cols-1 gap-1">
               {usefulLinks.map((link, index) => (
                 <a
                   key={index}
