@@ -52,7 +52,7 @@ export const menuItems = [
     actif: 'demandes.*', // route('actualites.index')
     children: [
       { label: 'Processus d\'obtention', href: 'demandes.processus', icon: FileText }, 
-      { label: 'Nouvelle Demande', href: 'demandes.new', icon: File }, // route('actualites.articles')
+      { label: 'Faire une Demande', href: 'demandes.new', icon: File }, // route('actualites.articles')
       { label: 'Se Connecter à mon compte', href: 'login', icon: User }, // route('actualites.rapports')// route('actualites.medias')
     ]
   },
