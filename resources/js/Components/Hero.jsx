@@ -13,7 +13,7 @@ import 'swiper/css/pagination';
 
 const slides = [
     {
-        image: 'https://presidence.gov.gn/wp-content/uploads/2025/01/WhatsApp-Image-2025-01-22-at-21.25.55-2550x1434.jpeg',
+        image: '/images/hero/president-velo-kaloum.jpeg',
         title: 'Leadership et Vision',
         subtitle: 'Un engagement fort pour la préservation et la valorisation du patrimoine national.',
         // cta1: 'Découvrir notre vision',
@@ -31,7 +31,7 @@ const slides = [
         // ctaLink2: '/realisations',
     },
     {
-        image: 'https://www.lerenifleur224.com/wp-content/uploads/2024/06/FB_IMG_1718921162220.jpg',
+        image: '/images/hero/president-cnss.jpg',
         title: 'Excellence Opérationnelle',
         subtitle: 'Modernisation des infrastructures administratives pour un service public de qualité.',
         // cta1: 'Nos réalisations',
@@ -40,16 +40,16 @@ const slides = [
         // ctaLink2: '/services',
     },
     {
-        image: 'https://ledjely.com/wp-content/uploads/2023/01/IMG-3973-1536x1025.jpg',
-        // title: 'Patrimoine Historique',
-        // subtitle: 'Préservation et valorisation des édifices emblématiques de notre nation.',
-        // cta1: 'Explorer notre patrimoine',
-        // cta2: 'Projets de rénovation',
-        // ctaLink1: '/patrimoine',
-        // ctaLink2: '/renovations',
+        image: '/images/hero/president-bureau.jpg',
+        title: 'Vision Présidentielle',
+        subtitle: 'Sous le leadership du Président de la République, le Colonel Mamadi DOUMBOUYA, la modernisation et la valorisation du patrimoine bâti public s\'inscrivent au cœur des priorités nationales pour une Guinée nouvelle.',
+        // cta1: 'Notre vision',
+        // cta2: 'Grands projets',
+        // ctaLink1: '/vision',
+        // ctaLink2: '/projets',
     },
     {
-        image: 'https://e85ty3xsocd.exactdn.com/uploads/2024/05/21110918/Afrique-de-lOuest-la-Guinee-a-enregistre-le-plus-grand-projet-dinvestissements-prives-dans-les-infrastructures-en-2023.jpg?lossy=1&avif=70&ssl=1',
+        image: '/images/hero/Afrique-de-lOuest-la-Guinee-infrastructures-en-2023.avif',
         title: 'Investissements Stratégiques',
         subtitle: 'Préservation et valorisation des édifices emblématiques de notre nation.',
         // cta1: 'Projets majeurs',
@@ -224,16 +224,16 @@ export const Hero = () => {
                                                             </Link>
                                                         )}
                                                         {slide.ctaLink2 && (
-                                                        <Link
-                                                            href={slide.ctaLink2}
-                                                            className="inline-flex items-center px-8 py-4 
+                                                            <Link
+                                                                href={slide.ctaLink2}
+                                                                className="inline-flex items-center px-8 py-4 
                                                                 bg-white/10 backdrop-blur-sm text-white border border-white/30
                                                                 rounded-lg hover:bg-white/20 transition-all duration-300
                                                                 font-semibold shadow-lg transform hover:scale-105
                                                                 active:scale-95"
-                                                        >
-                                                            <Icons.Info className="mr-2" size={20} />
-                                                            {slide.cta2}
+                                                            >
+                                                                <Icons.Info className="mr-2" size={20} />
+                                                                {slide.cta2}
                                                             </Link>
                                                         )}
                                                     </motion.div>

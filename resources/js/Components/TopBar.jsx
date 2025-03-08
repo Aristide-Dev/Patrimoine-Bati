@@ -15,8 +15,8 @@ export const TopBar = () => {
         }
 
         setLoading(true);
-        router.get(route('search.index'), { 
-            q: searchQuery 
+        router.get(route('search.index'), {
+            q: searchQuery
         }, {
             preserveState: true,
             preserveScroll: true,
@@ -28,37 +28,37 @@ export const TopBar = () => {
     }, [searchQuery]);
 
     return (
-        <div className="bg-white text-black shadow-lg border-b border-white/10">
+        <div className="bg-gradient-to-r from-primary-800 via-primary-700 to-primary-800 text-white shadow-lg border-b border-white/10">
             <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 {/* Left Section: Logos and Contact Info */}
                 <div className="flex flex-col md:flex-row items-center  justify-center space-y-3 md:space-y-0 md:space-x-8 w-full">
                     <div className="flex items-center space-x-6">
                         <div className="relative group">
                             <div className="absolute -inset-2 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <img 
-                                src="https://presidence.gov.gn/wp-content/uploads/2022/01/cropped-Site-Logo.png" 
-                                alt="Logo République de Guinée" 
+                            <img
+                                src="https://presidence.gov.gn/wp-content/uploads/2022/01/cropped-Site-Logo.png"
+                                alt="Logo République de Guinée"
                                 className="h-14 w-auto relative transition-transform duration-300 group-hover:scale-105"
                             />
                         </div>
                         <div className="relative group">
                             <div className="absolute -inset-2 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <img 
-                                src="/images/logo/brandingGn.png" 
-                                alt="Logo République de Guinée" 
+                            <img
+                                src="/images/logo/brandingGn.png"
+                                alt="Logo République de Guinée"
                                 className="h-14 w-auto relative transition-transform duration-300 group-hover:scale-105"
                             />
                         </div>
                         <div className="relative group">
                             <div className="absolute -inset-2 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <img 
-                                src="/images/logo/SIMANDOU2024.png" 
-                                alt="Logo Ministère" 
+                            <img
+                                src="/images/logo/SIMANDOU2024.png"
+                                alt="Logo Ministère"
                                 className="h-14 w-32 relative bg-black object-cover transform transition-all duration-500 group-hover:scale-105"
                             />
                         </div>
                     </div>
-                    
+
                     {/* <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-white/90">
                         <div className="flex items-center space-x-3 group hover:text-white transition-colors duration-300">
                             <div className="p-2 rounded-full bg-white/10 group-hover:bg-white/20 transition-colors duration-300">
@@ -82,8 +82,8 @@ export const TopBar = () => {
                 {/* Right Section: Search */}
                 <div className="flex items-center relative w-full md:w-auto justify-end">
                     {showSearchInput ? (
-                        <form 
-                            onSubmit={handleSearch} 
+                        <form
+                            onSubmit={handleSearch}
                             className="flex items-center w-full md:w-72 transition-all duration-300 ease-in-out"
                         >
                             <div className="relative w-full group">
@@ -103,11 +103,11 @@ export const TopBar = () => {
                                     autoFocus
                                     aria-label="Champ de recherche"
                                 />
-                                <Search 
-                                    size={20} 
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70" 
+                                <Search
+                                    size={20}
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70"
                                 />
-                                <button 
+                                <button
                                     type="button"
                                     onClick={() => {
                                         setShowSearchInput(false);
@@ -123,7 +123,7 @@ export const TopBar = () => {
                             </div>
                         </form>
                     ) : (
-                        <button 
+                        <button
                             onClick={() => setShowSearchInput(true)}
                             className="text-white/90 hover:text-white 
                                 bg-white/10 hover:bg-white/20 

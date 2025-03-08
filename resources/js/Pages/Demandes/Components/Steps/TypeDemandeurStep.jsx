@@ -17,7 +17,7 @@ export default function TypeDemandeurStep({ data, setData, errors }) {
     {
       id: 'entreprise',
       label: 'Entreprise',
-      description: 'Sociétés, organisations et entités commerciales',
+      description: 'Sociétés, organisations, Ambassades et entités commerciales',
       icon: <Building2 className="h-8 w-8 text-indigo-500" />
     },
     {

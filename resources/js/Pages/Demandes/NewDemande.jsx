@@ -361,7 +361,7 @@ export default function NewDemande() {
                     <Button
                       onClick={nextStep}
                       disabled={processing || !stepValidation[currentStep]}
-                      className="flex items-center bg-blue-600 hover:bg-blue-700"
+                      className="flex items-center bg-blue-100 hover:bg-blue-200"
                     >
                       Suivant
                       <ArrowRight className="ml-2 h-4 w-4" />
