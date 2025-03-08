@@ -42,7 +42,7 @@ const slides = [
     {
         image: '/images/hero/president-bureau.jpg',
         title: 'Vision Présidentielle',
-        subtitle: 'Sous le leadership du Président de la République, le Colonel Mamadi DOUMBOUYA, la modernisation et la valorisation du patrimoine bâti public s\'inscrivent au cœur des priorités nationales pour une Guinée nouvelle.',
+        subtitle: 'Sous le leadership du Président de la République, le Général Mamadi DOUMBOUYA, la modernisation et la valorisation du patrimoine bâti public s\'inscrivent au cœur des priorités nationales pour une Guinée nouvelle.',
         // cta1: 'Notre vision',
         // cta2: 'Grands projets',
         // ctaLink1: '/vision',
