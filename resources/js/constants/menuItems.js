@@ -47,15 +47,21 @@ export const menuItems = [
     ]
   },
   {
-    label: 'Espace Clients',
-    icon: Users,
+    label: 'Espace Immobilier',
+    icon: Building2,
     actif: 'demandes.*', // route('actualites.index')
     children: [
+      { label: 'Rechercher un bien', href: 'demandes.rechercher', icon: Search },
       { label: 'Processus d\'obtention', href: 'demandes.processus', icon: FileText },
-      { label: 'Vérifier ma demande', href: 'demandes.verifier', icon: Search }, 
       { label: 'Faire une Demande', href: 'demandes.new', icon: File }, // route('actualites.articles')
-      { label: 'Se Connecter à mon compte', href: 'login', icon: User }, // route('actualites.rapports')// route('actualites.medias')
+      { label: 'Vérifier ma demande', href: 'demandes.verifier', icon: Search }, 
+      // { label: 'Se Connecter à mon compte', href: 'login', icon: User }, // route('actualites.rapports')// route('actualites.medias')
     ]
+  },
+  {
+    label: 'Espace Citoyen',
+    icon: Users,
+    href: 'login'
   },
   // {
   //   label: 'Médiathèque',

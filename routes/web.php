@@ -44,6 +44,9 @@ Route::prefix('demandes')->group(function () {
     Route::get('/processus-obtention', [DemandeController::class, 'processusObtention'])->name('demandes.processus');
     Route::get('/verifier', [DemandeController::class, 'verifier'])->name('demandes.verifier');
     Route::get('/verification', [DemandeController::class, 'verification'])->name('demandes.verification');
+    Route::get('/rechercher', [DemandeController::class, 'rechercher'])->name('demandes.rechercher');
+    Route::post('/recherche-biens', [DemandeController::class, 'rechercheBiens'])->name('demandes.recherche-biens');
+    Route::get('/bien/{id}', [DemandeController::class, 'detail'])->name('demandes.detail');
 });
 
 // Contact

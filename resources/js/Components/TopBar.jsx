@@ -36,9 +36,9 @@ export const TopBar = () => {
                         <div className="relative group">
                             <div className="absolute -inset-2 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             <img
-                                src="https://presidence.gov.gn/wp-content/uploads/2022/01/cropped-Site-Logo.png"
-                                alt="Logo République de Guinée"
-                                className="h-14 w-auto relative transition-transform duration-300 group-hover:scale-105"
+                                src="/images/logo/harmoirie.png"
+                                alt="Harmoirie République de Guinée"
+                                className="h-16 w-auto relative transition-transform duration-300 group-hover:scale-105"
                             />
                         </div>
                         <div className="relative group">
@@ -46,7 +46,7 @@ export const TopBar = () => {
                             <img
                                 src="/images/logo/brandingGn.png"
                                 alt="Logo République de Guinée"
-                                className="h-14 w-auto relative transition-transform duration-300 group-hover:scale-105"
+                                className="h-10 w-auto relative transition-transform duration-300 group-hover:scale-105"
                             />
                         </div>
                         <div className="relative group">

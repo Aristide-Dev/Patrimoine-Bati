@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { menuItems } from '../../constants/menuItems';
 import { usePage } from '@inertiajs/react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const DesktopNav = () => {
   const { url } = usePage();
@@ -51,10 +52,13 @@ export const DesktopNav = () => {
   };
 
   return (
-    <nav 
+    <motion.nav 
       className="hidden md:flex items-center space-x-2 whitespace-nowrap m-0 px-6 py-2 bg-white/5 backdrop-blur-sm rounded-xl"
       role="navigation"
       aria-label="Menu principal"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
     >
       {menuItems.map((item) => {
         const isActive = item.href && item.href !== '#' && isActiveRoute(item.href);
@@ -62,103 +66,156 @@ export const DesktopNav = () => {
         const isHovered = hoveredItem === item.label;
 
         return (
-          <div 
+          <motion.div 
             key={item.label} 
             className="relative" 
             ref={(el) => (dropdownRefs.current[item.label] = el)}
             onMouseEnter={() => handleItemHover(item.label, true)}
             onMouseLeave={() => handleItemHover(item.label, false)}
+            whileHover={{ scale: 1.03 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             {!item.children ? (
-              <a
+              <motion.a
                 href={item.href && item.href !== '#' ? route(item.href) : '#'}
-                className={`flex items-center px-4 py-2 rounded-lg transition-all duration-300 text-md font-medium
+                className={`flex items-center px-4 py-2 rounded-lg text-md font-medium
                   ${isActive ? 
-                    'bg-white text-primary shadow-lg scale-105' : 
-                    'text-white hover:bg-white/10 hover:shadow-md hover:scale-105'
+                    'bg-white text-primary shadow-lg' : 
+                    'text-white hover:bg-white/10 hover:shadow-md'
                   }
-                  ${isHovered ? 'scale-105' : ''}
+                  ${isHovered ? 'shadow-md' : ''}
                 `}
+                whileHover={{ 
+                  backgroundColor: isActive ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0.15)",
+                  transition: { duration: 0.2 }
+                }}
+                whileTap={{ scale: 0.98 }}
               >
                 {item.icon && (
-                  <item.icon 
-                    className={`w-4 h-4 mr-2 transition-transform duration-300
-                      ${isHovered ? 'scale-110' : ''}
-                    `} 
-                  />
+                  <motion.div
+                    initial={{ scale: 1 }}
+                    animate={{ scale: isHovered ? 1.1 : 1 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <item.icon className="w-4 h-4 mr-2" />
+                  </motion.div>
                 )}
                 <span>{item.label}</span>
-              </a>
+              </motion.a>
             ) : (
               <>
-                <button
+                <motion.button
                   type="button"
                   aria-haspopup="true"
                   aria-expanded={openDropdown === item.label}
                   onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
-                  className={`flex items-center px-4 py-2 rounded-lg transition-all duration-300 text-md font-medium
+                  className={`flex items-center px-4 py-2 rounded-lg text-md font-medium
                     ${isDropdownActive || openDropdown === item.label ? 
-                      'bg-white text-primary shadow-lg scale-105' : 
-                      'text-white hover:bg-white/10 hover:shadow-md hover:scale-105'
+                      'bg-white text-primary shadow-lg' : 
+                      'text-white hover:bg-white/10 hover:shadow-md'
                     }
-                    ${isHovered ? 'scale-105' : ''}
+                    ${isHovered ? 'shadow-md' : ''}
                   `}
+                  whileHover={{ 
+                    backgroundColor: isDropdownActive || openDropdown === item.label ? 
+                      "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0.15)",
+                    transition: { duration: 0.2 }
+                  }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   {item.icon && (
-                    <item.icon 
-                      className={`w-4 h-4 mr-2 transition-transform duration-300
-                        ${isHovered ? 'scale-110' : ''}
-                      `} 
-                    />
+                    <motion.div
+                      initial={{ scale: 1 }}
+                      animate={{ scale: isHovered ? 1.1 : 1 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <item.icon className="w-4 h-4 mr-2" />
+                    </motion.div>
                   )}
                   <span>{item.label}</span>
-                  <ChevronDown 
-                    className={`w-4 h-4 ml-1 transition-transform duration-300
-                      ${openDropdown === item.label ? 'rotate-180' : ''}
-                      ${isHovered ? 'translate-y-0.5' : ''}
-                    `} 
-                  />
-                </button>
+                  <motion.div
+                    initial={{ rotate: 0 }}
+                    animate={{ 
+                      rotate: openDropdown === item.label ? 180 : 0,
+                      y: isHovered ? 2 : 0
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown className="w-4 h-4 ml-1" />
+                  </motion.div>
+                </motion.button>
 
-                <div
-                  className={`absolute left-0 top-full mt-2 bg-white/95 backdrop-blur-sm border border-white/20 
-                    rounded-lg shadow-xl py-2 min-w-[240px] transition-all duration-300 origin-top-left
-                    ${openDropdown === item.label ? 
-                      'opacity-100 visible translate-y-0 scale-100' : 
-                      'opacity-0 invisible -translate-y-2 scale-95'
-                    }
-                  `}
-                >
-                  {item.children.map((child) => {
-                    const isChildActive = child.href && child.href !== '#' && isActiveRoute(child.href);
-                    return (
-                      <a
-                        key={child.label}
-                        href={child.href && child.href !== '#' ? route(child.href) : '#'}
-                        className={`flex items-center px-4 py-3 text-sm transition-all duration-300 relative group
-                          ${isChildActive ? 
-                            'bg-primary/10 text-primary font-semibold' : 
-                            'text-gray-700 hover:bg-primary/5 hover:text-primary'
-                          }
-                        `}
-                      >
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary scale-y-0 group-hover:scale-y-100 transition-transform duration-300" />
-                        {child.icon && (
-                          <child.icon 
-                            className="w-4 h-4 mr-3 text-primary/70 group-hover:text-primary transition-colors duration-300" 
-                          />
-                        )}
-                        <span>{child.label}</span>
-                        <ChevronRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300" />
-                      </a>
-                    );
-                  })}
-                </div>
+                <AnimatePresence>
+                  {openDropdown === item.label && (
+                    <motion.div
+                      className="absolute left-0 top-full mt-2 bg-white/95 backdrop-blur-sm border border-white/20 
+                        rounded-lg shadow-xl py-2 min-w-[240px] z-10"
+                      initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 300, 
+                        damping: 22,
+                        mass: 0.8
+                      }}
+                    >
+                      {item.children.map((child, index) => {
+                        const isChildActive = child.href && child.href !== '#' && isActiveRoute(child.href);
+                        return (
+                          <motion.a
+                            key={child.label}
+                            href={child.href && child.href !== '#' ? route(child.href) : '#'}
+                            className={`flex items-center px-4 py-3 text-sm transition-all duration-300 relative group
+                              ${isChildActive ? 
+                                'bg-primary/10 text-primary font-semibold' : 
+                                'text-gray-700 hover:bg-primary/5 hover:text-primary'
+                              }
+                            `}
+                            initial={{ opacity: 0, x: -5 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ 
+                              duration: 0.2, 
+                              delay: index * 0.03
+                            }}
+                            whileHover={{ 
+                              backgroundColor: isChildActive ? 
+                                "rgba(47, 114, 178, 0.15)" : "rgba(47, 114, 178, 0.1)",
+                              x: 3,
+                              transition: { duration: 0.2 }
+                            }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <motion.div 
+                              className="absolute left-0 top-0 bottom-0 w-1 bg-primary"
+                              initial={{ scaleY: 0 }}
+                              whileHover={{ scaleY: 1 }}
+                              transition={{ duration: 0.2 }}
+                            />
+                            {child.icon && (
+                              <child.icon className="w-4 h-4 mr-3 text-primary/70 group-hover:text-primary transition-colors duration-300" />
+                            )}
+                            <span>{child.label}</span>
+                            <motion.div
+                              initial={{ x: 0, opacity: 0 }}
+                              whileHover={{ x: 5, opacity: 1 }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              <ChevronRight className="w-4 h-4 ml-auto" />
+                            </motion.div>
+                          </motion.a>
+                        );
+                      })}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </>
             )}
-          </div>
+          </motion.div>
         );
       })}
-    </nav>
+    </motion.nav>
   );
 };
+
+export default DesktopNav;

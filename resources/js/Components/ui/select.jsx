@@ -164,25 +164,39 @@ const SelectLabel = React.forwardRef(({ className, ...props }, ref) => (
 ))
 SelectLabel.displayName = "SelectLabel"
 
-const SelectItem = React.forwardRef(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Item
-    ref={ref}
-    className={cn(
-      "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none",
-      "focus:bg-blue-50 focus:text-blue-600",
-      "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      "hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 ease-in-out",
-      className
-    )}
-    {...props}>
-    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-      <SelectPrimitive.ItemIndicator>
-        <Check className="h-4 w-4 text-blue-600" />
-      </SelectPrimitive.ItemIndicator>
-    </span>
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-  </SelectPrimitive.Item>
-))
+const SelectItem = React.forwardRef(({ className, children, value, ...props }, ref) => {
+  // Vérification améliorée avec message d'erreur plus détaillé
+  if (value === undefined || value === "") {
+    console.warn("SelectItem doit avoir une propriété 'value' non vide", { 
+      children, 
+      component: "SelectItem" 
+    });
+    // Utiliser une valeur par défaut basée sur le contenu textuel ou un identifiant unique
+    value = (typeof children === 'string' ? children : 'item-' + Math.random().toString(36).substr(2, 9));
+  }
+  
+  return (
+    <SelectPrimitive.Item
+      ref={ref}
+      className={cn(
+        "relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none",
+        "focus:bg-blue-50 focus:text-blue-600",
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 ease-in-out",
+        className
+      )}
+      value={value}
+      {...props}
+    >
+      <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+        <SelectPrimitive.ItemIndicator>
+          <Check className="h-4 w-4 text-blue-600" />
+        </SelectPrimitive.ItemIndicator>
+      </span>
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    </SelectPrimitive.Item>
+  )
+})
 SelectItem.displayName = "SelectItem"
 
 const SelectSeparator = React.forwardRef(({ className, ...props }, ref) => (

@@ -161,7 +161,7 @@ export default function Verification({ title, description }) {
 
                             <Button 
                                 type="submit" 
-                                className="w-full transition-all duration-200 hover:scale-[1.02]"
+                                className="w-full transition-all duration-200 hover:scale-[1.02] text-white"
                                 disabled={loading}
                             >
                                 {loading ? (

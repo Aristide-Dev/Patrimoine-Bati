@@ -139,18 +139,7 @@
     
   }
 
-/* Ajoutez ces animations personnalisées */
-@keyframes slideIn {
-    from {
-        transform: translateY(1rem);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
+/* Améliorations des animations existantes */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -160,37 +149,109 @@
     }
 }
 
-@keyframes shimmer {
-    0% {
-        background-position: -1000px 0;
+@keyframes slideIn {
+    from {
+        transform: translateY(1.5rem);
+        opacity: 0;
     }
-    100% {
-        background-position: 1000px 0;
+    to {
+        transform: translateY(0);
+        opacity: 1;
     }
 }
 
+/* Nouvelles animations */
+@keyframes pulseEffect {
+    0% {
+        box-shadow: 0 0 0 0 rgba(var(--primary), 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(var(--primary), 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(var(--primary), 0);
+    }
+}
+
+@keyframes shimmerLight {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Classes utilitaires améliorées */
 @layer utilities {
+    /* Animation classes existantes améliorées */
     .animate-slide-in {
-        animation: slideIn 0.3s ease-out;
+        animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
     .animate-fade-in {
-        animation: fadeIn 0.3s ease-out;
+        animation: fadeIn 0.5s ease-out;
     }
     
     .animate-shimmer {
         background: linear-gradient(
             90deg,
             rgba(255,255,255,0) 0%,
-            rgba(255,255,255,0.2) 50%,
+            rgba(255,255,255,0.3) 50%,
             rgba(255,255,255,0) 100%
         );
-        background-size: 1000px 100%;
-        animation: shimmer 2s infinite linear;
+        background-size: 200% 100%;
+        animation: shimmerLight 2s infinite linear;
+    }
+    
+    /* Nouvelles classes d'animation */
+    .animate-scale-in {
+        animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .animate-pulse-effect {
+        animation: pulseEffect 2s infinite;
+    }
+    
+    /* Transitions améliorées */
+    .transition-smooth {
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    /* Effet de hover pour les cartes */
+    .hover-lift {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-lift:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Skeleton loader */
+    .skeleton {
+        background: linear-gradient(
+            90deg,
+            rgba(220, 220, 220, 0.6) 0%, 
+            rgba(240, 240, 240, 0.8) 50%, 
+            rgba(220, 220, 220, 0.6) 100%
+        );
+        background-size: 200% 100%;
+        animation: shimmerLight 1.5s infinite linear;
+        border-radius: var(--radius);
     }
 }
-
-
 
 @layer base {
   * {
