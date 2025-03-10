@@ -199,7 +199,7 @@ export default function Home() {
   return (
     <AppLayout>
       <Head title={meta.title} description={meta.description} />
-      
+
       {/* Hero Section */}
       <Hero />
 
@@ -395,7 +395,7 @@ export default function Home() {
         )}
       </section>
 
-      {/* Nouvelle section : Réalisations */}
+      {/* Nouvelle section : Nos Sites */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -406,10 +406,10 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Nos Réalisations Majeures
+              Nos Sites Majeurs
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Découvrez quelques-uns de nos projets phares qui illustrent notre engagement 
+              Découvrez quelques-uns de nos sites phares qui illustrent notre engagement
               pour la valorisation du patrimoine bâti public.
             </p>
           </motion.div>
@@ -447,14 +447,14 @@ export default function Home() {
             >
               <div className="relative h-[400px]">
                 <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfP2gSlAnSM7SlFaqJsl6JR3_hu-9fP9f3EPDOlG7yvTmKJDIqwl3JDSakp965YEw0sdI&usqp=CAU"
-                  alt="Cité ministérielle de Koloma"
+                  src="https://lh5.googleusercontent.com/p/AF1QipNkAHBben-m453SBtKW5KzRrXJzPdNfEF-JBBTx=w408-h906-k-no"
+                  alt="Cité Chemin de fer - Kaloum"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-2">Pont unique de tanènè</h3>
-                  <p className="text-gray-200">Construction du Pont unique de tanènè</p>
+                  <h3 className="text-2xl font-bold mb-2">Cité Chemin de fer - Kaloum</h3>
+                  {/* <p className="text-gray-200">Cité Chemin de fer - Kaloum</p> */}
                 </div>
               </div>
             </motion.div>
@@ -469,14 +469,80 @@ export default function Home() {
             >
               <div className="relative h-[400px]">
                 <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHc-HDSRTsw7TNH_L0DTETuKEC3FwJr2zmIw&s"
+                  src="https://www.africaguinee.com/app/uploads/2022/07/residence_2000_cky.png"
                   alt="Réhabilitation des logements administratifs"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-2">Rénovation de l'hôpital Donka</h3>
-                  <p className="text-gray-200">Programme de Rénovation et d'extention de l'hôpital Donka</p>
+                  <h3 className="text-2xl font-bold mb-2">Residence 2000</h3>
+                  {/* <p className="text-gray-200">Programme de Rénovation et d'extention de l'hôpital Donka</p> */}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Projet 4 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="group relative overflow-hidden rounded-2xl shadow-lg"
+            >
+              <div className="relative h-[400px]">
+                <img
+                  src="/images/Complexe Industriel Polygraphique Patrice lumumba.jpg"
+                  alt="Réhabilitation des logements administratifs"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-2">Complexe Industriel Polygraphique Patrice lumumba</h3>
+                  {/* <p className="text-gray-200">Programme de Rénovation et d'extention de l'hôpital Donka</p> */}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Projet 5 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="group relative overflow-hidden rounded-2xl shadow-lg"
+            >
+              <div className="relative h-[400px]">
+                <img
+                  src="/images/cfao-kindia.jpg"
+                  alt="Réhabilitation des logements administratifs"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-2">CFAO Kindia</h3>
+                  {/* <p className="text-gray-200">Programme de Rénovation et d'extention de l'hôpital Donka</p> */}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Projet 6 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="group relative overflow-hidden rounded-2xl shadow-lg"
+            >
+              <div className="relative h-[400px]">
+                <img
+                  src="/images/cite-ministerielle.jpg"
+                  alt="Réhabilitation des logements administratifs"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-2">CFAO Kindia</h3>
+                  {/* <p className="text-gray-200">Programme de Rénovation et d'extention de l'hôpital Donka</p> */}
                 </div>
               </div>
             </motion.div>
@@ -499,8 +565,8 @@ export default function Home() {
                 Notre Engagement pour un Patrimoine Durable
               </h2>
               <p className="text-lg text-gray-600">
-                La DGPBP s'engage dans une démarche de développement durable pour 
-                préserver et valoriser le patrimoine bâti public. Notre approche 
+                La DGPBP s'engage dans une démarche de développement durable pour
+                préserver et valoriser le patrimoine bâti public. Notre approche
                 combine innovation technologique et respect de l'environnement.
               </p>
               <ul className="space-y-4">
