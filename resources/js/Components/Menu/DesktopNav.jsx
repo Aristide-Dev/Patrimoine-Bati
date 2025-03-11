@@ -72,8 +72,6 @@ export const DesktopNav = () => {
             ref={(el) => (dropdownRefs.current[item.label] = el)}
             onMouseEnter={() => handleItemHover(item.label, true)}
             onMouseLeave={() => handleItemHover(item.label, false)}
-            whileHover={{ scale: 1.03 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             {!item.children ? (
               <motion.a
@@ -81,22 +79,13 @@ export const DesktopNav = () => {
                 className={`flex items-center px-4 py-2 rounded-lg text-md font-medium
                   ${isActive ? 
                     'bg-white text-primary shadow-lg' : 
-                    'text-white hover:bg-white/10 hover:shadow-md'
+                    'text-white hover:bg-white/10'
                   }
                   ${isHovered ? 'shadow-md' : ''}
                 `}
-                whileHover={{ 
-                  backgroundColor: isActive ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0.15)",
-                  transition: { duration: 0.2 }
-                }}
-                whileTap={{ scale: 0.98 }}
               >
                 {item.icon && (
-                  <motion.div
-                    initial={{ scale: 1 }}
-                    animate={{ scale: isHovered ? 1.1 : 1 }}
-                    transition={{ duration: 0.2 }}
-                  >
+                  <motion.div>
                     <item.icon className="w-4 h-4 mr-2" />
                   </motion.div>
                 )}
@@ -112,23 +101,13 @@ export const DesktopNav = () => {
                   className={`flex items-center px-4 py-2 rounded-lg text-md font-medium
                     ${isDropdownActive || openDropdown === item.label ? 
                       'bg-white text-primary shadow-lg' : 
-                      'text-white hover:bg-white/10 hover:shadow-md'
+                      'text-white hover:bg-white/10'
                     }
                     ${isHovered ? 'shadow-md' : ''}
                   `}
-                  whileHover={{ 
-                    backgroundColor: isDropdownActive || openDropdown === item.label ? 
-                      "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0.15)",
-                    transition: { duration: 0.2 }
-                  }}
-                  whileTap={{ scale: 0.98 }}
                 >
                   {item.icon && (
-                    <motion.div
-                      initial={{ scale: 1 }}
-                      animate={{ scale: isHovered ? 1.1 : 1 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                    <motion.div>
                       <item.icon className="w-4 h-4 mr-2" />
                     </motion.div>
                   )}
@@ -136,8 +115,7 @@ export const DesktopNav = () => {
                   <motion.div
                     initial={{ rotate: 0 }}
                     animate={{ 
-                      rotate: openDropdown === item.label ? 180 : 0,
-                      y: isHovered ? 2 : 0
+                      rotate: openDropdown === item.label ? 180 : 0
                     }}
                     transition={{ duration: 0.3 }}
                   >
@@ -178,31 +156,18 @@ export const DesktopNav = () => {
                               duration: 0.2, 
                               delay: index * 0.03
                             }}
-                            whileHover={{ 
-                              backgroundColor: isChildActive ? 
-                                "rgba(47, 114, 178, 0.15)" : "rgba(47, 114, 178, 0.1)",
-                              x: 3,
-                              transition: { duration: 0.2 }
-                            }}
-                            whileTap={{ scale: 0.98 }}
                           >
                             <motion.div 
                               className="absolute left-0 top-0 bottom-0 w-1 bg-primary"
                               initial={{ scaleY: 0 }}
-                              whileHover={{ scaleY: 1 }}
+                              animate={{ scaleY: isChildActive ? 1 : 0 }}
                               transition={{ duration: 0.2 }}
                             />
                             {child.icon && (
                               <child.icon className="w-4 h-4 mr-3 text-primary/70 group-hover:text-primary transition-colors duration-300" />
                             )}
                             <span>{child.label}</span>
-                            <motion.div
-                              initial={{ x: 0, opacity: 0 }}
-                              whileHover={{ x: 5, opacity: 1 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <ChevronRight className="w-4 h-4 ml-auto" />
-                            </motion.div>
+                            <ChevronRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           </motion.a>
                         );
                       })}

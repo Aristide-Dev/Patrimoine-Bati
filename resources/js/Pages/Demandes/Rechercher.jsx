@@ -17,20 +17,15 @@ import {
 import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Rechercher({ regions, prefectures, communes, typesBien, zones, commodites }) {
+export default function Rechercher({ regions, prefectures, communes, typesBien, zones }) {
     // État pour les filtres de recherche
     const [filters, setFilters] = useState({
         region: '',
         prefecture: '',
         commune: '',
-        quartier: '',
         typeBien: '',
-        chambres: '',
-        sallesDeBain: '',
-        budget: [0, 500000000],
         surface: [0, 500],
         zone: '',
-        commodites: [],
         disponibilite: 'tous'
     });
 
@@ -62,15 +57,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
         setIsInitialized(true);
     }, []);
 
-    // Formater les prix en francs guinéens
-    const formatPrice = (price) => {
-        return new Intl.NumberFormat('fr-GN', {
-            style: 'currency',
-            currency: 'GNF',
-            maximumFractionDigits: 0
-        }).format(price);
-    };
-
     // Filtrer les préfectures en fonction de la région sélectionnée
     useEffect(() => {
         if (filters.region) {
@@ -98,17 +84,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
         setFilters(prev => ({ ...prev, [name]: value }));
     };
 
-    // Gérer le changement des commodités (checkbox)
-    const handleCommoditeChange = (commoditeId) => {
-        setFilters(prev => {
-            const updatedCommodites = prev.commodites.includes(commoditeId)
-                ? prev.commodites.filter(id => id !== commoditeId)
-                : [...prev.commodites, commoditeId];
-
-            return { ...prev, commodites: updatedCommodites };
-        });
-    };
-
     // Gérer les changements dans les filtres d'appartement
     const handleApartmentFilterChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -124,14 +99,9 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
             region: '',
             prefecture: '',
             commune: '',
-            quartier: '',
             typeBien: '',
-            chambres: '',
-            sallesDeBain: '',
-            budget: [0, 500000000],
             surface: [0, 500],
             zone: '',
-            commodites: [],
             disponibilite: 'tous'
         });
         
@@ -279,16 +249,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                                         </SelectContent>
                                                     </Select>
                                                 </div>
-
-                                                <div className="space-y-1">
-                                                    <Label htmlFor="quartier">Quartier</Label>
-                                                    <Input
-                                                        id="quartier"
-                                                        placeholder="Entrez un quartier"
-                                                        value={filters.quartier}
-                                                        onChange={(e) => handleFilterChange('quartier', e.target.value)}
-                                                    />
-                                                </div>
                                             </div>
                                         </div>
 
@@ -318,78 +278,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                                     </SelectContent>
                                                 </Select>
                                             </div>
-                                        </div>
-
-                                        <Separator />
-
-                                        {/* Caractéristiques */}
-                                        <div className="space-y-3">
-                                            <h3 className="font-semibold text-sm text-gray-700 uppercase tracking-wider">
-                                                Caractéristiques
-                                            </h3>
-
-                                            <div className="grid grid-cols-2 gap-3">
-                                                <div className="space-y-1">
-                                                    <Label htmlFor="chambres">Chambres (min)</Label>
-                                                    <Select
-                                                        value={filters.chambres}
-                                                        onValueChange={(value) => handleFilterChange('chambres', value)}
-                                                    >
-                                                        <SelectTrigger id="chambres">
-                                                            <SelectValue placeholder="Indifférent" />
-                                                        </SelectTrigger>
-                                                        <SelectContent>
-                                                            <SelectItem value="">Indifférent</SelectItem>
-                                                            {[1, 2, 3, 4, 5, 6].map(num => (
-                                                                <SelectItem key={num} value={num.toString()}>
-                                                                    {num}+
-                                                                </SelectItem>
-                                                            ))}
-                                                        </SelectContent>
-                                                    </Select>
-                                                </div>
-
-                                                <div className="space-y-1">
-                                                    <Label htmlFor="sallesDeBain">Salles de bain (min)</Label>
-                                                    <Select
-                                                        value={filters.sallesDeBain}
-                                                        onValueChange={(value) => handleFilterChange('sallesDeBain', value)}
-                                                    >
-                                                        <SelectTrigger id="sallesDeBain">
-                                                            <SelectValue placeholder="Indifférent" />
-                                                        </SelectTrigger>
-                                                        <SelectContent>
-                                                            <SelectItem value="">Indifférent</SelectItem>
-                                                            {[1, 2, 3, 4, 5].map(num => (
-                                                                <SelectItem key={num} value={num.toString()}>
-                                                                    {num}+
-                                                                </SelectItem>
-                                                            ))}
-                                                        </SelectContent>
-                                                    </Select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <Separator />
-
-                                        {/* Budget */}
-                                        <div className="space-y-3">
-                                            <h3 className="font-semibold text-sm text-gray-700 uppercase tracking-wider flex justify-between">
-                                                <span>Budget</span>
-                                                <span className="font-normal text-gray-500">
-                                                    {formatPrice(filters.budget[0])} - {formatPrice(filters.budget[1])}
-                                                </span>
-                                            </h3>
-
-                                            <Slider
-                                                min={0}
-                                                max={500000000}
-                                                step={10000000}
-                                                value={filters.budget}
-                                                onValueChange={(value) => handleFilterChange('budget', value)}
-                                                className="my-6"
-                                            />
                                         </div>
 
                                         <Separator />
@@ -438,33 +326,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                                         ))}
                                                     </SelectContent>
                                                 </Select>
-                                            </div>
-                                        </div>
-
-                                        <Separator />
-
-                                        {/* Commodités */}
-                                        <div className="space-y-3">
-                                            <h3 className="font-semibold text-sm text-gray-700 uppercase tracking-wider">
-                                                Commodités
-                                            </h3>
-
-                                            <div className="grid grid-cols-2 gap-2">
-                                                {commodites.map((commodite) => (
-                                                    <div key={commodite.id} className="flex items-center space-x-2">
-                                                        <Checkbox
-                                                            id={`commodite-${commodite.id}`}
-                                                            checked={filters.commodites.includes(commodite.id)}
-                                                            onCheckedChange={() => handleCommoditeChange(commodite.id)}
-                                                        />
-                                                        <Label
-                                                            htmlFor={`commodite-${commodite.id}`}
-                                                            className="text-sm font-normal cursor-pointer"
-                                                        >
-                                                            {commodite.nom}
-                                                        </Label>
-                                                    </div>
-                                                ))}
                                             </div>
                                         </div>
 
@@ -711,8 +572,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectItem value="recent">Plus récents</SelectItem>
-                                                <SelectItem value="price_asc">Prix croissant</SelectItem>
-                                                <SelectItem value="price_desc">Prix décroissant</SelectItem>
                                                 <SelectItem value="surface_asc">Surface croissante</SelectItem>
                                                 <SelectItem value="surface_desc">Surface décroissante</SelectItem>
                                             </SelectContent>
@@ -793,7 +652,7 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                                             />
                                                             <div className="absolute top-3 right-3">
                                                                 <Badge className="bg-blue-500 hover:bg-blue-600 text-gray-100 hover:text-white">
-                                                                    {formatPrice(bien.prix)}
+                                                                    {bien.prix}
                                                                 </Badge>
                                                             </div>
                                                             {bien.disponibilite === 'bientot' && (
@@ -856,19 +715,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                                                     <span>{bien.nombre_appartements_disponibles} appartements disponibles</span>
                                                                 </div>
                                                             )}
-
-                                                            <div className="flex flex-wrap gap-1 mb-4">
-                                                                {bien.commodites.slice(0, 3).map(com => (
-                                                                    <Badge key={com} variant="secondary" className="text-xs">
-                                                                        {commodites.find(c => c.id === com)?.nom || com}
-                                                                    </Badge>
-                                                                ))}
-                                                                {bien.commodites.length > 3 && (
-                                                                    <Badge variant="secondary" className="text-xs">
-                                                                        +{bien.commodites.length - 3}
-                                                                    </Badge>
-                                                                )}
-                                                            </div>
 
                                                             <Button 
                                                                 className="w-full text-white"

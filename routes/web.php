@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InvoiceController;
+use App\Http\Controllers\ParcImmobilierController;
 Route::get('/init', [AppInitController::class, 'init'])->name('app.init');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -44,9 +45,10 @@ Route::prefix('demandes')->group(function () {
     Route::get('/processus-obtention', [DemandeController::class, 'processusObtention'])->name('demandes.processus');
     Route::get('/verifier', [DemandeController::class, 'verifier'])->name('demandes.verifier');
     Route::get('/verification', [DemandeController::class, 'verification'])->name('demandes.verification');
-    Route::get('/rechercher', [DemandeController::class, 'rechercher'])->name('demandes.rechercher');
     Route::post('/recherche-biens', [DemandeController::class, 'rechercheBiens'])->name('demandes.recherche-biens');
     Route::get('/bien/{id}', [DemandeController::class, 'detail'])->name('demandes.detail');
+    Route::get('/rechercher', [DemandeController::class, 'rechercher'])->name('patrimoine.demandes.rechercher');
+    Route::get('/parc-immobilier', [ParcImmobilierController::class, 'index'])->name('patrimoine.demandes.parc_immobilier');
 });
 
 // Contact

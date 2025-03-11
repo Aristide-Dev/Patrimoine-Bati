@@ -1,6 +1,7 @@
 import { 
   Home,
   Building2,
+  Building,
   FileText,
   Image,
   Mail,
@@ -47,21 +48,24 @@ export const menuItems = [
     ]
   },
   {
-    label: 'Espace Immobilier',
+    label: 'Patrimoine Bati',
     icon: Building2,
-    actif: 'demandes.*', // route('actualites.index')
+    actif: 'patrimoine.demandes.*', // route('actualites.index')
     children: [
-      { label: 'Rechercher un bien', href: 'demandes.rechercher', icon: Search },
-      { label: 'Processus d\'obtention', href: 'demandes.processus', icon: FileText },
-      { label: 'Faire une Demande', href: 'demandes.new', icon: File }, // route('actualites.articles')
-      { label: 'Vérifier ma demande', href: 'demandes.verifier', icon: Search }, 
-      // { label: 'Se Connecter à mon compte', href: 'login', icon: User }, // route('actualites.rapports')// route('actualites.medias')
+      { label: 'Parc Immobilier', href: 'patrimoine.demandes.parc_immobilier', icon: Building },
+      { label: 'Rechercher un bien', href: 'patrimoine.demandes.rechercher', icon: Search },
     ]
   },
   {
-    label: 'Espace Citoyen',
+    label: 'Espace Client',
     icon: Users,
-    href: 'login'
+    actif: 'demandes.*',
+    children: [
+      { label: 'Processus d\'obtention', href: 'demandes.processus', icon: FileText },
+      { label: 'Faire une Demande', href: 'demandes.new', icon: File }, // route('actualites.articles')
+      { label: 'Vérifier ma demande', href: 'demandes.verifier', icon: History }, 
+      { label: 'Se Connecter', href: 'login', icon: User }, // route('actualites.rapports')// route('actualites.medias')
+    ]
   },
   // {
   //   label: 'Médiathèque',

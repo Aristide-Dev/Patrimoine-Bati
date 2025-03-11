@@ -158,7 +158,6 @@ class DemandeController extends Controller
         
         $zones = [
             ['id' => 'urbaine', 'nom' => 'Zone urbaine'],
-            ['id' => 'periurbaine', 'nom' => 'Zone périurbaine'],
             ['id' => 'rurale', 'nom' => 'Zone rurale'],
         ];
         
@@ -618,7 +617,7 @@ class DemandeController extends Controller
                 'chambres' => 0,
                 'salles_de_bain' => 0,
                 'surface' => 800,
-                'zone' => 'periurbaine',
+                'zone' => 'rurale',
                 'commodites' => [],
                 'disponibilite' => 'disponible',
                 'date_publication' => '2024-02-10',
@@ -656,7 +655,7 @@ class DemandeController extends Controller
                 'chambres' => 0,
                 'salles_de_bain' => 1,
                 'surface' => 600,
-                'zone' => 'periurbaine',
+                'zone' => 'rurale',
                 'commodites' => ['parking', 'securite'],
                 'disponibilite' => 'disponible',
                 'date_publication' => '2024-02-20',
@@ -833,12 +832,6 @@ class DemandeController extends Controller
                 }
             }
             
-            if (!empty($validated['budget']) && count($validated['budget']) == 2) {
-                if ($bien['prix'] < $validated['budget'][0] || $bien['prix'] > $validated['budget'][1]) {
-                    $match = false;
-                }
-            }
-            
             if (!empty($validated['surface']) && count($validated['surface']) == 2) {
                 if ($bien['surface'] < $validated['surface'][0] || $bien['surface'] > $validated['surface'][1]) {
                     $match = false;
@@ -847,15 +840,6 @@ class DemandeController extends Controller
             
             if (!empty($validated['zone']) && $bien['zone'] !== $validated['zone']) {
                 $match = false;
-            }
-            
-            if (!empty($validated['commodites']) && count($validated['commodites']) > 0) {
-                foreach ($validated['commodites'] as $commodite) {
-                    if (!in_array($commodite, $bien['commodites'])) {
-                        $match = false;
-                        break;
-                    }
-                }
             }
             
             if (!empty($validated['disponibilite']) && $validated['disponibilite'] !== 'tous') {
