@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { Hero } from '@/Components/Hero';
 import { CheckCircle } from 'lucide-react';
+import RechercheRapide from '@/Components/RechercheRapide';
 
 
 const pageData = {
@@ -174,7 +175,7 @@ const pageData = {
   ],
 };
 
-export default function Home() {
+export default function Home({ regions, prefectures, communes, typesBien, zones }) {
   const { meta, presentation, stats, activities, latestNews } = pageData;
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -202,6 +203,21 @@ export default function Home() {
 
       {/* Hero Section */}
       <Hero />
+
+      {/* Recherche Rapide de Biens Section */}
+      <section className="py-8 bg-gradient-to-b from-gray-100 to-white relative z-10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto -mt-16">
+            <RechercheRapide
+              regions={regions}
+              prefectures={prefectures}
+              communes={communes}
+              typesBien={typesBien}
+              zones={zones}
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Présentation Section */}
       <section className="py-24 bg-white">

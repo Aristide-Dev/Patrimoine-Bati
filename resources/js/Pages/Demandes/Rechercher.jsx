@@ -16,21 +16,24 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
+import BienCard from '@/Components/BienCard';
 
-export default function Rechercher({ regions, prefectures, communes, typesBien, zones }) {
-    // État pour les filtres de recherche
+export default function Rechercher({ regions, prefectures, communes, typesBien, zones, initialResults = [], initialFilters = {} }) {
+    // État pour les filtres de recherche - initialiser avec les filtres passés s'ils existent
     const [filters, setFilters] = useState({
-        region: '',
-        prefecture: '',
-        commune: '',
-        typeBien: '',
-        surface: [0, 500],
-        zone: '',
-        disponibilite: 'tous'
+        region: initialFilters.region || '',
+        prefecture: initialFilters.prefecture || '',
+        commune: initialFilters.commune || '',
+        typeBien: initialFilters.typeBien || '',
+        surface: initialFilters.surfaceMin && initialFilters.surfaceMax 
+            ? [parseInt(initialFilters.surfaceMin), parseInt(initialFilters.surfaceMax)] 
+            : [0, 500],
+        zone: initialFilters.zone || '',
+        disponibilite: initialFilters.disponibilite || 'tous'
     });
 
-    // État pour les résultats de recherche
-    const [results, setResults] = useState([]);
+    // État pour les résultats de recherche - initialiser avec les résultats passés s'ils existent
+    const [results, setResults] = useState(initialResults);
     const [loading, setLoading] = useState(false);
     const [showFilters, setShowFilters] = useState(true);
 
@@ -580,7 +583,7 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                 </motion.div>
 
                                 {loading ? (
-                                    /* Skeleton Loader amélioré */
+                                    /* Skeleton Loader */
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         {[1, 2, 3, 4].map((item) => (
                                             <motion.div 
@@ -629,102 +632,18 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <AnimatePresence>
                                             {results.map((bien, index) => (
-                                                <motion.div
+                                                <BienCard
                                                     key={bien.id}
-                                                    initial={{ opacity: 0, y: 20 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, scale: 0.95 }}
-                                                    transition={{ 
-                                                        duration: 0.4, 
-                                                        delay: isInitialized ? 0 : index * 0.1
-                                                    }}
-                                                >
-                                                    <Card className="overflow-hidden hover-lift">
-                                                        <div className="relative h-48 overflow-hidden">
-                                                            <img
-                                                                src={bien.image}
-                                                                alt={bien.titre}
-                                                                className="w-full h-full object-cover"
-                                                                onError={(e) => {
-                                                                    e.target.onerror = null;
-                                                                    e.target.src = 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3';
-                                                                }}
-                                                            />
-                                                            <div className="absolute top-3 right-3">
-                                                                <Badge className="bg-blue-500 hover:bg-blue-600 text-gray-100 hover:text-white">
-                                                                    {bien.prix}
-                                                                </Badge>
-                                                            </div>
-                                                            {bien.disponibilite === 'bientot' && (
-                                                                <Badge className="absolute top-3 left-3 bg-amber-500 hover:bg-amber-600">
-                                                                    Bientôt disponible
-                                                                </Badge>
-                                                            )}
-                                                        </div>
-
-                                                        <CardContent className="p-5">
-                                                            <div className="flex items-start justify-between mb-2">
-                                                                <h3 className="text-lg font-semibold line-clamp-1">{bien.titre}</h3>
-                                                                <Badge variant="outline" className="capitalize ml-2 flex-shrink-0">
-                                                                    {typesBien.find(t => t.id === bien.type)?.nom || bien.type}
-                                                                </Badge>
-                                                            </div>
-
-                                                            <div className="flex items-center text-gray-500 text-sm mb-3">
-                                                                <MapPin className="h-4 w-4 mr-1" />
-                                                                <span className="line-clamp-1">
-                                                                    {bien.quartier}, {communes.find(c => c.id === bien.commune)?.nom || bien.commune},
-                                                                    {' '}{prefectures.find(p => p.id === bien.prefecture)?.nom || bien.prefecture}
-                                                                </span>
-                                                            </div>
-
-                                                            {/* Information spécifique aux immeubles */}
-                                                            {bien.immeuble && (
-                                                                <div className="flex items-center text-emerald-600 text-sm mb-3 font-medium">
-                                                                    <Building className="h-4 w-4 mr-1" />
-                                                                    <span>
-                                                                        {bien.nom_immeuble} - {typeof bien.etage === 'string' ? bien.etage : `Étage ${bien.etage}`}
-                                                                        {bien.ascenseur && " - Avec ascenseur"}
-                                                                    </span>
-                                                                </div>
-                                                            )}
-
-                                                            <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-                                                                {bien.description}
-                                                            </p>
-
-                                                            <div className="grid grid-cols-3 gap-2 mb-4">
-                                                                <div className="flex items-center text-gray-600">
-                                                                    <Bed className="h-4 w-4 mr-1" />
-                                                                    <span className="text-sm">{bien.chambres} ch.</span>
-                                                                </div>
-                                                                <div className="flex items-center text-gray-600">
-                                                                    <Bath className="h-4 w-4 mr-1" />
-                                                                    <span className="text-sm">{bien.salles_de_bain} SdB</span>
-                                                                </div>
-                                                                <div className="flex items-center text-gray-600">
-                                                                    <Square className="h-4 w-4 mr-1" />
-                                                                    <span className="text-sm">{bien.surface} m²</span>
-                                                                </div>
-                                                            </div>
-
-                                                            {/* Affichage des appartements disponibles si c'est un immeuble */}
-                                                            {bien.immeuble && bien.nombre_appartements_disponibles > 1 && (
-                                                                <div className="mb-4 flex items-center text-sm text-orange-600 font-medium">
-                                                                    <Home className="h-4 w-4 mr-1" />
-                                                                    <span>{bien.nombre_appartements_disponibles} appartements disponibles</span>
-                                                                </div>
-                                                            )}
-
-                                                            <Button 
-                                                                className="w-full text-white"
-                                                                onClick={() => router.visit(route('demandes.detail', bien.id))}
-                                                            >
-                                                                Voir les détails
-                                                            </Button>
-                                                        </CardContent>
-                                                    </Card>
-                                                </motion.div>
+                                                    bien={bien}
+                                                    typesBien={typesBien}
+                                                    communes={communes}
+                                                    prefectures={prefectures}
+                                                    isFavorite={false} // Vous pouvez ajouter la gestion des favoris si nécessaire
+                                                    onToggleFavorite={() => {}} // Implémentez la gestion des favoris si nécessaire
+                                                    onViewDetails={(id) => router.visit(route('demandes.detail', id))}
+                                                    index={index}
+                                                    isInitialized={isInitialized}
+                                                />
                                             ))}
                                         </AnimatePresence>
                                     </div>

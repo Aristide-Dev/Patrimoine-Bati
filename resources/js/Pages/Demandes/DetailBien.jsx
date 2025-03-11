@@ -51,15 +51,6 @@ export default function DetailBien({ bien, typesBien, prefectures, communes, com
         }
     };
 
-    // Formater le prix
-    const formatPrice = (price) => {
-        return new Intl.NumberFormat('fr-FR', {
-            style: 'currency',
-            currency: 'GNF',
-            maximumFractionDigits: 0
-        }).format(price);
-    };
-
     // Animation variants
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -90,6 +81,24 @@ export default function DetailBien({ bien, typesBien, prefectures, communes, com
     };
     
     const safeImages = getValidImages();
+
+    // Fonction pour obtenir le nom du type de bien
+    const getTypeBienNom = (typeId) => {
+        const type = typesBien.find(t => t.id === typeId);
+        return type ? type.nom : '';
+    };
+
+    // Fonction pour obtenir le nom de la commune
+    const getCommuneNom = (communeId) => {
+        const commune = communes.find(c => c.id === communeId);
+        return commune ? commune.nom : '';
+    };
+
+    // Fonction pour obtenir le nom de la préfecture
+    const getPrefectureNom = (prefectureId) => {
+        const prefecture = prefectures.find(p => p.id === prefectureId);
+        return prefecture ? prefecture.nom : '';
+    };
 
     return (
         <AppLayout>
@@ -152,21 +161,16 @@ export default function DetailBien({ bien, typesBien, prefectures, communes, com
                                         <div className="flex items-center mt-2 text-gray-600">
                                             <MapPin className="h-4 w-4 mr-1" />
                                             <span>
-                                                {bien.quartier}, {communes.find(c => c.id === bien.commune)?.nom},
-                                                {' '}{prefectures.find(p => p.id === bien.prefecture)?.nom}
+                                                {bien.quartier}, {getCommuneNom(bien.commune)},
+                                                {' '}{getPrefectureNom(bien.prefecture)}
                                             </span>
                                         </div>
-                                    </div>
-                                    <div className="mt-2 sm:mt-0">
-                                        <Badge className="text-lg px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white">
-                                            {formatPrice(bien.prix)}
-                                        </Badge>
                                     </div>
                                 </div>
                                 
                                 <div className="flex flex-wrap gap-3 mt-3">
                                     <Badge variant="outline" className="capitalize">
-                                        {typesBien.find(t => t.id === bien.type)?.nom}
+                                        {getTypeBienNom(bien.type)}
                                     </Badge>
                                     
                                     {bien.disponibilite === 'bientot' && (
@@ -336,8 +340,8 @@ export default function DetailBien({ bien, typesBien, prefectures, communes, com
                                             <div className="mt-4">
                                                 <h4 className="text-lg font-medium mb-3">Adresse</h4>
                                                 <p className="text-gray-700">
-                                                    {bien.quartier}, {communes.find(c => c.id === bien.commune)?.nom},
-                                                    {' '}{prefectures.find(p => p.id === bien.prefecture)?.nom}
+                                                    {bien.quartier}, {getCommuneNom(bien.commune)},
+                                                    {' '}{getPrefectureNom(bien.prefecture)}
                                                 </p>
                                             </div>
                                             
