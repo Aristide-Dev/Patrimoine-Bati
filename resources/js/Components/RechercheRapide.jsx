@@ -177,7 +177,7 @@ export default function RechercheRapide({ regions, prefectures, communes, typesB
                     <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-gray-200 mb-4 sm:mb-0">Recherche de Biens</h2>
                         <div className="flex items-center">
-                            <div className="inline-flex bg-gray-100 p-1 rounded-lg shadow-sm">
+                            {/* <div className="inline-flex bg-gray-100 p-1 rounded-lg shadow-sm">
                                 <button
                                     className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
                                         activeTab === 'location' 
@@ -198,7 +198,7 @@ export default function RechercheRapide({ regions, prefectures, communes, typesB
                                 >
                                     Acquisition
                                 </button>
-                            </div>
+                            </div> */}
                             <button
                                 onClick={resetFilters}
                                 className="ml-2 p-2 text-red-500 hover:text-red-700 rounded-full hover:bg-red-50 transition-colors"
