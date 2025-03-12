@@ -33,14 +33,14 @@ export const TopBar = () => {
                 {/* Left Section: Logos and Contact Info */}
                 <div className="flex flex-col md:flex-row items-center  justify-center space-y-3 md:space-y-0 md:space-x-8 w-full">
                     <div className="flex items-center space-x-6">
-                        {/* <div className="relative group">
+                        <div className="relative group">
                             <div className="absolute -inset-2 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             <img
-                                src="/images/logo/harmoirie.png"
+                                src="/images/logo/cropped-Site-Logo.png"
                                 alt="Harmoirie République de Guinée"
-                                className="h-16 w-auto relative transition-transform duration-300 group-hover:scale-105"
+                                className="h-20 w-auto relative transition-transform duration-300 group-hover:scale-105"
                             />
-                        </div> */}
+                        </div>
                         <div className="relative group">
                             <div className="absolute -inset-2 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             <img

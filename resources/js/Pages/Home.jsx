@@ -431,7 +431,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Projet 1 */}
+            {/* Projet 1 - Institut National de Santé Publique de Guinée (INSP) */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -475,7 +475,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
               </div>
             </motion.div>
 
-            {/* Projet 3 */}
+            {/* Projet 3 - Residence 2000 */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -497,7 +497,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
               </div>
             </motion.div>
 
-            {/* Projet 4 */}
+            {/* Projet 4 - Complexe Industriel Polygraphique Patrice lumumba */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -519,29 +519,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
               </div>
             </motion.div>
 
-            {/* Projet 5 */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="group relative overflow-hidden rounded-2xl shadow-lg"
-            >
-              <div className="relative h-[400px]">
-                <img
-                  src="/images/cfao-kindia.jpg"
-                  alt="Réhabilitation des logements administratifs"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-2">CFAO Kindia</h3>
-                  {/* <p className="text-gray-200">Programme de Rénovation et d'extention de l'hôpital Donka</p> */}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Projet 6 */}
+            {/* Projet 5 - Cité Ministerielle */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -557,7 +535,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-2">CFAO Kindia</h3>
+                  <h3 className="text-2xl font-bold mb-2">Cité Ministerielle</h3>
                   {/* <p className="text-gray-200">Programme de Rénovation et d'extention de l'hôpital Donka</p> */}
                 </div>
               </div>

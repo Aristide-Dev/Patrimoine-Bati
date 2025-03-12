@@ -38,7 +38,7 @@ Route::prefix('actualites')->group(function() {
 });
 
 // Demandes
-Route::prefix('demandes')->group(function () {
+Route::prefix('espace-client')->group(function () {
     Route::get('/formulaire', [DemandeController::class, 'formulaire'])->name('demandes.formulaire');
     Route::get('/nouvelle-demande', [DemandeController::class, 'newDemande'])->name('demandes.new');
     Route::post('/store', [DemandeController::class, 'store'])->name('demandes.store');
@@ -47,6 +47,9 @@ Route::prefix('demandes')->group(function () {
     Route::get('/verification', [DemandeController::class, 'verification'])->name('demandes.verification');
     Route::post('/recherche-biens', [DemandeController::class, 'rechercheBiens'])->name('demandes.recherche-biens');
     Route::get('/bien/{id}', [DemandeController::class, 'detail'])->name('demandes.detail');
+});
+
+Route::prefix('patrimoine')->group(function () {
     Route::get('/rechercher', [DemandeController::class, 'rechercher'])->name('patrimoine.demandes.rechercher');
     Route::get('/parc-immobilier', [ParcImmobilierController::class, 'index'])->name('patrimoine.demandes.parc_immobilier');
 });
