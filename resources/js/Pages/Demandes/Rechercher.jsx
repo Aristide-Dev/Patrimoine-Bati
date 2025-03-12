@@ -212,7 +212,7 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                                 </div>
 
                                                 <div className="space-y-1">
-                                                    <Label htmlFor="prefecture">Préfecture</Label>
+                                                    <Label htmlFor="prefecture">Préfecture/Commune</Label>
                                                     <Select
                                                         value={filters.prefecture}
                                                         onValueChange={(value) => handleFilterChange('prefecture', value)}
@@ -226,27 +226,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                                             {prefecturesFiltrees.map(prefecture => (
                                                                 <SelectItem key={prefecture.id} value={prefecture.id}>
                                                                     {prefecture.nom}
-                                                                </SelectItem>
-                                                            ))}
-                                                        </SelectContent>
-                                                    </Select>
-                                                </div>
-
-                                                <div className="space-y-1">
-                                                    <Label htmlFor="commune">Commune</Label>
-                                                    <Select
-                                                        value={filters.commune}
-                                                        onValueChange={(value) => handleFilterChange('commune', value)}
-                                                        disabled={!filters.prefecture}
-                                                    >
-                                                        <SelectTrigger id="commune">
-                                                            <SelectValue placeholder={filters.prefecture ? "Toutes les communes" : "Sélectionnez d'abord une préfecture"} />
-                                                        </SelectTrigger>
-                                                        <SelectContent>
-                                                            <SelectItem value="">Toutes les communes</SelectItem>
-                                                            {communesFiltrees.map(commune => (
-                                                                <SelectItem key={commune.id} value={commune.id}>
-                                                                    {commune.nom}
                                                                 </SelectItem>
                                                             ))}
                                                         </SelectContent>

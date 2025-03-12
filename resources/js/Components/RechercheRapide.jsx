@@ -234,11 +234,11 @@ export default function RechercheRapide({ regions, prefectures, communes, typesB
                             </Select>
                         </div>
 
-                        {/* Préfecture */}
+                        {/* Préfecture/Commune */}
                         <div className="space-y-2">
                             <label className="flex items-center text-sm font-medium text-gray-300">
                                 <MapPin className="w-4 h-4 mr-1" />
-                                Préfecture
+                                Préfecture/Commune
                             </label>
                             <Select
                                 value={filters.prefecture}
@@ -253,31 +253,6 @@ export default function RechercheRapide({ regions, prefectures, communes, typesB
                                     {prefecturesFiltrees.map(prefecture => (
                                         <SelectItem key={prefecture.id} value={prefecture.id ? prefecture.id.toString() : `prefecture-${prefecture.nom}`}>
                                             {prefecture.nom}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
-
-                        {/* Commune */}
-                        <div className="space-y-2">
-                            <label className="flex items-center text-sm font-medium text-gray-300">
-                                <MapPin className="w-4 h-4 mr-1" />
-                                Commune
-                            </label>
-                            <Select
-                                value={filters.commune}
-                                onValueChange={(value) => handleFilterChange('commune', value)}
-                                disabled={!filters.prefecture || filters.prefecture === "toutes"}
-                            >
-                                <SelectTrigger className={`${!filters.prefecture || filters.prefecture === "toutes" ? 'bg-gray-100 text-gray-400' : 'bg-gray-50 hover:bg-gray-100'} border-0 transition-colors`}>
-                                    <SelectValue placeholder={filters.prefecture && filters.prefecture !== "toutes" ? "Toutes les communes" : "Sélectionnez d'abord une préfecture"} />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="toutes">Toutes les communes</SelectItem>
-                                    {communesFiltrees.map(commune => (
-                                        <SelectItem key={commune.id} value={commune.id ? commune.id.toString() : `commune-${commune.nom}`}>
-                                            {commune.nom}
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
