@@ -7,13 +7,13 @@ abstract class Controller
     public function getRegions()
     {
         return [
-            ['id' => 'conakry', 'nom' => 'Conakry'],
-            ['id' => 'kindia', 'nom' => 'Kindia'],
             ['id' => 'boké', 'nom' => 'Boké'],
-            ['id' => 'mamou', 'nom' => 'Mamou'],
-            ['id' => 'labé', 'nom' => 'Labé'],
+            ['id' => 'conakry', 'nom' => 'Conakry'],
             ['id' => 'faranah', 'nom' => 'Faranah'],
             ['id' => 'kankan', 'nom' => 'Kankan'],
+            ['id' => 'kindia', 'nom' => 'Kindia'],
+            ['id' => 'labe', 'nom' => 'Labé'],
+            ['id' => 'mamou', 'nom' => 'Mamou'],
             ['id' => 'nzérékoré', 'nom' => 'Nzérékoré']
         ];
     }
@@ -21,25 +21,62 @@ abstract class Controller
     public function getPrefectures()
     {
         return [
-            // Conakry (communes)
-            ['id' => 'kaloum', 'nom' => 'Kaloum', 'region_id' => 'conakry'],
-            ['id' => 'dixinn', 'nom' => 'Dixinn', 'region_id' => 'conakry'],
-            ['id' => 'matam', 'nom' => 'Matam', 'region_id' => 'conakry'],
-            ['id' => 'ratoma', 'nom' => 'Ratoma', 'region_id' => 'conakry'],
-            ['id' => 'matoto', 'nom' => 'Matoto', 'region_id' => 'conakry'],
-            // Région de Kindia
-            ['id' => 'kindia_pref', 'nom' => 'Kindia', 'region_id' => 'kindia'],
-            ['id' => 'forecariah', 'nom' => 'Forécariah', 'region_id' => 'kindia'],
-            ['id' => 'coyah', 'nom' => 'Coyah', 'region_id' => 'kindia'],
-            ['id' => 'telimele', 'nom' => 'Télimélé', 'region_id' => 'kindia'],
-            ['id' => 'dubreka', 'nom' => 'Dubréka', 'region_id' => 'kindia'],
-            // Région de Boké
-            ['id' => 'boke_pref', 'nom' => 'Boké', 'region_id' => 'boké'],
+            // Region Boké
+            ['id' => 'boke', 'nom' => 'Boké', 'region_id' => 'boké'],
             ['id' => 'boffa', 'nom' => 'Boffa', 'region_id' => 'boké'],
             ['id' => 'fria', 'nom' => 'Fria', 'region_id' => 'boké'],
             ['id' => 'gaoual', 'nom' => 'Gaoual', 'region_id' => 'boké'],
             ['id' => 'koundara', 'nom' => 'Koundara', 'region_id' => 'boké'],
-            // Autres régions...
+
+            // Region Conakry
+            ['id' => 'dixinn', 'nom' => 'Dixinn', 'region_id' => 'conakry'],
+            ['id' => 'gbessia', 'nom' => 'Gbessia', 'region_id' => 'conakry'],
+            ['id' => 'kaloum', 'nom' => 'Kaloum', 'region_id' => 'conakry'],
+            ['id' => 'kassa', 'nom' => 'Kassa', 'region_id' => 'conakry'],
+            ['id' => 'lambanyi', 'nom' => 'Lambanyi', 'region_id' => 'conakry'],
+            ['id' => 'matam', 'nom' => 'Matam', 'region_id' => 'conakry'],
+            ['id' => 'matoto', 'nom' => 'Matoto', 'region_id' => 'conakry'],
+            ['id' => 'ratoma', 'nom' => 'Ratoma', 'region_id' => 'conakry'],
+            ['id' => 'sonfonia', 'nom' => 'Sonfonia', 'region_id' => 'conakry'],
+            ['id' => 'tombolia', 'nom' => 'Tombolia', 'region_id' => 'conakry'],
+
+            // Region Faranah
+            ['id' => 'dabola', 'nom' => 'Dabola', 'region_id' => 'faranah'],
+            ['id' => 'dinguiraye', 'nom' => 'Dinguiraye', 'region_id' => 'faranah'],
+            ['id' => 'faranah', 'nom' => 'Faranah', 'region_id' => 'faranah'],
+            ['id' => 'kissidougou', 'nom' => 'Kissidougou', 'region_id' => 'faranah'],
+
+            // Region Kankan
+            ['id' => 'kankan', 'nom' => 'Kankan', 'region_id' => 'kankan'],
+            ['id' => 'kouroussa', 'nom' => 'Kouroussa', 'region_id' => 'kankan'],
+            ['id' => 'kerouane', 'nom' => 'Kérouané', 'region_id' => 'kankan'],
+            ['id' => 'mandiana', 'nom' => 'Mandiana', 'region_id' => 'kankan'],
+            ['id' => 'siguiri', 'nom' => 'Siguiri', 'region_id' => 'kankan'],
+
+            // Region kindia
+            ['id' => 'coyah', 'nom' => 'Coyah', 'region_id' => 'kindia'],
+            ['id' => 'dubreka', 'nom' => 'Dubréka', 'region_id' => 'kindia'],
+            ['id' => 'forecariah', 'nom' => 'Forécariah', 'region_id' => 'kindia'],
+            ['id' => 'kindia', 'nom' => 'Kindia', 'region_id' => 'kindia'],
+            ['id' => 'telimele', 'nom' => 'Télimelé', 'region_id' => 'kindia'],
+
+            // Region Labe
+            ['id' => 'koubia', 'nom' => 'Koubia', 'region_id' => 'labe'],
+            ['id' => 'labe', 'nom' => 'Labé', 'region_id' => 'labe'],
+            ['id' => 'lelouma', 'nom' => 'Lelouma', 'region_id' => 'labe'],
+            ['id' => 'mali', 'nom' => 'Mali', 'region_id' => 'labe'],
+            ['id' => 'tougue', 'nom' => 'Tougué', 'region_id' => 'labe'],
+
+            // Region Mamou
+            ['id' => 'dalaba', 'nom' => 'Dalaba', 'region_id' => 'mamou'],
+            ['id' => 'mamou', 'nom' => 'Mamou', 'region_id' => 'mamou'],
+            ['id' => 'pita', 'nom' => 'Pita', 'region_id' => 'mamou'],
+
+            // Region Nzérékoré
+            ['id' => 'nzérékoré', 'nom' => 'Nzérékoré', 'region_id' => 'nzérékoré'],
+            ['id' => 'beyla', 'nom' => 'Beyla', 'region_id' => 'nzérékoré'],
+            ['id' => 'gueckedou', 'nom' => 'Gueckédou', 'region_id' => 'nzérékoré'],
+            ['id' => 'lola', 'nom' => 'Lola', 'region_id' => 'nzérékoré'],
         ];
     }
 
