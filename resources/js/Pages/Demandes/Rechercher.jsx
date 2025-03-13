@@ -18,12 +18,11 @@ import axios from 'axios';
 import { motion, AnimatePresence } from "framer-motion";
 import BienCard from '@/Components/BienCard';
 
-export default function Rechercher({ regions, prefectures, communes, typesBien, zones, initialResults = [], initialFilters = {} }) {
+export default function Rechercher({ regions, prefectures, typesBien, zones, initialResults = [], initialFilters = {} }) {
     // État pour les filtres de recherche - initialiser avec les filtres passés s'ils existent
     const [filters, setFilters] = useState({
         region: initialFilters.region || '',
         prefecture: initialFilters.prefecture || '',
-        commune: initialFilters.commune || '',
         typeBien: initialFilters.typeBien || '',
         surface: initialFilters.surfaceMin && initialFilters.surfaceMax 
             ? [parseInt(initialFilters.surfaceMin), parseInt(initialFilters.surfaceMax)] 
@@ -39,7 +38,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
 
     // Filtres dynamiques basés sur la sélection
     const [prefecturesFiltrees, setPrefecturesFiltrees] = useState([]);
-    const [communesFiltrees, setCommunesFiltrees] = useState([]);
 
     // Ajout d'un état pour les animations séquentielles
     const [isInitialized, setIsInitialized] = useState(false);
@@ -71,17 +69,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
         setFilters(prev => ({ ...prev, prefecture: '' }));
     }, [filters.region]);
 
-    // Filtrer les communes en fonction de la préfecture sélectionnée
-    useEffect(() => {
-        if (filters.prefecture) {
-            setCommunesFiltrees(communes.filter(c => c.prefecture_id === filters.prefecture));
-        } else {
-            setCommunesFiltrees([]);
-        }
-        // Réinitialiser la commune si la préfecture change
-        setFilters(prev => ({ ...prev, commune: '' }));
-    }, [filters.prefecture]);
-
     // Gérer les changements de filtres
     const handleFilterChange = (name, value) => {
         setFilters(prev => ({ ...prev, [name]: value }));
@@ -101,7 +88,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
         setFilters({
             region: '',
             prefecture: '',
-            commune: '',
             typeBien: '',
             surface: [0, 500],
             zone: '',
@@ -615,7 +601,6 @@ export default function Rechercher({ regions, prefectures, communes, typesBien, 
                                                     key={bien.id}
                                                     bien={bien}
                                                     typesBien={typesBien}
-                                                    communes={communes}
                                                     prefectures={prefectures}
                                                     isFavorite={false} // Vous pouvez ajouter la gestion des favoris si nécessaire
                                                     onToggleFavorite={() => {}} // Implémentez la gestion des favoris si nécessaire

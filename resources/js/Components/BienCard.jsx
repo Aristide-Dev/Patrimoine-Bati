@@ -18,7 +18,6 @@ import { Badge } from '@/Components/ui/badge';
 export default function BienCard({ 
     bien, 
     typesBien, 
-    communes, 
     prefectures, 
     isFavorite, 
     onToggleFavorite, 
@@ -100,8 +99,8 @@ export default function BienCard({
                         <MapPin className="h-4 w-4 mr-1" />
                         <span className="line-clamp-1">
                             {bien.quartier}, 
-                            {communes.find(c => c.id === bien.commune)?.nom || bien.commune},
-                            {' '}{prefectures.find(p => p.id === bien.prefecture)?.nom || bien.prefecture}
+                            {/* {communes.find(c => c.id === bien.commune)?.nom || bien.commune},
+                            {' '}{prefectures.find(p => p.id === bien.prefecture)?.nom || bien.prefecture} */}
                         </span>
                     </div>
 

@@ -101,7 +101,6 @@ class DemandeController extends Controller
         
         $prefectures = $this->getPrefectures();
         
-        $communes = $this->getCommunes();
         
         $typesBien = $this->getTypesBien();
         
@@ -110,7 +109,6 @@ class DemandeController extends Controller
         return Inertia::render('Demandes/Rechercher', [
             'regions' => $regions,
             'prefectures' => $prefectures,
-            'communes' => $communes,
             'typesBien' => $typesBien,
             'zones' => $zones,
         ]);

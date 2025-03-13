@@ -80,25 +80,6 @@ abstract class Controller
         ];
     }
 
-    public function getCommunes()
-    {
-        return [
-            // Quelques communes pour Conakry
-            ['id' => 'madina', 'nom' => 'Madina', 'prefecture_id' => 'matam'],
-            ['id' => 'almamya', 'nom' => 'Almamya', 'prefecture_id' => 'kaloum'],
-            ['id' => 'hamdallaye', 'nom' => 'Hamdallaye', 'prefecture_id' => 'ratoma'],
-            ['id' => 'cosa', 'nom' => 'Cosa', 'prefecture_id' => 'ratoma'],
-            ['id' => 'sonfonia', 'nom' => 'Sonfonia', 'prefecture_id' => 'ratoma'],
-            ['id' => 'lansanaya', 'nom' => 'Lansanaya', 'prefecture_id' => 'ratoma'],
-            ['id' => 'taouyah', 'nom' => 'Taouyah', 'prefecture_id' => 'ratoma'],
-            ['id' => 'dixinn_port', 'nom' => 'Dixinn Port', 'prefecture_id' => 'dixinn'],
-            ['id' => 'belle_vue', 'nom' => 'Belle Vue', 'prefecture_id' => 'dixinn'],
-            ['id' => 'bonfi', 'nom' => 'Bonfi', 'prefecture_id' => 'matoto'],
-            ['id' => 'enta', 'nom' => 'Enta', 'prefecture_id' => 'matoto'],
-            // Autres communes...
-        ];
-    }
-
     public function getTypesBien()
     {
         return [

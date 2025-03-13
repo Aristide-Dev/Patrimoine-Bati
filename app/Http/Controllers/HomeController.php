@@ -23,7 +23,6 @@ class HomeController extends Controller
         // Données factices pour les préfectures
         $prefectures = $this->getPrefectures();
         
-        $communes = $this->getCommunes();
         
         $typesBien = $this->getTypesBien();
         
@@ -32,7 +31,6 @@ class HomeController extends Controller
         return Inertia::render('Home', [
             'regions' => $regions,
             'prefectures' => $prefectures,
-            'communes' => $communes,
             'typesBien' => $typesBien,
             'zones' => $zones,
         ]);

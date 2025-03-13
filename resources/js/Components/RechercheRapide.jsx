@@ -27,12 +27,11 @@ import { Badge } from '@/Components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/Components/ui/tooltip';
 import BienCard from '@/Components/BienCard';
 
-export default function RechercheRapide({ regions, prefectures, communes, typesBien, zones }) {
+export default function RechercheRapide({ regions, prefectures, typesBien, zones }) {
     // État pour les filtres de recherche
     const [filters, setFilters] = useState({
         region: '',
         prefecture: '',
-        commune: '',
         typeBien: '',
         surface: [0, 500],
         zone: '',
@@ -48,7 +47,6 @@ export default function RechercheRapide({ regions, prefectures, communes, typesB
 
     // Filtres dynamiques basés sur la sélection
     const [prefecturesFiltrees, setPrefecturesFiltrees] = useState([]);
-    const [communesFiltrees, setCommunesFiltrees] = useState([]);
     const [activeTab, setActiveTab] = useState('location');
 
     // Filtrer les préfectures en fonction de la région sélectionnée
@@ -59,19 +57,8 @@ export default function RechercheRapide({ regions, prefectures, communes, typesB
             setPrefecturesFiltrees([]);
         }
         // Réinitialiser la préfecture si la région change
-        setFilters(prev => ({ ...prev, prefecture: '', commune: '' }));
+        setFilters(prev => ({ ...prev, prefecture: ''}));
     }, [filters.region, prefectures]);
-
-    // Filtrer les communes en fonction de la préfecture sélectionnée
-    useEffect(() => {
-        if (filters.prefecture) {
-            setCommunesFiltrees(communes.filter(c => c.prefecture_id === filters.prefecture));
-        } else {
-            setCommunesFiltrees([]);
-        }
-        // Réinitialiser la commune si la préfecture change
-        setFilters(prev => ({ ...prev, commune: '' }));
-    }, [filters.prefecture, communes]);
 
     // Charger les favoris depuis le localStorage
     useEffect(() => {
@@ -108,7 +95,6 @@ export default function RechercheRapide({ regions, prefectures, communes, typesB
         setFilters({
             region: 'toutes',
             prefecture: 'toutes',
-            commune: 'toutes',
             typeBien: 'tous',
             surface: [0, 500],
             zone: '',
@@ -128,7 +114,6 @@ export default function RechercheRapide({ regions, prefectures, communes, typesB
                 // Ne pas envoyer les filtres vides ou avec valeurs par défaut
                 ...(filters.region === 'toutes' && { region: undefined }),
                 ...(filters.prefecture === 'toutes' && { prefecture: undefined }),
-                ...(filters.commune === 'toutes' && { commune: undefined }),
                 ...(filters.typeBien === 'tous' && { typeBien: undefined }),
                 ...(filters.disponibilite === 'tous' && { disponibilite: undefined })
             };
@@ -404,7 +389,7 @@ export default function RechercheRapide({ regions, prefectures, communes, typesB
                                             key={bien.id}
                                             bien={bien}
                                             typesBien={typesBien}
-                                            communes={communes}
+                                            communes={'communes'}
                                             prefectures={prefectures}
                                             isFavorite={favorites.includes(bien.id)}
                                             onToggleFavorite={toggleFavorite}
