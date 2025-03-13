@@ -177,35 +177,15 @@ export default function RechercheRapide({ regions, prefectures, communes, typesB
                     <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-gray-200 mb-4 sm:mb-0">Recherche de Biens</h2>
                         <div className="flex items-center">
-                            {/* <div className="inline-flex bg-gray-100 p-1 rounded-lg shadow-sm">
-                                <button
-                                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                                        activeTab === 'location' 
-                                        ? 'bg-primary text-white shadow-md' 
-                                        : 'text-gray-700 hover:bg-gray-200'
-                                    }`}
-                                    onClick={() => setActiveTab('location')}
-                                >
-                                    Location
-                                </button>
-                                <button
-                                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-                                        activeTab === 'achat' 
-                                        ? 'bg-primary text-white shadow-md' 
-                                        : 'text-gray-700 hover:bg-gray-200'
-                                    }`}
-                                    onClick={() => setActiveTab('achat')}
-                                >
-                                    Acquisition
-                                </button>
-                            </div> */}
-                            <button
+                            <Button
                                 onClick={resetFilters}
-                                className="ml-2 p-2 text-red-500 hover:text-red-700 rounded-full hover:bg-red-50 transition-colors"
-                                title="Réinitialiser les filtres"
+                                variant="outline"
+                                className="flex items-center gap-2 bg-white/10 text-white hover:bg-white hover:text-red-600 transition-colors"
+                                title="Réinitialiser tous les filtres"
                             >
-                                <X className="h-5 w-5" />
-                            </button>
+                                <X className="h-4 w-4" />
+                                Réinitialiser les filtres
+                            </Button>
                         </div>
                     </div>
 
