@@ -113,54 +113,54 @@ const ProcessusObtention = () => {
         </div>
 
         {/* Processus d'Obtention */}
-<div id="processus" className="mb-16 bg-gradient-to-br from-white to-blue-50 shadow-xl rounded-2xl p-8 border border-blue-100">
-  <h2 className="text-3xl font-bold text-gray-900 mb-8 relative">
-    {titreSectionProcessus}
-    <div className="absolute bottom-0 left-0 w-16 h-1 bg-blue-500 rounded-full"></div>
-  </h2>
-  
-  <div className="space-y-6">
-    {etapesProcessus.map((etape, index) => (
-      <div 
-        key={index} 
-        className="bg-white rounded-xl p-6 border border-gray-200 transition-all duration-200 hover:shadow-lg hover:border-blue-200"
-      >
-        <div className="flex flex-col md:flex-row md:items-start gap-6">
-          <div className="flex-shrink-0">
-            <div className="bg-blue-500 text-white rounded-full h-12 w-12 flex items-center justify-center font-bold text-lg shadow-md">
-              {index + 1}
-            </div>
-          </div>
+        <div id="processus" className="mb-16 bg-gradient-to-br from-white to-blue-50 shadow-xl rounded-2xl p-8 border border-blue-100">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 relative">
+            {titreSectionProcessus}
+            <div className="absolute bottom-0 left-0 w-16 h-1 bg-blue-500 rounded-full"></div>
+          </h2>
           
-          <div className="flex-grow">
-            <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
-              {etape.nom}
-            </h3>
-            <p className="text-gray-700 mb-6 leading-relaxed">{etape.description}</p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-blue-50 rounded-lg p-4 border border-blue-100 transition-all duration-200 hover:bg-blue-100">
-                <div className="flex items-center mb-2">
-                  <Clock className="h-5 w-5 text-blue-600 mr-2" />
-                  <h4 className="font-medium text-gray-900">Délai estimé</h4>
+          <div className="space-y-6">
+            {etapesProcessus.map((etape, index) => (
+              <div 
+                key={index} 
+                className="bg-white rounded-xl p-6 border border-gray-200 transition-all duration-200 hover:shadow-lg hover:border-blue-200"
+              >
+                <div className="flex flex-col md:flex-row md:items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="bg-blue-500 text-white rounded-full h-12 w-12 flex items-center justify-center font-bold text-lg shadow-md">
+                      {index + 1}
+                    </div>
+                  </div>
+                  
+                  <div className="flex-grow">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3 flex items-center">
+                      {etape.nom}
+                    </h3>
+                    <p className="text-gray-700 mb-6 leading-relaxed">{etape.description}</p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-blue-50 rounded-lg p-4 border border-blue-100 transition-all duration-200 hover:bg-blue-100">
+                        <div className="flex items-center mb-2">
+                          <Clock className="h-5 w-5 text-blue-600 mr-2" />
+                          <h4 className="font-medium text-gray-900">Délai estimé</h4>
+                        </div>
+                        <p className="text-gray-700 font-medium">{etape.delai}</p>
+                      </div>
+                      
+                      <div className="bg-blue-50 rounded-lg p-4 border border-blue-100 transition-all duration-200 hover:bg-blue-100">
+                        <div className="flex items-center mb-2">
+                          <Users className="h-5 w-5 text-blue-600 mr-2" />
+                          <h4 className="font-medium text-gray-900">Service responsable</h4>
+                        </div>
+                        <p className="text-gray-700 font-medium">{etape.service}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-gray-700 font-medium">{etape.delai}</p>
               </div>
-              
-              <div className="bg-blue-50 rounded-lg p-4 border border-blue-100 transition-all duration-200 hover:bg-blue-100">
-                <div className="flex items-center mb-2">
-                  <Users className="h-5 w-5 text-blue-600 mr-2" />
-                  <h4 className="font-medium text-gray-900">Service responsable</h4>
-                </div>
-                <p className="text-gray-700 font-medium">{etape.service}</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-      </div>
-    ))}
-  </div>
-</div>
 
         {/* Documents Requis Section */}
         <div id="documents" className="mb-16 bg-white shadow-xl rounded-2xl p-8 border border-gray-100">
