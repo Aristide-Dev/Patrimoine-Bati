@@ -1,331 +1,12 @@
+import React, { useState, useEffect, useCallback } from 'react';
 import { Head } from '@inertiajs/react';
-import React, { useState, useEffect, useCallback, useRef } from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import {
   PlayCircle, Calendar, X, Download, Share2, ChevronLeft, ChevronRight,
   Search, Filter, ChevronDown, Eye, ZoomIn, Facebook, Twitter, Linkedin,
-  Instagram, Grid, List, SortAsc, SortDesc, FileText, Image as ImageIcon,
-  Minimize, Maximize, Clock, FileX
+  Instagram, Grid, List, SortAsc, SortDesc, FileText, Image as ImageIcon
 } from 'lucide-react';
 import { Skeleton, MediaCardSkeleton, MediaModalSkeleton } from "@/Components/Skeleton";
-import { motion, AnimatePresence } from 'framer-motion';
-
-// Composant d'image avec fallback
-const SafeImage = ({ src, alt, className, onLoad, ...props }) => {
-  const [imgSrc, setImgSrc] = useState(src);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  const handleError = () => {
-    console.log("Image error, using fallback");
-    setImgSrc('/images/placeholder.jpg');
-  };
-
-  const handleLoad = () => {
-    setIsLoaded(true);
-    if (onLoad) onLoad();
-  };
-
-  return (
-    <div className="relative">
-      {!isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-800 rounded-lg">
-          <div className="w-10 h-10 border-4 border-t-primary border-white/20 rounded-full animate-spin"></div>
-        </div>
-      )}
-      <img
-        src={imgSrc}
-        alt={alt}
-        className={className}
-        onError={handleError}
-        onLoad={handleLoad}
-        {...props}
-      />
-    </div>
-  );
-};
-
-// Composant de filtre amélioré
-const FilterButton = ({ active, onClick, children }) => (
-  <motion.button
-    whileHover={{ scale: 1.02 }}
-    whileTap={{ scale: 0.98 }}
-    onClick={onClick}
-    className={`px-4 py-2 rounded-xl transition-all duration-300 ${
-      active 
-        ? 'bg-primary text-white shadow-lg shadow-primary/30' 
-        : 'bg-white/10 backdrop-blur-sm text-white/90 hover:bg-white/20'
-    }`}
-  >
-    {children}
-  </motion.button>
-);
-
-// Composant de carte média amélioré
-const MediaCard = ({ media, onClick, viewMode }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const isImage = media.type === 'image';
-
-  return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      whileHover={{ y: -5 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      onClick={() => onClick(media)}
-      className={`
-        ${viewMode === 'grid' ? 'aspect-w-16 aspect-h-9' : 'flex gap-4'}
-        group relative bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl 
-        transition-all duration-500 cursor-pointer
-      `}
-    >
-      {isImage ? (
-        <div className="relative overflow-hidden">
-          <motion.img
-            src={'/storage/'+media.url}
-            alt={media.title}
-            className="w-full h-full object-cover"
-            initial={false}
-            animate={{ scale: isHovered ? 1.05 : 1 }}
-            transition={{ duration: 0.4 }}
-          />
-          <motion.div
-            initial={false}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-            className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
-          >
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <div className="flex items-center justify-between text-white">
-                <div className="space-y-2">
-                  {media.category && (
-                    <motion.span
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="inline-block px-3 py-1 bg-primary/80 backdrop-blur-sm rounded-full text-sm font-medium"
-                    >
-                      {media.category}
-                    </motion.span>
-                  )}
-                  {media.title && (
-                    <motion.h3
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 }}
-                      className="text-lg font-bold line-clamp-2"
-                    >
-                      {media.title}
-                    </motion.h3>
-                  )}
-                </div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="flex space-x-2"
-                >
-                  <button className="p-2 hover:bg-white/20 rounded-full transition-colors">
-                    <ZoomIn className="w-5 h-5" />
-                  </button>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      ) : (
-        <div className="relative h-full">
-          <div className="aspect-w-16 aspect-h-9">
-            <iframe
-              src={media.embed_url}
-              title={media.title}
-              className="w-full h-full rounded-t-xl"
-              allowFullScreen
-            />
-          </div>
-          <motion.div
-            initial={false}
-            animate={{ opacity: isHovered ? 1 : 0.9 }}
-            className="p-6 bg-white"
-          >
-            <div className="flex items-center justify-between mb-3">
-              {media.category && (
-                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium">
-                  {media.category}
-                </span>
-              )}
-              {media.duration && (
-                <span className="text-sm text-gray-500 flex items-center">
-                  <Clock className="w-4 h-4 mr-1" />
-                  {media.duration}
-                </span>
-              )}
-            </div>
-            {media.title && (
-              <h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
-                {media.title}
-              </h3>
-            )}
-          </motion.div>
-        </div>
-      )}
-    </motion.div>
-  );
-};
-
-// Amélioration du modal de visualisation
-const MediaModal = ({ media, onClose, onPrev, onNext, isLoading }) => {
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [showControls, setShowControls] = useState(true);
-  const controlsTimeout = useRef(null);
-
-  useEffect(() => {
-    const handleMouseMove = () => {
-      setShowControls(true);
-      if (controlsTimeout.current) {
-        clearTimeout(controlsTimeout.current);
-      }
-      controlsTimeout.current = setTimeout(() => {
-        setShowControls(false);
-      }, 3000);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (controlsTimeout.current) {
-        clearTimeout(controlsTimeout.current);
-      }
-    };
-  }, []);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className={`fixed inset-0 bg-black/95 ${isFullscreen ? 'z-[9999]' : 'z-50'}`}
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        className="relative w-full h-full flex items-center justify-center"
-        onClick={e => e.stopPropagation()}
-      >
-        {/* Contrôles supérieurs */}
-        <motion.div
-          initial={false}
-          animate={{ opacity: showControls ? 1 : 0 }}
-          className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10"
-        >
-          <div className="flex items-center space-x-4">
-            {media.category && (
-              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-xl text-white">
-                {media.category}
-              </span>
-            )}
-          </div>
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setIsFullscreen(!isFullscreen)}
-              className="p-2 hover:bg-white/10 rounded-xl transition-colors text-white"
-            >
-              {isFullscreen ? <Minimize className="w-6 h-6" /> : <Maximize className="w-6 h-6" />}
-            </button>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-white/10 rounded-xl transition-colors text-white"
-            >
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-        </motion.div>
-
-        {/* Navigation */}
-        <motion.div
-          initial={false}
-          animate={{ opacity: showControls ? 1 : 0 }}
-          className="absolute inset-y-0 left-4 flex items-center"
-        >
-          <button
-            onClick={onPrev}
-            className="p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm transition-colors"
-          >
-            <ChevronLeft className="w-6 h-6 text-white" />
-          </button>
-        </motion.div>
-
-        {/* Contenu principal */}
-        <div className="relative max-w-7xl mx-auto px-4">
-          {isLoading ? (
-            <div className="flex items-center justify-center">
-              <div className="w-16 h-16 border-4 border-t-primary border-white/20 rounded-full animate-spin"></div>
-            </div>
-          ) : (
-            media.type === 'image' ? (
-              <SafeImage
-                src={'/storage/'+media.url}
-                alt={media.title}
-                className="max-h-[85vh] max-w-full mx-auto rounded-xl shadow-2xl"
-              />
-            ) : (
-              <div className="aspect-w-16 aspect-h-9 max-w-5xl mx-auto">
-                <iframe
-                  src={media.embed_url}
-                  title={media.title}
-                  className="w-full h-full rounded-xl"
-                  allowFullScreen
-                />
-              </div>
-            )
-          )}
-        </div>
-
-        <motion.div
-          initial={false}
-          animate={{ opacity: showControls ? 1 : 0 }}
-          className="absolute inset-y-0 right-4 flex items-center"
-        >
-          <button
-            onClick={onNext}
-            className="p-3 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm transition-colors"
-          >
-            <ChevronRight className="w-6 h-6 text-white" />
-          </button>
-        </motion.div>
-
-        {/* Informations inférieures */}
-        <motion.div
-          initial={false}
-          animate={{ opacity: showControls ? 1 : 0 }}
-          className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/50 to-transparent"
-        >
-          <div className="max-w-3xl mx-auto text-white">
-            <h3 className="text-2xl font-bold mb-2">{media.title}</h3>
-            {media.description && (
-              <p className="text-white/80">{media.description}</p>
-            )}
-            <div className="flex items-center space-x-4 mt-4">
-              <span className="flex items-center text-sm">
-                <Calendar className="w-4 h-4 mr-1" />
-                {new Date(media.created_at).toLocaleDateString()}
-              </span>
-              {media.duration && (
-                <span className="flex items-center text-sm">
-                  <Clock className="w-4 h-4 mr-1" />
-                  {media.duration}
-                </span>
-              )}
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
-    </motion.div>
-  );
-};
 
 export default function MediaPage() {
   // États
@@ -354,43 +35,26 @@ export default function MediaPage() {
     setState(prev => ({ ...prev, ...updates }));
   }, []);
 
-  const delay = ms => new Promise(
-    resolve => setTimeout(resolve, ms)
-  );
+  
+const delay = ms => new Promise(
+  resolve => setTimeout(resolve, ms)
+);
 
   // Gestion des filtres et de la recherche
   const filteredMedia = useCallback(() => {
     return state.medias.filter(media => {
-      // Si la recherche est vide, on inclut tous les médias
-      if (!state.searchQuery) {
-        const matchesCategory = state.selectedCategory === 'Tous' || (media.category && media.category === state.selectedCategory);
-        const matchesType = state.activeTab === 'photo' ? media.type === 'image' : media.type === 'video';
-        return matchesCategory && matchesType;
-      }
-
-      // Sinon, on filtre selon les critères de recherche
-      const matchesSearch = (media.title && media.title.toLowerCase().includes(state.searchQuery.toLowerCase())) ||
-        (media.category && media.category.toLowerCase().includes(state.searchQuery.toLowerCase()));
-      const matchesCategory = state.selectedCategory === 'Tous' || (media.category && media.category === state.selectedCategory);
+      const matchesSearch = media.title.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+        media.category.toLowerCase().includes(state.searchQuery.toLowerCase());
+      const matchesCategory = state.selectedCategory === 'Tous' || media.category === state.selectedCategory;
       const matchesType = state.activeTab === 'photo' ? media.type === 'image' : media.type === 'video';
       return matchesSearch && matchesCategory && matchesType;
     }).sort((a, b) => {
       const order = state.sortOrder === 'asc' ? 1 : -1;
       switch (state.sortBy) {
         case 'title':
-          // Gérer le cas où l'un des titres est null ou undefined
-          if (!a.title && !b.title) return 0;
-          if (!a.title) return order;
-          if (!b.title) return -order;
           return order * a.title.localeCompare(b.title);
         case 'date':
-          // Utiliser created_at si published_at n'existe pas
-          const dateA = a.published_at || a.created_at;
-          const dateB = b.published_at || b.created_at;
-          if (!dateA && !dateB) return 0;
-          if (!dateA) return order;
-          if (!dateB) return -order;
-          return order * (new Date(dateB) - new Date(dateA));
+          return order * (new Date(b.published_at) - new Date(a.published_at));
         default:
           return 0;
       }
@@ -408,7 +72,7 @@ export default function MediaPage() {
   const fetchMedia = useCallback(async () => {
     updateState({ isLoading: true });
 
-    // await delay(5000);
+    await delay(5000);
     try {
       const response = await axios.get('/api/medias', {
         params: {
@@ -431,34 +95,26 @@ export default function MediaPage() {
 
   // Gestion du modal et de la navigation
   const handleMediaClick = useCallback((media, index) => {
-    console.log("Média sélectionné:", media);
-
-    // Vérifier si le média existe
-    if (!media) {
-      console.error("Média invalide:", media);
-      return;
-    }
-
-    // S'assurer que le média a toutes les propriétés nécessaires
-    const safeMedia = {
-      ...media,
-      id: media.id || `temp-${Date.now()}`,
-      title: media.title || 'Sans titre',
-      category: media.category || 'Non catégorisé',
-      description: media.description || '',
-      type: media.type || 'image',
-      url: media.url || '',
-      embed_url: media.embed_url || '',
-      created_at: media.created_at || new Date().toISOString()
-    };
-
-    console.log("Média sécurisé:", safeMedia);
-
     updateState({
-      selectedMedia: safeMedia,
+      selectedMedia: media,
       currentIndex: index,
-      isLoading: true
+      isLoading: true,
+      showShareMenu: false
     });
+    
+    // Préchargement de l'image pour vérifier si elle charge correctement
+    if (media.type === 'image') {
+      const img = new Image();
+      img.onload = () => updateState({ isLoading: false });
+      img.onerror = () => {
+        console.error(`Erreur de chargement de l'image: ${media.url}`);
+        updateState({ isLoading: false });
+      };
+      img.src = isExternalUrl(media.url) ? media.url : `/storage/${media.url}`;
+    } else {
+      // Pour les vidéos, on désactive le chargement après un court délai
+      setTimeout(() => updateState({ isLoading: false }), 500);
+    }
   }, []);
 
   const handleNavigation = useCallback((direction) => {
@@ -467,244 +123,465 @@ export default function MediaPage() {
       ? (state.currentIndex + 1) % filtered.length
       : state.currentIndex === 0 ? filtered.length - 1 : state.currentIndex - 1;
 
-    const media = filtered[newIndex];
-    // S'assurer que le média a toutes les propriétés nécessaires
-    const safeMedia = {
-      ...media,
-      title: media.title || 'Sans titre',
-      category: media.category || 'Non catégorisé',
-      description: media.description || '',
-      type: media.type || 'image',
-      url: media.url || '',
-      embed_url: media.embed_url || '',
-      created_at: media.created_at || new Date().toISOString()
-    };
-
     updateState({
       currentIndex: newIndex,
-      selectedMedia: safeMedia,
-      isLoading: true
+      selectedMedia: filtered[newIndex],
+      isLoading: true,
+      showShareMenu: false
     });
+    
+    // Préchargement de l'image suivante/précédente
+    const media = filtered[newIndex];
+    if (media.type === 'image') {
+      const img = new Image();
+      img.onload = () => updateState({ isLoading: false });
+      img.onerror = () => {
+        console.error(`Erreur de chargement de l'image: ${media.url}`);
+        updateState({ isLoading: false });
+      };
+      img.src = isExternalUrl(media.url) ? media.url : `/storage/${media.url}`;
+    } else {
+      setTimeout(() => updateState({ isLoading: false }), 500);
+    }
   }, [state.currentIndex, filteredMedia]);
 
-  const isExternalUrl = (url) => {
+  // Fonction améliorée pour vérifier si une URL est externe
+  const isExternalUrl = useCallback((url) => {
     if (!url) return false;
-    return url.startsWith('http://') || url.startsWith('https://');
-  };
+    return url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//');
+  }, []);
+
+  // Rendu des éléments média
+  const renderMediaItem = useCallback((media, index) => {
+    const isImage = media.type === 'image';
+    const itemClasses = `
+      ${state.viewMode === 'grid' ? 'aspect-w-16 aspect-h-9' : 'flex gap-2 items-center'}
+      group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl 
+      transition-all duration-300 transform hover:-translate-y-1 cursor-pointer
+    `;
+
+    return (
+      <div key={media.id} className={itemClasses} onClick={() => handleMediaClick(media, index)}>
+        {isImage ? (
+          <div className="relative overflow-hidden">
+            <img
+              src={isExternalUrl(media.url) ? media.url : `/storage/${media.url}`}
+              alt={media.title}
+              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="flex items-center justify-between text-white">
+                  <div>
+                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm mb-2">
+                      {media.category}
+                    </span>
+                    <h3 className="text-lg font-bold line-clamp-2">{media.title}</h3>
+                  </div>
+                  <div className="flex space-x-2">
+                    <button className="p-2 hover:bg-white/20 rounded-full transition-colors">
+                      <ZoomIn size={20} />
+                    </button>
+                    <button className="p-2 hover:bg-white/20 rounded-full transition-colors">
+                      <Share2 size={20} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="relative">
+            <div className="aspect-w-16 aspect-h-9">
+              <iframe
+                src={media.embed_url}
+                title={media.title}
+                className="w-full h-full"
+                allowFullScreen
+              />
+            </div>
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-3">
+                <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                  {media.category}
+                </span>
+                <span className="text-sm text-gray-500 flex items-center">
+                  <PlayCircle size={16} className="mr-1" />
+                  {media.duration}
+                </span>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
+                {media.title}
+              </h3>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }, [state.viewMode]);
+
+
+  // Gestion du partage
+  const handleShare = useCallback((platform) => {
+    const media = state.selectedMedia;
+    if (!media) return;
+
+    const shareData = {
+      title: media.title,
+      url: isExternalUrl(media.url) ? media.url : `${window.location.origin}/storage/${media.url}`
+    };
+
+    const shareUrls = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareData.url)}`,
+      twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareData.url)}&text=${encodeURIComponent(shareData.title)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareData.url)}`,
+    };
+
+    window.open(shareUrls[platform], '_blank');
+  }, [state.selectedMedia]);
+
+  // Gestion du téléchargement
+  const handleDownload = useCallback(async () => {
+    const media = state.selectedMedia;
+    if (!media || media.type !== 'image') return;
+
+    try {
+      const response = await fetch(isExternalUrl(media.url) ? media.url : `/storage/${media.url}`);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${media.title}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Erreur lors du téléchargement:', error);
+    }
+  }, [state.selectedMedia]);
+
+  // Gestion des raccourcis clavier
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (!state.selectedMedia) return;
+
+      const actions = {
+        'ArrowLeft': () => handleNavigation('prev'),
+        'ArrowRight': () => handleNavigation('next'),
+        'Escape': () => updateState({ selectedMedia: null }),
+      };
+
+      if (actions[e.key]) {
+        e.preventDefault();
+        actions[e.key]();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [state.selectedMedia, handleNavigation]);
+
+  // // Composant Skeleton pour un média
+  // const MediaSkeleton = () => (
+  //   <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+  //     <div className="aspect-w-16 aspect-h-9">
+  //       <div className="w-full h-full bg-gray-200 animate-pulse" />
+  //     </div>
+  //     <div className="p-4">
+  //       <div className="flex gap-2 mb-3">
+  //         <div className="h-6 w-20 bg-gray-200 rounded-full animate-pulse" />
+  //         <div className="h-6 w-32 bg-gray-200 rounded-full animate-pulse" />
+  //       </div>
+  //       <div className="h-6 w-3/4 bg-gray-200 rounded animate-pulse mb-2" />
+  //       <div className="h-4 w-1/2 bg-gray-200 rounded animate-pulse" />
+  //     </div>
+  //   </div>
+  // );
 
   return (
     <AppLayout>
-      <Head title="Médiathèque DGPBP" />
+      <Head title="Médiathèque DGPBPG" />
 
-      {/* Hero Section améliorée */}
-      <div className="relative bg-gradient-to-br from-primary via-primary-600 to-primary-800 py-32">
-        <div className="absolute inset-0 bg-[url('/images/pattern.svg')] opacity-30"></div>
-        <div className="container mx-auto px-4 relative">
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-r from-primary to-primary-800 py-24">
+        <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-6xl font-bold text-white mb-6"
-            >
-              Médiathèque DGPBP
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-xl text-white/90 mb-12"
-            >
+            <h1 className="text-5xl font-bold text-white mb-6">Médiathèque DGPBPG</h1>
+            <p className="text-xl text-white/90 mb-12">
               Explorez notre collection de photos et vidéos
-            </motion.p>
+            </p>
 
             {/* Barre de recherche et filtres */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="flex flex-col md:flex-row gap-4"
-            >
+            <div className="flex flex-col md:flex-row gap-2">
               <div className="flex-1 relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60" />
                 <input
                   type="text"
                   placeholder="Rechercher..."
-                  className="w-full bg-white/10 backdrop-blur-sm text-white placeholder-white/60 px-12 py-4 rounded-xl border border-white/20 focus:border-white/40 focus:ring-2 focus:ring-white/10 transition-all duration-300"
+                  className="w-full bg-white/10 backdrop-blur-sm text-white placeholder-white/60 px-12 py-4 rounded-xl"
                   value={state.searchQuery}
                   onChange={(e) => updateState({ searchQuery: e.target.value })}
                 />
               </div>
 
+              {/* Contrôles supplémentaires */}
               <div className="flex gap-2">
-                <FilterButton
-                  active={state.showFilters}
+                <button
                   onClick={() => updateState({ showFilters: !state.showFilters })}
+                  className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-xl text-white flex items-center"
                 >
-                  <Filter className="w-5 h-5 mr-2" />
+                  <Filter className="mr-2" />
                   Filtres
-                </FilterButton>
-                <FilterButton
-                  active={false}
+                </button>
+                <button
                   onClick={() => updateState({ viewMode: state.viewMode === 'grid' ? 'list' : 'grid' })}
+                  className="p-2 bg-white/10 backdrop-blur-sm rounded-xl text-white"
                 >
-                  {state.viewMode === 'grid' ? <Grid className="w-5 h-5" /> : <List className="w-5 h-5" />}
-                </FilterButton>
+                  {state.viewMode === 'grid' ? <Grid /> : <List />}
+                </button>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Contenu principal amélioré */}
-      <div className="container mx-auto px-4 py-12">
+      {/* Contenu principal */}
+      <div className="container mx-auto px-4 py-6">
         {/* Filtres étendus */}
-        <AnimatePresence>
-          {state.showFilters && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="overflow-hidden"
-            >
-              <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Catégorie
-                    </label>
-                    <select
-                      value={state.selectedCategory}
-                      onChange={(e) => updateState({ selectedCategory: e.target.value })}
-                      className="w-full border-gray-300 rounded-xl focus:border-primary focus:ring-primary"
-                    >
-                      {state.categories.map(category => (
-                        <option key={category} value={category}>{category}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Trier par
-                    </label>
-                    <select
-                      value={state.sortBy}
-                      onChange={(e) => updateState({ sortBy: e.target.value })}
-                      className="w-full border-gray-300 rounded-xl focus:border-primary focus:ring-primary"
-                    >
-                      <option value="date">Date</option>
-                      <option value="title">Titre</option>
-                    </select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Ordre
-                    </label>
-                    <button
-                      onClick={() => updateState({ sortOrder: state.sortOrder === 'asc' ? 'desc' : 'asc' })}
-                      className="w-full flex items-center justify-center px-4 py-2 border rounded-xl hover:bg-gray-50 transition-colors"
-                    >
-                      {state.sortOrder === 'asc' ? (
-                        <>
-                          <SortAsc className="w-5 h-5 mr-2" />
-                          Croissant
-                        </>
-                      ) : (
-                        <>
-                          <SortDesc className="w-5 h-5 mr-2" />
-                          Décroissant
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
+        {state.showFilters && (
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Catégorie
+                </label>
+                <select
+                  value={state.selectedCategory}
+                  onChange={(e) => updateState({ selectedCategory: e.target.value })}
+                  className="w-full border-gray-300 rounded-lg"
+                >
+                  {state.categories.map(category => (
+                    <option key={category} value={category}>{category}</option>
+                  ))}
+                </select>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
-        {/* Tabs améliorés */}
-        <div className="flex justify-center mb-12">
-          <div className="bg-white rounded-2xl shadow-lg p-1.5 inline-flex">
-            <FilterButton
-              active={state.activeTab === 'photo'}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Trier par
+                </label>
+                <select
+                  value={state.sortBy}
+                  onChange={(e) => updateState({ sortBy: e.target.value })}
+                  className="w-full border-gray-300 rounded-lg"
+                >
+                  <option value="date">Date</option>
+                  <option value="title">Titre</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Ordre
+                </label>
+                <button
+                  onClick={() => updateState({ sortOrder: state.sortOrder === 'asc' ? 'desc' : 'asc' })}
+                  className="flex items-center px-4 py-2 border rounded-lg"
+                >
+                  {state.sortOrder === 'asc' ? <SortAsc className="mr-2" /> : <SortDesc className="mr-2" />}
+                  {state.sortOrder === 'asc' ? 'Croissant' : 'Décroissant'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tabs */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-white rounded-xl shadow-lg p-1 inline-flex">
+            <button
               onClick={() => updateState({ activeTab: 'photo' })}
+              className={`px-6 py-2 rounded-lg transition-colors ${state.activeTab === 'photo' ? 'bg-primary text-white' : 'text-gray-600'
+                }`}
             >
-              <ImageIcon className="w-5 h-5 mr-2" />
+              <ImageIcon className="w-5 h-5 inline-block mr-2" />
               Photos
-            </FilterButton>
-            <FilterButton
-              active={state.activeTab === 'video'}
+            </button>
+            <button
               onClick={() => updateState({ activeTab: 'video' })}
+              className={`px-6 py-2 rounded-lg transition-colors ${state.activeTab === 'video' ? 'bg-primary text-white' : 'text-gray-600'
+                }`}
             >
-              <PlayCircle className="w-5 h-5 mr-2" />
+              <PlayCircle className="w-5 h-5 inline-block mr-2" />
               Vidéos
-            </FilterButton>
+            </button>
           </div>
         </div>
 
         {/* Grille de médias */}
-        <div className={`grid ${
-          state.viewMode === 'grid' 
-            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
+        <div className={`grid gap-2 ${state.viewMode === 'grid'
+            ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
             : 'grid-cols-1'
-        } gap-6`}>
-          <AnimatePresence>
-            {state.isLoading ? (
-              Array.from({ length: 12 }).map((_, index) => (
+          }`}>
+          {state.isLoading ? (
+            // Afficher les skeletons pendant le chargement
+            Array.from({ length: 6 }).map((_, index) => (
+              state.activeTab === 'photo' ? (
                 <MediaCardSkeleton key={index} />
-              ))
-            ) : (
-              paginatedMedia().map((media, index) => (
-                <MediaCard
-                  key={media.id}
-                  media={media}
-                  onClick={() => handleMediaClick(media, index)}
-                  viewMode={state.viewMode}
-                />
-              ))
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Pagination améliorée */}
-        <div className="flex justify-center mt-12">
-          <div className="inline-flex rounded-xl overflow-hidden shadow-lg">
-            <button
-              onClick={() => updateState({ currentPage: state.currentPage - 1 })}
-              disabled={state.currentPage === 1}
-              className="px-6 py-3 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:hover:bg-white border-r border-gray-200 transition-colors flex items-center"
-            >
-              <ChevronLeft className="w-5 h-5 mr-2" />
-              Précédent
-            </button>
-            <div className="px-6 py-3 bg-white border-r border-gray-200 font-medium">
-              {state.currentPage}
-            </div>
-            <button
-              onClick={() => updateState({ currentPage: state.currentPage + 1 })}
-              disabled={state.currentPage * state.itemsPerPage >= filteredMedia().length}
-              className="px-6 py-3 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:hover:bg-white transition-colors flex items-center"
-            >
-              Suivant
-              <ChevronRight className="w-5 h-5 ml-2" />
-            </button>
-          </div>
-        </div>
-
-        {/* Modal de visualisation */}
-        <AnimatePresence>
-          {state.selectedMedia && (
-            <MediaModal
-              media={state.selectedMedia}
-              onClose={() => updateState({ selectedMedia: null })}
-              onPrev={() => handleNavigation('prev')}
-              onNext={() => handleNavigation('next')}
-              isLoading={state.isLoading}
-            />
+              ) : (
+                <MediaModalSkeleton key={index} />
+              )
+            ))
+          ) : (
+            paginatedMedia().map((media, index) => renderMediaItem(media, index))
           )}
-        </AnimatePresence>
+        </div>
+
+      </div>
+
+
+
+      <div className="py-6">
+        {state.selectedMedia && (
+          <div
+            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+            onClick={() => updateState({ selectedMedia: null })}
+          >
+            <div
+              className="relative w-full max-w-6xl px-4"
+              onClick={e => e.stopPropagation()}
+            >
+              {/* Boutons de contrôle */}
+              <div className="absolute top-4 right-4 flex space-x-2 z-10">
+                <button
+                  className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                  onClick={() => updateState({ showShareMenu: !state.showShareMenu })}
+                >
+                  <Share2 className="w-6 h-6 text-white" />
+                </button>
+                {state.selectedMedia.type === 'image' && (
+                  <button
+                    className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                    onClick={handleDownload}
+                  >
+                    <Download className="w-6 h-6 text-white" />
+                  </button>
+                )}
+                <button
+                  className="p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                  onClick={() => updateState({ selectedMedia: null })}
+                >
+                  <X className="w-6 h-6 text-white" />
+                </button>
+              </div>
+
+              {/* Menu de partage */}
+              {state.showShareMenu && (
+                <div className="absolute top-16 right-4 bg-white rounded-xl shadow-lg py-2 z-10">
+                  {[
+                    { platform: 'facebook', icon: Facebook, label: 'Facebook' },
+                    { platform: 'twitter', icon: Twitter, label: 'Twitter' },
+                    { platform: 'linkedin', icon: Linkedin, label: 'LinkedIn' },
+                  ].map(({ platform, icon: Icon, label }) => (
+                    <button
+                      key={platform}
+                      onClick={() => handleShare(platform)}
+                      className="w-full px-4 py-2 flex items-center hover:bg-gray-100 transition-colors"
+                    >
+                      <Icon className="w-5 h-5 mr-3" />
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Navigation */}
+              <button
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNavigation('prev');
+                }}
+              >
+                <ChevronLeft className="w-6 h-6 text-white" />
+              </button>
+
+              {/* Contenu avec Skeleton */}
+              <div className="relative">
+                {state.isLoading ? (
+                  <MediaModalSkeleton />
+                ) : (
+                  state.selectedMedia?.type === 'image' ? (
+                    <div className="flex justify-center items-center max-h-[80vh]">
+                      <img
+                        src={isExternalUrl(state.selectedMedia.url) ? state.selectedMedia.url : `/storage/${state.selectedMedia.url}`}
+                        alt={state.selectedMedia.title}
+                        className="max-h-[80vh] max-w-full object-contain rounded-lg transition-all duration-300"
+                        onLoad={() => updateState({ isLoading: false })}
+                        onError={() => {
+                          console.error(`Erreur d'affichage de l'image: ${state.selectedMedia.url}`);
+                          updateState({ isLoading: false });
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="aspect-w-16 aspect-h-9">
+                      <iframe
+                        src={state.selectedMedia?.embed_url}
+                        title={state.selectedMedia?.title}
+                        className="w-full h-full rounded-lg"
+                        allowFullScreen
+                        onLoad={() => updateState({ isLoading: false })}
+                      />
+                    </div>
+                  )
+                )}
+              </div>
+
+              <button
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNavigation('next');
+                }}
+              >
+                <ChevronRight className="w-6 h-6 text-white" />
+              </button>
+
+              {/* Informations avec Skeleton */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
+                {state.isLoading ? (
+                  <div className="space-y-4">
+                    <div className="flex gap-2">
+                      <div className="h-6 w-24 bg-white/20 rounded-full animate-pulse" />
+                      <div className="h-6 w-32 bg-white/20 rounded-full animate-pulse" />
+                    </div>
+                    <div className="h-8 w-3/4 bg-white/20 rounded animate-pulse" />
+                    <div className="h-4 w-1/2 bg-white/20 rounded animate-pulse" />
+                  </div>
+                ) : (
+                  <div className="text-white">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <span className="px-3 py-1 bg-white/20 rounded-full text-sm">
+                        {state.selectedMedia.category}
+                      </span>
+                      <span className="flex items-center text-sm">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        {new Date(state.selectedMedia.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">{state.selectedMedia.title}</h3>
+                    {state.selectedMedia.description && (
+                      <p className="text-white/80">{state.selectedMedia.description}</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </AppLayout>
   );

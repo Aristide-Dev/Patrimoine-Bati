@@ -15,15 +15,15 @@ import {
     Building2,
     Loader2,
     X,
-    Heart,
-    ChevronRight,
-    Info
+    Info,
+    BookMarked,
+    FileText,
+    Accessibility,
+    AlertTriangle
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import { Slider } from '@/Components/ui/slider';
 import { Button } from '@/Components/ui/button';
-import { Card, CardContent, CardFooter } from '@/Components/ui/card';
-import { Badge } from '@/Components/ui/badge';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/Components/ui/tooltip';
 import BienCard from '@/Components/BienCard';
 
@@ -35,7 +35,20 @@ export default function RechercheRapide({ regions, prefectures, typesBien, zones
         typeBien: '',
         surface: [0, 500],
         zone: '',
-        disponibilite: 'tous'
+        disponibilite: 'tous',
+        // Nouveaux filtres
+        usage: '',
+        etages: '',
+        anneeConstruction: '',
+        etatGeneral: '',
+        accessibilite: false,
+        equipements: [],
+        sourceEnergie: '',
+        sourceEau: '',
+        prixMin: 0,
+        prixMax: 1000000,
+        dureeMin: 1,
+        dureeMax: 99
     });
 
     // États pour les résultats et le chargement
@@ -48,6 +61,35 @@ export default function RechercheRapide({ regions, prefectures, typesBien, zones
     // Filtres dynamiques basés sur la sélection
     const [prefecturesFiltrees, setPrefecturesFiltrees] = useState([]);
     const [activeTab, setActiveTab] = useState('location');
+
+    const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+
+    // Options pour les nouveaux filtres
+    const usageOptions = [
+        { value: 'bureaux', label: 'Bureaux' },
+        { value: 'services', label: 'Services publics' },
+        { value: 'logement', label: 'Logement social' }
+    ];
+
+    const etatOptions = [
+        { value: 'excellent', label: 'Excellent' },
+        { value: 'bon', label: 'Bon' },
+        { value: 'moyen', label: 'Moyen' },
+        { value: 'renovation', label: 'À rénover' }
+    ];
+
+    const equipementOptions = [
+        { value: 'ascenseur', label: 'Ascenseur' },
+        { value: 'climatisation', label: 'Climatisation' },
+        { value: 'securite', label: 'Système de sécurité' },
+        { value: 'parking', label: 'Parking' }
+    ];
+
+    const sourceEauOptions = [
+        { value: 'public', label: 'Service public' },
+        { value: 'forage', label: 'Forage' },
+        { value: 'puit', label: 'Puit' }
+    ];
 
     // Filtrer les préfectures en fonction de la région sélectionnée
     useEffect(() => {
@@ -98,7 +140,20 @@ export default function RechercheRapide({ regions, prefectures, typesBien, zones
             typeBien: 'tous',
             surface: [0, 500],
             zone: '',
-            disponibilite: 'tous'
+            disponibilite: 'tous',
+            // Nouveaux filtres
+            usage: '',
+            etages: '',
+            anneeConstruction: '',
+            etatGeneral: '',
+            accessibilite: false,
+            equipements: [],
+            sourceEnergie: '',
+            sourceEau: '',
+            prixMin: 0,
+            prixMax: 1000000,
+            dureeMin: 1,
+            dureeMax: 99
         });
     };
 
@@ -161,7 +216,15 @@ export default function RechercheRapide({ regions, prefectures, typesBien, zones
                 <div className="p-4 sm:p-6">
                     <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
                         <h2 className="text-2xl font-bold text-gray-200 mb-4 sm:mb-0">Recherche de Biens</h2>
-                        <div className="flex items-center">
+                        <div className="flex items-center gap-2">
+                            <Button
+                                onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+                                variant="outline"
+                                className="flex items-center gap-2 bg-white/10 text-white hover:bg-white hover:text-primary transition-colors"
+                            >
+                                <Filter className="h-4 w-4" />
+                                {showAdvancedFilters ? 'Masquer les filtres avancés' : 'Filtres avancés'}
+                            </Button>
                             <Button
                                 onClick={resetFilters}
                                 variant="outline"
@@ -169,7 +232,7 @@ export default function RechercheRapide({ regions, prefectures, typesBien, zones
                                 title="Réinitialiser tous les filtres"
                             >
                                 <X className="h-4 w-4" />
-                                Réinitialiser les filtres
+                                Réinitialiser
                             </Button>
                         </div>
                     </div>
@@ -290,6 +353,129 @@ export default function RechercheRapide({ regions, prefectures, typesBien, zones
                             </Select>
                         </div>
                     </div>
+
+                    {/* Filtres avancés */}
+                    <AnimatePresence>
+                        {showAdvancedFilters && (
+                            <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: "auto", opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="overflow-hidden"
+                            >
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 bg-white/5 rounded-lg mt-4">
+                                    {/* Usage */}
+                                    <div className="space-y-2">
+                                        <label className="flex items-center text-sm font-medium text-gray-300">
+                                            <Building2 className="w-4 h-4 mr-1" />
+                                            Usage
+                                        </label>
+                                        <Select
+                                            value={filters.usage}
+                                            onValueChange={(value) => handleFilterChange('usage', value)}
+                                        >
+                                            <SelectTrigger className="bg-gray-50 border-0">
+                                                <SelectValue placeholder="Type d'usage" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {usageOptions.map(option => (
+                                                    <SelectItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    {/* État général */}
+                                    <div className="space-y-2">
+                                        <label className="flex items-center text-sm font-medium text-gray-300">
+                                            <AlertTriangle className="w-4 h-4 mr-1" />
+                                            État général
+                                        </label>
+                                        <Select
+                                            value={filters.etatGeneral}
+                                            onValueChange={(value) => handleFilterChange('etatGeneral', value)}
+                                        >
+                                            <SelectTrigger className="bg-gray-50 border-0">
+                                                <SelectValue placeholder="État du bâtiment" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {etatOptions.map(option => (
+                                                    <SelectItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    {/* Source d'eau */}
+                                    <div className="space-y-2">
+                                        <label className="flex items-center text-sm font-medium text-gray-300">
+                                            <BookMarked className="w-4 h-4 mr-1" />
+                                            Source d'eau
+                                        </label>
+                                        <Select
+                                            value={filters.sourceEau}
+                                            onValueChange={(value) => handleFilterChange('sourceEau', value)}
+                                        >
+                                            <SelectTrigger className="bg-gray-50 border-0">
+                                                <SelectValue placeholder="Source d'eau" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {sourceEauOptions.map(option => (
+                                                    <SelectItem key={option.value} value={option.value}>
+                                                        {option.label}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    {/* Prix de location */}
+                                    <div className="space-y-2">
+                                        <label className="flex items-center justify-between text-sm font-medium text-gray-300">
+                                            <div className="flex items-center">
+                                                <FileText className="w-4 h-4 mr-1" />
+                                                Prix de location
+                                            </div>
+                                            <span className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
+                                                {filters.prixMin} - {filters.prixMax} GNF
+                                            </span>
+                                        </label>
+                                        <Slider
+                                            min={0}
+                                            max={1000000}
+                                            step={50000}
+                                            value={[filters.prixMin, filters.prixMax]}
+                                            onValueChange={(value) => {
+                                                handleFilterChange('prixMin', value[0]);
+                                                handleFilterChange('prixMax', value[1]);
+                                            }}
+                                        />
+                                    </div>
+
+                                    {/* Accessibilité */}
+                                    <div className="space-y-2">
+                                        <label className="flex items-center text-sm font-medium text-gray-300">
+                                            <Accessibility className="w-4 h-4 mr-1" />
+                                            Accessibilité PMR
+                                        </label>
+                                        <div className="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                checked={filters.accessibilite}
+                                                onChange={(e) => handleFilterChange('accessibilite', e.target.checked)}
+                                                className="rounded border-gray-300 text-primary focus:ring-primary"
+                                            />
+                                            <span className="text-sm text-gray-300">Accessible PMR</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
                     <div className="mt-6 flex justify-center">
                         <Button
