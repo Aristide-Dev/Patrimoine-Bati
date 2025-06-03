@@ -4,6 +4,8 @@ import {
   Globe, Landmark, Building2, Banknote, FileText, Scale, Users, ScrollText
 } from 'lucide-react';
 
+import { DGPBP } from '@/utils/dgpbp';
+
 const PreloadResources = () => (
   <>
     <link rel="preload" href="/images/logo/logo-pbp.png" as="image" />
@@ -74,27 +76,6 @@ const Footer = () => {
     },
   ];
 
-  const contactInfos = [
-    {
-      icon: <Phone />, 
-      content: [
-        <a href="tel:+224655358284" className="hover:text-secondary transition-colors">(+224) 655-35-82-84</a>,
-        <a href="tel:+224611981928" className="hover:text-secondary transition-colors">(+224) 611-98-19-28</a>
-      ]
-    },
-    {
-      icon: <Mail />, 
-      content: [
-        <a href="mailto:contact@patrimoinebatipublic.com" className="hover:text-secondary transition-colors">contact@patrimoinebatipublic.com</a>,
-        <a href="mailto:serviceaccueil@patrimoinebatipublic.com" className="hover:text-secondary transition-colors">serviceaccueil@patrimoinebatipublic.com</a>
-      ]
-    },
-    {
-      icon: <MapPin />, 
-      content: "PORTS CONTENEURS DE CONAKRY, KALOUM REP. DE GUINEE"
-    }
-  ];
-
   return (
     <footer className="bg-gradient-to-br from-primary via-primary-700 to-primary-800 text-white shadow-2xl" role="contentinfo">
       <PreloadResources />
@@ -145,25 +126,27 @@ const Footer = () => {
             </h3>
             
             <address className="not-italic space-y-4">
-              {contactInfos.map((item, index) => (
+              {DGPBP.contactInfo.unespace_phones.map((item, index) => (
                 <div key={index} className="flex items-start group">
-                  {React.cloneElement(item.icon, {
-                    size: 20,
-                    className: "mt-1 mr-3 text-secondary group-hover:scale-110 transition-transform duration-300",
-                    'aria-hidden': true
-                  })}
+                  <Phone className="mt-1 mr-3 text-secondary group-hover:scale-110 transition-transform duration-300"/>
                   <span className="text-gray-200 group-hover:text-white transition-colors duration-300">
-                    {Array.isArray(item.content) ? (
                       <div className="flex flex-col gap-2">
-                        {item.content.map((content, i) => (
-                          <span key={i} className="hover:translate-x-1 transition-transform duration-300">
-                            {content}
+                        <span key={index} className="hover:translate-x-1 transition-transform duration-300">
+                          <a href={`tel:${item}`} className="hover:text-secondary transition-colors">{DGPBP.contactInfo.phones[index]}</a>
                           </span>
-                        ))}
                       </div>
-                    ) : (
-                      item.content
-                    )}
+                  </span>
+                </div>
+              ))}
+              {DGPBP.contactInfo.emails.map((item, index) => (
+                <div key={index} className="flex items-start group">
+                  <Mail className="mt-1 mr-3 text-secondary group-hover:scale-110 transition-transform duration-300"/>
+                  <span className="text-gray-200 group-hover:text-white transition-colors duration-300">
+                      <div className="flex flex-col gap-2">
+                        <span key={index} className="hover:translate-x-1 transition-transform duration-300">
+                          <a href={`mailto:${item}`} className="hover:text-secondary transition-colors">{item}</a>
+                          </span>
+                      </div>
                   </span>
                 </div>
               ))}

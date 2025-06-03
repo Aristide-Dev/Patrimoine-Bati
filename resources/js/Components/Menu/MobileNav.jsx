@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/react';
 import { ChevronRight, X, ChevronDown, Menu } from 'lucide-react';
 import { menuItems } from '../../constants/menuItems';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DGPBP } from '@/utils/dgpbp';
 
 export const MobileNav = ({ isOpen, onClose }) => {
     const [openSubmenu, setOpenSubmenu] = useState(null);
@@ -147,8 +148,9 @@ export const MobileNav = ({ isOpen, onClose }) => {
                                             </svg>
                                         </span>
                                         <div className="flex flex-col">
-                                            <span>(+224) 655-35-82-84</span>
-                                            <span>(+224) 611-98-19-28</span>
+                                            {DGPBP.contactInfo.phones.map((item, index) => (
+                                                <span key={index}>{item}</span>
+                                            ))}
                                         </div>
                                     </div>
                                     <div className="flex items-center">
@@ -159,8 +161,9 @@ export const MobileNav = ({ isOpen, onClose }) => {
                                             </svg>
                                         </span>
                                         <div className="flex flex-col">
-                                            <span>contact@patrimoinebatipublic.com</span>
-                                            <span>serviceaccueil@patrimoinebatipublic.com</span>
+                                            {DGPBP.contactInfo.emails.map((item, index) => (
+                                                <span key={index}>{item}</span>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>

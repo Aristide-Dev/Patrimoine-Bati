@@ -8,6 +8,7 @@ import { Button } from '@/Components/ui/button';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import InputError from '@/Components/InputError';
 import { Map } from '@/Components/ui/map';
+import { DGPBP } from '@/utils/dgpbp';
 
 export default function Contact({ meta }) {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -69,7 +70,7 @@ export default function Contact({ meta }) {
                         <div className="ml-4">
                         <p className="text-sm font-medium text-gray-900">Adresse</p>
                         <p className="mt-1 text-sm text-gray-600">
-                            PORTS CONTENEURS DE CONAKRY,<br />KALOUM REP. DE GUINEE
+                            { DGPBP.contactInfo.address }
                         </p>
                         </div>
                     </div>
@@ -80,9 +81,10 @@ export default function Contact({ meta }) {
                         </div>
                         <div className="ml-4">
                         <p className="text-sm font-medium text-gray-900">Téléphone</p>
-                        <p className="mt-1 text-sm text-gray-600">
-                            +224 655-35-82-84<br />
-                            +224 611-98-19-28
+                        <p className="flex flex-col mt-1 text-sm text-gray-600">
+                            {DGPBP.contactInfo.phones.map((item, index) => (
+                                <span key={index}>{item}</span>
+                            ))}
                         </p>
                         </div>
                     </div>
@@ -93,9 +95,10 @@ export default function Contact({ meta }) {
                         </div>
                         <div className="ml-4">
                         <p className="text-sm font-medium text-gray-900">Email</p>
-                        <p className="mt-1 text-sm text-gray-600">
-                            contact@patrimoinebatipublic.com<br />
-                            serviceacceuil@patrimoinebatipublic.com
+                        <p className="mt-1 text-sm text-gray-600 flex flex-col">
+                            {DGPBP.contactInfo.emails.map((item, index) => (
+                                <span key={index}>{item}</span>
+                            ))}
                         </p>
                         </div>
                     </div>
