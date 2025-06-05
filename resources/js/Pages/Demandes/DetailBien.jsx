@@ -23,6 +23,18 @@ import {
     X,
     ExternalLink
 } from 'lucide-react';
+import { DGPBP } from '@/utils/dgpbp';
+
+// Fonction utilitaire pour formater les prix
+const formatPrice = (price) => {
+    if (!price) return "Prix non défini";
+    return new Intl.NumberFormat('fr-FR', {
+        style: 'currency',
+        currency: 'XOF',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(price);
+};
 
 export default function DetailBien({ bien, typesBien, prefectures, communes, commodites, biensSimilaires }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -127,15 +139,15 @@ export default function DetailBien({ bien, typesBien, prefectures, communes, com
                                 variants={itemVariants}
                                 className="flex flex-wrap justify-between items-center mb-6"
                             >
-                                <Link 
+                                {/* <Link 
                                     href={route('demandes.rechercher')} 
                                     className="flex items-center text-primary hover:underline mb-4 sm:mb-0"
                                 >
                                     <ArrowLeft className="h-4 w-4 mr-2" />
                                     Retour aux résultats
-                                </Link>
+                                </Link> */}
                                 
-                                <div className="flex space-x-3">
+                                {/* <div className="flex space-x-3">
                                     <Button 
                                         variant="outline" 
                                         size="sm"
@@ -150,7 +162,7 @@ export default function DetailBien({ bien, typesBien, prefectures, communes, com
                                         <Share2 className="h-4 w-4 mr-2" />
                                         Partager
                                     </Button>
-                                </div>
+                                </div> */}
                             </motion.div>
 
                             {/* Titre et informations principales */}
@@ -371,15 +383,20 @@ export default function DetailBien({ bien, typesBien, prefectures, communes, com
                                             <h3 className="text-xl font-semibold mb-4">Contactez-nous</h3>
                                             
                                             <div className="space-y-4">
-                                                <Button className="w-full">
+                                                <a href={`tel:${DGPBP.contactInfo.unespace_phones[0]}`} className="w-full bg-primary text-white p-2 rounded-md flex items-center justify-center">
                                                     <Phone className="h-4 w-4 mr-2" />
-                                                    Appeler
-                                                </Button>
+                                                    Appeler {DGPBP.contactInfo.phones[0]}
+                                                </a>
                                                 
-                                                <Button variant="outline" className="w-full">
+                                                <a href={`tel:${DGPBP.contactInfo.unespace_phones[1]}`} className="w-full bg-primary text-white p-2 rounded-md flex items-center justify-center">
+                                                    <Phone className="h-4 w-4 mr-2" />
+                                                    Appeler {DGPBP.contactInfo.phones[1]}
+                                                </a>
+                                                
+                                                <a href={`mailto:${DGPBP.contactInfo.emails[0]}`} className="w-full bg-primary text-white p-2 rounded-md flex items-center justify-center">
                                                     <Mail className="h-4 w-4 mr-2" />
-                                                    Envoyer un message
-                                                </Button>
+                                                    Envoyer un mail
+                                                </a>
                                                 
                                                 <div className="pt-4 border-t border-gray-200">
                                                     <p className="text-sm text-gray-500 mb-2">

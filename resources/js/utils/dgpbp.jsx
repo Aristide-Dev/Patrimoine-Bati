@@ -13,10 +13,10 @@ export const DGPBP = {
             "+224655358284",
             "+224611981928",
         ],
-        email: "contact@dgpbp.com",
+        email: "service.accueil@dgpbpguinee.com",
         emails: [
-            "contact@dgpbp.com",
-            "serviceacceuil@dgpbp.com",
+            "service.accueil@dgpbpguinee.com",
+            "recouvrement@dgpbpguinee.com",
         ],
         hours: {
             weekdays: "Lundi - Vendredi",

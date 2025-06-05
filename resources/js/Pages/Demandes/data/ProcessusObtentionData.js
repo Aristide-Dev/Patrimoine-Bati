@@ -1,3 +1,5 @@
+import { DGPBP } from '@/utils/dgpbp';
+
 // Textes et titres
 export const titrePagePrincipal = "Processus d'Obtention de Bien Immobilier";
 export const descriptionPagePrincipale = "Guide des étapes et documents nécessaires pour obtenir un bien immobilier via le Patrimoine Bâti Public en Guinée.";
@@ -15,8 +17,8 @@ export const noteImportanteDocuments = "Tous les documents doivent être fournis
 // Textes des boutons et contacts
 export const texteBoutonDemande = "Déposer une demande";
 export const texteAssistance = "Pour toute assistance, contactez notre service client au";
-export const contactTelephone1 = "+224 655 35 82 84";
-export const contactTelephone2 = "+224 611 98 19 28";
+export const contactTelephone1 = DGPBP.contactInfo.unespace_phones[0];
+export const contactTelephone2 = DGPBP.contactInfo.unespace_phones[1];
 
 // Étapes du processus d'obtention
 export const etapesProcessus = [
@@ -180,28 +182,28 @@ export const servicesContacts = [
     nom: "Bureau des Demandes Initiales (BDI)",
     description: "Service chargé de la réception et du traitement initial des demandes d'acquisition.",
     telephone: "+224 622 00 11 22",
-    email: "bdi@patrimoine-public.gn",
+    email: "bdi@dgpbpguinee.com",
     horaires: "Lundi au Vendredi, 8h à 16h"
   },
   {
     nom: "Service de Vérification et Conformité (SVC)",
     description: "Chargé de vérifier l'authenticité et la conformité des documents soumis.",
     telephone: "+224 622 00 11 23",
-    email: "svc@patrimoine-public.gn",
+    email: "svc@dgpbpguinee.com",
     horaires: "Lundi au Vendredi, 9h à 17h"
   },
   {
     nom: "Comité d'Évaluation des Dossiers (CED)",
     description: "Responsable de l'évaluation complète des dossiers de candidature.",
     telephone: "+224 622 00 11 24",
-    email: "ced@patrimoine-public.gn",
+    email: "ced@dgpbpguinee.com",
     horaires: "Lundi au Jeudi, 9h à 15h"
   },
   {
     nom: "Département Juridique et Notarial (DJN)",
     description: "En charge de la préparation et finalisation des contrats d'acquisition.",
     telephone: "+224 622 00 11 25",
-    email: "djn@patrimoine-public.gn",
+    email: "djn@dgpbpguinee.com",
     horaires: "Lundi au Vendredi, 8h30 à 16h30"
   }
 ]; 

@@ -28,7 +28,7 @@ export const TopBar = () => {
     }, [searchQuery]);
 
     return (
-        <div className="bg-gradient-to-r from-primary-800 via-primary-700 to-primary-800 text-white shadow-lg border-b border-white/10">
+        <div className="bg-gradient-to-r from-primary-700 via-primary-900 to-primary-700 text-white shadow-lg border-none">
             <div className="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 {/* Left Section: Logos and Contact Info */}
                 <div className="flex flex-col md:flex-row items-center  justify-center space-y-3 md:space-y-0 md:space-x-8 w-full">

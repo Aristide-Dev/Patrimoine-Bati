@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import { 
   Target, Award, Users, Shield, Lightbulb, ArrowRight, Clock, MapPin, Building2, Archive, 
-  CheckCircle, TrendingUp, Globe, ChevronRight
+  CheckCircle, TrendingUp, Globe
 } from 'lucide-react';
 import { motion } from "framer-motion";
 
@@ -98,7 +98,7 @@ export default function About() {
           className="absolute inset-0 bg-cover bg-center" 
           style={{backgroundImage: "url('/images/about03.jpg')"}}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-primary-900/60 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-primary-950/60 to-black/50" />
         
         {/* Éléments décoratifs */}
         <div className="absolute top-20 left-10 w-32 h-32 border-4 border-white/20 rounded-full opacity-50" />
@@ -140,14 +140,14 @@ export default function About() {
                 Nous Contacter
                 <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
-              <a 
+              {/* <a 
                 href={route('contact.index')} 
                 className="px-10 py-4 bg-transparent border-2 border-white/70 text-white rounded-lg font-semibold 
                 hover:bg-white/10 transition-all duration-300 flex items-center justify-center group backdrop-blur-sm"
               >
                 Nos Projets
                 <Building2 className="ml-3 group-hover:scale-110 transition-transform" />
-              </a>
+              </a> */}
             </motion.div>
           </motion.div>
         </div>
@@ -528,11 +528,11 @@ export default function About() {
                 </h3>
                 <p className="text-gray-600 group-hover:text-gray-700 transition-colors">{value.description}</p>
                 
-                <div className="mt-6 pt-4 border-t border-gray-100 flex justify-end">
+                {/* <div className="mt-6 pt-4 border-t border-gray-100 flex justify-end">
                   <span className="text-primary-600 font-medium flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
                     En savoir plus <ChevronRight className="h-4 w-4 ml-1" />
                   </span>
-                </div>
+                </div> */}
               </motion.div>
             ))}
           </div>
