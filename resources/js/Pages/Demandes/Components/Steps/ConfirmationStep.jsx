@@ -7,6 +7,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/Comp
 import { InfoIcon, CheckCircle2, FileText, User, Building, Briefcase, AlertTriangle } from 'lucide-react';
 import InputError from '@/Components/InputError';
 import { toast } from 'sonner';
+import { Checkbox } from '@/Components/ui/checkbox';
 
 export default function ConfirmationStep({ data, setData, errors }) {
   const getDocumentsRequis = () => {
@@ -253,6 +254,32 @@ export default function ConfirmationStep({ data, setData, errors }) {
             ))}
           </div>
         </CardContent>
+      </Card>
+
+      <Card className="p-6">
+        <div className="flex items-start space-x-3">
+          <Checkbox
+            id="confidentialite"
+            checked={data.confidentialite_acceptee}
+            onCheckedChange={(checked) => {
+              setData('confidentialite_acceptee', checked);
+            }}
+          />
+          <div className="grid gap-1.5 leading-none">
+            <Label
+              htmlFor="confidentialite"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              J'accepte les conditions de confidentialité
+            </Label>
+            <p className="text-sm text-gray-500">
+              En cochant cette case, vous acceptez que vos informations personnelles soient traitées conformément à notre politique de confidentialité.
+            </p>
+          </div>
+        </div>
+        {errors.confidentialite_acceptee && (
+          <p className="text-sm text-red-500 mt-1">{errors.confidentialite_acceptee}</p>
+        )}
       </Card>
     </div>
   );

@@ -222,7 +222,7 @@ const Header = () => {
       />
 
       {/* Styles pour les animations personnalisées */}
-      <style jsx>{`
+      <style>{`
         .animation-delay-1000 {
           animation-delay: 1s;
         }

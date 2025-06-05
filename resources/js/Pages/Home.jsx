@@ -4,8 +4,6 @@ import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import * as Icons from 'lucide-react';
 import { useState, useEffect, useCallback } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { Hero } from '@/Components/Hero';
 import { CheckCircle } from 'lucide-react';
 import RechercheRapide from '@/Components/RechercheRapide';
