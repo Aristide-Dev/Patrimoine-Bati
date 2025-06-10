@@ -12,13 +12,14 @@ export default defineConfig({
     ],
     optimizeDeps: {
         include: ['@react-pdf/renderer'],
-        force: true
+        exclude: ['@react-pdf/renderer/lib-es']
     },
     build: {
         chunkSizeWarningLimit: 5600,
         minify: 'esbuild', // Utilisation de l'optimisation de minification
         target: 'esnext', // Cible ES plus moderne pour améliorer la performance
         rollupOptions: {
+            external: [],
             output: {
                 manualChunks(id) {
                     if (id.includes('node_modules')) {
@@ -35,5 +36,11 @@ export default defineConfig({
     define: {
         // Nécessaire pour @react-pdf/renderer
         global: 'globalThis',
+    },
+    resolve: {
+        alias: {
+            // Fix pour @react-pdf/renderer version 3.x
+            'pdfjs-dist': 'pdfjs-dist/build/pdf.min.js'
+        }
     }
 });
