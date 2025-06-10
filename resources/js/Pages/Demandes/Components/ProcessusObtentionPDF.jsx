@@ -1,256 +1,206 @@
 import React from 'react';
 import { Download } from 'lucide-react';
 
-// Chargement dynamique de @react-pdf/renderer pour éviter les problèmes en production
-const loadPDFRenderer = async () => {
-    try {
-        return await import('@react-pdf/renderer');
-    } catch (error) {
-        console.error('Erreur lors du chargement de @react-pdf/renderer:', error);
-        return null;
-    }
-};
+// Import des données
+import { 
+    etapesProcessus, 
+    documentsCommuns, 
+    documentsFonctionnaire, 
+    documentsEntreprise, 
+    documentsParticulier,
+    servicesContacts,
+    titrePagePrincipal,
+    descriptionPagePrincipale,
+    introductionTexte
+} from '../data/ProcessusObtentionData';
 
-// Chargement dynamique des données
-const loadProcessusData = async () => {
-    try {
-        return await import('../data/ProcessusObtentionData');
-    } catch (error) {
-        console.error('Erreur lors du chargement des données:', error);
-        return null;
-    }
-};
-
-// Composant pour le bouton de téléchargement avec chargement dynamique
 const ProcessusObtentionPDF = () => {
     const [isLoading, setIsLoading] = React.useState(false);
-    const [isClient, setIsClient] = React.useState(false);
-    const [pdfComponents, setPdfComponents] = React.useState(null);
-    const [processusData, setProcessusData] = React.useState(null);
+    const [useAlternative, setUseAlternative] = React.useState(false);
 
-    React.useEffect(() => {
-        setIsClient(true);
-        // Préchargement des modules
-        const preloadModules = async () => {
-            const [pdfModule, dataModule] = await Promise.all([
-                loadPDFRenderer(),
-                loadProcessusData()
-            ]);
-            
-            if (pdfModule && dataModule) {
-                setPdfComponents(pdfModule);
-                setProcessusData(dataModule);
-            }
-        };
-        
-        preloadModules();
-    }, []);
-
-    const generatePDF = async () => {
-        if (!isClient || !pdfComponents || !processusData) {
-            alert('Les composants PDF ne sont pas encore chargés. Veuillez réessayer dans quelques secondes.');
-            return;
-        }
-
+    // Fonction alternative avec jsPDF (sans dépendances problématiques)
+    const generateJsPDF = async () => {
         setIsLoading(true);
-        
         try {
-            const { Document, Page, Text, View, StyleSheet, pdf } = pdfComponents;
-            const {
-                etapesProcessus,
-                documentsCommuns,
-                documentsFonctionnaire,
-                documentsEntreprise,
-                documentsParticulier,
-                servicesContacts,
-                titrePagePrincipal,
-                descriptionPagePrincipale,
-                introductionTexte
-            } = processusData;
+            const { default: jsPDF } = await import('jspdf');
+            
+            const doc = new jsPDF();
+            let yPosition = 20;
+            const lineHeight = 7;
+            const margin = 20;
+            const pageHeight = doc.internal.pageSize.height;
 
-            // Styles pour le PDF
-            const styles = StyleSheet.create({
-                page: {
-                    flexDirection: 'column',
-                    backgroundColor: '#FFFFFF',
-                    padding: 30
-                },
-                section: {
-                    margin: 10,
-                    padding: 10,
-                    flexGrow: 1
-                },
-                title: {
-                    fontSize: 24,
-                    fontWeight: 'bold',
-                    marginBottom: 10,
-                    color: '#1a365d',
-                    textAlign: 'center'
-                },
-                subtitle: {
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                    marginBottom: 8,
-                    color: '#2c5282',
-                    marginTop: 15
-                },
-                text: {
-                    fontSize: 12,
-                    marginBottom: 5,
-                    lineHeight: 1.5
-                },
-                etape: {
-                    marginBottom: 15,
-                    padding: 8,
-                    backgroundColor: '#f7fafc'
-                },
-                etapeTitle: {
-                    fontSize: 14,
-                    fontWeight: 'bold',
-                    color: '#2d3748',
-                    marginBottom: 5
-                },
-                documentItem: {
-                    marginBottom: 10,
-                    paddingLeft: 15
-                },
-                serviceItem: {
-                    marginBottom: 15,
-                    padding: 8,
-                    backgroundColor: '#edf2f7'
+            // Fonction pour ajouter du texte avec retour à la ligne automatique
+            const addText = (text, x, y, maxWidth = 170) => {
+                const splitText = doc.splitTextToSize(text, maxWidth);
+                doc.text(splitText, x, y);
+                return y + (splitText.length * lineHeight);
+            };
+
+            // Fonction pour vérifier si on doit changer de page
+            const checkPageBreak = (currentY, spaceNeeded = 20) => {
+                if (currentY + spaceNeeded > pageHeight - 20) {
+                    doc.addPage();
+                    return 20;
                 }
+                return currentY;
+            };
+
+            // Titre principal
+            doc.setFontSize(20);
+            doc.setFont('helvetica', 'bold');
+            yPosition = addText(titrePagePrincipal, margin, yPosition);
+            yPosition += 10;
+
+            // Description
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            yPosition = addText(descriptionPagePrincipale, margin, yPosition);
+            yPosition += 5;
+            yPosition = addText(introductionTexte, margin, yPosition);
+            yPosition += 15;
+
+            // Étapes du processus
+            yPosition = checkPageBreak(yPosition, 30);
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            yPosition = addText('Processus d\'Obtention et Délais', margin, yPosition);
+            yPosition += 10;
+
+            doc.setFontSize(12);
+            etapesProcessus.forEach((etape, index) => {
+                yPosition = checkPageBreak(yPosition, 25);
+                
+                doc.setFont('helvetica', 'bold');
+                yPosition = addText(`${index + 1}. ${etape.nom}`, margin, yPosition);
+                yPosition += 3;
+                
+                doc.setFont('helvetica', 'normal');
+                yPosition = addText(`Description: ${etape.description}`, margin + 5, yPosition);
+                yPosition = addText(`Délai: ${etape.delai}`, margin + 5, yPosition);
+                yPosition = addText(`Service: ${etape.service}`, margin + 5, yPosition);
+                yPosition += 8;
             });
 
-            // Création du document PDF
-            const ProcessusDocument = (
-                <Document>
-                    <Page size="A4" style={styles.page}>
-                        <View style={styles.section}>
-                            <Text style={styles.title}>{titrePagePrincipal}</Text>
-                            <Text style={styles.text}>{descriptionPagePrincipale}</Text>
-                            <Text style={styles.text}>{introductionTexte}</Text>
-                        </View>
+            // Documents communs
+            doc.addPage();
+            yPosition = 20;
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            yPosition = addText('Documents Communs Requis', margin, yPosition);
+            yPosition += 10;
 
-                        <View style={styles.section}>
-                            <Text style={styles.subtitle}>Processus d'Obtention et Délais</Text>
-                            {etapesProcessus.map((etape, index) => (
-                                <View key={index} style={styles.etape}>
-                                    <Text style={styles.etapeTitle}>{index + 1}. {etape.nom}</Text>
-                                    <Text style={styles.text}>Description: {etape.description}</Text>
-                                    <Text style={styles.text}>Délai: {etape.delai}</Text>
-                                    <Text style={styles.text}>Service: {etape.service}</Text>
-                                </View>
-                            ))}
-                        </View>
-                    </Page>
+            doc.setFontSize(12);
+            documentsCommuns.forEach((docItem) => {
+                yPosition = checkPageBreak(yPosition, 15);
+                doc.setFont('helvetica', 'bold');
+                yPosition = addText(`• ${docItem.nom}`, margin, yPosition);
+                doc.setFont('helvetica', 'normal');
+                yPosition = addText(`  ${docItem.description}`, margin + 5, yPosition);
+                yPosition += 5;
+            });
 
-                    <Page size="A4" style={styles.page}>
-                        <View style={styles.section}>
-                            <Text style={styles.subtitle}>Documents Communs Requis</Text>
-                            {documentsCommuns.map((doc, index) => (
-                                <View key={index} style={styles.documentItem}>
-                                    <Text style={styles.text}>• {doc.nom}</Text>
-                                    <Text style={styles.text}>  {doc.description}</Text>
-                                </View>
-                            ))}
+            // Documents fonctionnaires
+            yPosition += 10;
+            yPosition = checkPageBreak(yPosition, 20);
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            yPosition = addText('Documents Spécifiques - Fonctionnaires', margin, yPosition);
+            yPosition += 10;
 
-                            <Text style={styles.subtitle}>Documents Spécifiques - Fonctionnaires</Text>
-                            {documentsFonctionnaire.map((doc, index) => (
-                                <View key={index} style={styles.documentItem}>
-                                    <Text style={styles.text}>• {doc.nom}</Text>
-                                    <Text style={styles.text}>  {doc.description}</Text>
-                                </View>
-                            ))}
-                        </View>
-                    </Page>
+            doc.setFontSize(12);
+            documentsFonctionnaire.forEach((docItem) => {
+                yPosition = checkPageBreak(yPosition, 15);
+                doc.setFont('helvetica', 'bold');
+                yPosition = addText(`• ${docItem.nom}`, margin, yPosition);
+                doc.setFont('helvetica', 'normal');
+                yPosition = addText(`  ${docItem.description}`, margin + 5, yPosition);
+                yPosition += 5;
+            });
 
-                    <Page size="A4" style={styles.page}>
-                        <View style={styles.section}>
-                            <Text style={styles.subtitle}>Documents Spécifiques - Entreprises</Text>
-                            {documentsEntreprise.map((doc, index) => (
-                                <View key={index} style={styles.documentItem}>
-                                    <Text style={styles.text}>• {doc.nom}</Text>
-                                    <Text style={styles.text}>  {doc.description}</Text>
-                                </View>
-                            ))}
+            // Documents entreprises
+            doc.addPage();
+            yPosition = 20;
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            yPosition = addText('Documents Spécifiques - Entreprises', margin, yPosition);
+            yPosition += 10;
 
-                            <Text style={styles.subtitle}>Documents Spécifiques - Particuliers</Text>
-                            {documentsParticulier.map((doc, index) => (
-                                <View key={index} style={styles.documentItem}>
-                                    <Text style={styles.text}>• {doc.nom}</Text>
-                                    <Text style={styles.text}>  {doc.description}</Text>
-                                </View>
-                            ))}
-                        </View>
-                    </Page>
+            doc.setFontSize(12);
+            documentsEntreprise.forEach((docItem) => {
+                yPosition = checkPageBreak(yPosition, 15);
+                doc.setFont('helvetica', 'bold');
+                yPosition = addText(`• ${docItem.nom}`, margin, yPosition);
+                doc.setFont('helvetica', 'normal');
+                yPosition = addText(`  ${docItem.description}`, margin + 5, yPosition);
+                yPosition += 5;
+            });
 
-                    <Page size="A4" style={styles.page}>
-                        <View style={styles.section}>
-                            <Text style={styles.subtitle}>Coordonnées des Services</Text>
-                            {servicesContacts.map((service, index) => (
-                                <View key={index} style={styles.serviceItem}>
-                                    <Text style={styles.etapeTitle}>{service.nom}</Text>
-                                    <Text style={styles.text}>{service.description}</Text>
-                                    <Text style={styles.text}>Téléphone: {service.telephone}</Text>
-                                    <Text style={styles.text}>Email: {service.email}</Text>
-                                    <Text style={styles.text}>Horaires: {service.horaires}</Text>
-                                </View>
-                            ))}
-                        </View>
-                    </Page>
-                </Document>
-            );
+            // Documents particuliers
+            yPosition += 10;
+            yPosition = checkPageBreak(yPosition, 20);
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            yPosition = addText('Documents Spécifiques - Particuliers', margin, yPosition);
+            yPosition += 10;
 
-            // Génération et téléchargement du PDF
-            const blob = await pdf(ProcessusDocument).toBlob();
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'processus-obtention-bien-immobilier.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
+            doc.setFontSize(12);
+            documentsParticulier.forEach((docItem) => {
+                yPosition = checkPageBreak(yPosition, 15);
+                doc.setFont('helvetica', 'bold');
+                yPosition = addText(`• ${docItem.nom}`, margin, yPosition);
+                doc.setFont('helvetica', 'normal');
+                yPosition = addText(`  ${docItem.description}`, margin + 5, yPosition);
+                yPosition += 5;
+            });
+
+            // Services et contacts
+            doc.addPage();
+            yPosition = 20;
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            yPosition = addText('Coordonnées des Services', margin, yPosition);
+            yPosition += 10;
+
+            doc.setFontSize(12);
+            servicesContacts.forEach((service) => {
+                yPosition = checkPageBreak(yPosition, 25);
+                doc.setFont('helvetica', 'bold');
+                yPosition = addText(service.nom, margin, yPosition);
+                yPosition += 3;
+                
+                doc.setFont('helvetica', 'normal');
+                yPosition = addText(service.description, margin + 5, yPosition);
+                yPosition = addText(`Téléphone: ${service.telephone}`, margin + 5, yPosition);
+                yPosition = addText(`Email: ${service.email}`, margin + 5, yPosition);
+                yPosition = addText(`Horaires: ${service.horaires}`, margin + 5, yPosition);
+                yPosition += 8;
+            });
+
+            // Téléchargement
+            doc.save('processus-obtention-bien-immobilier.pdf');
 
         } catch (error) {
-            console.error('Erreur lors de la génération du PDF:', error);
+            console.error('Erreur jsPDF:', error);
             alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
         } finally {
             setIsLoading(false);
         }
     };
 
-    if (!isClient) {
-        return (
-            <div className="bg-transparent hover:bg-transparent">
-                <div className="flex items-center py-3 px-4 bg-primary text-white rounded-lg">
-                    <Download className="mr-2 h-5 w-5" />
-                    Chargement...
-                </div>
-            </div>
-        );
-    }
-
-    const isReady = pdfComponents && processusData;
-
     return (
         <div className="bg-transparent hover:bg-transparent">
             <button
-                onClick={generatePDF}
-                disabled={isLoading || !isReady}
+                onClick={generateJsPDF}
+                disabled={isLoading}
                 className={`flex items-center py-3 px-4 rounded-lg transition-all duration-200 ${
-                    isLoading || !isReady
+                    isLoading
                         ? 'bg-gray-400 cursor-not-allowed'
                         : 'bg-primary text-white transform hover:scale-105 shadow-lg group'
                 }`}
             >
-                <Download className={`mr-2 h-5 w-5 ${!isLoading && isReady ? 'group-hover:rotate-6' : ''} transition-transform`} />
-                {isLoading 
-                    ? 'Génération du PDF...' 
-                    : !isReady 
-                        ? 'Chargement des composants...'
-                        : 'Télécharger le Guide PDF'
-                }
+                <Download className={`mr-2 h-5 w-5 ${!isLoading ? 'group-hover:rotate-6' : ''} transition-transform`} />
+                {isLoading ? 'Génération du PDF...' : 'Télécharger le Guide PDF'}
             </button>
         </div>
     );
