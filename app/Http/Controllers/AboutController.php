@@ -35,4 +35,14 @@ class AboutController extends Controller
             ]
         ]);
     }
+
+    public function motDirectrice()
+    {
+        return Inertia::render('About/MotDirectrice', [
+            'meta' => [
+                'title' => 'Mot de la Directrice',
+                'description' => 'Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public'
+            ]
+        ]);
+    }
 } 

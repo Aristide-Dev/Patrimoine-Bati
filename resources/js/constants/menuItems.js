@@ -24,8 +24,12 @@ export const menuItems = [
   },
   {
     label: 'Qui sommes-nous',
-    href: 'about.index',
     icon: Users,
+    actif: 'about.*',
+    children: [
+      { label: 'Présentation', href: 'about.index', icon: Building2 },
+      { label: 'Mot de la Directrice', href: 'about.mot-directrice', icon: MessageSquare },
+    ]
   },
   // {
   //   label: 'Documentation',

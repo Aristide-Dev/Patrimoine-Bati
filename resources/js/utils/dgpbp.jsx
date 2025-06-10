@@ -16,7 +16,7 @@ export const DGPBP = {
         email: "service.accueil@dgpbpguinee.com",
         emails: [
             "service.accueil@dgpbpguinee.com",
-            "recouvrement@dgpbpguinee.com",
+            "secretariat@dgpbpguinee.com",
         ],
         hours: {
             weekdays: "Lundi - Vendredi",
