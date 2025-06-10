@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 });
 
 // Composant pour le contenu du PDF
-const ProcessusObtentionDocument = () => (
+const ProcessusObtentionDocument = React.memo(() => (
     <Document>
         <Page size="A4" style={styles.page}>
             {/* En-tête */}
@@ -148,26 +148,65 @@ const ProcessusObtentionDocument = () => (
             </View>
         </Page>
     </Document>
-);
+));
 
-// Composant pour le bouton de téléchargement
-const ProcessusObtentionPDF = () => (
-    <div className="bg-transparent hover:bg-transparent">
-        <PDFDownloadLink
-            document={<ProcessusObtentionDocument />}
-            fileName="processus-obtention-bien-immobilier.pdf"
-            className="flex items-center py-0 px-4 bg-primary text-white transform hover:scale-105 transition-all duration-200 shadow-lg group rounded-lg"
-        >
-            {({ blob, url, loading, error }) =>
-                loading ? 'Génération du PDF...' : (
-                    <div className="flex items-center py-3 px-4">
-                        <Download className="mr-2 h-5 w-5 group-hover:rotate-6 transition-transform" />
-                        Télécharger le Guide PDF
-                    </div>
-                )
-            }
-        </PDFDownloadLink>
-    </div>
-);
+// Composant pour le bouton de téléchargement avec gestion d'erreur
+const ProcessusObtentionPDF = () => {
+    const [isClient, setIsClient] = React.useState(false);
+
+    React.useEffect(() => {
+        setIsClient(true);
+    }, []);
+
+    if (!isClient) {
+        return (
+            <div className="bg-transparent hover:bg-transparent">
+                <div className="flex items-center py-3 px-4 bg-primary text-white rounded-lg">
+                    <Download className="mr-2 h-5 w-5" />
+                    Chargement...
+                </div>
+            </div>
+        );
+    }
+
+    try {
+        return (
+            <div className="bg-transparent hover:bg-transparent">
+                <PDFDownloadLink
+                    document={<ProcessusObtentionDocument />}
+                    fileName="processus-obtention-bien-immobilier.pdf"
+                    className="flex items-center py-0 px-4 bg-primary text-white transform hover:scale-105 transition-all duration-200 shadow-lg group rounded-lg"
+                >
+                    {({ blob, url, loading, error }) => {
+                        if (error) {
+                            return (
+                                <div className="flex items-center py-3 px-4 text-red-500">
+                                    Erreur lors de la génération du PDF
+                                </div>
+                            );
+                        }
+                        
+                        return loading ? 'Génération du PDF...' : (
+                            <div className="flex items-center py-3 px-4">
+                                <Download className="mr-2 h-5 w-5 group-hover:rotate-6 transition-transform" />
+                                Télécharger le Guide PDF
+                            </div>
+                        );
+                    }}
+                </PDFDownloadLink>
+            </div>
+        );
+    } catch (error) {
+        console.error('Erreur PDF:', error);
+        return (
+            <div className="bg-transparent hover:bg-transparent">
+                <div className="flex items-center py-3 px-4 bg-gray-500 text-white rounded-lg">
+                    <Download className="mr-2 h-5 w-5" />
+                    PDF temporairement indisponible
+                </div>
+            </div>
+        );
+    }
+};
 
 export default ProcessusObtentionPDF; 
