@@ -640,7 +640,7 @@ export default function Historic({ meta }) {
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Chronologie 
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-primary-600">
+              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-primary-600">
                 Historique
               </span>
             </h2>
@@ -675,7 +675,7 @@ export default function Historic({ meta }) {
           >
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
               Sites et Monuments 
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-primary-600">
+              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-primary-600">
                 Historiques
               </span>
             </h2>
@@ -714,7 +714,7 @@ export default function Historic({ meta }) {
               <div>
                 <h2 className="text-4xl font-bold text-gray-900 mb-8">
                   Conservation du 
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-primary-600">
+                  <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-primary-600">
                     Patrimoine Historique
                   </span>
                 </h2>
@@ -790,7 +790,7 @@ export default function Historic({ meta }) {
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-8 text-white">
               Explorez Notre 
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-orange-500">
+              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-orange-500">
                 Patrimoine
               </span>
             </h2>

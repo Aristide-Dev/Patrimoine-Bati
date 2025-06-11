@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Head, usePage } from '@inertiajs/react';
 import PropTypes from 'prop-types';
-import { ArrowUp, X, Bell, Menu, Sparkles } from 'lucide-react';
+import { ArrowUp, X, Bell, Menu, Sparkles, CheckCircle, AlertCircle, AlertTriangle, Info } from 'lucide-react';
 import Header from '@/Components/Header';
 import Footer from '@/Components/Footer';
 import { Button } from '@/Components/ui/button';
@@ -383,6 +383,10 @@ export default function AppLayout({
                   ? 'bg-gradient-to-r from-emerald-500/90 to-green-500/90' 
                   : flash.type === 'error'
                   ? 'bg-gradient-to-r from-rose-500/90 to-red-500/90'
+                  : flash.type === 'warning'
+                  ? 'bg-gradient-to-r from-amber-500/90 to-orange-500/90'
+                  : flash.type === 'info'
+                  ? 'bg-gradient-to-r from-cyan-500/90 to-blue-500/90'
                   : 'bg-gradient-to-r from-blue-500/90 to-indigo-500/90'
                 } text-white relative overflow-hidden
               `}>
@@ -396,12 +400,21 @@ export default function AppLayout({
                 
                 <div className="flex items-center justify-between relative z-10">
                   <div className="flex items-center space-x-3">
-                    <Sparkles className="w-5 h-5 animate-pulse" />
-                    <p className="font-medium">{flash.message}</p>
+                    {flash.type === 'success' && <CheckCircle className="w-5 h-5 animate-pulse" />}
+                    {flash.type === 'error' && <AlertCircle className="w-5 h-5 animate-pulse" />}
+                    {flash.type === 'warning' && <AlertTriangle className="w-5 h-5 animate-pulse" />}
+                    {flash.type === 'info' && <Info className="w-5 h-5 animate-pulse" />}
+                    {!flash.type && <Sparkles className="w-5 h-5 animate-pulse" />}
+                    <div>
+                      <p className="font-medium text-sm">{flash.message}</p>
+                      {flash.type && (
+                        <p className="text-xs opacity-80 capitalize">{flash.type}</p>
+                      )}
+                    </div>
                   </div>
                   <Button
                     onClick={() => updateState({ showFlash: false })}
-                    className="p-2 hover:bg-white/20 rounded-full transition-all duration-200 hover:scale-110"
+                    className="p-2 hover:bg-white/20 rounded-full transition-all duration-200 hover:scale-110 ml-4 flex-shrink-0"
                     variant="ghost"
                     size="sm"
                   >

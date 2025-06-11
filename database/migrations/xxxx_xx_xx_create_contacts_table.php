@@ -12,10 +12,20 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('email');
+            $table->string('telephone')->nullable();
             $table->string('sujet');
             $table->text('message');
             $table->enum('status', ['non_lu', 'lu', 'traite'])->default('non_lu');
+            $table->boolean('lu')->default(false);
+            $table->timestamp('lu_le')->nullable();
+            $table->string('ip_address')->nullable();
+            $table->text('user_agent')->nullable();
             $table->timestamps();
+            
+            // Index pour améliorer les performances
+            $table->index(['lu', 'created_at']);
+            $table->index('email');
+            $table->index('created_at');
         });
     }
 

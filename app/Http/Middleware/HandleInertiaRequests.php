@@ -34,12 +34,41 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
-            'flash' => [
-                'message' => fn () => $request->session()->get('message'),
-                'type' => fn () => $request->session()->get('type'),
-                'success' => fn () => $request->session()->get('success'),
-                'error' => fn () => $request->session()->get('error'),
-            ],
+            'flash' => function () use ($request) {
+                $flash = [];
+                
+                // Message générique
+                if ($request->session()->has('message')) {
+                    $flash['message'] = $request->session()->get('message');
+                    $flash['type'] = $request->session()->get('type', 'info');
+                }
+                
+                // Message de succès
+                if ($request->session()->has('success')) {
+                    $flash['message'] = $request->session()->get('success');
+                    $flash['type'] = 'success';
+                }
+                
+                // Message d'erreur
+                if ($request->session()->has('error')) {
+                    $flash['message'] = $request->session()->get('error');
+                    $flash['type'] = 'error';
+                }
+                
+                // Message d'information
+                if ($request->session()->has('info')) {
+                    $flash['message'] = $request->session()->get('info');
+                    $flash['type'] = 'info';
+                }
+                
+                // Message d'avertissement
+                if ($request->session()->has('warning')) {
+                    $flash['message'] = $request->session()->get('warning');
+                    $flash['type'] = 'warning';
+                }
+                
+                return $flash;
+            },
         ];
     }
 }
