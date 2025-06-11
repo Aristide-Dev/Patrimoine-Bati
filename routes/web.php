@@ -20,6 +20,7 @@ use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\ParcImmobilierController;
+use App\Http\Controllers\PatrimoineController;
 Route::get('/init', [AppInitController::class, 'init'])->name('app.init');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -53,6 +54,11 @@ Route::prefix('espace-client')->group(function () {
 Route::prefix('patrimoine')->group(function () {
     Route::get('/rechercher', [DemandeController::class, 'rechercher'])->name('patrimoine.demandes.rechercher');
     Route::get('/parc-immobilier', [ParcImmobilierController::class, 'index'])->name('patrimoine.demandes.parc_immobilier');
+    
+    // Pages du patrimoine bâti
+    // Route::get('/categories', [PatrimoineController::class, 'categories'])->name('patrimoine.categories');
+    Route::get('/historique', [PatrimoineController::class, 'historic'])->name('patrimoine.historic');
+    // Route::get('/localisations', [PatrimoineController::class, 'locations'])->name('patrimoine.locations');
 });
 
 // Contact

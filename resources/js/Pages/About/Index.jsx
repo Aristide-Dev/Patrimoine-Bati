@@ -90,10 +90,258 @@ export default function About() {
 
   return (
     <AppLayout>
-      <Head title="Qui sommes-nous ?" />
+      <Head>
+        {/* Métadonnées de base pour la page À propos */}
+        <title>À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée</title>
+        <meta name="description" content="Découvrez l'histoire, la mission et les valeurs de la Direction Générale du Patrimoine Bâti Public de Guinée. Institution dédiée à la gestion innovante du patrimoine immobilier de l'État guinéen depuis 1959." />
+        <meta name="keywords" content="DGPBP histoire, mission DGPBP, valeurs patrimoine public Guinée, organisation gouvernementale Guinée, gestion immobilière État, administration publique Conakry, Direction Générale patrimoine, services publics Guinée" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+        <meta name="googlebot" content="index, follow" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée" />
+        <meta property="og:description" content="Découvrez l'histoire, la mission et les valeurs de la Direction Générale du Patrimoine Bâti Public de Guinée. Institution dédiée à la gestion innovante du patrimoine immobilier de l'État guinéen depuis 1959." />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="/about" />
+        <meta property="og:image" content="/images/about03.jpg" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée" />
+        <meta name="twitter:description" content="Découvrez l'histoire, la mission et les valeurs de la Direction Générale du Patrimoine Bâti Public de Guinée. Institution dédiée à la gestion innovante du patrimoine immobilier de l'État guinéen depuis 1959." />
+        <meta name="twitter:image" content="/images/about03.jpg" />
+        
+        {/* Canonical */}
+        <link rel="canonical" href="/about" />
+        
+        {/* Schema.org JSON-LD pour la page À propos */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "name": "À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
+            "description": "Découvrez l'histoire, la mission et les valeurs de la Direction Générale du Patrimoine Bâti Public de Guinée. Institution dédiée à la gestion innovante du patrimoine immobilier de l'État guinéen depuis 1959.",
+            "url": "/about",
+            "mainEntity": {
+              "@type": "GovernmentOrganization",
+              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+              "foundingDate": "1959",
+              "description": "Découvrez l'histoire, la mission et les valeurs de la Direction Générale du Patrimoine Bâti Public de Guinée. Institution dédiée à la gestion innovante du patrimoine immobilier de l'État guinéen depuis 1959.",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Conakry",
+                "addressCountry": "GN"
+              },
+              "organizationType": "Direction Générale",
+              "parentOrganization": {
+                "@type": "GovernmentOrganization",
+                "name": "République de Guinée"
+              }
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Accueil",
+                  "item": "/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "À propos",
+                  "item": "/about"
+                }
+              ]
+            },
+            "publisher": {
+              "@type": "GovernmentOrganization",
+              "name": "DGPBP",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "/images/logo/logo-pbp.png"
+              }
+            },
+            "datePublished": "2022-06-06T00:00:00.000Z",
+            "dateModified": "2024-01-20T00:00:00.000Z"
+          })}
+        </script>
+
+        {/* Schema.org pour l'historique de l'organisation */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Historique DGPBP",
+            "description": "Chronologie des étapes importantes de la Direction Générale du Patrimoine Bâti Public",
+            "numberOfItems": timelineEvents.length,
+            "itemListElement": timelineEvents.map((event, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "item": {
+                "@type": "Event",
+                "name": event.title,
+                "description": event.description,
+                "startDate": `${event.year}-01-01`,
+                "organizer": {
+                  "@type": "GovernmentOrganization",
+                  "name": "DGPBP"
+                }
+              }
+            }))
+          })}
+        </script>
+
+        {/* Schema.org pour les valeurs organisationnelles */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Valeurs DGPBP",
+            "description": "Valeurs fondamentales de la Direction Générale du Patrimoine Bâti Public",
+            "numberOfItems": 4,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@type": "DefinedTerm",
+                  "name": "Intégrité",
+                  "description": "Travailler en toute conscience professionnelle et probité morale",
+                  "inDefinedTermSet": {
+                    "@type": "DefinedTermSet",
+                    "name": "Valeurs organisationnelles DGPBP"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@type": "DefinedTerm",
+                  "name": "Respect des engagements",
+                  "description": "S'aligner sur les règles de bonne conduite et sur les principes de la Direction",
+                  "inDefinedTermSet": {
+                    "@type": "DefinedTermSet",
+                    "name": "Valeurs organisationnelles DGPBP"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@type": "DefinedTerm",
+                  "name": "Esprit d'équipe",
+                  "description": "Travailler ensemble, instaurer l'entente entre les collaborateurs pour une meilleure performance",
+                  "inDefinedTermSet": {
+                    "@type": "DefinedTermSet",
+                    "name": "Valeurs organisationnelles DGPBP"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                  "@type": "DefinedTerm",
+                  "name": "Créativité",
+                  "description": "Identifier et valoriser les idées en vue d'accélérer les projets et améliorer la performance",
+                  "inDefinedTermSet": {
+                    "@type": "DefinedTermSet",
+                    "name": "Valeurs organisationnelles DGPBP"
+                  }
+                }
+              }
+            ]
+          })}
+        </script>
+
+        {/* Schema.org pour les missions */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Missions DGPBP",
+            "description": "Missions principales de la Direction Générale du Patrimoine Bâti Public",
+            "numberOfItems": 4,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@type": "GovernmentService",
+                  "name": "Conservation du patrimoine",
+                  "description": "Concevoir, élaborer et mettre en œuvre la politique du Gouvernement en matière de conservation",
+                  "provider": {
+                    "@type": "GovernmentOrganization",
+                    "name": "DGPBP"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Guinée"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@type": "GovernmentService",
+                  "name": "Gestion du patrimoine immobilier",
+                  "description": "Assurer l'administration, la gestion et la conservation du Patrimoine Immobilier",
+                  "provider": {
+                    "@type": "GovernmentOrganization",
+                    "name": "DGPBP"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Guinée"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@type": "GovernmentService",
+                  "name": "Supervision des biens publics",
+                  "description": "Superviser la gestion des biens immeubles et du domaine public et privé de l'État",
+                  "provider": {
+                    "@type": "GovernmentOrganization",
+                    "name": "DGPBP"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Guinée"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                  "@type": "GovernmentService",
+                  "name": "Partenariats stratégiques",
+                  "description": "Développer des partenariats stratégiques pour la valorisation du patrimoine",
+                  "provider": {
+                    "@type": "GovernmentOrganization",
+                    "name": "DGPBP"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Guinée"
+                  }
+                }
+              }
+            ]
+          })}
+        </script>
+      </Head>
       
       {/* Hero Section Modernisé avec overlay en dégradé et animations */}
-      <div className="relative min-h-[700px] flex items-center overflow-hidden">
+      <div className="relative min-h-[700px] flex items-center overflow-hidden" itemScope itemType="https://schema.org/ImageObject">
         <div 
           className="absolute inset-0 bg-cover bg-center" 
           style={{backgroundImage: "url('/images/about03.jpg')"}}
@@ -101,8 +349,8 @@ export default function About() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-primary-950/60 to-black/50" />
         
         {/* Éléments décoratifs */}
-        <div className="absolute top-20 left-10 w-32 h-32 border-4 border-white/20 rounded-full opacity-50" />
-        <div className="absolute bottom-20 right-10 w-48 h-48 border-4 border-primary-500/20 rounded-full opacity-50" />
+        <div className="absolute top-20 left-10 w-32 h-32 border-4 border-white/20 rounded-full opacity-50" aria-hidden="true" />
+        <div className="absolute bottom-20 right-10 w-48 h-48 border-4 border-primary-500/20 rounded-full opacity-50" aria-hidden="true" />
 
         <div className="relative container mx-auto px-4 z-10">
           <motion.div 
@@ -114,7 +362,7 @@ export default function About() {
             <span className="inline-block text-primary-300 text-lg font-medium mb-3 px-4 py-1 border border-primary-300/30 rounded-full">
               Direction Générale
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight" itemProp="name">
               Patrimoine Bâti <span className="text-primary-300">Public</span>
             </h1>
             <motion.p 
@@ -122,6 +370,7 @@ export default function About() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.5 }}
+              itemProp="description"
             >
               Transformer la gestion immobilière publique par l'innovation, la transparence 
               et l'excellence opérationnelle.
@@ -136,32 +385,27 @@ export default function About() {
                 href={route('contact.index')} 
                 className="px-10 py-4 bg-primary-600 text-white rounded-lg font-semibold 
                 hover:bg-primary-500 transition-all duration-300 flex items-center justify-center group shadow-lg shadow-primary-700/30"
+                aria-label="Contacter la DGPBP"
               >
                 Nous Contacter
-                <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </a>
-              {/* <a 
-                href={route('contact.index')} 
-                className="px-10 py-4 bg-transparent border-2 border-white/70 text-white rounded-lg font-semibold 
-                hover:bg-white/10 transition-all duration-300 flex items-center justify-center group backdrop-blur-sm"
-              >
-                Nos Projets
-                <Building2 className="ml-3 group-hover:scale-110 transition-transform" />
-              </a> */}
             </motion.div>
           </motion.div>
         </div>
         
         {/* Effet de vague en bas du hero */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto fill-white">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto fill-white" aria-hidden="true">
             <path d="M0,96L80,90.7C160,85,320,75,480,74.7C640,75,800,85,960,85.3C1120,85,1280,75,1360,69.3L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
           </svg>
         </div>
+        <meta itemProp="contentUrl" content="/images/about03.jpg" />
+        <meta itemProp="caption" content="Siège de la Direction Générale du Patrimoine Bâti Public de Guinée" />
       </div>
 
       {/* Section Présentation avec mise en page zigzag */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" aria-label="Présentation de la DGPBP" itemScope itemType="https://schema.org/Organization">
         <div className="max-w-6xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -173,10 +417,10 @@ export default function About() {
             <span className="inline-block text-primary-600 font-semibold mb-3 px-4 py-1 bg-primary-50 rounded-full text-sm">
               Notre histoire
             </span>
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6" itemProp="name">
               La DGPBP : Notre Engagement
             </h2>
-            <div className="w-20 h-1 bg-primary-600 mx-auto rounded-full"></div>
+            <div className="w-20 h-1 bg-primary-600 mx-auto rounded-full" aria-hidden="true"></div>
           </motion.div>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -187,24 +431,29 @@ export default function About() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary-100 rounded-lg -z-10"></div>
+              <div className="absolute -top-4 -left-4 w-24 h-24 bg-primary-100 rounded-lg -z-10" aria-hidden="true"></div>
               <img
                 src="/images/hero/photo_de_couverture.jpg"
-                alt="Siège de la DGPBP"
+                alt="Siège de la DGPBP - Direction Générale du Patrimoine Bâti Public"
                 className="rounded-2xl shadow-xl mb-6 object-cover w-full h-96"
+                loading="lazy"
+                width="600"
+                height="400"
+                itemProp="image"
               />
-              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary-100/50 rounded-lg -z-10"></div>
+              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary-100/50 rounded-lg -z-10" aria-hidden="true"></div>
               
-              <p className="text-lg text-gray-700 leading-relaxed mt-8 mb-6">
+              <p className="text-lg text-gray-700 leading-relaxed mt-8 mb-6" itemProp="description">
                 Depuis sa création en 1959, la Direction Générale du Patrimoine Bâti Public (DGPBP) 
                 est le garant stratégique de la valorisation et de la modernisation du patrimoine immobilier de l'État guinéen.
               </p>
               <div className="flex items-center space-x-4 mt-4 bg-primary-50 p-4 rounded-lg">
-                <CheckCircle className="w-10 h-10 text-primary-600" />
+                <CheckCircle className="w-10 h-10 text-primary-600" aria-hidden="true" />
                 <span className="text-xl font-semibold text-gray-800">
                   Engagés pour l'excellence et la transparence
                 </span>
               </div>
+              <meta itemProp="foundingDate" content="1959" />
             </motion.div>
             
             <motion.div
@@ -218,30 +467,30 @@ export default function About() {
                 transformative qui allie préservation historique et innovation technologique.
               </p>
               
-              <div className="bg-gradient-to-br from-primary-50 to-white rounded-2xl p-8 shadow-xl border border-primary-100">
+              <div className="bg-gradient-to-br from-primary-50 to-white rounded-2xl p-8 shadow-xl border border-primary-100" itemScope itemType="https://schema.org/DataCatalog">
                 <div className="flex items-center mb-8">
                   <div className="p-3 bg-primary-100 rounded-full mr-4">
-                    <TrendingUp className="w-8 h-8 text-primary-600" />
+                    <TrendingUp className="w-8 h-8 text-primary-600" aria-hidden="true" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900">Nos Chiffres Clés</h3>
+                  <h3 className="text-2xl font-bold text-gray-900" itemProp="name">Nos Chiffres Clés</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-md">
-                    <Building2 className="w-10 h-10 text-primary-600 mb-3" />
-                    <span className="text-3xl font-bold text-primary-700">350+</span>
-                    <span className="text-gray-600 mt-1">Bâtiments Gérés</span>
+                  <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-md" itemScope itemType="https://schema.org/Observation">
+                    <Building2 className="w-10 h-10 text-primary-600 mb-3" aria-hidden="true" />
+                    <span className="text-3xl font-bold text-primary-700" itemProp="result">350+</span>
+                    <span className="text-gray-600 mt-1" itemProp="variableMeasured">Bâtiments Gérés</span>
                   </div>
                   
-                  <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-md">
-                    <Clock className="w-10 h-10 text-primary-600 mb-3" />
-                    <span className="text-3xl font-bold text-primary-700">65+</span>
-                    <span className="text-gray-600 mt-1">Années d'Expérience</span>
+                  <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-md" itemScope itemType="https://schema.org/Observation">
+                    <Clock className="w-10 h-10 text-primary-600 mb-3" aria-hidden="true" />
+                    <span className="text-3xl font-bold text-primary-700" itemProp="result">65+</span>
+                    <span className="text-gray-600 mt-1" itemProp="variableMeasured">Années d'Expérience</span>
                   </div>
                   
-                  <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-md">
-                    <MapPin className="w-10 h-10 text-primary-600 mb-3" />
-                    <span className="text-3xl font-bold text-primary-700">25</span>
-                    <span className="text-gray-600 mt-1">Projets en Cours</span>
+                  <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-md" itemScope itemType="https://schema.org/Observation">
+                    <MapPin className="w-10 h-10 text-primary-600 mb-3" aria-hidden="true" />
+                    <span className="text-3xl font-bold text-primary-700" itemProp="result">25</span>
+                    <span className="text-gray-600 mt-1" itemProp="variableMeasured">Projets en Cours</span>
                   </div>
                 </div>
               </div>

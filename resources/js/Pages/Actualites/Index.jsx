@@ -17,6 +17,15 @@ export default function ActualitesPage() {
     itemsPerPage: 6,
   });
 
+  // Données SEO optimisées pour la page Actualités
+  const seoData = {
+    title: "Actualités DGPBP - Dernières Nouvelles et Événements du Patrimoine Public Guinéen",
+    description: "Découvrez les dernières actualités, événements et initiatives de la Direction Générale du Patrimoine Bâti Public de Guinée. Communiqués, rapports, séminaires et projets de développement du patrimoine immobilier public.",
+    keywords: "actualités DGPBP, nouvelles patrimoine Guinée, événements DGPBP, communiqués patrimoine public, rapports DGPBP, séminaires patrimoine, projets immobilier Guinée, nouvelles Conakry",
+    canonical: "/actualites",
+    type: "CollectionPage"
+  };
+
   const fetchArticles = useCallback(async () => {
     setLoading(true);
     try {
@@ -60,8 +69,101 @@ export default function ActualitesPage() {
   }, [articles]);
 
   return (
-    <AppLayout>
-      <Head title="Actualités DGPBP" />
+    <AppLayout 
+      title={seoData.title}
+      description={seoData.description}
+      keywords={seoData.keywords}
+      canonical={seoData.canonical}
+      type={seoData.type}
+    >
+      <Head>
+        {/* Schema.org JSON-LD pour la page Actualités */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": seoData.title,
+            "description": seoData.description,
+            "url": seoData.canonical,
+            "mainEntity": {
+              "@type": "ItemList",
+              "name": "Articles et Actualités DGPBP",
+              "description": "Collection des derniers articles, actualités et événements de la DGPBP",
+              "numberOfItems": articles.total || 0,
+              "itemListElement": articles.data?.slice(0, 10).map((article, index) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": {
+                  "@type": "NewsArticle",
+                  "headline": article.title,
+                  "description": article.excerpt,
+                  "url": `/actualites/${article.slug}`,
+                  "datePublished": article.published_at,
+                  "dateModified": article.updated_at,
+                  "author": {
+                    "@type": "Organization",
+                    "name": "DGPBP"
+                  },
+                  "publisher": {
+                    "@type": "Organization",
+                    "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+                    "logo": {
+                      "@type": "ImageObject",
+                      "url": "/images/logo/logo-pbp.png"
+                    }
+                  },
+                  "image": article.image ? `/storage/${article.image}` : "/images/logo/logo-pbp.png",
+                  "keywords": article.tags?.join(", ") || "",
+                  "articleSection": article.category || "Actualités"
+                }
+              })) || []
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Accueil",
+                  "item": "/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Actualités",
+                  "item": "/actualites"
+                }
+              ]
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "DGPBP",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "/images/logo/logo-pbp.png"
+              }
+            }
+          })}
+        </script>
+
+        {/* Schema.org pour la fonction de recherche */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+            "url": "/",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "/actualites?search={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          })}
+        </script>
+      </Head>
       
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
         {/* Hero Section */}

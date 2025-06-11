@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Head, usePage } from '@inertiajs/react';
 import PropTypes from 'prop-types';
 import { ArrowUp, X, Bell, Menu, Sparkles } from 'lucide-react';
@@ -6,12 +6,13 @@ import Header from '@/Components/Header';
 import Footer from '@/Components/Footer';
 import { Button } from '@/Components/ui/button';
 import { DGPBP } from '@/utils/dgpbp';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AppLayout({ 
   children,
-  title = "DGPBP - Direction Générale du Patrimoine Bâti Public",
-  description = "La Direction Générale du Patrimoine Bâti Public (DGPBP) est chargée de la gestion, de l'entretien et de la valorisation du patrimoine immobilier de l'État guinéen.",
-  keywords = "DGPBP, patrimoine bâti, Guinée, immobilier public, gestion immobilière, État guinéen",
+  title = "DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
+  description = "La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l'entretien et la valorisation du patrimoine immobilier de l'État guinéen. Services publics, gestion immobilière, valorisation du patrimoine.",
+  keywords = "DGPBP, patrimoine bâti, Guinée, immobilier public, gestion immobilière, État guinéen, service public, administration, valorisation patrimoine, bâtiments publics, infrastructure publique, Conakry",
   ogImage = "/images/logo/logo-pbp.png",
   canonicalUrl,
   ogType = "website",
@@ -20,7 +21,8 @@ export default function AppLayout({
   dateModified,
   articleSection,
   alternateLocales = [],
-  itemProps = {}
+  itemProps = {},
+  seo = {}
 }) {
   const { flash = {}, url } = usePage().props;
   const [state, setState] = useState({
@@ -31,27 +33,46 @@ export default function AppLayout({
     isScrolled: false
   });
 
-  const baseUrl = window.location.origin;
-  const currentUrl = `${baseUrl}${url}`;
-  const absoluteImageUrl = ogImage?.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`;
-  const publishDate = datePublished ?? new Date().toISOString();
-  const modifyDate = dateModified ?? new Date().toISOString();
-
-  const updateState = (updates) => {
-    setState(prev => ({ ...prev, ...updates }));
+  // Simplification pour éviter les problèmes de sérialisation
+  const currentUrl = url;
+  
+  // Merge des props SEO avec les valeurs par défaut
+  const seoConfig = {
+    title,
+    description,
+    keywords,
+    ogImage,
+    canonicalUrl,
+    ogType,
+    twitterCreator,
+    datePublished,
+    dateModified,
+    articleSection,
+    alternateLocales,
+    itemProps,
+    ...seo
   };
+  
+  // Simplification des URLs pour éviter les références à window
+  const absoluteImageUrl = seoConfig.ogImage?.startsWith('http') ? seoConfig.ogImage : seoConfig.ogImage;
+
+  const updateState = useCallback((updates) => {
+    setState(prev => ({ ...prev, ...updates }));
+  }, []);
+
+  // Gestion optimisée du scroll
+  const handleScroll = useCallback(() => {
+    const scrollTop = window.scrollY;
+    updateState({
+      showBackToTop: scrollTop > 400,
+      isScrolled: scrollTop > 50
+    });
+  }, [updateState]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      updateState({
-        showBackToTop: window.scrollY > 400,
-        isScrolled: window.scrollY > 0
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   useEffect(() => {
     if (flash?.message) {
@@ -59,7 +80,7 @@ export default function AppLayout({
       const timer = setTimeout(() => updateState({ showFlash: false }), 5000);
       return () => clearTimeout(timer);
     }
-  }, [flash?.message]);
+  }, [flash?.message, updateState]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,9 +90,9 @@ export default function AppLayout({
     <>
       <Head>
         {/* Balises meta de base */}
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta name="keywords" content={keywords} />
+        <title>{seoConfig.title}</title>
+        <meta name="description" content={seoConfig.description} />
+        <meta name="keywords" content={seoConfig.keywords} />
         <meta name="author" content="DGPBP" />
         <meta charSet="UTF-8" />
         
@@ -84,6 +105,8 @@ export default function AppLayout({
         <meta name="language" content="fr" />
         <meta name="geo.region" content="GN" />
         <meta name="geo.placename" content="Conakry" />
+        <meta name="geo.position" content="9.509167;-13.712222" />
+        <meta name="ICBM" content="9.509167, -13.712222" />
         
         {/* Métadonnées pour applications mobiles */}
         <meta name="application-name" content="DGPBP" />
@@ -94,43 +117,81 @@ export default function AppLayout({
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#1a365d" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)" />
+        <meta name="color-scheme" content="light dark" />
         
-        {/* Open Graph */}
-        <meta property="og:type" content={ogType} />
+        {/* Sécurité */}
+        <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+        <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        
+        {/* Open Graph optimisé */}
+        <meta property="og:type" content={seoConfig.ogType} />
         <meta property="og:url" content={currentUrl} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
+        <meta property="og:title" content={seoConfig.title} />
+        <meta property="og:description" content={seoConfig.description} />
         <meta property="og:image" content={absoluteImageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Logo DGPBP" />
+        <meta property="og:image:alt" content="Logo DGPBP - Direction Générale du Patrimoine Bâti Public" />
         <meta property="og:site_name" content="DGPBP" />
         <meta property="og:locale" content="fr_GN" />
         
-        {/* Article metadata */}
-        {ogType === 'article' && (
+        {/* Article metadata pour les pages de contenu */}
+        {seoConfig.ogType === 'article' && (
           <>
-            <meta property="article:published_time" content={publishDate} />
-            <meta property="article:modified_time" content={modifyDate} />
-            {articleSection && <meta property="article:section" content={articleSection} />}
+            <meta property="article:published_time" content={seoConfig.datePublished} />
+            <meta property="article:modified_time" content={seoConfig.dateModified} />
+            <meta property="article:author" content="DGPBP" />
+            <meta property="article:publisher" content="DGPBP" />
+            {seoConfig.articleSection && <meta property="article:section" content={seoConfig.articleSection} />}
+            <meta property="article:tag" content="patrimoine bâti, Guinée, service public" />
           </>
         )}
         
-        {/* Twitter Card */}
+        {/* Twitter Card optimisé */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={currentUrl} />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
+        <meta name="twitter:title" content={seoConfig.title} />
+        <meta name="twitter:description" content={seoConfig.description} />
         <meta name="twitter:image" content={absoluteImageUrl} />
-        <meta name="twitter:creator" content={twitterCreator} />
+        <meta name="twitter:image:alt" content="Logo DGPBP - Direction Générale du Patrimoine Bâti Public" />
+        <meta name="twitter:creator" content={seoConfig.twitterCreator} />
         <meta name="twitter:site" content="@dgpbp" />
         
         {/* Canonical et langues alternatives */}
-        <link rel="canonical" href={canonicalUrl || currentUrl} />
-        {alternateLocales.map(({locale, url}) => (
+        <link rel="canonical" href={seoConfig.canonicalUrl || currentUrl} />
+        {seoConfig.alternateLocales.map(({locale, url}) => (
           <link key={locale} rel="alternate" hrefLang={locale} href={url} />
         ))}
-        <link rel="alternate" hrefLang="x-default" href={baseUrl} />
+        <link rel="alternate" hrefLang="x-default" href={url} />
+        
+        {/* PWA Manifest et icônes */}
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/logo-pbp.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/logo-pbp.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/images/logo/logo-pbp.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/images/logo/logo-pbp.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/logo-pbp.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/images/logo/logo-pbp.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="/images/logo/logo-pbp.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/images/logo/logo-pbp.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/logo/logo-pbp.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/images/logo/logo-pbp.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/logo/logo-pbp.png" />
+        <link rel="apple-touch-icon" sizes="60x60" href="/images/logo/logo-pbp.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="/images/logo/logo-pbp.png" />
+        
+        {/* Métadonnées Safari */}
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="mask-icon" href="/images/logo/logo-pbp.png" color="#1a365d" />
+        
+        {/* Métadonnées Windows */}
+        <meta name="msapplication-TileImage" content="/images/logo/logo-pbp.png" />
+        <meta name="msapplication-TileColor" content="#1a365d" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
         
         {/* Préconnexion aux origines externes */}
         <link rel="preconnect" href="https://fonts.bunny.net" />
@@ -138,158 +199,295 @@ export default function AppLayout({
         <link rel="dns-prefetch" href="//fonts.bunny.net" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         
-        {/* Schema.org JSON-LD */}
+        {/* Préchargement critique */}
+        <link rel="preload" href="/images/logo/logo-pbp.png" as="image" />
+        
+        {/* Schema.org JSON-LD amélioré */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "GovernmentOrganization",
-            "name": "DGPBP",
-            "url": baseUrl,
-            "logo": `${baseUrl}/images/logo/logo-pbp.png`,
-            "description": description,
+            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+            "alternateName": ["DGPBP", "Direction Générale du Patrimoine Bâti Public"],
+            "url": url,
+            "logo": {
+              "@type": "ImageObject",
+              "url": `${url}/images/logo/logo-pbp.png`,
+              "width": 400,
+              "height": 400,
+              "caption": "Logo DGPBP"
+            },
+            "description": seoConfig.description,
             "image": absoluteImageUrl,
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": DGPBP.contactInfo.address,
+              "streetAddress": DGPBP.contactInfo.address || "Conakry",
               "addressLocality": "Conakry",
-              "addressCountry": "GN"
+              "addressRegion": "Conakry",
+              "addressCountry": "GN",
+              "postalCode": ""
             },
             "contactPoint": {
               "@type": "ContactPoint",
-              "telephone": DGPBP.contactInfo.phones.join(", "),
+              "telephone": DGPBP.contactInfo.phones?.join(", ") || "",
               "contactType": "customer service",
-              "email": DGPBP.contactInfo.emails.join(", "),
+              "email": DGPBP.contactInfo.emails?.join(", ") || "",
               "availableLanguage": ["French"],
               "hoursAvailable": {
                 "@type": "OpeningHoursSpecification",
-                "dayOfWeek": DGPBP.contactInfo.hours.weekdays,
-                "opens": DGPBP.contactInfo.hours.weekhours.split(" - ")[0],
-                "closes": DGPBP.contactInfo.hours.weekhours.split(" - ")[1]
+                "dayOfWeek": DGPBP.contactInfo.hours?.weekdays || ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": DGPBP.contactInfo.hours?.weekhours?.split(" - ")[0] || "08:00",
+                "closes": DGPBP.contactInfo.hours?.weekhours?.split(" - ")[1] || "16:00"
               }
+            },
+            "parentOrganization": {
+              "@type": "GovernmentOrganization",
+              "name": "République de Guinée",
+              "url": "https://www.gouvernement.gov.gn"
+            },
+            "areaServed": {
+              "@type": "Country",
+              "name": "Guinée",
+              "iso": "GN"
+            },
+            "serviceType": [
+              "Gestion du patrimoine immobilier public",
+              "Entretien des bâtiments publics", 
+              "Valorisation immobilière",
+              "Services administratifs publics",
+              "Maintenance des infrastructures publiques"
+            ],
+            "foundingDate": "1958",
+            "keywords": seoConfig.keywords,
+            "sameAs": [
+              // Ajouter les liens des réseaux sociaux quand disponibles
+            ],
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": currentUrl
             }
+          })}
+        </script>
+        
+        {/* Schema.org pour la page web */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": seoConfig.title,
+            "description": seoConfig.description,
+            "url": currentUrl,
+            "image": absoluteImageUrl,
+            "publisher": {
+              "@type": "GovernmentOrganization",
+              "name": "DGPBP",
+              "logo": {
+                "@type": "ImageObject",
+                "url": `${url}/images/logo/logo-pbp.png`
+              }
+            },
+            "datePublished": seoConfig.datePublished,
+            "dateModified": seoConfig.dateModified,
+            "inLanguage": "fr-GN",
+            "isPartOf": {
+              "@type": "WebSite",
+              "name": "DGPBP",
+              "url": url
+            }
+          })}
+        </script>
+
+        {/* Schema.org pour le site web */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+            "url": url,
+            "description": seoConfig.description,
+            "publisher": {
+              "@type": "GovernmentOrganization",
+              "name": "DGPBP"
+            },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": `${url}/search?q={search_term_string}`
+              },
+              "query-input": "required name=search_term_string"
+            },
+            "inLanguage": "fr-GN"
           })}
         </script>
       </Head>
 
-      <div className="min-h-screen flex flex-col relative overflow-x-hidden">
-        {/* Arrière-plan animé avec dégradé */}
+      <div className="min-h-screen flex flex-col relative overflow-x-hidden" {...seoConfig.itemProps}>
+        {/* Arrière-plan animé avec dégradé amélioré */}
         <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 -z-10" />
         
-        {/* Particules flottantes décoratives */}
+        {/* Particules flottantes décoratives avec performance optimisée */}
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-blue-200/40 rounded-full animate-pulse" 
-               style={{ animationDelay: '0s', animationDuration: '3s' }} />
-          <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-purple-200/40 rounded-full animate-pulse" 
-               style={{ animationDelay: '1s', animationDuration: '4s' }} />
-          <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-pink-200/40 rounded-full animate-pulse" 
-               style={{ animationDelay: '2s', animationDuration: '3.5s' }} />
-          <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-indigo-200/40 rounded-full animate-pulse" 
-               style={{ animationDelay: '0.5s', animationDuration: '2.5s' }} />
+          {[
+            { top: '25%', left: '25%', size: 'w-2 h-2', color: 'bg-blue-200/40', delay: '0s', duration: '3s' },
+            { top: '75%', right: '25%', size: 'w-1 h-1', color: 'bg-purple-200/40', delay: '1s', duration: '4s' },
+            { top: '50%', left: '75%', size: 'w-1.5 h-1.5', color: 'bg-pink-200/40', delay: '2s', duration: '3.5s' },
+            { top: '33%', right: '33%', size: 'w-1 h-1', color: 'bg-indigo-200/40', delay: '0.5s', duration: '2.5s' }
+          ].map((particle, index) => (
+            <motion.div 
+              key={index}
+              className={`absolute ${particle.size} ${particle.color} rounded-full`}
+              style={{ 
+                top: particle.top, 
+                left: particle.left, 
+                right: particle.right,
+                animationDelay: particle.delay,
+                animationDuration: particle.duration
+              }}
+              animate={{ 
+                opacity: [0.4, 0.8, 0.4],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{ 
+                duration: parseFloat(particle.duration),
+                repeat: Infinity,
+                delay: parseFloat(particle.delay)
+              }}
+            />
+          ))}
         </div>
 
         {/* Header avec effet glassmorphism */}
-        <div className="relative z-40">
+        <motion.div 
+          className="relative z-40"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <Header />
-        </div>
+        </motion.div>
 
-        {/* Flash Messages Améliorés */}
-        {state.showFlash && flash?.message && (
-          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-slideDown z-50">
-            <div className={`
-              max-w-md mx-auto px-6 py-4 rounded-2xl shadow-2xl backdrop-blur-md border border-white/20
-              ${flash.type === 'success' 
-                ? 'bg-gradient-to-r from-emerald-500/90 to-green-500/90' 
-                : 'bg-gradient-to-r from-rose-500/90 to-red-500/90'
-              } text-white relative overflow-hidden
-            `}>
-              {/* Effet de brillance */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-100%] animate-[shimmer_2s_ease-in-out_infinite]" />
-              
-              <div className="flex items-center justify-between relative z-10">
-                <div className="flex items-center space-x-3">
-                  <Sparkles className="w-5 h-5 animate-pulse" />
-                  <p className="font-medium">{flash.message}</p>
+        {/* Flash Messages Améliorés avec animations */}
+        <AnimatePresence>
+          {state.showFlash && flash?.message && (
+            <motion.div 
+              className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50"
+              initial={{ opacity: 0, y: -50, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -50, scale: 0.8 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
+              <div className={`
+                max-w-md mx-auto px-6 py-4 rounded-2xl shadow-2xl backdrop-blur-md border border-white/20
+                ${flash.type === 'success' 
+                  ? 'bg-gradient-to-r from-emerald-500/90 to-green-500/90' 
+                  : flash.type === 'error'
+                  ? 'bg-gradient-to-r from-rose-500/90 to-red-500/90'
+                  : 'bg-gradient-to-r from-blue-500/90 to-indigo-500/90'
+                } text-white relative overflow-hidden
+              `}>
+                {/* Effet de brillance */}
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
+                  initial={{ x: '-100%' }}
+                  animate={{ x: '200%' }}
+                  transition={{ duration: 2, ease: "linear", repeat: Infinity }}
+                />
+                
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="flex items-center space-x-3">
+                    <Sparkles className="w-5 h-5 animate-pulse" />
+                    <p className="font-medium">{flash.message}</p>
+                  </div>
+                  <Button
+                    onClick={() => updateState({ showFlash: false })}
+                    className="p-2 hover:bg-white/20 rounded-full transition-all duration-200 hover:scale-110"
+                    variant="ghost"
+                    size="sm"
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
                 </div>
-                <Button
-                  onClick={() => updateState({ showFlash: false })}
-                  className="p-2 hover:bg-white/20 rounded-full transition-all duration-200 hover:scale-110"
-                >
-                  <X className="w-4 h-4" />
-                </Button>
               </div>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Contenu principal avec conteneur amélioré */}
-        <main className="flex-grow mt-32 sm:pt-24 md:pt-16 z-10 relative">
+        <main 
+          className="flex-grow mt-32 sm:pt-24 md:pt-16 z-10 relative"
+          role="main"
+          aria-label="Contenu principal"
+        >
           <div className="relative">
             {/* Effet de dégradé subtil au-dessus du contenu */}
             <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/60 via-transparent to-transparent pointer-events-none" />
             
-            {children}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              {children}
+            </motion.div>
           </div>
         </main>
 
-        {/* Bouton retour en haut stylisé */}
-        <Button
-          onClick={scrollToTop}
-          className={`
-            fixed right-6 bottom-6 md:right-8 md:bottom-8 
-            p-4 bg-gradient-to-r from-blue-600 to-primary-600 
-            text-white rounded-2xl shadow-2xl 
-            transition-all duration-500 ease-out
-            hover:shadow-blue-500/25 hover:scale-110
-            backdrop-blur-sm border border-white/10
-            group overflow-hidden z-50 w-12 h-12
-            ${state.showBackToTop 
-              ? 'opacity-100 translate-y-0 scale-100' 
-              : 'opacity-0 translate-y-10 scale-95 pointer-events-none'
-            }
-          `}
-        >
-          {/* Effet de hover brillant */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-          
-          <ArrowUp className="w-6 h-6 relative z-10 transition-transform group-hover:-translate-y-1" />
-        </Button>
+        {/* Bouton retour en haut stylisé et optimisé */}
+        <AnimatePresence>
+          {state.showBackToTop && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0, y: 20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="fixed right-6 bottom-6 md:right-8 md:bottom-8 z-50"
+            >
+              <Button
+                onClick={scrollToTop}
+                className="
+                  p-4 bg-gradient-to-r from-blue-600 to-primary-600 
+                  text-white rounded-2xl shadow-2xl 
+                  transition-all duration-300 ease-out
+                  hover:shadow-blue-500/25 hover:scale-110
+                  backdrop-blur-sm border border-white/10
+                  group overflow-hidden w-12 h-12
+                "
+                aria-label="Retour en haut de la page"
+              >
+                {/* Effet de hover brillant */}
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.7 }}
+                />
+                
+                <ArrowUp className="w-6 h-6 relative z-10 transition-transform group-hover:-translate-y-1" />
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Footer avec séparateur stylisé */}
         <div className="relative mt-20">
           {/* Séparateur décoratif */}
           <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-8" />
           
-          {/* Points décoratifs */}
+          {/* Points décoratifs animés */}
           <div className="flex justify-center space-x-2 mb-8">
-            <div className="w-1 h-1 bg-gray-300 rounded-full animate-pulse" style={{ animationDelay: '0s' }} />
-            <div className="w-1 h-1 bg-gray-300 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
-            <div className="w-1 h-1 bg-gray-300 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
+            {[0, 0.5, 1].map((delay, index) => (
+              <motion.div 
+                key={index}
+                className="w-1 h-1 bg-gray-300 rounded-full"
+                animate={{ opacity: [0.3, 1, 0.3] }}
+                transition={{ duration: 2, delay, repeat: Infinity }}
+              />
+            ))}
           </div>
           
           <Footer />
         </div>
-
-        <style>{`
-          @keyframes slideDown {
-            from {
-              opacity: 0;
-              transform: translateX(-50%) translateY(-20px);
-            }
-            to {
-              opacity: 1;
-              transform: translateX(-50%) translateY(0);
-            }
-          }
-          
-          @keyframes shimmer {
-            0% { transform: translateX(-100%) skewX(-12deg); }
-            100% { transform: translateX(200%) skewX(-12deg); }
-          }
-          
-          .animate-slideDown {
-            animation: slideDown 0.4s ease-out;
-          }
-        `}</style>
       </div>
     </>
   );
@@ -313,5 +511,6 @@ AppLayout.propTypes = {
       url: PropTypes.string.isRequired
     })
   ),
-  itemProps: PropTypes.object
+  itemProps: PropTypes.object,
+  seo: PropTypes.object
 };

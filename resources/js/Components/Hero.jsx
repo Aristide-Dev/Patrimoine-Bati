@@ -340,7 +340,7 @@ export const Hero = () => {
                 </div>
 
                 {/* Styles de pagination améliorés */}
-                <style jsx>{`
+                <style>{`
                     .swiper-pagination {
                         bottom: 2.5rem !important;
                     }

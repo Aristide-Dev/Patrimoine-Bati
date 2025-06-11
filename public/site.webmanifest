@@ -1,0 +1,121 @@
+{
+  "name": "DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
+  "short_name": "DGPBP",
+  "description": "Direction Générale du Patrimoine Bâti Public de Guinée - Gestion innovante et durable du patrimoine immobilier de l'État guinéen",
+  "start_url": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui", "browser"],
+  "background_color": "#ffffff",
+  "theme_color": "#1a365d",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "fr",
+  "categories": ["government", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Accueil",
+      "short_name": "Accueil",
+      "description": "Page d'accueil DGPBP",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/images/logo/logo-pbp.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "À propos",
+      "short_name": "À propos",
+      "description": "En savoir plus sur la DGPBP",
+      "url": "/about",
+      "icons": [
+        {
+          "src": "/images/logo/logo-pbp.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "description": "Contacter la DGPBP",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/images/logo/logo-pbp.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Demande de logement",
+      "short_name": "Demande",
+      "description": "Faire une demande de logement administratif",
+      "url": "/demandes/formulaire",
+      "icons": [
+        {
+          "src": "/images/logo/logo-pbp.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "src": "/images/logo/logo-pbp.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo/logo-pbp.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo/logo-pbp.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/images/logo/logo-pbp.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/about03.jpg",
+      "sizes": "1280x800",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Page d'accueil DGPBP"
+    },
+    {
+      "src": "/images/hero/photo_de_couverture.jpg",
+      "sizes": "540x720",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "DGPBP Mobile"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "mailto",
+      "url": "/contact?email=%s"
+    }
+  ]
+} 

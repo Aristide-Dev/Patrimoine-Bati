@@ -121,11 +121,6 @@ export const documentsEntreprise = [
     serviceVerification: "Chambre de Commerce et d'Industrie (CCI)"
   },
   {
-    nom: "Document NINEA",
-    description: "Numéro d'Identification Nationale des Entreprises et des Associations, avec justificatif fiscal.",
-    serviceVerification: "Direction des Impôts et Taxes (DIT)"
-  },
-  {
     nom: "Statuts de l'Entreprise",
     description: "Copie certifiée conforme des statuts de l'entreprise.",
     serviceVerification: "Greffe du Tribunal de Commerce (GTC)"

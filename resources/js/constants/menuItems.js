@@ -13,7 +13,11 @@ import {
   Target,
   Search,
   Newspaper,
-  File
+  File,
+  Map,
+  Castle,
+  MapPin,
+  Grid3X3
 } from 'lucide-react';
 
 export const menuItems = [
@@ -52,12 +56,13 @@ export const menuItems = [
     ]
   },
   {
-    label: 'Patrimoine Bati',
+    label: 'Patrimoine Bâti',
     icon: Building2,
-    actif: 'patrimoine.demandes.*', // route('actualites.index')
+    actif: 'patrimoine.*',
     children: [
       { label: 'Parc Immobilier', href: 'patrimoine.demandes.parc_immobilier', icon: Building },
       { label: 'Rechercher un bien', href: 'patrimoine.demandes.rechercher', icon: Search },
+      { label: 'Patrimoine Historique', href: 'patrimoine.historic', icon: Castle },
     ]
   },
   {

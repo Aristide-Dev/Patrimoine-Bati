@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+    <msapplication>
+        <tile>
+            <square70x70logo src="/images/logo/logo-pbp.png"/>
+            <square150x150logo src="/images/logo/logo-pbp.png"/>
+            <wide310x150logo src="/images/logo/logo-pbp.png"/>
+            <square310x310logo src="/images/logo/logo-pbp.png"/>
+            <TileColor>#1a365d</TileColor>
+        </tile>
+        <notification>
+            <polling-uri src="/notifications/polling/"/>
+            <polling-uri2 src="/notifications/polling2/"/>
+            <polling-uri3 src="/notifications/polling3/"/>
+            <polling-uri4 src="/notifications/polling4/"/>
+            <polling-uri5 src="/notifications/polling5/"/>
+            <frequency>30</frequency>
+            <cycle>1</cycle>
+        </notification>
+    </msapplication>
+</browserconfig> 
