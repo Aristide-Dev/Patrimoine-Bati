@@ -40,7 +40,7 @@ const slides = [
     //     // ctaLink2: '/services',
     // },
     {
-        image: '/images/hero/Souadou-Balde.webp',
+        image: '/images/hero/Souadou-Balde.jpg',
         title: '',
         subtitle: '',
         // cta1: 'Notre vision',
