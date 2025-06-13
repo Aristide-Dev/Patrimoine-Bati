@@ -45,4 +45,14 @@ class AboutController extends Controller
             ]
         ]);
     }
+
+    public function equipeGestion()
+    {
+        return Inertia::render('About/EquipeGestion', [
+            'meta' => [
+                'title' => 'Notre équipe de gestion - DGPBP',
+                'description' => 'Découvrez l\'équipe dirigeante et les responsables de la Direction Générale du Patrimoine Bâti Public de Guinée'
+            ]
+        ]);
+    }
 } 

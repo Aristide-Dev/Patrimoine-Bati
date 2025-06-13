@@ -27,6 +27,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Qui sommes-nous
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/about/mot-de-la-directrice', [AboutController::class, 'motDirectrice'])->name('about.mot-directrice');
+Route::get('/about/equipe-gestion', [AboutController::class, 'equipeGestion'])->name('about.equipe-gestion');
 
 
 // Actualités et Ressources

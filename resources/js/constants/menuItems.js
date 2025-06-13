@@ -33,6 +33,7 @@ export const menuItems = [
     children: [
       { label: 'Présentation', href: 'about.index', icon: Building2 },
       { label: 'Mot de la Directrice', href: 'about.mot-directrice', icon: MessageSquare },
+      { label: 'Notre équipe de gestion', href: 'about.equipe-gestion', icon: Users },
     ]
   },
   // {
