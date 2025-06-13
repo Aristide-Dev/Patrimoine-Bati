@@ -52,7 +52,6 @@ class NewsController extends Controller
         $validated['tags'] = json_encode($validated['tags'] ?? []);
 
         $validated['slug'] = News::generateUniqueSlug($validated['title']);
-        $validated['read_time'] = News::calculateReadingTime($validated['content']);
 
         News::create($validated);
 
@@ -104,11 +103,6 @@ class NewsController extends Controller
         $validated['tags'] = json_encode($validated['tags'] ?? []);
 
         $validated['slug'] = News::generateUniqueSlug($validated['title'], $news->id);
-        if ($news->content !== $validated['content']) {
-            $validated['read_time'] = News::calculateReadingTime($validated['content']); // Recalcul si le contenu change
-        }
-
-        // dd($validated['read_time']);
 
         $news->update($validated);
 

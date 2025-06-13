@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Link, router, usePage } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -42,17 +42,17 @@ export default function Edit({ news }) {
    * @param {string} field - nom du champ (ex: 'title', 'tags', ...)
    * @param {any} value - nouvelle valeur
    */
-  const handleInputChange = (field, value) => {
+  const handleInputChange = useCallback((field, value) => {
     setFormState((prev) => ({
       ...prev,
       data: { ...prev.data, [field]: value },
     }));
-  };
+  }, []);
 
   /**
    * Gestion de l'image : on lit le fichier pour avoir un aperçu
    */
-  const handleImageChange = (e) => {
+  const handleImageChange = useCallback((e) => {
     const file = e.target.files[0];
     setFormState((prev) => ({
       ...prev,
@@ -66,12 +66,12 @@ export default function Edit({ news }) {
       };
       reader.readAsDataURL(file);
     }
-  };
+  }, []);
 
   /**
    * Soumet le formulaire via Inertia, en POST + _method=PUT
    */
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
 
     // On crée un FormData pour l'upload
@@ -118,7 +118,18 @@ export default function Edit({ news }) {
         })
       ),
     });
-  };
+  }, [formState.data]);
+
+  // Mémorisation de la fonction de changement d'éditeur pour éviter les re-renders
+  const handleEditorChange = useCallback((content) => {
+    handleInputChange('content', content);
+  }, [handleInputChange]);
+
+  // Props mémorisées pour l'éditeur
+  const editorProps = useMemo(() => ({
+    initialContent: formState.data.content,
+    onChange: handleEditorChange,
+  }), [handleEditorChange]);
 
   return (
     <AuthenticatedLayout>
@@ -187,18 +198,69 @@ export default function Edit({ news }) {
                 />
               </div>
 
-              {/* Contenu - Utilisation du nouvel éditeur */}
+              {/* Contenu - Éditeur avec support drag & drop d'images */}
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <div className="flex items-center mb-4">
                   <BookOpen className="w-5 h-5 text-gray-400 mr-2" />
                   <label className="text-lg font-medium text-gray-900">
                     Contenu
                   </label>
+                  <div className="ml-auto text-sm text-gray-500 flex items-center gap-2">
+                    <FileImage className="w-4 h-4" />
+                    <span>Support drag & drop d'images</span>
+                  </div>
                 </div>
+                
+                <div className="space-y-3">
+                  <div className="relative">
                 <Editor
-                  initialContent={formState.data.content}
-                  onChange={(content) => handleInputChange('content', content)}
-                />
+                      key="news-editor-edit"
+                      {...editorProps}
+                    />
+                    {/* Badge d'indication */}
+                    <div className="absolute top-0 right-0 p-2 bg-green-50 rounded-bl-lg opacity-90">
+                      <div className="flex items-center gap-1 text-xs text-green-600">
+                        <FileImage className="w-3 h-3" />
+                        <span>Images intégrées</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Aide contextuelle pour l'édition */}
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                    <div className="flex items-start gap-2">
+                      <div className="flex-shrink-0 mt-0.5">
+                        <svg className="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div className="text-sm text-amber-700">
+                        <p className="font-medium mb-1">Modification du contenu :</p>
+                        <ul className="list-disc list-inside space-y-1 text-xs">
+                          <li>✏️ Le contenu existant est automatiquement chargé</li>
+                          <li>🖼️ Ajoutez de nouvelles images par drag & drop ou via la toolbar</li>
+                          <li>📝 Modifiez le texte directement dans l'éditeur</li>
+                          <li>💾 Les images sont conservées lors de la sauvegarde</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Indicateur de contenu en mode développement */}
+                  {process.env.NODE_ENV === 'development' && (
+                    <div className="text-xs text-gray-500 p-2 bg-gray-50 rounded">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <strong>Contenu actuel:</strong> {formState.data.content ? `${formState.data.content.length} caractères` : 'Vide'}
+                        </div>
+                        <div>
+                          <strong>Type:</strong> {formState.data.content ? 'JSON Lexical' : 'Aucun contenu'}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
                 <InputError
                   message={errors.content}
                   className="mt-2"
@@ -348,7 +410,7 @@ export default function Edit({ news }) {
                 </div>
                 <input
                   type="date"
-                  value={formState.data.published_at}
+                  value={formState.data.published_at ? formState.data.published_at.split('T')[0] : ''}
                   onChange={(e) =>
                     handleInputChange('published_at', e.target.value)
                   }

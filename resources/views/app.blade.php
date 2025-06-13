@@ -67,10 +67,17 @@
         <meta name="msapplication-TileImage" content="/mstile-144x144.png">
         <meta name="msapplication-config" content="/browserconfig.xml">
 
-        {{-- Préchargement et préconnexion des polices --}}
+        {{-- Préconnexion et préchargement optimisés --}}
         <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
-        <link rel="preload" href="https://fonts.bunny.net/css?family=figtree:400,500,600" as="style">
+        <link rel="dns-prefetch" href="//fonts.bunny.net">
+        
+        {{-- Préchargement conditionnel des polices --}}
+        @if(request()->is('/') || request()->is('accueil'))
+            <link rel="preload" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+            <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap"></noscript>
+        @else
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        @endif
 
         {{-- Open Graph optimisé pour DGPBP --}}
         <meta property="og:site_name" content="{{ config('app.name', 'DGPBP') }}">
@@ -92,11 +99,9 @@
         <meta name="twitter:description" content="{{ config('app.description', 'La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
         <meta name="twitter:image" content="{{ url('/images/logo/logo-pbp.png') }}">
 
-        {{-- DNS Prefetch et Preconnect --}}
-        <link rel="dns-prefetch" href="//fonts.bunny.net">
+        {{-- DNS Prefetch optimisé --}}
         <link rel="dns-prefetch" href="//fonts.googleapis.com">
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link rel="preconnect" href="https://fonts.bunny.net">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 
         {{-- Scripts Inertia et Vite --}}

@@ -33,8 +33,9 @@ export default function AppLayout({
     isScrolled: false
   });
 
-  // Simplification pour éviter les problèmes de sérialisation
-  const currentUrl = url;
+  // Sécurisation de l'URL pour éviter les erreurs
+  const safeUrl = url || (typeof window !== 'undefined' ? window.location.origin : 'https://dgpbp.gov.gn');
+  const currentUrl = safeUrl;
   
   // Merge des props SEO avec les valeurs par défaut
   const seoConfig = {
@@ -160,10 +161,10 @@ export default function AppLayout({
         
         {/* Canonical et langues alternatives */}
         <link rel="canonical" href={seoConfig.canonicalUrl || currentUrl} />
-        {seoConfig.alternateLocales.map(({locale, url}) => (
-          <link key={locale} rel="alternate" hrefLang={locale} href={url} />
+        {seoConfig.alternateLocales.map(({locale, url: localeUrl}) => (
+          <link key={locale} rel="alternate" hrefLang={locale} href={localeUrl} />
         ))}
-        <link rel="alternate" hrefLang="x-default" href={url} />
+        <link rel="alternate" hrefLang="x-default" href={safeUrl} />
         
         {/* PWA Manifest et icônes */}
         <link rel="manifest" href="/site.webmanifest" />
@@ -199,8 +200,10 @@ export default function AppLayout({
         <link rel="dns-prefetch" href="//fonts.bunny.net" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         
-        {/* Préchargement critique */}
-        <link rel="preload" href="/images/logo/logo-pbp.png" as="image" />
+        {/* Préchargement conditionnel uniquement pour la page d'accueil */}
+        {url && typeof url.current === 'function' && url.current() === route('accueil') && (
+          <link rel="preload" href="/images/logo/logo-pbp.png" as="image" fetchpriority="high" />
+        )}
         
         {/* Schema.org JSON-LD amélioré */}
         <script type="application/ld+json">
@@ -209,10 +212,10 @@ export default function AppLayout({
             "@type": "GovernmentOrganization",
             "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
             "alternateName": ["DGPBP", "Direction Générale du Patrimoine Bâti Public"],
-            "url": url,
+            "url": safeUrl,
             "logo": {
               "@type": "ImageObject",
-              "url": `${url}/images/logo/logo-pbp.png`,
+              "url": `${safeUrl}/images/logo/logo-pbp.png`,
               "width": 400,
               "height": 400,
               "caption": "Logo DGPBP"
@@ -283,7 +286,7 @@ export default function AppLayout({
               "name": "DGPBP",
               "logo": {
                 "@type": "ImageObject",
-                "url": `${url}/images/logo/logo-pbp.png`
+                "url": `${safeUrl}/images/logo/logo-pbp.png`
               }
             },
             "datePublished": seoConfig.datePublished,
@@ -292,7 +295,7 @@ export default function AppLayout({
             "isPartOf": {
               "@type": "WebSite",
               "name": "DGPBP",
-              "url": url
+              "url": safeUrl
             }
           })}
         </script>
@@ -303,7 +306,7 @@ export default function AppLayout({
             "@context": "https://schema.org",
             "@type": "WebSite",
             "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
-            "url": url,
+            "url": safeUrl,
             "description": seoConfig.description,
             "publisher": {
               "@type": "GovernmentOrganization",
@@ -313,7 +316,7 @@ export default function AppLayout({
               "@type": "SearchAction",
               "target": {
                 "@type": "EntryPoint",
-                "urlTemplate": `${url}/search?q={search_term_string}`
+                "urlTemplate": `${safeUrl}/search?q={search_term_string}`
               },
               "query-input": "required name=search_term_string"
             },

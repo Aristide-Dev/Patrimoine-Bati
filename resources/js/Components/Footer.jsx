@@ -6,13 +6,42 @@ import {
 
 import { DGPBP } from '@/utils/dgpbp';
 
-const PreloadResources = () => (
+// Composant optimisé pour le préchargement des ressources critiques uniquement
+const PreloadCriticalResources = () => (
   <>
-    <link rel="preload" href="/images/logo/logo-pbp.png" as="image" />
-    <link rel="preload" href="/images/logo/brandingGn.png" as="image" />
-    <link rel="preload" href="/images/logo/SIMANDOU2024.png" as="image" />
+    {/* Précharger uniquement le logo principal utilisé immédiatement */}
+    <link rel="preload" href="/images/logo/logo-pbp.png" as="image" fetchpriority="high" />
   </>
 );
+
+// Composant pour charger les images non critiques de manière paresseuse
+const LazyImage = ({ src, alt, className, ...props }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  const handleLoad = () => setIsLoaded(true);
+  const handleError = () => setHasError(true);
+
+  if (hasError) {
+    return (
+      <div className={`${className} bg-gray-200 flex items-center justify-center text-gray-500 text-sm`}>
+        Image non disponible
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`${className} transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+      loading="lazy"
+      onLoad={handleLoad}
+      onError={handleError}
+      {...props}
+    />
+  );
+};
 
 const Footer = () => {
   const [hoveredSection, setHoveredSection] = useState(null);
@@ -30,7 +59,7 @@ const Footer = () => {
     },
     { 
       href: "https://habitat.gov.gn/", 
-      text: "Ministère de l’Urbanisme, de l’Habitat et de l’Aménagement du territoire",
+      text: "Ministère de l'Urbanisme, de l'Habitat et de l'Aménagement du territoire",
       icon: <Building2 className="w-4 h-4" />
     },
     { 
@@ -78,7 +107,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-gradient-to-br from-primary via-primary-700 to-primary-800 text-white shadow-2xl" role="contentinfo">
-      <PreloadResources />
+      <PreloadCriticalResources />
       
       <div className="container mx-auto px-4 py-5">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
@@ -95,6 +124,7 @@ const Footer = () => {
                 src="/images/logo/logo-pbp.png"
                 alt="Logo PBP"
                 loading="eager"
+                fetchpriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
@@ -104,11 +134,10 @@ const Footer = () => {
             </p>
             
             <div className="group relative overflow-hidden rounded-lg w-full">
-              <img
+              <LazyImage
                 className="h-32 w-full bg-black/50 object-cover transform transition-all duration-500 group-hover:scale-105"
                 src="/images/logo/SIMANDOU2024.png"
                 alt="Logo SIMANDOU 2024"
-                loading="eager"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>

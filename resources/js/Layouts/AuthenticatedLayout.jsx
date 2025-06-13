@@ -22,20 +22,73 @@ export default function AuthenticatedLayout({ header, children }) {
         setState(prev => ({ ...prev, ...updates }));
     }, []);
 
-    // Navigation items configuration
+    // Navigation items configuration optimisée
     const navigationItems = [
-
-        { name: 'Tableau de Bord', route: 'dashboard', active: route().current('dashboard') },
-        { name: 'Paiements/Factures', route: 'admin.invoices.index', active: route().current('admin.invoices.*')  }
+        { 
+            name: 'Tableau de Bord', 
+            route: 'dashboard', 
+            active: route().current('dashboard'),
+            id: 'dashboard'
+        },
+        { 
+            name: 'Paiements/Factures', 
+            route: 'admin.invoices.index', 
+            active: route().current('admin.invoices.*'),
+            id: 'invoices'
+        }
     ];
-    if(user.role === 'admin' || user.role === 'editor'){
-        navigationItems.push({ name: 'Utilisateurs', route: 'admin.users.index', active: route().current('admin.users.*')  });
-        navigationItems.push({ name: 'Actualités', route: 'admin.news.index', active: route().current('admin.news.*')  });
-        navigationItems.push({ name: 'Medias', route: 'admin.medias.index', active: route().current('admin.medias.*')  });
-        navigationItems.push({ name: 'Documents', route: 'admin.reports.index', active: route().current('admin.reports.*')  });
-    }
+
+    // Ajout conditionnel des éléments selon le rôle
     if (user.role === 'admin') {
-        navigationItems.push({ name: 'Utilisateurs', route: 'admin.users.index', active: route().current('admin.users.*')  });
+        // Pour les admins, ajouter tous les éléments
+        navigationItems.push(
+            { 
+                name: 'Utilisateurs', 
+                route: 'admin.users.index', 
+                active: route().current('admin.users.*'),
+                id: 'users'
+            },
+            { 
+                name: 'Actualités', 
+                route: 'admin.news.index', 
+                active: route().current('admin.news.*'),
+                id: 'news'
+            },
+            { 
+                name: 'Médias', 
+                route: 'admin.medias.index', 
+                active: route().current('admin.medias.*'),
+                id: 'medias'
+            },
+            { 
+                name: 'Documents', 
+                route: 'admin.reports.index', 
+                active: route().current('admin.reports.*'),
+                id: 'reports'
+            }
+        );
+    } else if (user.role === 'editor') {
+        // Pour les éditeurs, ajouter seulement certains éléments
+        navigationItems.push(
+            { 
+                name: 'Actualités', 
+                route: 'admin.news.index', 
+                active: route().current('admin.news.*'),
+                id: 'news'
+            },
+            { 
+                name: 'Médias', 
+                route: 'admin.medias.index', 
+                active: route().current('admin.medias.*'),
+                id: 'medias'
+            },
+            { 
+                name: 'Documents', 
+                route: 'admin.reports.index', 
+                active: route().current('admin.reports.*'),
+                id: 'reports'
+            }
+        );
     }
 
     // Gestion des messages flash
@@ -57,20 +110,20 @@ export default function AuthenticatedLayout({ header, children }) {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Rendu des liens de navigation
+    // Rendu des liens de navigation avec clés uniques
     const renderNavLinks = useCallback((responsive = false) => {
         const LinkComponent = responsive ? ResponsiveNavLink : NavLink;
         
         return navigationItems.map(item => (
             <LinkComponent
-                key={item.route}
+                key={item.id}
                 href={route(item.route)}
                 active={item.active}
             >
                 {item.name}
             </LinkComponent>
         ));
-    }, []);
+    }, [navigationItems]);
 
     // Rendu du message flash
     const renderFlashMessage = useCallback(() => {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { usePage, Head } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
 import ContentRenderer from '@/Components/LexicalEditor/ContentRenderer';
+// import ContentDebugger from '@/Components/LexicalEditor/ContentDebugger';
 import { 
   Calendar, Tag, Clock, Share2, Facebook, Twitter, 
   Linkedin, Copy, ChevronLeft, ChevronRight,
@@ -116,7 +117,7 @@ export default function ArticleDetails({ article, similarArticles }) {
               </span>
               <span className="text-gray-500 text-sm flex items-center">
                 <Clock className="w-4 h-4 mr-2" />
-                {article.read_time || "5 min de lecture"}
+                {article.formatted_read_time || `${article.read_time || 1} min de lecture`}
               </span>
               <span className="text-gray-500 text-sm flex items-center">
                 <Eye className="w-4 h-4 mr-2" />
@@ -128,9 +129,12 @@ export default function ArticleDetails({ article, similarArticles }) {
               {article.title}
             </h1>
 
-            <div className="prose prose-lg max-w-none">
+            <div className="content-wrapper max-w-none">
               <ContentRenderer content={article.content} />
             </div>
+
+            {/* Composant de débogage (visible uniquement en développement) */}
+            {/* <ContentDebugger content={article.content} /> */}
 
             {/* Actions */}
             <div className="mt-12 pt-8 border-t border-gray-100 flex items-center justify-between">

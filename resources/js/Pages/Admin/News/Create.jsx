@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useForm, Link } from '@inertiajs/react';
 import InputError from '@/Components/InputError';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -12,7 +12,7 @@ export default function Create() {
   const { data, setData, post, errors, processing } = useForm({
     title: '',
     excerpt: '',
-    content: '',
+    content: '', // Stockage en tant que string JSON
     image: null,
     category: '',
     tags: [],
@@ -22,7 +22,8 @@ export default function Create() {
 
   const [imagePreview, setImagePreview] = useState(null);
 
-  const handleImageChange = (e) => {
+  // Mémorisation de la fonction de gestion des images
+  const handleImageChange = useCallback((e) => {
     const file = e.target.files[0];
     setData('image', file);
     
@@ -33,17 +34,47 @@ export default function Create() {
       };
       reader.readAsDataURL(file);
     }
-  };
+  }, [setData]);
 
-  const handleEditorChange = (newContent) => {
-    const content = JSON.stringify(newContent);
-    setData('content', content);
-  };
+  // Fonction mémorisée pour gérer le contenu de l'éditeur
+  const handleEditorChange = useCallback((serializedContent) => {
+    // serializedContent est déjà une chaîne JSON sérialisée par l'éditeur
+    // Pas besoin de re-sérialiser
+    console.log('Contenu reçu de l\'éditeur:', typeof serializedContent, serializedContent?.length);
+    setData('content', serializedContent);
+  }, [setData]);
 
-  const handleSubmit = (e) => {
+  // Mémorisation de la fonction de suppression d'image
+  const handleImageRemove = useCallback(() => {
+    setImagePreview(null);
+    setData('image', null);
+  }, [setData]);
+
+  // Mémorisation de la fonction de gestion des tags
+  const handleTagsChange = useCallback((e) => {
+    const tagString = e.target.value;
+    const tagsArray = tagString.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+    setData('tags', tagsArray);
+  }, [setData]);
+
+  // Mémorisation de la fonction de soumission
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
+    console.log('Données à envoyer:', data);
     post(route('admin.news.store'));
-  };
+  }, [data, post]);
+
+  // Mémorisation des valeurs pour éviter les re-renders
+  // L'initialContent ne doit être défini qu'une seule fois au montage
+  const editorProps = useMemo(() => ({
+    onChange: handleEditorChange,
+    initialContent: '', // Toujours vide pour un nouvel article
+  }), [handleEditorChange]);
+
+  // Mémorisation du display des tags
+  const displayTags = useMemo(() => {
+    return Array.isArray(data.tags) ? data.tags.join(', ') : '';
+  }, [data.tags]);
 
   return (
     <AuthenticatedLayout>
@@ -98,16 +129,58 @@ export default function Create() {
                 <InputError message={errors.excerpt} className="mt-2" />
               </div>
 
-              {/* Contenu */}
+              {/* Contenu - Éditeur Lexical avec support drag & drop */}
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <div className="flex items-center mb-4">
                   <BookOpen className="w-5 h-5 text-gray-400 mr-2" />
                   <label className="text-lg font-medium text-gray-900">Contenu</label>
+                  <div className="ml-auto text-sm text-gray-500 flex items-center gap-2">
+                    <FileImage className="w-4 h-4" />
+                    <span>Glissez-déposez vos images directement dans l'éditeur</span>
+                  </div>
                 </div>
+                <div className="space-y-2">
+                  <div className="relative">
                 <Editor
-                  onChange={handleEditorChange}
-                  initialContent={data.content}
-                />
+                      key="news-editor"
+                      {...editorProps}
+                    />
+                    {/* Indicateur visuel pour le drag & drop */}
+                    <div className="absolute top-0 right-0 p-2 bg-gray-50 rounded-bl-lg opacity-75">
+                      <div className="flex items-center gap-1 text-xs text-gray-500">
+                        <FileImage className="w-3 h-3" />
+                        <span>Images supportées</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Aide contextuelle */}
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <div className="flex items-start gap-2">
+                      <div className="flex-shrink-0 mt-0.5">
+                        <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div className="text-sm text-blue-700">
+                        <p className="font-medium mb-1">Intégration d'images dans l'éditeur :</p>
+                        <ul className="list-disc list-inside space-y-1 text-xs">
+                          <li>🖱️ Cliquez sur l'icône image dans la barre d'outils</li>
+                          <li>🖼️ Glissez-déposez vos images directement dans l'éditeur</li>
+                          <li>📋 Collez des images depuis le presse-papiers (Ctrl+V)</li>
+                          <li>🔗 Insérez des images par URL ou téléchargez des fichiers locaux</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Debug info en mode développement */}
+                  {process.env.NODE_ENV === 'development' && (
+                    <div className="text-xs text-gray-500 p-2 bg-gray-50 rounded">
+                      Contenu actuel: {data.content ? `${data.content.length} caractères` : 'Vide'}
+                    </div>
+                  )}
+                </div>
                 <InputError message={errors.content} className="mt-2" />
               </div>
             </div>
@@ -130,14 +203,10 @@ export default function Create() {
                       />
                       <button
                         type="button"
-                        onClick={() => {
-                          setImagePreview(null);
-                          setData('image', null);
-                        }}
+                        onClick={handleImageRemove}
                         className="absolute top-2 right-2 p-2 bg-red-300 rounded-full shadow-lg hover:bg-red-500 text-white"
                       >
                         <span className="sr-only">Supprimer</span>
-                        
                         <X className="w-4 h-4 text-white" />
                       </button>
                     </div>
@@ -162,7 +231,6 @@ export default function Create() {
                 </div>
                 <InputError message={errors.image} className="mt-2" />
               </div>
-              
 
               {/* Catégorie et Tags */}
               <div className="bg-white rounded-xl shadow-sm p-6">
@@ -185,8 +253,8 @@ export default function Create() {
                     <label className="block text-sm font-medium text-gray-700">Tags</label>
                     <input
                       type="text"
-                      value={data.tags.join(', ')}
-                      onChange={(e) => setData('tags', e.target.value.split(',').map(tag => tag.trim()))}
+                      value={displayTags}
+                      onChange={handleTagsChange}
                       className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary"
                       placeholder="Séparez les tags par des virgules"
                     />
@@ -209,7 +277,6 @@ export default function Create() {
                 <InputError message={errors.featured} className="mt-2" />
               </div>
 
-
               {/* Date de publication */}
               <div className="bg-white rounded-xl shadow-sm p-6">
                 <div className="flex items-center mb-4">
@@ -218,12 +285,12 @@ export default function Create() {
                 </div>
                 <input
                   type="date"
-                  value={data.published_at}
+                  value={data.published_at ? data.published_at.split('T')[0] : ''}
                   onChange={(e) => setData('published_at', e.target.value)}
                   className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary"
                 />
+                <InputError message={errors.published_at} className="mt-2" />
               </div>
-              <InputError message={errors.published_at} className="mt-2" />
             </div>
           </div>
 
