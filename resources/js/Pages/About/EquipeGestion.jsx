@@ -244,7 +244,7 @@ export default function EquipeGestion({ meta }) {
         </div>
         
         <h3 className="font-bold text-gray-900 mb-2 text-center text-sm">{direction.nom}</h3>
-        <p className="text-primary text-xs font-medium mb-3 text-center">{direction.responsable}</p>
+        {/* <p className="text-primary text-xs font-medium mb-3 text-center">{direction.responsable}</p> */}
         
         <p className="text-sm text-gray-600 mb-4 text-center">{direction.description}</p>
         
@@ -279,7 +279,7 @@ export default function EquipeGestion({ meta }) {
           </div>
           <div className="flex-1">
             <h3 className="font-bold text-gray-900 text-sm">{service.nom}</h3>
-            <p className="text-primary text-xs font-medium">{service.responsable}</p>
+            {/* <p className="text-primary text-xs font-medium">{service.responsable}</p> */}
           </div>
         </div>
         
