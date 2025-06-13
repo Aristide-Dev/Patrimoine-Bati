@@ -2,7 +2,8 @@ import React from 'react';
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import { 
-  Quote, MapPin, Calendar, Mail, Phone, Linkedin, ArrowLeft, Target, Users, Shield, Lightbulb
+  Quote, MapPin, Calendar, Mail, Phone, Linkedin, ArrowLeft, Target, Users, Shield, Lightbulb, 
+  Building2, Scale, Database, Wrench, Globe, FileText, ArrowRight
 } from 'lucide-react';
 import { motion } from "framer-motion";
 
@@ -25,23 +26,46 @@ export default function MotDirectrice() {
   const visionPoints = [
     {
       icon: <Target className="h-6 w-6 text-primary-600" />,
-      title: "Excellence Opérationnelle",
-      description: "Transformer notre organisation pour atteindre les plus hauts standards de performance dans la gestion du patrimoine public."
+      title: "Excellence dans la Gestion du Patrimoine",
+      description: "Concevoir et mettre en œuvre une politique innovante de conservation et de gestion du Parc Immobilier Bâti de l'État avec les plus hauts standards de performance."
     },
     {
-      icon: <Users className="h-6 w-6 text-primary-600" />,
-      title: "Service Citoyen",
-      description: "Placer les citoyens au cœur de nos préoccupations avec des services accessibles, transparents et efficaces."
+      icon: <Database className="h-6 w-6 text-primary-600" />,
+      title: "Modernisation et Digitalisation",
+      description: "Mettre en place une plateforme numérique de gestion immobilière et moderniser nos processus pour une administration plus efficace et transparente."
     },
     {
       icon: <Shield className="h-6 w-6 text-primary-600" />,
-      title: "Intégrité & Transparence",
-      description: "Garantir une gestion irréprochable du patrimoine public dans le respect des principes éthiques les plus stricts."
+      title: "Transparence & Intégrité",
+      description: "Garantir une gestion irréprochable du patrimoine public dans le respect des principes éthiques et de la réglementation en vigueur."
     },
     {
-      icon: <Lightbulb className="h-6 w-6 text-primary-600" />,
-      title: "Innovation Digitale",
-      description: "Moderniser nos processus par l'adoption de technologies innovantes pour une administration plus agile."
+      icon: <Building2 className="h-6 w-6 text-primary-600" />,
+      title: "Valorisation du Patrimoine",
+      description: "Assurer l'administration, la gestion, l'extension et la conservation optimale du patrimoine immobilier tant à l'intérieur qu'à l'extérieur du pays."
+    }
+  ];
+
+  const prioritesStrategiques = [
+    {
+      icon: <Wrench className="h-5 w-5 text-primary-600" />,
+      title: "Rénovation et Maintenance",
+      description: "Coordonner les activités de rénovation et d'entretien du patrimoine immobilier de l'État"
+    },
+    {
+      icon: <Scale className="h-5 w-5 text-primary-600" />,
+      title: "Réglementation",
+      description: "Concevoir et veiller à l'application de la réglementation en matière d'affectation des bâtiments publics"
+    },
+    {
+      icon: <Database className="h-5 w-5 text-primary-600" />,
+      title: "Inventaire et Codification",
+      description: "Réaliser l'inventaire complet et la codification des bâtiments publics"
+    },
+    {
+      icon: <Globe className="h-5 w-5 text-primary-600" />,
+      title: "Partenariats Stratégiques",
+      description: "Rechercher des partenaires pour la réalisation de bâtiments du patrimoine bâti public"
     }
   ];
 
@@ -50,14 +74,14 @@ export default function MotDirectrice() {
       <Head>
         {/* Métadonnées de base pour la page Mot de la Directrice */}
         <title>Mot de la Directrice - Madame Souadou Baldé | DGPBP Guinée</title>
-        <meta name="description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la transformation de la gestion immobilière publique guinéenne." />
-        <meta name="keywords" content="Souadou Baldé, Directrice Générale DGPBP, leadership Guinée, vision patrimoine public, direction gouvernementale Guinée, administration publique Conakry, transformation digitale gouvernement" />
+        <meta name="description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État selon le Décret N°D/0275/PRG/CNRD/SGG." />
+        <meta name="keywords" content="Souadou Baldé, Directrice Générale DGPBP, leadership Guinée, vision patrimoine public, direction gouvernementale Guinée, administration publique Conakry, transformation digitale gouvernement, décret 2022" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta name="googlebot" content="index, follow" />
         
         {/* Open Graph */}
         <meta property="og:title" content="Mot de la Directrice - Madame Souadou Baldé | DGPBP Guinée" />
-        <meta property="og:description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la transformation de la gestion immobilière publique guinéenne." />
+        <meta property="og:description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État." />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="/about/mot-directrice" />
         <meta property="og:image" content="/images/hero/Souadou-Balde.png" />
@@ -65,7 +89,7 @@ export default function MotDirectrice() {
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Mot de la Directrice - Madame Souadou Baldé | DGPBP Guinée" />
-        <meta name="twitter:description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la transformation de la gestion immobilière publique guinéenne." />
+        <meta name="twitter:description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État." />
         <meta name="twitter:image" content="/images/hero/Souadou-Balde.png" />
         
         {/* Canonical */}
@@ -77,7 +101,7 @@ export default function MotDirectrice() {
             "@context": "https://schema.org",
             "@type": "AboutPage",
             "name": "Mot de la Directrice - Madame Souadou Baldé | DGPBP Guinée",
-            "description": "Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la transformation de la gestion immobilière publique guinéenne.",
+            "description": "Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État.",
             "url": "/about/mot-directrice",
             "mainEntity": {
               "@type": "Person",
@@ -177,8 +201,8 @@ export default function MotDirectrice() {
                 "position": 1,
                 "item": {
                   "@type": "DefinedTerm",
-                  "name": "Excellence Opérationnelle",
-                  "description": "Transformer notre organisation pour atteindre les plus hauts standards de performance dans la gestion du patrimoine public.",
+                  "name": "Excellence dans la Gestion du Patrimoine",
+                  "description": "Concevoir et mettre en œuvre une politique innovante de conservation et de gestion du Parc Immobilier Bâti de l'État.",
                   "inDefinedTermSet": {
                     "@type": "DefinedTermSet",
                     "name": "Piliers de Vision DGPBP"
@@ -190,8 +214,8 @@ export default function MotDirectrice() {
                 "position": 2,
                 "item": {
                   "@type": "DefinedTerm",
-                  "name": "Service Citoyen",
-                  "description": "Placer les citoyens au cœur de nos préoccupations avec des services accessibles, transparents et efficaces.",
+                  "name": "Modernisation et Digitalisation",
+                  "description": "Mettre en place une plateforme numérique de gestion immobilière et moderniser nos processus.",
                   "inDefinedTermSet": {
                     "@type": "DefinedTermSet",
                     "name": "Piliers de Vision DGPBP"
@@ -203,8 +227,8 @@ export default function MotDirectrice() {
                 "position": 3,
                 "item": {
                   "@type": "DefinedTerm",
-                  "name": "Intégrité & Transparence",
-                  "description": "Garantir une gestion irréprochable du patrimoine public dans le respect des principes éthiques les plus stricts.",
+                  "name": "Transparence & Intégrité",
+                  "description": "Garantir une gestion irréprochable du patrimoine public dans le respect des principes éthiques.",
                   "inDefinedTermSet": {
                     "@type": "DefinedTermSet",
                     "name": "Piliers de Vision DGPBP"
@@ -216,8 +240,8 @@ export default function MotDirectrice() {
                 "position": 4,
                 "item": {
                   "@type": "DefinedTerm",
-                  "name": "Innovation Digitale",
-                  "description": "Moderniser nos processus par l'adoption de technologies innovantes pour une administration plus agile.",
+                  "name": "Valorisation du Patrimoine",
+                  "description": "Assurer l'administration, la gestion, l'extension et la conservation optimale du patrimoine immobilier.",
                   "inDefinedTermSet": {
                     "@type": "DefinedTermSet",
                     "name": "Piliers de Vision DGPBP"
@@ -228,218 +252,349 @@ export default function MotDirectrice() {
           })}
         </script>
       </Head>
-      
+
       {/* Hero Section */}
-      <div className="relative min-h-[500px] flex items-center overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900" itemScope itemType="https://schema.org/Person">
-        <div className="absolute inset-0 bg-black/20" />
+      <div className="relative min-h-[700px] flex items-center overflow-hidden" itemScope itemType="https://schema.org/ImageObject">
+        <div 
+          className="absolute inset-0 bg-cover bg-center" 
+          style={{backgroundImage: "url('/images/hero/Souadou-Balde.png')"}}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-primary-950/70 to-primary-900/60" />
         
         {/* Éléments décoratifs */}
-        <div className="absolute top-20 left-10 w-32 h-32 bg-primary-950 border-4 border-white/10 rounded-full" aria-hidden="true" />
-        <div className="absolute bottom-20 right-10 w-48 h-48 bg-primary-950 border-4 border-primary-300/20 rounded-full" aria-hidden="true" />
+        <div className="absolute top-20 left-10 w-32 h-32 border-4 border-primary-400/20 rounded-full opacity-50" aria-hidden="true" />
+        <div className="absolute bottom-20 right-10 w-48 h-48 border-4 border-primary-400/20 rounded-full opacity-50" aria-hidden="true" />
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-500/10 rounded-full blur-xl" aria-hidden="true" />
         
         <div className="relative container mx-auto px-4 z-10">
-          <motion.div 
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
             className="max-w-4xl mx-auto text-center"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
           >
-            <span className="inline-block text-primary-300 text-lg font-medium mb-4 px-4 py-2 border border-primary-300/30 rounded-full">
-              Direction Générale
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Mot de la <span className="text-primary-300">Directrice</span>
-            </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              Un message de vision, d'engagement et de transformation pour notre institution
-            </p>
+            <motion.div variants={fadeIn} className="mb-6">
+              <span className="inline-block text-primary-300 text-lg font-medium mb-3 px-4 py-1 border border-primary-300/30 rounded-full">
+                Leadership & Vision
+              </span>
+            </motion.div>
+            <motion.h1
+              variants={fadeIn}
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight"
+              itemProp="name"
+            >
+              Mot de la 
+              <span className="text-primary-300">Directrice</span>
+            </motion.h1>
+            <motion.p
+              variants={fadeIn}
+              className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed"
+              itemProp="description"
+            >
+              Madame Souadou Baldé partage sa vision pour la transformation 
+              et la modernisation de la gestion du patrimoine bâti public guinéen
+            </motion.p>
+            <motion.div
+              variants={fadeIn}
+              className="flex flex-wrap justify-center gap-6 text-white/80 mb-8"
+            >
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <Calendar className="h-5 w-5 text-primary-300" />
+                <span>Nommée par Décret Présidentiel</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <MapPin className="h-5 w-5 text-primary-300" />
+                <span>Conakry, Guinée</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <FileText className="h-5 w-5 text-primary-300" />
+                <span>Décret N°D/0275/PRG/CNRD/SGG</span>
+              </div>
+            </motion.div>
+            <motion.div 
+              variants={fadeIn}
+              className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6"
+            >
+              <a 
+                href="/about/equipe-gestion" 
+                className="px-10 py-4 bg-primary-600 text-white rounded-lg font-semibold 
+                hover:bg-primary-500 transition-all duration-300 flex items-center justify-center group shadow-lg shadow-primary-700/30"
+                aria-label="Découvrir l'équipe"
+              >
+                <Users className="mr-3 group-hover:scale-110 transition-transform" />
+                Notre Organisation
+                <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a 
+                href="/about" 
+                className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 rounded-lg font-semibold 
+                hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center group"
+                aria-label="À propos de la DGPBP"
+              >
+                <Building2 className="mr-3 group-hover:scale-110 transition-transform" />
+                À Propos de la DGPBP
+              </a>
+            </motion.div>
           </motion.div>
         </div>
         
-        {/* Effet de vague */}
+        {/* Effet de vague en bas du hero */}
         <div className="absolute bottom-0 left-0 right-0">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto fill-white" aria-hidden="true">
             <path d="M0,96L80,90.7C160,85,320,75,480,74.7C640,75,800,85,960,85.3C1120,85,1280,75,1360,69.3L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
           </svg>
         </div>
+        
+        <meta itemProp="contentUrl" content="/images/hero/Souadou-Balde.png" />
+        <meta itemProp="caption" content="Madame Souadou Baldé, Directrice Générale de la DGPBP" />
       </div>
 
-      {/* Lien de retour */}
-      <div className="bg-gray-50 py-4">
-        <div className="container mx-auto px-4">
-          <motion.a 
-            href={route('about.index')}
-            className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            aria-label="Retour à la page À propos"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
-            Retour à "Qui sommes-nous"
-          </motion.a>
-        </div>
-      </div>
+      {/* Message de la Directrice */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            {/* Portrait et informations */}
+            <motion.div
+              variants={fadeIn}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="relative">
+                <img
+                  src="/images/hero/Souadou-Balde - Copie.jpg"
+                  alt="Madame Souadou Baldé"
+                  className="w-full rounded-2xl shadow-2xl"
+                />
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary-100 rounded-full flex items-center justify-center">
+                  <Quote className="h-12 w-12 text-primary-600" />
+                </div>
+              </div>
+              
+              <div className="mt-8 p-6 bg-primary-50 rounded-xl">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Madame Souadou Baldé</h3>
+                <p className="text-primary-600 font-semibold mb-2">Directrice Générale</p>
+                <p className="text-gray-600 mb-4">
+                  Direction Générale du Patrimoine Bâti Public de Guinée
+                </p>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    <span>Nommée par Décret du Président de la République</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Building2 className="h-4 w-4" />
+                    <span>Autonomie de gestion et financière</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
 
-      {/* Section Principale */}
-      <section className="py-20 bg-white" aria-label="Message de la Directrice Générale">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            
-            {/* Présentation de la Directrice */}
-            <motion.div 
-              className="grid lg:grid-cols-2 gap-16 items-start mb-20"
+            {/* Message */}
+            <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
+              className="space-y-6"
             >
-              {/* Photo et informations */}
-              <motion.div 
-                className="relative"
-                variants={fadeIn}
-                itemScope 
-                itemType="https://schema.org/Person"
-              >
-                <div className="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900">
-                  <img
-                    src="/images/hero/Souadou-Balde.png"
-                    alt="Madame Souadou Baldé, Directrice Générale de la DGPBP"
-                    className="relative rounded-2xl shadow-2xl w-full h-[600px] object-contain object-center z-50"
-                    loading="lazy"
-                    width="600"
-                    height="600"
-                    itemProp="image"
-                  />
-                  <meta itemProp="name" content="Souadou Baldé" />
-                  <meta itemProp="jobTitle" content="Directrice Générale" />
-                  <meta itemProp="worksFor" content="DGPBP" />
-                </div>
-              </motion.div>
-
-              {/* Message de la Directrice */}
-              <motion.div 
-                className="space-y-8"
-                variants={fadeIn}
-                itemScope 
-                itemType="https://schema.org/Article"
-              >
-                <div className="relative">
-                  <Quote className="absolute -top-4 -left-4 h-12 w-12 text-primary-200" aria-hidden="true" />
-                  <div className="relative bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl shadow-lg border border-gray-100">
-                    <div className="prose prose-lg prose-gray max-w-none" itemProp="articleBody">
-                      <p className="text-lg leading-relaxed text-gray-700 mb-6 font-medium italic">
-                        "Chers compatriotes, chers partenaires,
-                      </p>
-                      
-                      <p className="text-gray-700 leading-relaxed mb-6">
-                        C'est avec un immense honneur et une profonde responsabilité que j'assume la direction de cette institution emblématique qu'est la Direction Générale du Patrimoine Bâti Public. Notre mission va bien au-delà de la simple gestion immobilière : nous sommes les gardiens du patrimoine de notre nation, les architectes de son développement durable.
-                      </p>
-                      
-                      <p className="text-gray-700 leading-relaxed mb-6">
-                        Dans un contexte de transformation digitale et de modernisation de l'administration publique, notre défi est de révolutionner notre approche tout en préservant l'excellence qui nous caractérise. Nous nous engageons à bâtir une institution moderne, transparente et efficace, au service de tous les Guinéens.
-                      </p>
-                      
-                      <p className="text-gray-700 leading-relaxed mb-6">
-                        Notre vision s'articule autour de quatre piliers fondamentaux : l'excellence opérationnelle, le service citoyen, l'intégrité absolue et l'innovation digitale. Ces valeurs guident chacune de nos actions et orientent notre stratégie de développement.
-                      </p>
-                      
-                      <p className="text-gray-700 leading-relaxed mb-6">
-                        Ensemble, nous construisons l'avenir du patrimoine public guinéen. Je vous invite à découvrir nos initiatives, à partager vos préoccupations et à collaborer avec nous dans cette noble mission de service public.
-                      </p>
-                      
-                      <p className="text-lg leading-relaxed text-gray-900 font-semibold italic">
-                        Merci pour votre confiance."
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Signature */}
-                <div className="text-right" itemScope itemType="https://schema.org/Person">
-                  <div className="inline-block">
-                    <p className="text-xl font-bold text-gray-900" itemProp="name">Madame Souadou Baldé</p>
-                    <p className="text-primary-600 font-semibold" itemProp="jobTitle">Directrice Générale</p>
-                    <p className="text-gray-500">DGPBP</p>
-                    <meta itemProp="worksFor" content="DGPBP" />
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-
-            {/* Vision et Objectifs */}
-            <motion.div 
-              className="mt-20"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              aria-label="Vision et piliers de transformation"
-            >
-              <div className="text-center mb-16">
-                <span className="inline-block text-primary-600 font-semibold mb-3 px-4 py-1 bg-primary-50 rounded-full text-sm">
-                  Notre Vision
-                </span>
-                <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                  Les Piliers de Notre Transformation
+              <motion.div variants={fadeIn}>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                  Notre Mission : Excellence et Innovation
                 </h2>
-                <div className="w-20 h-1 bg-primary-600 mx-auto rounded-full" aria-hidden="true"></div>
-              </div>
+                <div className="prose prose-lg text-gray-700 space-y-4">
+                  <p>
+                    Mesdames et Messieurs,
+                  </p>
+                  <p>
+                    En tant que Directrice Générale du Patrimoine Bâti Public, nommée par Décret du Président de la République, 
+                    j'ai l'honneur de diriger une institution dotée de l'autonomie de gestion et de l'autonomie financière, 
+                    rattachée par délégation au Ministre Secrétaire Général de la Présidence de la République.
+                  </p>
+                  <p>
+                    Notre mission fondamentale consiste à concevoir, élaborer et mettre en œuvre la politique du Gouvernement 
+                    en matière de conservation et de gestion du Parc Immobilier Bâti de l'État. Cette responsabilité s'étend 
+                    tant à l'intérieur qu'à l'extérieur du territoire national, englobant l'ensemble du patrimoine immobilier public guinéen.
+                  </p>
+                  <p>
+                    Nous nous engageons à assurer l'administration, la gestion, l'extension et la conservation de ce patrimoine 
+                    avec la plus haute rigueur, tout en procédant à l'affectation des bâtiments conformément à la réglementation en vigueur. 
+                    Notre démarche s'articule autour de la coordination des activités de rénovation, d'entretien et de modernisation 
+                    de l'ensemble des bâtiments publics.
+                  </p>
+                </div>
+              </motion.div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8" itemScope itemType="https://schema.org/ItemList">
-                {visionPoints.map((point, index) => (
-                  <motion.div
-                    key={index}
-                    className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                    viewport={{ once: true }}
-                    itemScope 
-                    itemType="https://schema.org/DefinedTerm"
-                    itemProp="itemListElement"
-                  >
-                    <div className="flex items-center justify-center w-16 h-16 bg-primary-100 rounded-2xl mb-6 mx-auto" aria-hidden="true">
-                      {point.icon}
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4 text-center" itemProp="name">{point.title}</h3>
-                    <p className="text-gray-600 leading-relaxed text-center" itemProp="description">{point.description}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Call to Action */}
-            <motion.div 
-              className="mt-20 text-center bg-gradient-to-br from-primary-600 to-primary-700 rounded-3xl p-12 text-white"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              aria-label="Appel à l'action"
-            >
-              <h3 className="text-3xl font-bold mb-6">Rejoignez-nous dans cette transformation</h3>
-              <p className="text-xl mb-8 max-w-3xl mx-auto leading-relaxed opacity-90">
-                Découvrez nos services, explorez nos projets et contactez-nous pour toute demande ou collaboration.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                <a 
-                  href={route('demandes.formulaire')} 
-                  className="px-8 py-4 bg-white text-primary-600 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg"
-                  aria-label="Faire une demande de logement administratif"
-                >
-                  Demande de Logement
-                </a>
-                <a 
-                  href={route('contact.index')} 
-                  className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-xl font-semibold hover:bg-white/10 transition-all duration-300"
-                  aria-label="Contacter la DGPBP"
-                >
-                  Nous Contacter
-                </a>
-              </div>
+              <motion.div variants={fadeIn} className="bg-primary-50 p-6 rounded-xl">
+                <h3 className="text-xl font-bold text-gray-900 mb-3">Notre Vision Stratégique</h3>
+                <p className="text-gray-700">
+                  "Créer un cadre de gestion optimale du patrimoine bâti public pour le repositionnement 
+                  central de l'État propriétaire dans le processus de production de logements et d'immeubles 
+                  administratifs, tout en intégrant les technologies numériques modernes."
+                </p>
+              </motion.div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Piliers de la Vision */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.h2
+              variants={fadeIn}
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            >
+              Les Piliers de Notre Transformation
+            </motion.h2>
+            <motion.p
+              variants={fadeIn}
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              Quatre axes stratégiques guident notre action pour révolutionner 
+              la gestion du patrimoine immobilier public guinéen
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 gap-8"
+          >
+            {visionPoints.map((point, index) => (
+              <motion.div
+                key={index}
+                variants={fadeIn}
+                className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-primary-100 rounded-lg flex-shrink-0">
+                    {point.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{point.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{point.description}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Priorités Stratégiques */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.h2
+              variants={fadeIn}
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            >
+              Nos Priorités Stratégiques
+            </motion.h2>
+            <motion.p
+              variants={fadeIn}
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              Actions concrètes pour moderniser et optimiser la gestion 
+              du patrimoine immobilier bâti de l'État guinéen
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {prioritesStrategiques.map((priorite, index) => (
+              <motion.div
+                key={index}
+                variants={fadeIn}
+                className="text-center p-6 bg-gray-50 rounded-xl hover:bg-primary-50 transition-colors duration-300"
+              >
+                <div className="mx-auto mb-4 w-16 h-16 bg-primary-100 rounded-xl flex items-center justify-center">
+                  {priorite.icon}
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">{priorite.title}</h3>
+                <p className="text-sm text-gray-600">{priorite.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Engagement et Appel à l'Action */}
+      <section className="py-20 bg-gradient-to-br from-slate-900 via-primary-950 to-primary-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <motion.div variants={fadeIn} className="mb-12">
+              <Quote className="h-16 w-16 text-primary-300 mx-auto mb-6" />
+              <blockquote className="text-2xl md:text-3xl font-bold text-white mb-8 max-w-4xl mx-auto leading-relaxed">
+                "Ensemble, nous bâtissons l'avenir du patrimoine immobilier public guinéen, 
+                alliant tradition et innovation pour servir au mieux notre nation."
+              </blockquote>
+              <p className="text-xl text-white/90">
+                - Madame Souadou Baldé, Directrice Générale DGPBP
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={fadeIn}
+              className="max-w-3xl mx-auto mb-12"
+            >
+              <p className="text-lg text-white/90 leading-relaxed">
+                Notre engagement envers l'excellence, la transparence et l'innovation guide chacune de nos actions. 
+                Nous invitons tous nos partenaires, collaborateurs et citoyens à nous accompagner dans cette 
+                transformation historique de la gestion du patrimoine public guinéen.
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={fadeIn}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <a
+                href="/about/equipe-gestion"
+                className="inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-500 transition-all duration-300 shadow-lg shadow-primary-700/30"
+              >
+                <Users className="h-5 w-5" />
+                Notre Organisation
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="/about"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300"
+              >
+                <Building2 className="h-5 w-5" />
+                À Propos de la DGPBP
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </AppLayout>

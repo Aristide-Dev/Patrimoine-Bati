@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Badge } from '@/Components/ui/badge';
-import { Mail, Phone, MapPin, Linkedin, Award, Calendar, Users, Star, ArrowRight, Building2, Target, Shield, Briefcase, GraduationCap, TrendingUp } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Award, Calendar, Users, Star, ArrowRight, Building2, Target, Shield, Briefcase, GraduationCap, TrendingUp, Scale, FileText, Wrench, HeadphonesIcon } from 'lucide-react';
 import { motion } from "framer-motion";
 
 export default function EquipeGestion({ meta }) {
@@ -30,46 +30,98 @@ export default function EquipeGestion({ meta }) {
       nom: "Souadou Baldé",
       poste: "Directrice Générale",
       photo: "/images/our-team/Souadou-Balde-DG.jpg",
-      competences: ["Gestion Stratégique", "Leadership", "Contrôle financier"],
+      competences: ["Gestion Stratégique", "Leadership", "Coordination générale"],
+      attributions: "Direction, coordination, animation et contrôle de toutes les activités de la Direction"
     },
     {
       id: 2,
       nom: "Nafissatou Cisse",
-      poste: "Directrice Générale Adjoint",
+      poste: "Directrice Générale Adjointe",
       photo: "/images/our-team/Nafissatou-Cisse-DGA.jpg",
-      competences: ["Expertise en communication", "Gestion des relations clients"],
+      competences: ["Coordination administrative", "Supervision technique", "Formation du personnel"],
+      attributions: "Assistance au DG, coordination des services, supervision des projets et programmes"
     },
   ];
 
-  // Responsables de départements
-  const chefsDepartements = [
+  // Directions Techniques
+  const directionsTechniques = [
     {
-      nom: "Kadiatou CONTE",
-      poste: "Patrimoine Résidentiel",
+      nom: "Direction Juridique et Contentieux",
+      responsable: "À définir",
       photo: "/images/our-team/agent.png",
-      competences: ["Gestion Locative"],
-      projets: "1200+ logements"
+      competences: ["Conseil juridique", "Contentieux", "Réglementation"],
+      services: ["Service Réglementation et Gestion des Contrats", "Service Contentieux et Suivi des Différends"],
+      description: "Conseils, information et rédaction de documents juridiques relatifs aux bâtiments de l'État"
     },
     {
-      nom: "Sékou TOURE",
-      poste: "Patrimoine Commercial",
+      nom: "Direction Gestion Locative et du Patrimoine Immobilier",
+      responsable: "À définir",
       photo: "/images/our-team/agent.png",
-      competences: ["Baux Commerciaux"],
-      projets: "350 baux"
+      competences: ["Gestion locative", "Administration bâtiments", "Fichier immobilier"],
+      services: ["Gérances Communales", "Gérance bâtiments commerciaux", "Gérance Magasins et Entrepôts"],
+      description: "Gestion administrative, commerciale et financière du patrimoine immobilier de l'État"
     },
     {
-      nom: "Mariama BARRY",
-      poste: "Relations Clients",
+      nom: "Direction Maintenance et Logistique",
+      responsable: "À définir",
       photo: "/images/our-team/agent.png",
-      competences: ["Service Client"],
-      projets: "95% satisfaction"
+      competences: ["Maintenance", "Rénovation", "Construction"],
+      services: ["Service Maintenance et Rénovation", "Service Construction et Aménagement"],
+      description: "Restauration, rénovation et entretien du Parc Immobilier Bâti de l'État"
+    }
+  ];
+
+  // Services d'Appui
+  const servicesAppui = [
+    {
+      nom: "Service Accueil",
+      responsable: "À définir",
+      icon: <HeadphonesIcon className="h-6 w-6 text-primary-600" />,
+      description: "Accueil et orientation des visiteurs, gestion du secrétariat central"
     },
     {
-      nom: "Alpha DIALLO",
-      poste: "Maintenance",
-      photo: "/images/our-team/agent.png",
-      competences: ["Maintenance"],
-      projets: "24/7 service"
+      nom: "Service Administratif et Financier",
+      responsable: "À définir", 
+      icon: <Building2 className="h-6 w-6 text-primary-600" />,
+      description: "Gestion des ressources budgétaires et financières, suivi budgétaire"
+    },
+    {
+      nom: "Service Suivi-Evaluation",
+      responsable: "À définir",
+      icon: <Target className="h-6 w-6 text-primary-600" />,
+      description: "Élaboration du plan de programmation et suivi-évaluation des activités"
+    },
+    {
+      nom: "Service Ressources Humaines",
+      responsable: "À définir",
+      icon: <Users className="h-6 w-6 text-primary-600" />,
+      description: "Gestion RH, planification des besoins, formation et carrière du personnel"
+    },
+    {
+      nom: "Service Recouvrement des Recettes Locatives",
+      responsable: "À définir",
+      icon: <Award className="h-6 w-6 text-primary-600" />,
+      description: "Recouvrement des loyers, plans de trésorerie, arriérés de créances"
+    },
+    {
+      nom: "Service Modernisation, Communication et Documentation",
+      responsable: "À définir",
+      icon: <FileText className="h-6 w-6 text-primary-600" />,
+      description: "Modernisation IT, communication, gestion du site web et archivage"
+    }
+  ];
+
+  // Services Déconcentrés
+  const servicesDeconcentres = [
+    {
+      nom: "Directions Immobilières Régionales",
+      nombre: "8",
+      description: "Gestion locale du patrimoine dans les régions"
+    },
+    {
+      nom: "Directions Immobilières Préfectorales/Communales",
+      nombre: "33",
+      description: "Gestion locale du patrimoine dans les préfectures et communes"
     }
   ];
 
@@ -77,33 +129,33 @@ export default function EquipeGestion({ meta }) {
   const statistiques = [
     {
       icon: Users,
-      titre: "Membres de Direction",
-      valeur: equipeDirection.length,
-      subtitle: "Leaders expérimentés",
+      titre: "Directions Techniques",
+      valeur: directionsTechniques.length,
+      subtitle: "Unités opérationnelles",
       gradient: "bg-emerald-500",
       iconColor: "text-emerald-600"
     },
     {
       icon: Award,
-      titre: "Années d'Expérience",
-      valeur: "60+",
-      subtitle: "Expertise collective",
+      titre: "Services d'Appui",
+      valeur: servicesAppui.length,
+      subtitle: "Services support",
       gradient: "bg-blue-500",
       iconColor: "text-blue-600"
     },
     {
       icon: Building2,
-      titre: "Départements",
-      valeur: chefsDepartements.length,
-      subtitle: "Unités opérationnelles",
+      titre: "Services Déconcentrés",
+      valeur: "41",
+      subtitle: "Régions et Préfectures",
       gradient: "bg-primary-500",
       iconColor: "text-primary-600"
     },
     {
       icon: Target,
-      titre: "Projets Réalisés",
-      valeur: "150+",
-      subtitle: "Depuis 2018",
+      titre: "Brigade Spéciale",
+      valeur: "1",
+      subtitle: "Sécurité et appui terrain",
       gradient: "bg-orange-500",
       iconColor: "text-orange-600"
     }
@@ -111,9 +163,9 @@ export default function EquipeGestion({ meta }) {
 
   // Données SEO optimisées
   const seoData = {
-    title: "Notre Équipe de Gestion - DGPBP | Direction Générale du Patrimoine Bâti Public",
-    description: "Découvrez l'équipe dirigeante et les responsables de la Direction Générale du Patrimoine Bâti Public de Guinée. Expertise, compétences et expérience au service du patrimoine public.",
-    keywords: "équipe DGPBP, direction générale, responsables patrimoine, expertise immobilière, gestion publique, Guinée, leadership",
+    title: "Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public",
+    description: "Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG. Directions techniques, services d'appui et équipe dirigeante.",
+    keywords: "organisation DGPBP, structure DGPBP, directions techniques, services appui, équipe direction, organigramme DGPBP, Guinée",
     canonical: "/about/equipe-gestion",
     type: "AboutPage"
   };
@@ -138,26 +190,20 @@ export default function EquipeGestion({ meta }) {
 
   const DirecteurCard = ({ membre }) => (
     <div className="group relative">
-      {/* <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-primary-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div> */}
       <div className="relative bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
         <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary-100 to-primary-600">
-          {/* <img 
-            src={membre.photo} 
-            alt={`Photo de ${membre.nom}`}
-            className="w-full h-full bg-center object-contain group-hover:scale-110 transition-transform duration-700"
-          /> */}
           <div className="mb-4">
-          <img 
-            src={membre.photo} 
-            alt={`Photo de ${membre.nom}`}
-            className="w-48 h-48 rounded-full mx-auto object-cover border-3 border-primary-100 group-hover:border-primary-200 transition-colors"
-          />
-        </div>
+            <img 
+              src={membre.photo} 
+              alt={`Photo de ${membre.nom}`}
+              className="w-48 h-48 rounded-full mx-auto object-cover border-3 border-primary-100 group-hover:border-primary-200 transition-colors"
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
           
           {/* Badge poste */}
           <div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full">
-            <span className="text-xs font-medium">Direction</span>
+            <span className="text-xs font-medium">Direction Générale</span>
           </div>
         </div>
         
@@ -165,6 +211,11 @@ export default function EquipeGestion({ meta }) {
           <div className="text-center mb-4">
             <h3 className="text-lg font-bold text-gray-900 mb-1">{membre.nom}</h3>
             <p className="text-primary font-semibold">{membre.poste}</p>
+          </div>
+          
+          {/* Attributions */}
+          <div className="mb-4">
+            <p className="text-sm text-gray-600 text-center">{membre.attributions}</p>
           </div>
           
           {/* Compétences principales */}
@@ -180,26 +231,36 @@ export default function EquipeGestion({ meta }) {
     </div>
   );
 
-  const ChefCard = ({ chef, index }) => (
+  const DirectionCard = ({ direction, index }) => (
     <div className="group relative h-full">
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-primary-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
-      <div className="relative h-full bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+      <div className="relative h-full bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         <div className="mb-4">
           <img 
-            src={chef.photo} 
-            alt={`Photo de ${chef.nom}`}
-            className="w-20 h-20 rounded-full mx-auto object-cover border-3 border-primary-100 group-hover:border-primary-200 transition-colors"
+            src={direction.photo} 
+            alt={`Direction ${direction.nom}`}
+            className="w-16 h-16 rounded-full mx-auto object-cover border-2 border-primary-100"
           />
         </div>
         
-        <h3 className="font-bold text-gray-900 mb-1 text-sm">{chef.nom}</h3>
-        <p className="text-primary text-xs font-medium mb-3">{chef.poste}</p>
+        <h3 className="font-bold text-gray-900 mb-2 text-center text-sm">{direction.nom}</h3>
+        <p className="text-primary text-xs font-medium mb-3 text-center">{direction.responsable}</p>
         
-        <div className="text-sm font-bold text-primary mb-3">{chef.projets}</div>
+        <p className="text-sm text-gray-600 mb-4 text-center">{direction.description}</p>
+        
+        {/* Services */}
+        <div className="mb-4">
+          <h4 className="text-xs font-semibold text-gray-800 mb-2">Services :</h4>
+          <div className="space-y-1">
+            {direction.services.map((service, idx) => (
+              <p key={idx} className="text-xs text-gray-600">• {service}</p>
+            ))}
+          </div>
+        </div>
         
         <div className="flex flex-wrap justify-center gap-1">
-          {chef.competences.slice(0, 1).map((competence, compIndex) => (
-            <Badge key={compIndex} variant="outline" className="text-xs">
+          {direction.competences.slice(0, 3).map((competence, idx) => (
+            <Badge key={idx} variant="outline" className="text-xs">
               {competence}
             </Badge>
           ))}
@@ -208,167 +269,182 @@ export default function EquipeGestion({ meta }) {
     </div>
   );
 
+  const ServiceCard = ({ service, index }) => (
+    <div className="group relative h-full">
+      <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+      <div className="relative h-full bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+        <div className="flex items-center mb-4">
+          <div className="p-3 bg-primary-100 rounded-lg mr-4">
+            {service.icon}
+          </div>
+          <div className="flex-1">
+            <h3 className="font-bold text-gray-900 text-sm">{service.nom}</h3>
+            <p className="text-primary text-xs font-medium">{service.responsable}</p>
+          </div>
+        </div>
+        
+        <p className="text-sm text-gray-600">{service.description}</p>
+      </div>
+    </div>
+  );
+
   return (
-    <AppLayout 
-      title={seoData.title}
-      description={seoData.description}
-      keywords={seoData.keywords}
-      canonical={seoData.canonical}
-      type={seoData.type}
-    >
+    <AppLayout>
       <Head>
-        {/* Schema.org JSON-LD pour la page équipe */}
+        {/* Métadonnées de base pour la page Organisation */}
+        <title>Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public</title>
+        <meta name="description" content="Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG. Directions techniques, services d'appui et équipe dirigeante." />
+        <meta name="keywords" content="organisation DGPBP, structure DGPBP, directions techniques, services appui, équipe direction, organigramme DGPBP, Guinée" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+        <meta name="googlebot" content="index, follow" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public" />
+        <meta property="og:description" content="Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG." />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="/about/equipe-gestion" />
+        <meta property="og:image" content="/images/our-team/Souadou-Balde-DG.jpg" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public" />
+        <meta name="twitter:description" content="Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG." />
+        <meta name="twitter:image" content="/images/our-team/Souadou-Balde-DG.jpg" />
+        
+        {/* Canonical */}
+        <link rel="canonical" href="/about/equipe-gestion" />
+        
+        {/* Schema.org JSON-LD */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
-            "name": "Notre Équipe de Gestion - DGPBP",
-            "description": "Équipe dirigeante de la Direction Générale du Patrimoine Bâti Public de Guinée",
+            "name": "Organisation et Structure - DGPBP",
+            "description": "Organisation et structure de la Direction Générale du Patrimoine Bâti Public de Guinée",
             "url": "/about/equipe-gestion",
             "mainEntity": {
-              "@type": "Organization",
+              "@type": "GovernmentOrganization",
               "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
-              "employee": equipeDirection.map(membre => ({
+              "employees": equipeDirection.map(membre => ({
                 "@type": "Person",
                 "name": membre.nom,
                 "jobTitle": membre.poste,
-                "email": membre.email,
-                "telephone": membre.telephone
-              }))
-            },
-            "breadcrumb": {
-              "@type": "BreadcrumbList",
-              "itemListElement": [
-                {
-                  "@type": "ListItem",
-                  "position": 1,
-                  "name": "Accueil",
-                  "item": "/"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 2,
-                  "name": "Qui sommes-nous",
-                  "item": "/about"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 3,
-                  "name": "Notre Équipe de Gestion",
-                  "item": "/about/equipe-gestion"
+                "worksFor": {
+                  "@type": "GovernmentOrganization",
+                  "name": "DGPBP"
                 }
-              ]
+              }))
             }
           })}
         </script>
       </Head>
 
-      <div className="min-h-screen bg-white">
-        {/* Hero Section amélioré */}
-        <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-          {/* Background animé */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-primary-900 to-indigo-900"></div>
-          <div className="absolute inset-0 bg-black/20"></div>
-          
-          {/* Motifs décoratifs */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white rounded-full mix-blend-overlay filter blur-xl animate-pulse"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-yellow-300 rounded-full mix-blend-overlay filter blur-xl animate-pulse delay-1000"></div>
-          </div>
-
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div 
-              className="mb-8"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-r from-emerald-400 to-blue-500 shadow-2xl mb-8">
-                <Users className="h-12 w-12 text-white" />
-              </div>
+      {/* Hero Section */}
+      <div className="relative min-h-[700px] flex items-center overflow-hidden" itemScope itemType="https://schema.org/ImageObject">
+        <div 
+          className="absolute inset-0 bg-cover bg-center" 
+          style={{backgroundImage: "url('/images/about03.jpg')"}}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-primary-950/70 to-blue-900/60" />
+        
+        {/* Éléments décoratifs */}
+        <div className="absolute top-20 left-10 w-32 h-32 border-4 border-blue-400/20 rounded-full opacity-50" aria-hidden="true" />
+        <div className="absolute bottom-20 right-10 w-48 h-48 border-4 border-primary-400/20 rounded-full opacity-50" aria-hidden="true" />
+        <div className="absolute top-1/3 right-1/4 w-20 h-20 bg-blue-500/10 rounded-full blur-xl" aria-hidden="true" />
+        <div className="absolute bottom-1/3 left-1/3 w-24 h-24 bg-primary-500/10 rounded-full blur-xl" aria-hidden="true" />
+        
+        <div className="relative container mx-auto px-4 z-10">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+            className="max-w-4xl mx-auto text-center"
+          >
+            <motion.div variants={fadeIn} className="mb-6">
+              <span className="inline-block text-blue-300 text-lg font-medium mb-3 px-4 py-1 border border-blue-300/30 rounded-full">
+                Structure & Organisation
+              </span>
             </motion.div>
-            
-            <motion.h1 
-              className="text-5xl md:text-7xl font-bold mb-8 text-white"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+            <motion.h1
+              variants={fadeIn}
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight"
+              itemProp="name"
             >
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
-                Notre Équipe
-              </span>
-              <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-500">
-                de Gestion
-              </span>
+              Notre 
+              <span className="text-blue-300">Organisation</span>
             </motion.h1>
-            
-            <motion.p 
-              className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-blue-100 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+            <motion.p
+              variants={fadeIn}
+              className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed"
+              itemProp="description"
             >
-              Une équipe de professionnels expérimentés dédiée à l'excellence 
-              dans la gestion du patrimoine bâti public de la Guinée
+              Structure organisationnelle de la Direction Générale du Patrimoine Bâti Public 
+              définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022
             </motion.p>
-            
-            <motion.div 
-              className="flex flex-wrap justify-center gap-6 mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+            <motion.div
+              variants={fadeIn}
+              className="flex flex-wrap justify-center gap-6 text-white/80 mb-8"
             >
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-3 rounded-full">
-                <span className="text-white font-semibold">Leadership • Excellence</span>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <Building2 className="h-5 w-5 text-blue-300" />
+                <span>Directions Techniques</span>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-3 rounded-full">
-                <span className="text-white font-semibold">{equipeDirection.length} Directeurs</span>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <Users className="h-5 w-5 text-blue-300" />
+                <span>Services d'Appui</span>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-3 rounded-full">
-                <span className="text-white font-semibold">{chefsDepartements.length} Départements</span>
+              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <Target className="h-5 w-5 text-blue-300" />
+                <span>Services Déconcentrés</span>
               </div>
             </motion.div>
-
             <motion.div 
-              className="flex flex-wrap justify-center gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              variants={fadeIn}
+              className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6"
             >
               <a 
-                href="#direction"
-                className="bg-gradient-to-r from-emerald-400 to-blue-500 text-white px-8 py-4 rounded-xl font-bold hover:from-emerald-500 hover:to-blue-600 transition-all duration-300 transform hover:-translate-y-1 shadow-2xl inline-flex items-center"
+                href="/about/mot-directrice" 
+                className="px-10 py-4 bg-blue-600 text-white rounded-lg font-semibold 
+                hover:bg-blue-500 transition-all duration-300 flex items-center justify-center group shadow-lg shadow-blue-700/30"
+                aria-label="Mot de la Directrice"
               >
-                <Users className="h-6 w-6 mr-3" />
-                Découvrir l'Équipe
+                <Target className="mr-3 group-hover:scale-110 transition-transform" />
+                Mot de la Directrice
+                <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
               <a 
-                href="#structure"
-                className="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/20 transition-all duration-300 inline-flex items-center text-lg"
+                href="/about" 
+                className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 rounded-lg font-semibold 
+                hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center group"
+                aria-label="À propos de la DGPBP"
               >
-                <Building2 className="h-6 w-6 mr-3" />
-                Structure
+                <Building2 className="mr-3 group-hover:scale-110 transition-transform" />
+                À Propos de la DGPBP
               </a>
             </motion.div>
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-              <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-ping"></div>
-            </div>
-          </div>
+          </motion.div>
         </div>
+        
+        {/* Effet de vague en bas du hero */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto fill-white" aria-hidden="true">
+            <path d="M0,96L80,90.7C160,85,320,75,480,74.7C640,75,800,85,960,85.3C1120,85,1280,75,1360,69.3L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+          </svg>
+        </div>
+        
+        <meta itemProp="contentUrl" content="/images/about03.jpg" />
+        <meta itemProp="caption" content="Organisation DGPBP" />
+      </div>
 
-        {/* Statistiques avec design amélioré */}
-        <section className="relative mt-6 z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+      {/* Statistiques */}
+      <section className="py-12 bg-white relative -mt-16 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
           >
             {statistiques.map((stat, index) => (
               <motion.div key={index} variants={fadeIn}>
@@ -376,188 +452,247 @@ export default function EquipeGestion({ meta }) {
               </motion.div>
             ))}
           </motion.div>
-        </section>
+        </div>
+      </section>
 
-        {/* Équipe de Direction */}
-        <section id="direction" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Équipe de 
-              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-primary-600">
-                Direction
-              </span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Les dirigeants qui orientent la stratégie et supervisent les opérations de la DGPBP
-            </p>
-          </motion.div>
-
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 gap-10"
+      {/* Équipe de Direction */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
+            className="text-center mb-16"
           >
-            {equipeDirection.map((membre) => (
+            <motion.h2
+              variants={fadeIn}
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            >
+              Direction Générale
+            </motion.h2>
+            <motion.p
+              variants={fadeIn}
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              La Direction Générale est dirigée par un Directeur Général nommé par Décret du Président de la République, 
+              assisté d'un Directeur Général Adjoint
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto"
+          >
+            {equipeDirection.map((membre, index) => (
               <motion.div key={membre.id} variants={fadeIn}>
                 <DirecteurCard membre={membre} />
               </motion.div>
             ))}
           </motion.div>
-        </section>
+        </div>
+      </section>
 
-        {/* Chefs de Départements */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+      {/* Directions Techniques */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
+            className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Chefs de 
-              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-primary-600">
-                Départements
-              </span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Les responsables opérationnels qui assurent le fonctionnement quotidien de nos services
-            </p>
+            <motion.h2
+              variants={fadeIn}
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            >
+              Directions Techniques
+            </motion.h2>
+            <motion.p
+              variants={fadeIn}
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              Les Directions Techniques sont animées par des Directeurs qui ont rang de Chefs de Division
+            </motion.p>
           </motion.div>
 
-          <motion.div 
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {directionsTechniques.map((direction, index) => (
+              <motion.div key={index} variants={fadeIn}>
+                <DirectionCard direction={direction} index={index} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services d'Appui */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.h2
+              variants={fadeIn}
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            >
+              Services d'Appui
+            </motion.h2>
+            <motion.p
+              variants={fadeIn}
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              Les Services d'Appui sont animés par des Chefs de Service qui ont rang de Chefs de Section
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {servicesAppui.map((service, index) => (
+              <motion.div key={index} variants={fadeIn}>
+                <ServiceCard service={service} index={index} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services Déconcentrés */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.h2
+              variants={fadeIn}
+              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+            >
+              Services Déconcentrés
+            </motion.h2>
+            <motion.p
+              variants={fadeIn}
+              className="text-xl text-gray-600 max-w-3xl mx-auto"
+            >
+              Les Services Déconcentrés sont animés par des Directeurs Communaux, Préfectoraux et Régionaux 
+              qui ont rang de Chefs de Division
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+          >
+            {servicesDeconcentres.map((service, index) => (
+              <motion.div
+                key={index}
+                variants={fadeIn}
+                className="bg-gradient-to-br from-primary-50 to-white p-8 rounded-xl shadow-sm border border-primary-100"
+              >
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl font-bold text-white">{service.nombre}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{service.nom}</h3>
+                  <p className="text-gray-600">{service.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Brigade Spéciale */}
+          <motion.div
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="mt-12 max-w-2xl mx-auto"
+          >
+            <div className="bg-gradient-to-br from-orange-50 to-white p-8 rounded-xl shadow-sm border border-orange-100 text-center">
+              <div className="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Brigade Spéciale de Gendarmerie</h3>
+              <p className="text-gray-600">
+                Assure la sécurité du Service et du personnel pendant les heures de travail. 
+                Appuie la Direction dans la mise en œuvre des actions de terrain relatives à la gestion du Parc Immobilier Bâti de l'État.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-20 bg-gradient-to-br from-slate-900 via-primary-950 to-blue-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {chefsDepartements.map((chef, index) => (
-              <motion.div key={index} variants={fadeIn}>
-                <ChefCard chef={chef} index={index} />
-              </motion.div>
-            ))}
-          </motion.div>
-        </section>
-
-        {/* Section Organigramme améliorée */}
-        <section id="structure" className="bg-gradient-to-br from-white via-blue-50/50 to-primary-50/30 py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div 
-              className="text-center mb-16"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+            <motion.h2
+              variants={fadeIn}
+              className="text-3xl md:text-4xl font-bold text-white mb-6"
             >
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Structure 
-                <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-primary-600">
-                  Organisationnelle
-                </span>
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Notre organisation s'articule autour de 4 directions principales et de plusieurs départements spécialisés
-              </p>
-            </motion.div>
-
-            <motion.div 
-              className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-              variants={staggerContainer}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+              Découvrez Notre Vision
+            </motion.h2>
+            <motion.p
+              variants={fadeIn}
+              className="text-xl text-white/90 mb-8 max-w-3xl mx-auto"
             >
-              {[
-                {
-                  titre: "Direction Générale",
-                  description: "Stratégie et supervision générale",
-                  icon: Users,
-                  gradient: "from-emerald-500 to-green-500",
-                  iconColor: "text-emerald-600"
-                },
-                {
-                  titre: "Direction Technique",
-                  description: "Expertise et évaluation immobilière",
-                  icon: Building2,
-                  gradient: "from-blue-500 to-indigo-500",
-                  iconColor: "text-blue-600"
-                },
-                {
-                  titre: "Direction Juridique",
-                  description: "Contentieux et affaires légales",
-                  icon: Shield,
-                  gradient: "from-purple-500 to-violet-500",
-                  iconColor: "text-purple-600"
-                },
-                {
-                  titre: "Direction Administrative",
-                  description: "Gestion financière et administrative",
-                  icon: Briefcase,
-                  gradient: "from-orange-500 to-red-500",
-                  iconColor: "text-orange-600"
-                }
-              ].map((direction, index) => (
-                <motion.div key={index} variants={fadeIn}>
-                  <div className={`group h-full relative p-8 rounded-2xl bg-gradient-to-br ${direction.gradient} text-white hover:scale-105 transition-all duration-300 shadow-xl`}>
-                    <direction.icon className="h-12 w-12 mb-6 text-white/90" />
-                    <h3 className="text-xl font-bold mb-3">{direction.titre}</h3>
-                    <p className="text-white/90 leading-relaxed">{direction.description}</p>
-                  </div>
-                </motion.div>
-              ))}
+              Explorez la vision et les orientations stratégiques de notre Directrice Générale 
+              pour la transformation de la gestion du patrimoine public
+            </motion.p>
+            <motion.div
+              variants={fadeIn}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <a
+                href="/about/mot-directrice"
+                className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-500 transition-all duration-300 shadow-lg shadow-blue-700/30"
+              >
+                <Target className="h-5 w-5" />
+                Mot de la Directrice
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="/about"
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300"
+              >
+                <Building2 className="h-5 w-5" />
+                À Propos de la DGPBP
+                <ArrowRight className="h-4 w-4" />
+              </a>
             </motion.div>
-          </div>
-        </section>
-
-        {/* Call to Action amélioré */}
-        <section className="relative py-24 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-primary-900 to-indigo-900"></div>
-          <div className="absolute inset-0 bg-black/30"></div>
-          
-          <motion.div 
-            className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-8 text-white">
-              Rejoignez Notre 
-              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-blue-500">
-                Mission
-              </span>
-            </h2>
-            <p className="text-xl mb-12 max-w-3xl mx-auto text-blue-100 leading-relaxed">
-              Découvrez nos services, explorez nos projets et contactez-nous pour toute demande ou collaboration
-            </p>
-            <div className="flex flex-wrap justify-center gap-6">
-              <a 
-                href={route('contact.index')}
-                className="bg-gradient-to-r from-emerald-400 to-blue-500 text-white px-10 py-4 rounded-xl font-bold hover:from-emerald-500 hover:to-blue-600 transition-all duration-300 transform hover:-translate-y-1 shadow-2xl inline-flex items-center text-lg"
-              >
-                <Mail className="h-6 w-6 mr-3" />
-                Nous Contacter
-              </a>
-              <a 
-                href={route('demandes.new')}
-                className="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition-all duration-300 inline-flex items-center text-lg"
-              >
-                <Building2 className="h-6 w-6 mr-3" />
-                Nos Services
-              </a>
-            </div>
           </motion.div>
-        </section>
-      </div>
+        </div>
+      </section>
     </AppLayout>
   );
 } 
