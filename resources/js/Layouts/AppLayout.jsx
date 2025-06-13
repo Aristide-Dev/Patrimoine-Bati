@@ -324,7 +324,7 @@ export default function AppLayout({
 
       <div className="min-h-screen flex flex-col relative overflow-x-hidden" {...seoConfig.itemProps}>
         {/* Arrière-plan animé avec dégradé amélioré */}
-        <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 -z-10" />
+        {/* <div className="fixed inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 -z-10" /> */}
         
         {/* Particules flottantes décoratives avec performance optimisée */}
         <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">

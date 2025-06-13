@@ -263,7 +263,7 @@ export default function EquipeGestion({ meta }) {
         </script>
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-primary-50/20">
+      <div className="min-h-screen bg-white">
         {/* Hero Section amélioré */}
         <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
           {/* Background animé */}
