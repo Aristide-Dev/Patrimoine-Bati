@@ -1,7 +1,7 @@
 import React from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import { Head } from '@inertiajs/react';
-import { Castle, Calendar, MapPin, Camera, History, Award, Users, Clock, ExternalLink, Star, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Castle, MapPin, Camera, History, Award, Users, Clock, Star, } from 'lucide-react';
 import { motion } from "framer-motion";
 
 export default function Historic({ meta }) {
@@ -466,23 +466,6 @@ export default function Historic({ meta }) {
         </script>
       </Head>
 
-      {/* Lien de retour */}
-      <div className="bg-gray-50 py-4">
-        <div className="container mx-auto px-4">
-          <motion.a 
-            href={route('demandes.processus')}
-            className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            aria-label="Retour aux patrimoines"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" aria-hidden="true" />
-            Demande de logement
-          </motion.a>
-        </div>
-      </div>
-
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-primary-50/20">
         {/* Hero Section amélioré */}
         <div className="relative min-h-screen flex items-center justify-center overflow-hidden" itemScope itemType="https://schema.org/TouristAttraction">
@@ -503,9 +486,6 @@ export default function Historic({ meta }) {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 shadow-2xl mb-8">
-                <Castle className="h-12 w-12 text-white" />
-              </div>
             </motion.div>
             
             <motion.h1 

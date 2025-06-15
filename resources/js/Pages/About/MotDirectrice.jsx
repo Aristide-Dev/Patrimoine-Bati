@@ -253,18 +253,36 @@ export default function MotDirectrice() {
         </script>
       </Head>
 
-      {/* Hero Section */}
-      <div className="relative min-h-[700px] flex items-center overflow-hidden" itemScope itemType="https://schema.org/ImageObject">
+      {/* Lien de retour amélioré */}
+      <div className="bg-gradient-to-br from-gray-50 via-primary-50/20 to-blue-50/20 py-4">
+        <div className="container mx-auto px-4">
+          <motion.a 
+            href={route('about.index')}
+            className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors group"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <ArrowLeft className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+            Retour à À Propos
+          </motion.a>
+        </div>
+      </div>
+
+      {/* Hero Section amélioré */}
+      <div className="relative min-h-[700px] flex items-center overflow-hidden">
+        {/* Background avec overlay amélioré */}
         <div 
-          className="absolute inset-0 bg-cover bg-center" 
-          style={{backgroundImage: "url('/images/hero/Souadou-Balde.png')"}}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{backgroundImage: "url('/images/our-team/Souadou-Balde-DG-2.jpg')"}}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-primary-950/70 to-primary-900/60" />
+        <div className="absolute inset-0 bg-gradient-to-l from-black/90 via-black/30 to-black/90" />
         
-        {/* Éléments décoratifs */}
-        <div className="absolute top-20 left-10 w-32 h-32 border-4 border-primary-400/20 rounded-full opacity-50" aria-hidden="true" />
-        <div className="absolute bottom-20 right-10 w-48 h-48 border-4 border-primary-400/20 rounded-full opacity-50" aria-hidden="true" />
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-500/10 rounded-full blur-xl" aria-hidden="true" />
+        {/* Motifs décoratifs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full mix-blend-overlay filter blur-xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary-300/10 rounded-full mix-blend-overlay filter blur-xl animate-pulse delay-1000"></div>
+        </div>
         
         <div className="relative container mx-auto px-4 z-10">
           <motion.div
@@ -273,63 +291,52 @@ export default function MotDirectrice() {
             animate="visible"
             className="max-w-4xl mx-auto text-center"
           >
-            <motion.div variants={fadeIn} className="mb-6">
-              <span className="inline-block text-primary-300 text-lg font-medium mb-3 px-4 py-1 border border-primary-300/30 rounded-full">
-                Leadership & Vision
-              </span>
-            </motion.div>
+            
             <motion.h1
               variants={fadeIn}
-              className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight"
-              itemProp="name"
+              className="mt-8 uppercase text-3xl md:text-6xl lg:text-7xl font-extrabold text-white mb-8 leading-tight tracking-tight shadow-2xl"
             >
-              Mot de la 
-              <span className="text-primary-300">Directrice</span>
+              Mot de la
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-100 to-blue-100 ml-4">
+                Directrice
+              </span>
             </motion.h1>
-            <motion.p
-              variants={fadeIn}
-              className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed"
-              itemProp="description"
-            >
-              Madame Souadou Baldé partage sa vision pour la transformation 
-              et la modernisation de la gestion du patrimoine bâti public guinéen
-            </motion.p>
+            
             <motion.div
               variants={fadeIn}
-              className="flex flex-wrap justify-center gap-6 text-white/80 mb-8"
+              className="flex flex-wrap justify-center gap-6 text-white/80 mb-12"
             >
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <Calendar className="h-5 w-5 text-primary-300" />
-                <span>Nommée par Décret Présidentiel</span>
+              <div className="flex items-center gap-3 bg-black/30 backdrop-blur-lg px-6 py-3 rounded-xl border border-white/20">
+                <Calendar className="h-5 w-5 text-primary-100" />
+                <span className="text-primary-200">Nommée par Décret Présidentiel</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <MapPin className="h-5 w-5 text-primary-300" />
-                <span>Conakry, Guinée</span>
+              <div className="flex items-center gap-3 bg-black/30 backdrop-blur-lg px-6 py-3 rounded-xl border border-white/20">
+                <FileText className="h-5 w-5 text-primary-100" />
+                <span className="text-primary-200">Décret N°D/0275/PRG/CNRD/SGG</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg">
-                <FileText className="h-5 w-5 text-primary-300" />
-                <span>Décret N°D/0275/PRG/CNRD/SGG</span>
+              <div className="flex items-center gap-3 bg-black/30 backdrop-blur-lg px-6 py-3 rounded-xl border border-white/20">
+                <MapPin className="h-5 w-5 text-primary-100" />
+                <span className="text-primary-200">Conakry, Guinée</span>
               </div>
             </motion.div>
+            
             <motion.div 
               variants={fadeIn}
               className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6"
             >
               <a 
-                href="/about/equipe-gestion" 
-                className="px-10 py-4 bg-primary-600 text-white rounded-lg font-semibold 
-                hover:bg-primary-500 transition-all duration-300 flex items-center justify-center group shadow-lg shadow-primary-700/30"
-                aria-label="Découvrir l'équipe"
+                href={route('about.equipe-gestion')} 
+                className="px-8 py-4 bg-gradient-to-r from-primary-600 to-blue-600 text-white rounded-xl font-semibold 
+                hover:from-primary-500 hover:to-blue-500 transition-all duration-300 flex items-center justify-center group shadow-xl shadow-primary-700/30 transform hover:-translate-y-1"
               >
                 <Users className="mr-3 group-hover:scale-110 transition-transform" />
                 Notre Organisation
                 <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
               <a 
-                href="/about" 
-                className="px-10 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 rounded-lg font-semibold 
-                hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center group"
-                aria-label="À propos de la DGPBP"
+                href={route('about.index')} 
+                className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 rounded-xl font-semibold 
+                hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center group transform hover:-translate-y-1"
               >
                 <Building2 className="mr-3 group-hover:scale-110 transition-transform" />
                 À Propos de la DGPBP
@@ -338,19 +345,16 @@ export default function MotDirectrice() {
           </motion.div>
         </div>
         
-        {/* Effet de vague en bas du hero */}
+        {/* Effet de vague amélioré */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto fill-white" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto fill-white">
             <path d="M0,96L80,90.7C160,85,320,75,480,74.7C640,75,800,85,960,85.3C1120,85,1280,75,1360,69.3L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
           </svg>
         </div>
-        
-        <meta itemProp="contentUrl" content="/images/hero/Souadou-Balde.png" />
-        <meta itemProp="caption" content="Madame Souadou Baldé, Directrice Générale de la DGPBP" />
       </div>
 
-      {/* Message de la Directrice */}
-      <section className="py-20 bg-white">
+      {/* Message de la Directrice - Section améliorée */}
+      <section className="py-24 bg-gradient-to-br from-white via-blue-50/50 to-primary-50/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Portrait et informations */}
@@ -361,63 +365,69 @@ export default function MotDirectrice() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="relative">
-                <img
-                  src="/images/hero/Souadou-Balde - Copie.jpg"
-                  alt="Madame Souadou Baldé"
-                  className="w-full rounded-2xl shadow-2xl"
-                />
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary-100 rounded-full flex items-center justify-center">
-                  <Quote className="h-12 w-12 text-primary-600" />
+              <div className="group relative">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                <div className="relative">
+                  <img
+                    src="/images/our-team/Souadou-Balde-DG.jpg"
+                    alt="Madame Souadou Baldé"
+                    className="w-full rounded-2xl shadow-2xl transform group-hover:scale-[1.02] transition-transform duration-500"
+                  />
+                  <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-primary-100 to-blue-100 rounded-full flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-500">
+                    <Quote className="h-12 w-12 text-primary-600" />
+                  </div>
                 </div>
               </div>
               
-              <div className="mt-8 p-6 bg-primary-50 rounded-xl">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Madame Souadou Baldé</h3>
-                <p className="text-primary-600 font-semibold mb-2">Directrice Générale</p>
-                <p className="text-gray-600 mb-4">
+              <div className="mt-8 p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Madame Souadou Baldé</h3>
+                <p className="text-primary-600 font-semibold mb-4">Directrice Générale</p>
+                <p className="text-gray-600 mb-6">
                   Direction Générale du Patrimoine Bâti Public de Guinée
                 </p>
-                <div className="space-y-2 text-sm text-gray-600">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    <span>Nommée par Décret du Président de la République</span>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 bg-primary-50 p-3 rounded-lg">
+                    <Calendar className="h-5 w-5 text-primary-600" />
+                    <span className="text-gray-700">Nommée par Décret du Président de la République</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Building2 className="h-4 w-4" />
-                    <span>Autonomie de gestion et financière</span>
+                  <div className="flex items-center gap-3 bg-primary-50 p-3 rounded-lg">
+                    <Building2 className="h-5 w-5 text-primary-600" />
+                    <span className="text-gray-700">Autonomie de gestion et financière</span>
                   </div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Message */}
+            {/* Message avec design amélioré */}
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="space-y-6"
+              className="space-y-8"
             >
               <motion.div variants={fadeIn}>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                  Notre Mission : Excellence et Innovation
+                <h2 className="text-4xl font-bold text-gray-900 mb-8">
+                  Notre Mission : 
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-blue-600 ml-3">
+                    Excellence et Innovation
+                  </span>
                 </h2>
-                <div className="prose prose-lg text-gray-700 space-y-4">
-                  <p>
+                <div className="prose prose-lg text-gray-700 space-y-6">
+                  <p className="text-xl leading-relaxed">
                     Mesdames et Messieurs,
                   </p>
-                  <p>
+                  <p className="leading-relaxed">
                     En tant que Directrice Générale du Patrimoine Bâti Public, nommée par Décret du Président de la République, 
                     j'ai l'honneur de diriger une institution dotée de l'autonomie de gestion et de l'autonomie financière, 
                     rattachée par délégation au Ministre Secrétaire Général de la Présidence de la République.
                   </p>
-                  <p>
+                  <p className="leading-relaxed">
                     Notre mission fondamentale consiste à concevoir, élaborer et mettre en œuvre la politique du Gouvernement 
                     en matière de conservation et de gestion du Parc Immobilier Bâti de l'État. Cette responsabilité s'étend 
                     tant à l'intérieur qu'à l'extérieur du territoire national, englobant l'ensemble du patrimoine immobilier public guinéen.
                   </p>
-                  <p>
+                  <p className="leading-relaxed">
                     Nous nous engageons à assurer l'administration, la gestion, l'extension et la conservation de ce patrimoine 
                     avec la plus haute rigueur, tout en procédant à l'affectation des bâtiments conformément à la réglementation en vigueur. 
                     Notre démarche s'articule autour de la coordination des activités de rénovation, d'entretien et de modernisation 
@@ -426,21 +436,27 @@ export default function MotDirectrice() {
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeIn} className="bg-primary-50 p-6 rounded-xl">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Notre Vision Stratégique</h3>
-                <p className="text-gray-700">
-                  "Créer un cadre de gestion optimale du patrimoine bâti public pour le repositionnement 
-                  central de l'État propriétaire dans le processus de production de logements et d'immeubles 
-                  administratifs, tout en intégrant les technologies numériques modernes."
-                </p>
+              <motion.div 
+                variants={fadeIn} 
+                className="group relative"
+              >
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                <div className="relative bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Notre Vision Stratégique</h3>
+                  <p className="text-gray-700 text-lg leading-relaxed">
+                    "Créer un cadre de gestion optimale du patrimoine bâti public pour le repositionnement 
+                    central de l'État propriétaire dans le processus de production de logements et d'immeubles 
+                    administratifs, tout en intégrant les technologies numériques modernes."
+                  </p>
+                </div>
               </motion.div>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Piliers de la Vision */}
-      <section className="py-20 bg-gray-50">
+      {/* Piliers de la Vision - Section améliorée */}
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={staggerContainer}
@@ -451,9 +467,12 @@ export default function MotDirectrice() {
           >
             <motion.h2
               variants={fadeIn}
-              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             >
-              Les Piliers de Notre Transformation
+              Les Piliers de Notre
+              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-blue-600">
+                Transformation
+              </span>
             </motion.h2>
             <motion.p
               variants={fadeIn}
@@ -475,15 +494,18 @@ export default function MotDirectrice() {
               <motion.div
                 key={index}
                 variants={fadeIn}
-                className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="group relative"
               >
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-primary-100 rounded-lg flex-shrink-0">
-                    {point.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{point.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{point.description}</p>
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                <div className="relative bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="flex items-start gap-6">
+                    <div className="p-4 bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                      {point.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 mb-4">{point.title}</h3>
+                      <p className="text-gray-600 leading-relaxed">{point.description}</p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -492,8 +514,8 @@ export default function MotDirectrice() {
         </div>
       </section>
 
-      {/* Priorités Stratégiques */}
-      <section className="py-20 bg-white">
+      {/* Priorités Stratégiques - Section améliorée */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 via-primary-50/20 to-blue-50/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={staggerContainer}
@@ -504,9 +526,12 @@ export default function MotDirectrice() {
           >
             <motion.h2
               variants={fadeIn}
-              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             >
-              Nos Priorités Stratégiques
+              Nos Priorités
+              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-blue-600">
+                Stratégiques
+              </span>
             </motion.h2>
             <motion.p
               variants={fadeIn}
@@ -522,80 +547,87 @@ export default function MotDirectrice() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
             {prioritesStrategiques.map((priorite, index) => (
               <motion.div
                 key={index}
                 variants={fadeIn}
-                className="text-center p-6 bg-gray-50 rounded-xl hover:bg-primary-50 transition-colors duration-300"
+                className="group relative"
               >
-                <div className="mx-auto mb-4 w-16 h-16 bg-primary-100 rounded-xl flex items-center justify-center">
-                  {priorite.icon}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                <div className="relative bg-white p-8 rounded-xl text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="mx-auto mb-6 w-16 h-16 bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    {priorite.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{priorite.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{priorite.description}</p>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{priorite.title}</h3>
-                <p className="text-sm text-gray-600">{priorite.description}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Engagement et Appel à l'Action */}
-      <section className="py-20 bg-gradient-to-br from-slate-900 via-primary-950 to-primary-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <motion.div variants={fadeIn} className="mb-12">
-              <Quote className="h-16 w-16 text-primary-300 mx-auto mb-6" />
-              <blockquote className="text-2xl md:text-3xl font-bold text-white mb-8 max-w-4xl mx-auto leading-relaxed">
-                "Ensemble, nous bâtissons l'avenir du patrimoine immobilier public guinéen, 
-                alliant tradition et innovation pour servir au mieux notre nation."
-              </blockquote>
-              <p className="text-xl text-white/90">
-                - Madame Souadou Baldé, Directrice Générale DGPBP
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={fadeIn}
-              className="max-w-3xl mx-auto mb-12"
-            >
-              <p className="text-lg text-white/90 leading-relaxed">
-                Notre engagement envers l'excellence, la transparence et l'innovation guide chacune de nos actions. 
-                Nous invitons tous nos partenaires, collaborateurs et citoyens à nous accompagner dans cette 
-                transformation historique de la gestion du patrimoine public guinéen.
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={fadeIn}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <a
-                href="/about/equipe-gestion"
-                className="inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-500 transition-all duration-300 shadow-lg shadow-primary-700/30"
-              >
-                <Users className="h-5 w-5" />
-                Notre Organisation
-                <ArrowRight className="h-4 w-4" />
-              </a>
-              <a
-                href="/about"
-                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300"
-              >
-                <Building2 className="h-5 w-5" />
-                À Propos de la DGPBP
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </motion.div>
-          </motion.div>
+      {/* Call to Action amélioré */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-primary-900 to-indigo-900"></div>
+        <div className="absolute inset-0 bg-black/30"></div>
+        
+        {/* Motifs décoratifs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full mix-blend-overlay filter blur-xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary-300/10 rounded-full mix-blend-overlay filter blur-xl animate-pulse delay-1000"></div>
         </div>
+        
+        <motion.div 
+          className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <div className="mb-12">
+            <Quote className="h-16 w-16 text-primary-300 mx-auto mb-8" />
+            <blockquote className="text-3xl font-bold text-white mb-8 max-w-4xl mx-auto leading-relaxed">
+              "Ensemble, nous bâtissons l'avenir du patrimoine immobilier public guinéen, 
+              alliant tradition et innovation pour servir au mieux notre nation."
+            </blockquote>
+            <p className="text-xl text-white/90">
+              - Madame Souadou Baldé, Directrice Générale DGPBP
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto mb-12">
+            <p className="text-lg text-white/90 leading-relaxed">
+              Notre engagement envers l'excellence, la transparence et l'innovation guide chacune de nos actions. 
+              Nous invitons tous nos partenaires, collaborateurs et citoyens à nous accompagner dans cette 
+              transformation historique de la gestion du patrimoine public guinéen.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center gap-6">
+            <a
+              href={route('about.equipe-gestion')}
+              className="bg-gradient-to-r from-primary-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold 
+              hover:from-primary-500 hover:to-blue-500 transition-all duration-300 transform hover:-translate-y-1 shadow-xl 
+              shadow-primary-700/30 inline-flex items-center group"
+            >
+              <Users className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
+              Notre Organisation
+              <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a
+              href={route('about.index')}
+              className="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-xl 
+              font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center group"
+            >
+              <Building2 className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
+              À Propos de la DGPBP
+              <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+        </motion.div>
       </section>
     </AppLayout>
   );

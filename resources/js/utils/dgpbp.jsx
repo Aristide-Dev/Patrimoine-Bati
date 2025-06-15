@@ -21,10 +21,9 @@ export const DGPBP = {
             weekdays: "Lundi - Vendredi",
             weekhours: "8h00 - 17h00",
         },
-        // social: [
-        //     { name: "Facebook", icon: Facebook, url: "https://www.facebook.com/cguitech" },
-        //     { name: "Twitter", icon: Twitter, url: "https://twitter.com/cguitech" },
-        //     { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/company/cguitech" },
-        // ],
+        social: [
+            { name: "Facebook", icon: Facebook, url: "https://www.facebook.com/patrimoinebatiguinee/" },
+            { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/company/patrimoinebatiguinee/" },
+        ],
     },
 }

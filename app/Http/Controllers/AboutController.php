@@ -55,4 +55,14 @@ class AboutController extends Controller
             ]
         ]);
     }
+
+    public function gerants()
+    {
+        return Inertia::render('About/Gerants', [
+            'meta' => [
+                'title' => 'Gérants Immobiliers',
+                'description' => 'Les gérants immobiliers de la Direction Générale du Patrimoine Bâti Public'
+            ]
+        ]);
+    }
 } 

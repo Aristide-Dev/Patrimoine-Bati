@@ -270,11 +270,13 @@ export default function About() {
           className="absolute inset-0 bg-cover bg-center" 
           style={{backgroundImage: "url('/images/about03.jpg')"}}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-primary-950/60 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/90 via-black/50 to-black/90" />
         
-        {/* Éléments décoratifs */}
-        <div className="absolute top-20 left-10 w-32 h-32 border-4 border-white/20 rounded-full opacity-50" aria-hidden="true" />
-        <div className="absolute bottom-20 right-10 w-48 h-48 border-4 border-primary-500/20 rounded-full opacity-50" aria-hidden="true" />
+        {/* Motifs décoratifs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full mix-blend-overlay filter blur-xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary-300/10 rounded-full mix-blend-overlay filter blur-xl animate-pulse delay-1000"></div>
+        </div>
 
         <div className="relative container mx-auto px-4 z-10">
           <motion.div 
@@ -283,13 +285,22 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="inline-block text-primary-300 text-lg font-medium mb-3 px-4 py-1 border border-primary-300/30 rounded-full">
-              Patrimoine Bâti Public
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight" itemProp="name">
-              À Propos de la 
-              <span className="text-primary-300">DGPBP</span>
-            </h1>
+            <motion.div variants={fadeIn} className="mb-6">
+              <span className="inline-block text-primary-300 text-lg font-medium mb-3 px-6 py-2 border border-primary-300/30 rounded-full bg-white/5 backdrop-blur-sm">
+                Patrimoine Bâti Public
+              </span>
+            </motion.div>
+            
+            <motion.h1
+              variants={fadeIn}
+              className="mt-8 uppercase text-3xl md:text-6xl lg:text-7xl font-extrabold text-white mb-8 leading-tight tracking-tight shadow-2xl"
+            >
+              À Propos de la
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-100 to-blue-100 ml-4">
+                DGPBP
+              </span>
+            </motion.h1>
+            
             <motion.p 
               className="text-xl text-white/90 max-w-3xl mx-auto mb-10 leading-relaxed"
               initial={{ opacity: 0 }}
@@ -301,54 +312,52 @@ export default function About() {
               l'élaboration et la mise en œuvre de la politique gouvernementale en matière de 
               conservation et de gestion du Parc Immobilier Bâti de l'État.
             </motion.p>
+            
             <motion.div
               variants={fadeIn}
-              className="flex flex-wrap justify-center gap-4 text-primary-100"
+              className="flex flex-wrap justify-center gap-6 text-white/80 mb-12"
             >
-              <div className="flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
+              <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-xl border border-white/20">
+                <Calendar className="h-5 w-5 text-primary-300" />
                 <span>Créée en 1959</span>
               </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-5 w-5" />
+              <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-xl border border-white/20">
+                <MapPin className="h-5 w-5 text-primary-300" />
                 <span>Conakry, Guinée</span>
               </div>
-              <div className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
+              <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-xl border border-white/20">
+                <FileText className="h-5 w-5 text-primary-300" />
                 <span>Décret N°D/0275/PRG/CNRD/SGG - 06 Juin 2022</span>
               </div>
             </motion.div>
+            
             <motion.div 
-              className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mt-5"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
+              variants={fadeIn}
+              className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6"
             >
               <a 
                 href={route('contact.index')} 
-                className="px-10 py-4 bg-primary-600 text-white rounded-lg font-semibold 
-                hover:bg-primary-500 transition-all duration-300 flex items-center justify-center group shadow-lg shadow-primary-700/30"
-                aria-label="Contacter la DGPBP"
+                className="px-8 py-4 bg-gradient-to-r from-primary-600 to-blue-600 text-white rounded-xl font-semibold 
+                hover:from-primary-500 hover:to-blue-500 transition-all duration-300 flex items-center justify-center group shadow-xl shadow-primary-700/30 transform hover:-translate-y-1"
               >
+                <Target className="mr-3 group-hover:scale-110 transition-transform" />
                 Nous Contacter
-                <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+                <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
             </motion.div>
           </motion.div>
         </div>
         
-        {/* Effet de vague en bas du hero */}
+        {/* Effet de vague amélioré */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto fill-white" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto fill-white">
             <path d="M0,96L80,90.7C160,85,320,75,480,74.7C640,75,800,85,960,85.3C1120,85,1280,75,1360,69.3L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
           </svg>
         </div>
-        <meta itemProp="contentUrl" content="/images/about03.jpg" />
-        <meta itemProp="caption" content="Siège de la Direction Générale du Patrimoine Bâti Public de Guinée" />
       </div>
 
-      {/* Mission et Attributions */}
-      <section className="py-20 bg-white">
+      {/* Mission et Attributions avec design amélioré */}
+      <section className="py-24 bg-gradient-to-br from-white via-blue-50/50 to-primary-50/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={containerVariants}
@@ -359,9 +368,12 @@ export default function About() {
           >
             <motion.h2
               variants={fadeIn}
-              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             >
-              Nos Attributions & Missions
+              Nos Attributions &
+              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-blue-600">
+                Missions
+              </span>
             </motion.h2>
             <motion.p
               variants={fadeIn}
@@ -378,24 +390,29 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid md:grid-cols-2 gap-6"
+            className="grid md:grid-cols-2 gap-8"
           >
             {missions.map((mission, index) => (
               <motion.div
                 key={index}
                 variants={fadeIn}
-                className="flex gap-4 p-6 bg-gray-50 rounded-xl hover:bg-primary-50 transition-colors duration-300"
+                className="group relative"
               >
-                {mission.icon}
-                <p className="text-gray-700 leading-relaxed">{mission.text}</p>
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                <div className="relative flex gap-4 p-6 bg-white rounded-xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="p-3 bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                    {mission.icon}
+                  </div>
+                  <p className="text-gray-700 leading-relaxed">{mission.text}</p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Patrimoine Immobilier */}
-      <section className="py-20 bg-gray-50">
+      {/* Patrimoine Immobilier avec design amélioré */}
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={containerVariants}
@@ -406,9 +423,12 @@ export default function About() {
           >
             <motion.h2
               variants={fadeIn}
-              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             >
-              Patrimoine Immobilier Bâti de l'État
+              Patrimoine
+              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-blue-600">
+                Immobilier
+              </span>
             </motion.h2>
             <motion.p
               variants={fadeIn}
@@ -424,29 +444,32 @@ export default function About() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {patrimoineTypes.map((type, index) => (
               <motion.div
                 key={index}
                 variants={fadeIn}
-                className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="group relative"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
-                    <Archive className="h-5 w-5 text-primary-600" />
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                <div className="relative bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="p-3 bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                      <Archive className="h-6 w-6 text-primary-600" />
+                    </div>
+                    <h3 className="font-bold text-gray-900 text-lg leading-tight">{type.title}</h3>
                   </div>
-                  <h3 className="font-semibold text-gray-900 text-sm leading-tight">{type.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{type.description}</p>
                 </div>
-                <p className="text-gray-600 text-sm">{type.description}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Valeurs */}
-      <section className="py-20 bg-white">
+      {/* Valeurs avec design amélioré */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 via-primary-50/20 to-blue-50/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={containerVariants}
@@ -457,9 +480,12 @@ export default function About() {
           >
             <motion.h2
               variants={fadeIn}
-              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             >
-              Nos Valeurs Fondamentales
+              Nos Valeurs
+              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-blue-600">
+                Fondamentales
+              </span>
             </motion.h2>
             <motion.p
               variants={fadeIn}
@@ -480,23 +506,26 @@ export default function About() {
               <motion.div
                 key={index}
                 variants={fadeIn}
-                className="text-center group"
+                className="group relative"
               >
-                <div className="mx-auto mb-6 w-20 h-20 bg-primary-100 rounded-2xl flex items-center justify-center group-hover:bg-primary-600 transition-colors duration-300">
-                  <div className="group-hover:text-white transition-colors duration-300">
-                    {value.icon}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                <div className="relative bg-white p-8 rounded-xl text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                  <div className="mx-auto mb-6 w-20 h-20 bg-gradient-to-br from-primary-50 to-blue-50 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <div className="text-primary-600 group-hover:text-primary-700 transition-colors duration-300">
+                      {value.icon}
+                    </div>
                   </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{value.description}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-20 bg-gray-50">
+      {/* Timeline avec design amélioré */}
+      <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             variants={containerVariants}
@@ -507,9 +536,12 @@ export default function About() {
           >
             <motion.h2
               variants={fadeIn}
-              className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             >
-              Notre Histoire
+              Notre
+              <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-blue-600">
+                Histoire
+              </span>
             </motion.h2>
             <motion.p
               variants={fadeIn}
@@ -526,7 +558,7 @@ export default function About() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-primary-200"></div>
+            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary-600 to-blue-600"></div>
             
             <div className="space-y-12">
               {timelineEvents.map((event, index) => (
@@ -536,17 +568,24 @@ export default function About() {
                   className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
                 >
                   <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                    <div className="bg-white p-6 rounded-xl shadow-sm">
-                      <div className="flex items-center gap-3 mb-3">
-                        <Clock className="h-5 w-5 text-primary-600" />
-                        <span className="text-2xl font-bold text-primary-600">{event.year}</span>
+                    <div className="group relative">
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                      <div className="relative bg-white p-6 rounded-xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="p-3 bg-gradient-to-br from-primary-50 to-blue-50 rounded-xl group-hover:scale-110 transition-transform duration-300">
+                            <Clock className="h-5 w-5 text-primary-600" />
+                          </div>
+                          <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-blue-600">
+                            {event.year}
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3">{event.title}</h3>
+                        <p className="text-gray-600 leading-relaxed">{event.description}</p>
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">{event.title}</h3>
-                      <p className="text-gray-600">{event.description}</p>
                     </div>
                   </div>
                   
-                  <div className="relative flex items-center justify-center w-8 h-8 bg-primary-600 rounded-full border-4 border-white shadow-lg z-10">
+                  <div className="relative flex items-center justify-center w-8 h-8 bg-gradient-to-r from-primary-600 to-blue-600 rounded-full border-4 border-white shadow-lg z-10 group-hover:scale-110 transition-transform duration-300">
                     <div className="w-2 h-2 bg-white rounded-full"></div>
                   </div>
                   
@@ -558,51 +597,56 @@ export default function About() {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-20 bg-primary-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.h2
-              variants={fadeIn}
-              className="text-3xl md:text-4xl font-bold text-white mb-6"
-            >
-              Découvrez Notre Organisation
-            </motion.h2>
-            <motion.p
-              variants={fadeIn}
-              className="text-xl text-primary-100 mb-8 max-w-3xl mx-auto"
-            >
-              Explorez notre structure organisationnelle et rencontrez notre équipe dirigeante 
-              dédiée à l'excellence dans la gestion du patrimoine public
-            </motion.p>
-            <motion.div
-              variants={fadeIn}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <a
-                href="/about/equipe-gestion"
-                className="inline-flex items-center gap-2 bg-white text-primary-900 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors duration-300"
-              >
-                <Users className="h-5 w-5" />
-                Notre Équipe
-                <ArrowRight className="h-4 w-4" />
-              </a>
-              <a
-                href="/about/mot-directrice"
-                className="inline-flex items-center gap-2 border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-primary-900 transition-colors duration-300"
-              >
-                <Target className="h-5 w-5" />
-                Mot de la Directrice
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </motion.div>
-          </motion.div>
+      {/* Call to Action amélioré */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-primary-900 to-indigo-900"></div>
+        <div className="absolute inset-0 bg-black/30"></div>
+        
+        {/* Motifs décoratifs */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-white/10 rounded-full mix-blend-overlay filter blur-xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary-300/10 rounded-full mix-blend-overlay filter blur-xl animate-pulse delay-1000"></div>
         </div>
+        
+        <motion.div 
+          className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
+            Découvrez Notre
+            <span className="ml-3 bg-clip-text text-transparent bg-gradient-to-r from-primary-300 to-blue-300">
+              Organisation
+            </span>
+          </h2>
+          <p className="text-xl mb-12 max-w-3xl mx-auto text-white/90 leading-relaxed">
+            Explorez notre structure organisationnelle et rencontrez notre équipe dirigeante 
+            dédiée à l'excellence dans la gestion du patrimoine public
+          </p>
+          <div className="flex flex-wrap justify-center gap-6">
+            <a
+              href={route('about.equipe-gestion')}
+              className="bg-gradient-to-r from-primary-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold 
+              hover:from-primary-500 hover:to-blue-500 transition-all duration-300 transform hover:-translate-y-1 shadow-xl 
+              shadow-primary-700/30 inline-flex items-center group"
+            >
+              <Users className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
+              Notre Équipe
+              <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a
+              href={route('about.mot-directrice')}
+              className="bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white px-8 py-4 rounded-xl 
+              font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center group"
+            >
+              <Target className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
+              Mot de la Directrice
+              <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+        </motion.div>
       </section>
     </AppLayout>
   );

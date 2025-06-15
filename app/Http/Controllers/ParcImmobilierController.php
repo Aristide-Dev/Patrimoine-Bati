@@ -9,198 +9,154 @@ class ParcImmobilierController extends Controller
 {
     public function index()
     {
-        // Données enrichies pour les statistiques
         $statistiques = [
-            'totalBiens' => 1250,
-            'biensOccupes' => 875,
+            'totalBiens' => 1254,
+            'biensOccupes' => 879,
             'biensDisponibles' => 325,
             'biensEnMaintenance' => 50,
             'tauxOccupation' => 70,
-            'valeurTotaleEstimee' => 125000000000, // En francs guinéens
+            'valeurTotaleEstimee' => 125000000000,
+
+            'evolutionMensuelle' => [
+                'nouveauxBiens' => 12,
+                'biensRenovés' => 8,
+                'tauxCroissance' => 2.5
+            ],
+
+            'batimentsSpeciaux' => [
+                [
+                    'nom' => 'Résidence 2000',
+                    'localisation' => 'Kaloum, Conakry',
+                    'surface' => 5000,
+                    'capacite' => 200,
+                    'tauxOccupation' => 95,
+                    'etat' => 'excellent',
+                    'valeurEstimee' => 15000000000,
+                    'services' => [
+                        'Sécurité 24/7',
+                        'Parking souterrain',
+                        'Espaces verts',
+                        'Salle de conférence'
+                    ]
+                ],
+                [
+                    'nom' => 'Moussoudougou',
+                    'localisation' => 'Matam, Conakry',
+                    'surface' => 3500,
+                    'capacite' => 150,
+                    'tauxOccupation' => 88,
+                    'etat' => 'bon',
+                    'valeurEstimee' => 8500000000,
+                    'services' => [
+                        'Gardiennage',
+                        'Parking extérieur',
+                        'Jardin communautaire'
+                    ]
+                ],
+                [
+                    'nom' => 'Fria Base',
+                    'localisation' => 'Fria',
+                    'surface' => 4200,
+                    'capacite' => 180,
+                    'tauxOccupation' => 75,
+                    'etat' => 'bon',
+                    'valeurEstimee' => 9000000000,
+                    'services' => [
+                        'Sécurité permanente',
+                        'Parking réservé',
+                        'Espace récréatif'
+                    ]
+                ],
+                [
+                    'nom' => 'Complexe Patrice Lumumba',
+                    'localisation' => 'Dixinn, Conakry',
+                    'surface' => 6000,
+                    'capacite' => 250,
+                    'tauxOccupation' => 92,
+                    'etat' => 'excellent',
+                    'valeurEstimee' => 18000000000,
+                    'services' => [
+                        'Sécurité renforcée',
+                        'Parking multiniveau',
+                        'Centre de conférence',
+                        'Restaurant'
+                    ]
+                ]
+            ],
 
             'repartitionParType' => [
                 [
-                    'nom' => 'Appartements',
+                    'nom' => 'Résidences de Fonction',
                     'nombre' => 450,
-                    'pourcentage' => 36,
+                    'pourcentage' => 35.9,
                     'color' => 'blue',
-                    'surfaceMoyenne' => 85,
-                    'tauxOccupation' => 82,
-                    'nombreEtagesMoyen' => 4,
-                    'details' => [
-                        'studios' => 120,
-                        'deuxPieces' => 180,
-                        'troisPieces' => 100,
-                        'quatrePieces' => 50
-                    ]
-                ],
-                [
-                    'nom' => 'Bureaux',
-                    'nombre' => 350,
-                    'pourcentage' => 28,
-                    'color' => 'green',
-                    'surfaceMoyenne' => 150,
-                    'tauxOccupation' => 75,
-                    'details' => [
-                        'openSpace' => 100,
-                        'bureauxFermes' => 200,
-                        'sallesReunion' => 50
-                    ]
-                ],
-                [
-                    'nom' => 'Villas',
-                    'nombre' => 250,
-                    'pourcentage' => 20,
-                    'color' => 'yellow',
-                    'surfaceMoyenne' => 200,
-                    'tauxOccupation' => 90,
-                    'details' => [
-                        'r1' => 150,
-                        'r2' => 75,
-                        'r3Plus' => 25
-                    ]
-                ],
-                [
-                    'nom' => 'Magasins',
-                    'nombre' => 200,
-                    'pourcentage' => 16,
-                    'color' => 'purple',
                     'surfaceMoyenne' => 120,
-                    'tauxOccupation' => 65,
-                    'details' => [
-                        'petitsSurfaces' => 80,
-                        'moyensSurfaces' => 100,
-                        'grandsSurfaces' => 20
+                    'tauxOccupation' => 85,
+                    'caracteristiques' => [
+                        'Sécurité' => '24/7',
+                        'Parking' => 'Inclus',
+                        'État' => 'Très bon',
+                        'Maintenance' => 'Régulière'
                     ]
                 ],
-            ],
-
-            'repartitionGeographique' => [
                 [
-                    'nom' => 'Conakry',
-                    'nombre' => 500,
-                    'pourcentage' => 40,
-                    'zones' => [
-                        'Kaloum' => 150,
-                        'Dixinn' => 100,
-                        'Ratoma' => 125,
-                        'Matam' => 75,
-                        'Matoto' => 50
-                    ],
-                    'valeurMoyenne' => 150000000,
-                    'surfaceTotale' => 45000
+                    'nom' => 'Bâtiments Administratifs',
+                    'nombre' => 320,
+                    'pourcentage' => 25.5,
+                    'color' => 'green',
+                    'surfaceMoyenne' => 800,
+                    'tauxOccupation' => 95,
+                    'caracteristiques' => [
+                        'Accessibilité' => 'Excellente',
+                        'Connectivité' => 'Haut débit',
+                        'Climatisation' => 'Centralisée',
+                        'Sécurité' => 'Renforcée'
+                    ]
                 ],
                 [
-                    'nom' => 'Kindia',
-                    'nombre' => 300,
-                    'pourcentage' => 24,
-                    'zones' => [
-                        'Centre-ville' => 150,
-                        'Périphérie' => 100,
-                        'Zone industrielle' => 50
-                    ],
-                    'valeurMoyenne' => 85000000,
-                    'surfaceTotale' => 35000
+                    'nom' => 'Complexes Spéciaux',
+                    'nombre' => 180,
+                    'pourcentage' => 14.4,
+                    'color' => 'purple',
+                    'surfaceMoyenne' => 1500,
+                    'tauxOccupation' => 78,
+                    'caracteristiques' => [
+                        'Usage' => 'Mixte',
+                        'Équipements' => 'Premium',
+                        'Services' => 'Complets',
+                        'Sécurité' => 'Maximum'
+                    ]
                 ],
                 [
-                    'nom' => 'Kankan',
-                    'nombre' => 250,
-                    'pourcentage' => 20,
-                    'zones' => [
-                        'Centre-ville' => 125,
-                        'Périphérie' => 75,
-                        'Zone administrative' => 50
-                    ],
-                    'valeurMoyenne' => 75000000,
-                    'surfaceTotale' => 30000
-                ],
-                [
-                    'nom' => 'Autres régions',
-                    'nombre' => 200,
-                    'pourcentage' => 16,
-                    'details' => [
-                        'Boké' => 50,
-                        'Labé' => 45,
-                        'Mamou' => 40,
-                        'Faranah' => 35,
-                        'N\'Zérékoré' => 30
-                    ],
-                    'valeurMoyenne' => 65000000,
-                    'surfaceTotale' => 25000
-                ],
-            ],
-
-            'evolutionMensuelle' => [
-                'nouveauxBiens' => 45,
-                'biensRenovés' => 15,
-                'biensVendus' => 8,
-                'demandesReçues' => 120,
-                'demandesTraitées' => 95,
-                'tauxCroissance' => 3.5,
-                'historiqueAnnuel' => [
-                    'janvier' => 38,
-                    'février' => 42,
-                    'mars' => 35,
-                    'avril' => 48,
-                    'mai' => 52,
-                    'juin' => 45,
-                    'juillet' => 40,
-                    'août' => 38,
-                    'septembre' => 45,
-                    'octobre' => 50,
-                    'novembre' => 48,
-                    'décembre' => 45
+                    'nom' => 'Logements Sociaux',
+                    'nombre' => 304,
+                    'pourcentage' => 24.2,
+                    'color' => 'amber',
+                    'surfaceMoyenne' => 75,
+                    'tauxOccupation' => 98,
+                    'caracteristiques' => [
+                        'Type' => 'Collectif',
+                        'Services' => 'Base',
+                        'Entretien' => 'Régulier',
+                        'Communauté' => 'Active'
+                    ]
                 ]
-            ],
-
-            'tauxAttribution' => 85,
-            'surfaceTotale' => 125000,
-
-            'indicateursPerformance' => [
-                'delaiMoyenAttribution' => 45, // jours
-                'tauxSatisfaction' => 88, // pourcentage
-                'tauxRenouvellement' => 15, // pourcentage annuel
-                'coutMoyenMaintenance' => 25000000, // francs guinéens par bien
-                'dureeOccupationMoyenne' => 3.5, // années
             ],
 
             'etatBiens' => [
-                'excellent' => 250,
-                'bon' => 500,
-                'moyen' => 350,
-                'aRenover' => 150
+                'excellent' => 425,
+                'bon' => 454,
+                'moyen' => 285,
+                'àRénover' => 90
             ],
 
-            'tendances' => [
-                'demandesParZone' => [
-                    'Conakry' => 65,
-                    'Kindia' => 15,
-                    'Kankan' => 12,
-                    'Autres' => 8
-                ],
-                'typesPlusRecherches' => [
-                    'Appartements' => 45,
-                    'Bureaux' => 30,
-                    'Villas' => 15,
-                    'Magasins' => 10
-                ],
-                'evolutionPrix' => [
-                    'augmentation' => 5.2, // pourcentage
-                    'previsionAnnuelle' => 7.5
-                ]
-            ],
-
-            'maintenance' => [
-                'programmee' => 35,
-                'urgente' => 15,
-                'preventive' => 25,
-                'coutTotal' => 750000000,
-                'principauxTypes' => [
-                    'Plomberie' => 30,
-                    'Électricité' => 25,
-                    'Structure' => 15,
-                    'Peinture' => 20,
-                    'Autres' => 10
+            'indicateursPerformance' => [
+                'tauxSatisfaction' => 87,
+                'indicateursQualite' => [
+                    'Sécurité' => 95,
+                    'Confort' => 85,
+                    'Maintenance' => 82,
+                    'Services' => 88
                 ]
             ]
         ];

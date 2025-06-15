@@ -35,6 +35,12 @@ export default function AuthenticatedLayout({ header, children }) {
             route: 'admin.invoices.index', 
             active: route().current('admin.invoices.*'),
             id: 'invoices'
+        },
+        { 
+            name: 'Gérants Immobiliers', 
+            route: 'admin.property-managers.index', 
+            active: route().current('admin.property-managers.*'),
+            id: 'property-managers'
         }
     ];
 

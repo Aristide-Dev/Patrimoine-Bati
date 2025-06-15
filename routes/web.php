@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InvoiceController;
+use App\Http\Controllers\Admin\PropertyManagerController;
 use App\Http\Controllers\ParcImmobilierController;
 use App\Http\Controllers\PatrimoineController;
 Route::get('/init', [AppInitController::class, 'init'])->name('app.init');
@@ -28,6 +29,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/about/mot-de-la-directrice', [AboutController::class, 'motDirectrice'])->name('about.mot-directrice');
 Route::get('/about/equipe-gestion', [AboutController::class, 'equipeGestion'])->name('about.equipe-gestion');
+Route::get('/about/gerants', [AboutController::class, 'gerants'])->name('about.gerants');
+
 
 
 // Actualités et Ressources
@@ -78,8 +81,8 @@ Route::prefix('admin-panel')->name('admin.')->middleware(['auth'])->group(functi
     Route::resource('medias', MediaController::class);
     Route::resource('reports', ReportController::class);
     Route::resource('users', UserController::class);
+    Route::resource('property-managers', PropertyManagerController::class);
 
-    
     Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
     Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
 });
