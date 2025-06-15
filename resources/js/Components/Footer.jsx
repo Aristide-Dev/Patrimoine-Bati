@@ -218,6 +218,33 @@ const Footer = () => {
                 </motion.div>
               ))}
             </address>
+
+            {/* Réseaux sociaux */}
+            <div className="pt-4 border-t border-white/10">
+              <h4 className="text-lg font-semibold mb-4 text-secondary">Suivez-nous</h4>
+              <div className="flex flex-wrap gap-3">
+                {DGPBP.contactInfo.social.map((social, index) => {
+                  const Icon = social.icon;
+                  return (
+                    <motion.a
+                      key={index}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-3 rounded-lg bg-white/10 text-white hover:text-white ${social.hoverBg} transition-all duration-300 group`}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                      style={{
+                        boxShadow: `0 0 20px ${social.color}20`
+                      }}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span className="sr-only">{social.name}</span>
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
 
           {/* Section Liens utiles */}

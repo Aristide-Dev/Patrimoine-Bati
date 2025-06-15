@@ -1,4 +1,4 @@
-
+import { Facebook, Linkedin } from 'lucide-react';
 
 export const DGPBP = {
     contactInfo: {
@@ -22,8 +22,20 @@ export const DGPBP = {
             weekhours: "8h00 - 17h00",
         },
         social: [
-            { name: "Facebook", icon: Facebook, url: "https://www.facebook.com/patrimoinebatiguinee/" },
-            { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/company/patrimoinebatiguinee/" },
+            { 
+                name: "Facebook", 
+                icon: Facebook, 
+                url: "https://www.facebook.com/patrimoinebatiguinee/",
+                color: "#1877F2",
+                hoverBg: "hover:bg-[#1877F2]"
+            },
+            { 
+                name: "LinkedIn", 
+                icon: Linkedin, 
+                url: "https://www.linkedin.com/company/patrimoinebatiguinee/",
+                color: "#0A66C2",
+                hoverBg: "hover:bg-[#0A66C2]"
+            },
         ],
     },
 }
