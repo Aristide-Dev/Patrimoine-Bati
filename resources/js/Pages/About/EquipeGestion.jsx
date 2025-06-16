@@ -29,7 +29,7 @@ export default function EquipeGestion({ meta }) {
       id: 1,
       nom: "Souadou Baldé",
       poste: "Directrice Générale",
-      photo: "/images/our-team/Souadou-Balde-DG.jpg",
+      photo: "/images/our-team/Souadou-Balde-DG-2.jpg",
       competences: ["Gestion Stratégique", "Leadership", "Coordination générale"],
       attributions: "Direction, coordination, animation et contrôle de toutes les activités de la Direction"
     },
@@ -37,7 +37,7 @@ export default function EquipeGestion({ meta }) {
       id: 2,
       nom: "Nafissatou Cisse",
       poste: "Directrice Générale Adjointe",
-      photo: "/images/our-team/Nafissatou-Cisse-DGA.jpg",
+      photo: "/images/our-team/dga.jpg",
       competences: ["Coordination administrative", "Supervision technique", "Formation du personnel"],
       attributions: "Assistance au DG, coordination des services, supervision des projets et programmes"
     },
