@@ -398,7 +398,7 @@ export default function MotDirectrice() {
               </div>
             </motion.div>
 
-            {/* Message avec design amélioré */}
+            {/* Message avec design amélioré - REMPLACÉ PAR LE NOUVEAU TEXTE */}
             <motion.div
               variants={staggerContainer}
               initial="hidden"
@@ -408,31 +408,110 @@ export default function MotDirectrice() {
             >
               <motion.div variants={fadeIn}>
                 <h2 className="text-4xl font-bold text-gray-900 mb-8">
-                  Notre Mission : 
+                  Mot de Bienvenue de
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-blue-600 ml-3">
-                    Excellence et Innovation
+                    Madame la Directrice Générale
                   </span>
                 </h2>
                 <div className="prose prose-lg text-gray-700 space-y-6">
-                  <p className="text-xl leading-relaxed">
-                    Mesdames et Messieurs,
-                  </p>
-                  <p className="leading-relaxed">
-                    En tant que Directrice Générale du Patrimoine Bâti Public, nommée par Décret du Président de la République, 
-                    j'ai l'honneur de diriger une institution dotée de l'autonomie de gestion et de l'autonomie financière, 
-                    rattachée par délégation au Ministre Secrétaire Général de la Présidence de la République.
-                  </p>
-                  <p className="leading-relaxed">
-                    Notre mission fondamentale consiste à concevoir, élaborer et mettre en œuvre la politique du Gouvernement 
-                    en matière de conservation et de gestion du Parc Immobilier Bâti de l'État. Cette responsabilité s'étend 
-                    tant à l'intérieur qu'à l'extérieur du territoire national, englobant l'ensemble du patrimoine immobilier public guinéen.
-                  </p>
-                  <p className="leading-relaxed">
-                    Nous nous engageons à assurer l'administration, la gestion, l'extension et la conservation de ce patrimoine 
-                    avec la plus haute rigueur, tout en procédant à l'affectation des bâtiments conformément à la réglementation en vigueur. 
-                    Notre démarche s'articule autour de la coordination des activités de rénovation, d'entretien et de modernisation 
-                    de l'ensemble des bâtiments publics.
-                  </p>
+                  {/* Introduction */}
+                  <div className="space-y-6">
+                    <p className="text-xl leading-relaxed">
+                      Bienvenue sur le site officiel de la Direction Générale du Patrimoine Bâti Public de la république de Guinée
+                    </p>
+                    <p className="leading-relaxed">
+                      C'est avec un grand plaisir que je vous souhaite la bienvenue sur le portail numérique de la Direction Générale du Patrimoine Bâti Public (DGPBP).
+                    </p>
+                  </div>
+
+                  {/* Présentation de l'institution */}
+                  <div className="space-y-6">
+                    <p className="leading-relaxed">
+                      Institution publique, placée sous l'autorité du Ministre Secrétaire Général de la Présidence de la République, 
+                      la DGPBP est chargée de mettre en œuvre la politique nationale en matière de gestion, de valorisation et de 
+                      préservation du patrimoine immobilier de l'État. Qu'il s'agisse des édifices administratifs, des logements 
+                      publics ou des représentations diplomatiques, notre responsabilité couvre l'ensemble des biens bâtis appartenant 
+                      à la République, tant sur le territoire national qu'à l'étranger.
+                    </p>
+                    <p className="leading-relaxed">
+                      Conformément à la vision stratégique du Chef de l'État, le Général de Corps d'Armée Mamadi Doumbouya, qui fait 
+                      de la bonne gouvernance, de la rigueur administrative et de la souveraineté nationale les piliers de l'action 
+                      publique, nous œuvrons à doter notre pays d'un cadre de gestion du patrimoine bâti à la fois moderne, transparent 
+                      et résilient.
+                    </p>
+                  </div>
+
+                  {/* Vision et engagement */}
+                  <div className="space-y-6">
+                    <p className="leading-relaxed">
+                      À travers ce site, nous souhaitons vous offrir une vitrine accessible sur nos missions, nos projets, nos réformes 
+                      et nos ambitions. Il est conçu comme un outil de dialogue et de redevabilité, au service des citoyens, des 
+                      partenaires techniques, des acteurs institutionnels et de tous ceux qui s'intéressent à la gestion rigoureuse du 
+                      patrimoine public.
+                    </p>
+                    <p className="leading-relaxed font-semibold text-primary-600">
+                      Notre engagement : bâtir avec rigueur, innover avec vision.
+                    </p>
+                  </div>
+
+                  {/* Transformation et objectifs */}
+                  <div className="space-y-6">
+                    <p className="leading-relaxed">
+                      La DGPBP est aujourd'hui engagée dans une profonde transformation. Avec l'appui des autorités nationales et de nos 
+                      partenaires, nous portons une ambition claire : Repositionner l'État au cœur de la gestion du patrimoine bâti, 
+                      en conciliant excellence opérationnelle, transition numérique, transparence et efficacité.
+                    </p>
+                    <div className="bg-primary-50/50 p-6 rounded-xl">
+                      <p className="leading-relaxed mb-4 font-medium">Nous œuvrons chaque jour pour :</p>
+                      <ul className="list-none space-y-2 pl-4">
+                        <li className="flex items-start gap-2">
+                          <span className="mt-2 w-2 h-2 rounded-full bg-primary-500 flex-shrink-0"></span>
+                          <span>sécuriser les biens immobiliers de l'État contre toute forme de spoliation</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="mt-2 w-2 h-2 rounded-full bg-primary-500 flex-shrink-0"></span>
+                          <span>renforcer la performance financière de nos activités</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="mt-2 w-2 h-2 rounded-full bg-primary-500 flex-shrink-0"></span>
+                          <span>moderniser les processus grâce à la digitalisation</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="mt-2 w-2 h-2 rounded-full bg-primary-500 flex-shrink-0"></span>
+                          <span>impulser une nouvelle culture de gestion fondée sur l'éthique, la responsabilité et les résultats</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Conclusion */}
+                  <div className="space-y-6">
+                    <p className="leading-relaxed font-medium text-primary-600">
+                      Ensemble, valorisons notre patrimoine commun.
+                    </p>
+                    <p className="leading-relaxed">
+                      Chaque bâtiment public, chaque édifice administratif, chaque mètre carré de terrain de l'État est une part de notre histoire, 
+                      un levier pour notre développement et un symbole de notre souveraineté. C'est ce bien collectif que nous avons la responsabilité 
+                      de préserver, de gérer et de transmettre aux générations futures.
+                    </p>
+                    <p className="leading-relaxed">
+                      Je vous invite à parcourir notre site pour mieux comprendre nos actions, suivre l'avancement de nos projets et, 
+                      pourquoi pas, vous associer à cette œuvre nationale.
+                    </p>
+                    <p className="leading-relaxed font-medium text-primary-600">
+                      Bienvenue chez vous, dans la maison du patrimoine public guinéen.
+                    </p>
+                  </div>
+
+                  {/* Signature */}
+                  <div className="mt-12 border-t border-gray-200 pt-8">
+                    <div className="text-right space-y-2">
+                      <p className="text-lg font-semibold text-primary-600">Madame Souadou Baldé</p>
+                      <p className="text-gray-700">Directrice Générale</p>
+                      <p className="text-gray-600">Direction Générale du Patrimoine Bâti Public</p>
+                      <p className="text-gray-600">République de Guinée</p>
+                    </div>
+                  </div>
                 </div>
               </motion.div>
 
