@@ -86,7 +86,7 @@
         <meta property="og:title" content="{{ config('app.name', 'DGPBP') }} - Direction Générale du Patrimoine Bâti Public">
         <meta property="og:description" content="{{ config('app.description', 'La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
         <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:image" content="{{ url('/images/logo/logo-pbp.png') }}">
+        <meta property="og:image" content="{{ url('/images/logo/pbp_sau_logo_transparent_blanc.png') }}">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
         <meta property="og:image:alt" content="Logo DGPBP - Direction Générale du Patrimoine Bâti Public">
@@ -97,7 +97,7 @@
         <meta name="twitter:creator" content="@dgpbp">
         <meta name="twitter:title" content="{{ config('app.name', 'DGPBP') }} - Direction Générale du Patrimoine Bâti Public">
         <meta name="twitter:description" content="{{ config('app.description', 'La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
-        <meta name="twitter:image" content="{{ url('/images/logo/logo-pbp.png') }}">
+        <meta name="twitter:image" content="{{ url('/images/logo/pbp_sau_logo_transparent_blanc.png') }}">
 
         {{-- DNS Prefetch optimisé --}}
         <link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -128,7 +128,7 @@
             "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
             "alternateName": "DGPBP",
             "url": "{{ url('/') }}",
-            "logo": "{{ asset('/images/logo/logo-pbp.png') }}",
+            "logo": "{{ asset('/images/logo/pbp_sau_logo_transparent_blanc.png') }}",
             "description": "La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l'entretien et la valorisation du patrimoine immobilier de l'État guinéen.",
             "address": {
                 "@type": "PostalAddress",

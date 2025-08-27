@@ -96,7 +96,7 @@ export default function Contact({ meta }) {
               "name": "DGPBP",
               "logo": {
                 "@type": "ImageObject",
-                "url": "/images/logo/logo-pbp.png"
+                "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
               }
             }
           })}
@@ -111,7 +111,7 @@ export default function Contact({ meta }) {
             "url": "/",
             "logo": {
               "@type": "ImageObject",
-              "url": "/images/logo/logo-pbp.png",
+              "url": "/images/logo/pbp_sau_logo_transparent_blanc.png",
               "caption": "Logo DGPBP"
             },
             "description": "Direction Générale du Patrimoine Bâti Public de Guinée - Gestion du patrimoine immobilier de l'État",

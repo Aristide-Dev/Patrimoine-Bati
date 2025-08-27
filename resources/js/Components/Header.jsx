@@ -106,7 +106,7 @@ const Header = () => {
               
               <div className="relative overflow-hidden rounded-xl">
                 <img 
-                  src="/images/logo/logo-pbp.png" 
+                  src="/images/logo/pbp_sau_logo_transparent_blanc.png" 
                   alt="Logo PBP" 
                   className={`transition-all duration-500 ease-out transform group-hover:scale-110 group-hover:brightness-110
                     ${isScrolled && !isMenuOpen ? 'h-12 w-auto' : 'h-16 w-auto'}

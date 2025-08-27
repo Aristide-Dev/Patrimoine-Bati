@@ -13,7 +13,7 @@ export default function AppLayout({
   title = "DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
   description = "La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l'entretien et la valorisation du patrimoine immobilier de l'État guinéen. Services publics, gestion immobilière, valorisation du patrimoine.",
   keywords = "DGPBP, patrimoine bâti, Guinée, immobilier public, gestion immobilière, État guinéen, service public, administration, valorisation patrimoine, bâtiments publics, infrastructure publique, Conakry",
-  ogImage = "/images/logo/logo-pbp.png",
+  ogImage = "/images/logo/pbp_sau_logo_transparent_blanc.png",
   canonicalUrl,
   ogType = "website",
   twitterCreator = "@dgpbp",
@@ -169,28 +169,28 @@ export default function AppLayout({
         {/* PWA Manifest et icônes */}
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/logo-pbp.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/logo-pbp.png" />
-        <link rel="icon" type="image/png" sizes="96x96" href="/images/logo/logo-pbp.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="60x60" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="/images/logo/logo-pbp.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="60x60" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
         
         {/* Métadonnées Safari */}
         <meta name="apple-touch-fullscreen" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <link rel="mask-icon" href="/images/logo/logo-pbp.png" color="#1a365d" />
+        <link rel="mask-icon" href="/images/logo/pbp_sau_logo_transparent_blanc.png" color="#1a365d" />
         
         {/* Métadonnées Windows */}
-        <meta name="msapplication-TileImage" content="/images/logo/logo-pbp.png" />
+        <meta name="msapplication-TileImage" content="/images/logo/pbp_sau_logo_transparent_blanc.png" />
         <meta name="msapplication-TileColor" content="#1a365d" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
@@ -202,7 +202,7 @@ export default function AppLayout({
         
         {/* Préchargement conditionnel uniquement pour la page d'accueil */}
         {url && typeof url.current === 'function' && url.current() === route('accueil') && (
-          <link rel="preload" href="/images/logo/logo-pbp.png" as="image" fetchpriority="high" />
+          <link rel="preload" href="/images/logo/pbp_sau_logo_transparent_blanc.png" as="image" fetchpriority="high" />
         )}
         
         {/* Schema.org JSON-LD amélioré */}
@@ -215,7 +215,7 @@ export default function AppLayout({
             "url": safeUrl,
             "logo": {
               "@type": "ImageObject",
-              "url": `${safeUrl}/images/logo/logo-pbp.png`,
+              "url": `${safeUrl}/images/logo/pbp_sau_logo_transparent_blanc.png`,
               "width": 400,
               "height": 400,
               "caption": "Logo DGPBP"
@@ -286,7 +286,7 @@ export default function AppLayout({
               "name": "DGPBP",
               "logo": {
                 "@type": "ImageObject",
-                "url": `${safeUrl}/images/logo/logo-pbp.png`
+                "url": `${safeUrl}/images/logo/pbp_sau_logo_transparent_blanc.png`
               }
             },
             "datePublished": seoConfig.datePublished,

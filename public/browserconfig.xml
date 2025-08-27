@@ -2,10 +2,10 @@
 <browserconfig>
     <msapplication>
         <tile>
-            <square70x70logo src="/images/logo/logo-pbp.png"/>
-            <square150x150logo src="/images/logo/logo-pbp.png"/>
-            <wide310x150logo src="/images/logo/logo-pbp.png"/>
-            <square310x310logo src="/images/logo/logo-pbp.png"/>
+            <square70x70logo src="/images/logo/pbp_sau_logo_transparent_blanc.png"/>
+            <square150x150logo src="/images/logo/pbp_sau_logo_transparent_blanc.png"/>
+            <wide310x150logo src="/images/logo/pbp_sau_logo_transparent_blanc.png"/>
+            <square310x310logo src="/images/logo/pbp_sau_logo_transparent_blanc.png"/>
             <TileColor>#1a365d</TileColor>
         </tile>
         <notification>

@@ -151,7 +151,7 @@ export default function Categories({ meta }) {
               "name": "DGPBP",
               "logo": {
                 "@type": "ImageObject",
-                "url": "/images/logo/logo-pbp.png"
+                "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
               }
             }
           })}

@@ -10,7 +10,7 @@ import { DGPBP } from '@/utils/dgpbp';
 // Composant optimisé pour le préchargement des ressources critiques uniquement
 const PreloadCriticalResources = () => (
   <>
-    <link rel="preload" href="/images/logo/logo-pbp.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="/images/logo/pbp_sau_logo_transparent_blanc.png" as="image" fetchpriority="high" />
   </>
 );
 
@@ -146,7 +146,7 @@ const Footer = () => {
               <div className="relative w-full">
                 <img
                   className="h-20 w-96 object-contain transform transition-all duration-500 group-hover:scale-110"
-                  src="/images/logo/logo-pbp.png"
+                  src="/images/logo/pbp_sau_logo_transparent_blanc.png"
                   alt="Logo PBP"
                   loading="eager"
                   fetchpriority="high"

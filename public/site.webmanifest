@@ -19,7 +19,7 @@
       "url": "/",
       "icons": [
         {
-          "src": "/images/logo/logo-pbp.png",
+          "src": "/images/logo/pbp_sau_logo_transparent_blanc.png",
           "sizes": "96x96",
           "type": "image/png"
         }
@@ -32,7 +32,7 @@
       "url": "/about",
       "icons": [
         {
-          "src": "/images/logo/logo-pbp.png",
+          "src": "/images/logo/pbp_sau_logo_transparent_blanc.png",
           "sizes": "96x96",
           "type": "image/png"
         }
@@ -45,7 +45,7 @@
       "url": "/contact",
       "icons": [
         {
-          "src": "/images/logo/logo-pbp.png",
+          "src": "/images/logo/pbp_sau_logo_transparent_blanc.png",
           "sizes": "96x96",
           "type": "image/png"
         }
@@ -58,7 +58,7 @@
       "url": "/demandes/formulaire",
       "icons": [
         {
-          "src": "/images/logo/logo-pbp.png",
+          "src": "/images/logo/pbp_sau_logo_transparent_blanc.png",
           "sizes": "96x96",
           "type": "image/png"
         }
@@ -67,25 +67,25 @@
   ],
   "icons": [
     {
-      "src": "/images/logo/logo-pbp.png",
+      "src": "/images/logo/pbp_sau_logo_transparent_blanc.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/images/logo/logo-pbp.png",
+      "src": "/images/logo/pbp_sau_logo_transparent_blanc.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/images/logo/logo-pbp.png",
+      "src": "/images/logo/pbp_sau_logo_transparent_blanc.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/images/logo/logo-pbp.png",
+      "src": "/images/logo/pbp_sau_logo_transparent_blanc.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

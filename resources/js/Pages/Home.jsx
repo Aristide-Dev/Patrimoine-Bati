@@ -298,7 +298,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
               "name": "DGPBP",
               "logo": {
                 "@type": "ImageObject",
-                "url": `${meta.canonicalUrl}/images/logo/logo-pbp.png`
+                "url": `${meta.canonicalUrl}/images/logo/pbp_sau_logo_transparent_blanc.png`
               }
             }
           })}

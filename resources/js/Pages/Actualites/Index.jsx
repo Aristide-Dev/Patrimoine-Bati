@@ -109,10 +109,10 @@ export default function ActualitesPage() {
                     "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
                     "logo": {
                       "@type": "ImageObject",
-                      "url": "/images/logo/logo-pbp.png"
+                      "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
                     }
                   },
-                  "image": article.image ? `/storage/${article.image}` : "/images/logo/logo-pbp.png",
+                  "image": article.image ? `/storage/${article.image}` : "/images/logo/pbp_sau_logo_transparent_blanc.png",
                   "keywords": article.tags?.join(", ") || "",
                   "articleSection": article.category || "Actualités"
                 }
@@ -140,7 +140,7 @@ export default function ActualitesPage() {
               "name": "DGPBP",
               "logo": {
                 "@type": "ImageObject",
-                "url": "/images/logo/logo-pbp.png"
+                "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
               }
             }
           })}
