@@ -50,7 +50,7 @@ export default function RapportsPublications({categories}) {
     <AppLayout>
       <Head 
         title="Rapports et Publications"
-        description="Consultez les rapports annuels, les études et les publications de Le PBP."
+        description="Consultez les rapports annuels, les études et les publications du PBP."
       />
 
       <div className="bg-gradient-to-t from-primary to-primary-800 relative overflow-hidden">

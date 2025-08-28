@@ -429,7 +429,7 @@ export default function Historic({ meta }) {
             },
             "publisher": {
               "@type": "GovernmentOrganization",
-              "name": "Direction Générale du Patrimoine Bâti Public",
+              "name": "Patrimoine Bâti Public",
               "alternateName": "DGPBP",
               "url": "https://dgpbp.gov.gn",
               "logo": {

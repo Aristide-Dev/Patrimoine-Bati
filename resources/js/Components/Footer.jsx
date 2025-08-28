@@ -155,7 +155,7 @@ const Footer = () => {
             </div>
             
             <p className="text-lg text-justify text-gray-100 md:text-left leading-relaxed backdrop-blur-sm bg-white/5 p-4 rounded-xl">
-              Direction Générale du Patrimoine Bâti Public - Gestion et valorisation du patrimoine immobilier de l'État
+              Patrimoine Bâti Public - Gestion et valorisation du patrimoine immobilier de l'État
             </p>
             
             <div className="group relative overflow-hidden rounded-xl w-full">

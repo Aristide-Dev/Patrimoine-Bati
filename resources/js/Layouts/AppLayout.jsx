@@ -133,7 +133,7 @@ export default function AppLayout({
         <meta property="og:image" content={absoluteImageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Logo PBP - Direction Générale du Patrimoine Bâti Public" />
+        <meta property="og:image:alt" content="Logo PBP - Patrimoine Bâti Public" />
         <meta property="og:site_name" content="PBP" />
         <meta property="og:locale" content="fr_GN" />
         
@@ -155,7 +155,7 @@ export default function AppLayout({
         <meta name="twitter:title" content={seoConfig.title} />
         <meta name="twitter:description" content={seoConfig.description} />
         <meta name="twitter:image" content={absoluteImageUrl} />
-        <meta name="twitter:image:alt" content="Logo PBP - Direction Générale du Patrimoine Bâti Public" />
+        <meta name="twitter:image:alt" content="Logo PBP - Patrimoine Bâti Public" />
         <meta name="twitter:creator" content={seoConfig.twitterCreator} />
         <meta name="twitter:site" content="@pbp" />
         
@@ -211,7 +211,7 @@ export default function AppLayout({
             "@context": "https://schema.org",
             "@type": "GovernmentOrganization",
             "name": "PBP - Patrimoine Bâti Public",
-            "alternateName": ["PBP - SAU", "Direction Générale du Patrimoine Bâti Public"],
+            "alternateName": ["PBP - SAU", "Patrimoine Bâti Public"],
             "url": safeUrl,
             "logo": {
               "@type": "ImageObject",

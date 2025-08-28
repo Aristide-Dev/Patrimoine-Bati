@@ -12,7 +12,7 @@ import RechercheRapide from '@/Components/RechercheRapide';
 const pageData = {
   meta: {
     title: 'PBP - Patrimoine Bâti Public de Guinée | Accueil',
-    description: 'Direction Générale du Patrimoine Bâti Public de Guinée : gestion innovante et durable du patrimoine immobilier de l\'État guinéen. Logements administratifs, valorisation immobilière, baux commerciaux et services publics.',
+    description: 'Patrimoine Bâti Public de Guinée : gestion innovante et durable du patrimoine immobilier de l\'État guinéen. Logements administratifs, valorisation immobilière, baux commerciaux et services publics.',
     keywords: 'PBP - SAU, patrimoine bâti Guinée, immobilier public Conakry, logements administratifs Guinée, valorisation immobilière État, baux commerciaux publics, service public Guinée, gestion patrimoine État guinéen, PBP - SAU Conakry, ministère patrimoine Guinée',
     ogImage: '/images/hero/home.jpg',
     ogType: 'website',
@@ -375,7 +375,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
       </section>
 
       {/* Présentation Section */}
-      <section className="py-24 bg-white" aria-label="Présentation de Le PBP" itemScope itemType="https://schema.org/AboutPage">
+      <section className="py-24 bg-white" aria-label="Présentation du PBP" itemScope itemType="https://schema.org/AboutPage">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -420,7 +420,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
               <div className="aspect-w-4 aspect-h-3 rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src={presentation.image}
-                  alt="Présentation du patrimoine public guinéen - Bâtiments administratifs de Le PBP"
+                  alt="Présentation du patrimoine public guinéen - Bâtiments administratifs du PBP"
                   className="object-cover w-full h-full"
                   loading="lazy"
                   width="800"

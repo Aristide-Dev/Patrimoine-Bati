@@ -83,7 +83,7 @@
         <meta property="og:site_name" content="{{ config('app.name', 'PBP') }}">
         <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="{{ config('app.name', 'PBP') }} - Direction Générale du Patrimoine Bâti Public">
+        <meta property="og:title" content="{{ config('app.name', 'PBP') }} - Patrimoine Bâti Public">
         <meta property="og:description" content="{{ config('app.description', 'Le Patrimoine Bâti Public (PBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
         <meta property="og:url" content="{{ url()->current() }}">
         <meta property="og:image" content="{{ url('/images/logo/pbp_sau_logo_transparent_blanc.png') }}">
@@ -95,7 +95,7 @@
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@PBP">
         <meta name="twitter:creator" content="@PBP">
-        <meta name="twitter:title" content="{{ config('app.name', 'PBP') }} - Direction Générale du Patrimoine Bâti Public">
+        <meta name="twitter:title" content="{{ config('app.name', 'PBP') }} - Patrimoine Bâti Public">
         <meta name="twitter:description" content="{{ config('app.description', 'Le Patrimoine Bâti Public (PBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
         <meta name="twitter:image" content="{{ url('/images/logo/pbp_sau_logo_transparent_blanc.png') }}">
 

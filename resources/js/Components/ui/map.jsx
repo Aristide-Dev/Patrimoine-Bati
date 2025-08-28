@@ -57,7 +57,7 @@ export function Map() {
         <div className="absolute bottom-4 left-4 z-20 flex items-center bg-white px-4 py-2 rounded-lg shadow-md">
           <MapPin className="w-5 h-5 text-primary-600 mr-2" />
           <span className="text-sm font-medium text-gray-700">
-            Direction Générale du Patrimoine Bâti Public
+            Patrimoine Bâti Public
           </span>
         </div>
 

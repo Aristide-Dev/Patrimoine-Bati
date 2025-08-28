@@ -34,7 +34,7 @@ class ContactController extends Controller
         return Inertia::render('Contact/Coordonnees', [
             'meta' => [
                 'title' => 'Nos Coordonnées - PBP', 
-                'description' => 'Retrouvez toutes les informations de contact de Le PBP : adresse, téléphones, emails et horaires d\'ouverture.'
+                'description' => 'Retrouvez toutes les informations de contact du PBP : adresse, téléphones, emails et horaires d\'ouverture.'
             ]
         ]);
     }

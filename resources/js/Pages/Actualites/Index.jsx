@@ -88,7 +88,7 @@ export default function ActualitesPage() {
             "mainEntity": {
               "@type": "ItemList",
               "name": "Articles et Actualités PBP",
-              "description": "Collection des derniers articles, actualités et événements de Le PBP",
+              "description": "Collection des derniers articles, actualités et événements du PBP",
               "numberOfItems": articles.total || 0,
               "itemListElement": articles.data?.slice(0, 10).map((article, index) => ({
                 "@type": "ListItem",
@@ -173,7 +173,7 @@ export default function ActualitesPage() {
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-6xl font-bold text-white mb-6">Actualités & Événements</h1>
               <p className="text-xl text-white/90 mb-12">
-                Découvrez les dernières actualités et initiatives de Le PBP
+                Découvrez les dernières actualités et initiatives du PBP
               </p>
 
               <div className="flex flex-col md:flex-row items-center gap-2">

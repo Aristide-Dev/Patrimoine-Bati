@@ -528,7 +528,7 @@ export default function EquipeGestion({ meta }) {
                 hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center group transform hover:-translate-y-1"
               >
                 <Building2 className="mr-3 group-hover:scale-110 transition-transform" />
-                À Propos de Le PBP
+                À Propos du PBP
               </a>
             </motion.div>
           </motion.div>
@@ -918,7 +918,7 @@ export default function EquipeGestion({ meta }) {
               font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center group"
               >
               <Building2 className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
-                À Propos de Le PBP
+                À Propos du PBP
               <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
           </div>

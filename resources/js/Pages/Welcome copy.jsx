@@ -320,7 +320,7 @@ export default function Welcome() {
                 "Ministre en charge du plan et du développement économique",
                 "Ministre en charge des télécommunications et de l’économie numérique",
                 "Gouverneur de la Banque Centrale de la République de Guinée (BCRG)",
-                "Coordinateur général de Le PBP Rapporteur du Comité de pilotage",
+                "Coordinateur général du PBP Rapporteur du Comité de pilotage",
                 "Personnalité qualifiée indépendante",
                 "Personnalité qualifiée indépendante",
               ].map((texte, idx) => (

@@ -178,7 +178,7 @@ export default function MotDirectrice() {
             "image": {
               "@type": "ImageObject",
               "url": "/images/hero/Souadou-Balde.png",
-              "caption": "Madame Souadou Baldé, Directrice Générale de Le PBP"
+              "caption": "Madame Souadou Baldé, Directrice Générale du PBP"
             },
             "gender": "Female",
             "nationality": "Guinéenne",
@@ -193,7 +193,7 @@ export default function MotDirectrice() {
             "@context": "https://schema.org",
             "@type": "ItemList",
             "name": "Vision PBP - Piliers de Transformation",
-            "description": "Les quatre piliers fondamentaux de la vision de transformation de Le PBP",
+            "description": "Les quatre piliers fondamentaux de la vision de transformation du PBP",
             "numberOfItems": 4,
             "itemListElement": [
               {
@@ -339,7 +339,7 @@ export default function MotDirectrice() {
                 hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center group transform hover:-translate-y-1"
               >
                 <Building2 className="mr-3 group-hover:scale-110 transition-transform" />
-                À Propos de Le PBP
+                À Propos du PBP
               </a>
             </motion.div>
           </motion.div>
@@ -383,7 +383,7 @@ export default function MotDirectrice() {
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Madame Souadou Baldé</h3>
                 <p className="text-primary-600 font-semibold mb-4">Directrice Générale</p>
                 <p className="text-gray-600 mb-6">
-                  Direction Générale du Patrimoine Bâti Public de Guinée
+                  Patrimoine Bâti Public de Guinée
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 bg-primary-50 p-3 rounded-lg">
@@ -508,7 +508,7 @@ export default function MotDirectrice() {
                     <div className="text-right space-y-2">
                       <p className="text-lg font-semibold text-primary-600">Madame Souadou Baldé</p>
                       <p className="text-gray-700">Directrice Générale</p>
-                      <p className="text-gray-600">Direction Générale du Patrimoine Bâti Public</p>
+                      <p className="text-gray-600">Patrimoine Bâti Public</p>
                       <p className="text-gray-600">République de Guinée</p>
                     </div>
                   </div>
@@ -702,7 +702,7 @@ export default function MotDirectrice() {
               font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center group"
             >
               <Building2 className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
-              À Propos de Le PBP
+              À Propos du PBP
               <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>

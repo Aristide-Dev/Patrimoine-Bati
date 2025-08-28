@@ -114,7 +114,7 @@ export default function Contact({ meta }) {
               "url": "/images/logo/pbp_sau_logo_transparent_blanc.png",
               "caption": "Logo PBP - SAU"
             },
-            "description": "Direction Générale du Patrimoine Bâti Public de Guinée - Gestion du patrimoine immobilier de l'État",
+            "description": "Patrimoine Bâti Public de Guinée - Gestion du patrimoine immobilier de l'État",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": DGPBP.contactInfo.address || "Conakry",
