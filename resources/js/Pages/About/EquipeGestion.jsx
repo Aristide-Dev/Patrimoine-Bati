@@ -445,7 +445,7 @@ export default function EquipeGestion({ meta }) {
             "url": "/about/equipe-gestion",
             "mainEntity": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+              "name": "PBP - Patrimoine Bâti Public",
               "employees": equipeDirection.map(membre => ({
                 "@type": "Person",
                 "name": membre.nom,

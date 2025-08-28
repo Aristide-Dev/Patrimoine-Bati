@@ -207,7 +207,7 @@ export default function Locations({ meta }) {
             "description": "Base de données géolocalisées des édifices publics de Guinée par région",
             "creator": {
               "@type": "Organization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public"
+              "name": "PBP - Patrimoine Bâti Public"
             },
             "spatialCoverage": {
               "@type": "Place",

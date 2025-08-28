@@ -11,7 +11,7 @@ import RechercheRapide from '@/Components/RechercheRapide';
 
 const pageData = {
   meta: {
-    title: 'DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée | Accueil',
+    title: 'PBP - Patrimoine Bâti Public de Guinée | Accueil',
     description: 'Direction Générale du Patrimoine Bâti Public de Guinée : gestion innovante et durable du patrimoine immobilier de l\'État guinéen. Logements administratifs, valorisation immobilière, baux commerciaux et services publics.',
     keywords: 'DGPBP, patrimoine bâti Guinée, immobilier public Conakry, logements administratifs Guinée, valorisation immobilière État, baux commerciaux publics, service public Guinée, gestion patrimoine État guinéen, DGPBP Conakry, ministère patrimoine Guinée',
     ogImage: '/images/hero/home.jpg',
@@ -257,7 +257,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
             "url": meta.canonicalUrl,
             "mainEntity": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+              "name": "PBP - Patrimoine Bâti Public",
               "description": meta.description,
               "address": {
                 "@type": "PostalAddress",

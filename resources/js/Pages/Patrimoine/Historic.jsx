@@ -347,7 +347,7 @@ export default function Historic({ meta }) {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={seoData.canonical} />
         <meta property="og:image" content="/images/historic/patrimoine-historique-guinee.jpg" />
-        <meta property="og:site_name" content="DGPBP - Direction Générale du Patrimoine Bâti Public" />
+        <meta property="og:site_name" content="PBP - Patrimoine Bâti Public" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />

@@ -89,7 +89,7 @@
         <meta property="og:image" content="{{ url('/images/logo/pbp_sau_logo_transparent_blanc.png') }}">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
-        <meta property="og:image:alt" content="Logo DGPBP - Direction Générale du Patrimoine Bâti Public">
+        <meta property="og:image:alt" content="Logo PBP - Patrimoine Bâti Public">
 
         {{-- Twitter Card --}}
         <meta name="twitter:card" content="summary_large_image">
@@ -125,7 +125,7 @@
         {
             "@context": "https://schema.org",
             "@type": "GovernmentOrganization",
-            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+            "name": "PBP - Patrimoine Bâti Public",
             "alternateName": "DGPBP",
             "url": "{{ url('/') }}",
             "logo": "{{ asset('/images/logo/pbp_sau_logo_transparent_blanc.png') }}",

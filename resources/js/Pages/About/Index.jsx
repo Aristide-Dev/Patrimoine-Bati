@@ -137,14 +137,14 @@ export default function About() {
     <AppLayout>
       <Head>
         {/* Métadonnées de base pour la page À propos */}
-        <title>À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée</title>
+        <title>À propos de la PBP - Patrimoine Bâti Public de Guinée</title>
         <meta name="description" content="Découvrez la Direction Générale du Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022. Institution dédiée à la gestion du patrimoine immobilier de l'État guinéen." />
         <meta name="keywords" content="DGPBP attributions, mission DGPBP, patrimoine bâti public Guinée, gestion immobilière État, administration publique Conakry, Direction Générale patrimoine, services publics Guinée, décret 2022" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta name="googlebot" content="index, follow" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée" />
+        <meta property="og:title" content="À propos de la PBP - Patrimoine Bâti Public de Guinée" />
         <meta property="og:description" content="Découvrez la Direction Générale du Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022." />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="/about" />
@@ -152,7 +152,7 @@ export default function About() {
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée" />
+        <meta name="twitter:title" content="À propos de la PBP - Patrimoine Bâti Public de Guinée" />
         <meta name="twitter:description" content="Découvrez la Direction Générale du Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022." />
         <meta name="twitter:image" content="/images/about03.jpg" />
         
@@ -164,12 +164,12 @@ export default function About() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
-            "name": "À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
+            "name": "À propos de la PBP - Patrimoine Bâti Public de Guinée",
             "description": "Découvrez la Direction Générale du Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022.",
             "url": "/about",
             "mainEntity": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+              "name": "PBP - Patrimoine Bâti Public",
               "foundingDate": "1959",
               "description": "Direction Générale dotée de l'autonomie de gestion et de l'autonomie financière, rattachée par délégation au Ministre Secrétaire Général de la Présidence de la République",
               "address": {

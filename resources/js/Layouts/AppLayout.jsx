@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AppLayout({ 
   children,
-  title = "DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
+  title = "PBP - Patrimoine Bâti Public de Guinée",
   description = "La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l'entretien et la valorisation du patrimoine immobilier de l'État guinéen. Services publics, gestion immobilière, valorisation du patrimoine.",
   keywords = "DGPBP, patrimoine bâti, Guinée, immobilier public, gestion immobilière, État guinéen, service public, administration, valorisation patrimoine, bâtiments publics, infrastructure publique, Conakry",
   ogImage = "/images/logo/pbp_sau_logo_transparent_blanc.png",
@@ -94,7 +94,7 @@ export default function AppLayout({
         <title>{seoConfig.title}</title>
         <meta name="description" content={seoConfig.description} />
         <meta name="keywords" content={seoConfig.keywords} />
-        <meta name="author" content="DGPBP" />
+        <meta name="author" content="PBP" />
         <meta charSet="UTF-8" />
         
         {/* Directives pour les robots et les navigateurs */}
@@ -110,11 +110,11 @@ export default function AppLayout({
         <meta name="ICBM" content="9.509167, -13.712222" />
         
         {/* Métadonnées pour applications mobiles */}
-        <meta name="application-name" content="DGPBP" />
+        <meta name="application-name" content="PBP" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="DGPBP" />
+        <meta name="apple-mobile-web-app-title" content="PBP" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#1a365d" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)" />
@@ -133,8 +133,8 @@ export default function AppLayout({
         <meta property="og:image" content={absoluteImageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Logo DGPBP - Direction Générale du Patrimoine Bâti Public" />
-        <meta property="og:site_name" content="DGPBP" />
+        <meta property="og:image:alt" content="Logo PBP - Direction Générale du Patrimoine Bâti Public" />
+        <meta property="og:site_name" content="PBP" />
         <meta property="og:locale" content="fr_GN" />
         
         {/* Article metadata pour les pages de contenu */}
@@ -142,8 +142,8 @@ export default function AppLayout({
           <>
             <meta property="article:published_time" content={seoConfig.datePublished} />
             <meta property="article:modified_time" content={seoConfig.dateModified} />
-            <meta property="article:author" content="DGPBP" />
-            <meta property="article:publisher" content="DGPBP" />
+            <meta property="article:author" content="PBP" />
+            <meta property="article:publisher" content="PBP" />
             {seoConfig.articleSection && <meta property="article:section" content={seoConfig.articleSection} />}
             <meta property="article:tag" content="patrimoine bâti, Guinée, service public" />
           </>
@@ -155,9 +155,9 @@ export default function AppLayout({
         <meta name="twitter:title" content={seoConfig.title} />
         <meta name="twitter:description" content={seoConfig.description} />
         <meta name="twitter:image" content={absoluteImageUrl} />
-        <meta name="twitter:image:alt" content="Logo DGPBP - Direction Générale du Patrimoine Bâti Public" />
+        <meta name="twitter:image:alt" content="Logo PBP - Direction Générale du Patrimoine Bâti Public" />
         <meta name="twitter:creator" content={seoConfig.twitterCreator} />
-        <meta name="twitter:site" content="@dgpbp" />
+        <meta name="twitter:site" content="@pbp" />
         
         {/* Canonical et langues alternatives */}
         <link rel="canonical" href={seoConfig.canonicalUrl || currentUrl} />
@@ -210,7 +210,7 @@ export default function AppLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "GovernmentOrganization",
-            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+            "name": "PBP - Patrimoine Bâti Public",
             "alternateName": ["DGPBP", "Direction Générale du Patrimoine Bâti Public"],
             "url": safeUrl,
             "logo": {
@@ -305,7 +305,7 @@ export default function AppLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+            "name": "PBP - Patrimoine Bâti Public",
             "url": safeUrl,
             "description": seoConfig.description,
             "publisher": {

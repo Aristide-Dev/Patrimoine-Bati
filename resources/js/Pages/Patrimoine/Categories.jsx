@@ -166,7 +166,7 @@ export default function Categories({ meta }) {
             "description": "Données statistiques sur la répartition du patrimoine bâti public de Guinée par catégories",
             "creator": {
               "@type": "Organization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public"
+              "name": "PBP - Patrimoine Bâti Public"
             },
             "includedInDataCatalog": {
               "@type": "DataCatalog",

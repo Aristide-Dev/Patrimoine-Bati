@@ -106,7 +106,7 @@ export default function ActualitesPage() {
                   },
                   "publisher": {
                     "@type": "Organization",
-                    "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+                    "name": "PBP - Patrimoine Bâti Public",
                     "logo": {
                       "@type": "ImageObject",
                       "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
@@ -151,7 +151,7 @@ export default function ActualitesPage() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+            "name": "PBP - Patrimoine Bâti Public",
             "url": "/",
             "potentialAction": {
               "@type": "SearchAction",

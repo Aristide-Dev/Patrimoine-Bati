@@ -109,7 +109,7 @@ export default function MotDirectrice() {
               "jobTitle": "Directrice Générale",
               "worksFor": {
                 "@type": "GovernmentOrganization",
-                "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+                "name": "PBP - Patrimoine Bâti Public",
                 "address": {
                   "@type": "PostalAddress",
                   "addressLocality": "Conakry",
@@ -167,7 +167,7 @@ export default function MotDirectrice() {
             "jobTitle": "Directrice Générale",
             "worksFor": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+              "name": "PBP - Patrimoine Bâti Public",
               "url": "/",
               "address": {
                 "@type": "PostalAddress",

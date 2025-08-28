@@ -27,7 +27,7 @@ export default function Contact({ meta }) {
 
   // Données SEO optimisées pour la page Contact
   const seoData = {
-    title: "Contact DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
+    title: "Contact PBP - Patrimoine Bâti Public de Guinée",
     description: "Contactez la Direction Générale du Patrimoine Bâti Public de Guinée. Adresse, téléphone, email et formulaire de contact pour vos demandes et questions sur le patrimoine immobilier public.",
     keywords: "contact DGPBP, téléphone DGPBP, email DGPBP, adresse DGPBP, Conakry Guinée, formulaire contact patrimoine public, service client DGPBP, coordonnées direction générale",
     canonical: "/contact",
@@ -49,12 +49,12 @@ export default function Contact({ meta }) {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ContactPage",
-            "name": "Contact DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
+            "name": "Contact PBP - Patrimoine Bâti Public de Guinée",
             "description": "Contactez la Direction Générale du Patrimoine Bâti Public de Guinée. Adresse, téléphone, email et formulaire de contact pour vos demandes et questions sur le patrimoine immobilier public.",
             "url": "/contact",
             "mainEntity": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+              "name": "PBP - Patrimoine Bâti Public",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": DGPBP.contactInfo.address || "Conakry",
@@ -107,7 +107,7 @@ export default function Contact({ meta }) {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "GovernmentOrganization",
-            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+            "name": "PBP - Patrimoine Bâti Public",
             "url": "/",
             "logo": {
               "@type": "ImageObject",
@@ -219,7 +219,7 @@ export default function Contact({ meta }) {
             <section className="mb-16 rounded-xl overflow-hidden shadow-lg" aria-label="Localisation DGPBP" itemScope itemType="https://schema.org/Place">
             <h2 className="text-2xl font-bold text-gray-900 mb-8 px-6 pt-6">Notre localisation</h2>
             <Map />
-            <meta itemProp="name" content="DGPBP - Direction Générale du Patrimoine Bâti Public" />
+            <meta itemProp="name" content="PBP - Patrimoine Bâti Public" />
             <meta itemProp="address" content={DGPBP.contactInfo.address || "Conakry, Guinée"} />
             </section>
 
