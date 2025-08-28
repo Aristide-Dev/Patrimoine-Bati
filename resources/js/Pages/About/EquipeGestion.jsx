@@ -260,7 +260,7 @@ export default function EquipeGestion({ meta }) {
 
   // Données SEO optimisées
   const seoData = {
-    title: "Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public",
+    title: "Organisation et Structure - DGPBP | Patrimoine Bâti Public",
     description: "Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG. Directions techniques, services d'appui et équipe dirigeante.",
     keywords: "organisation DGPBP, structure DGPBP, directions techniques, services appui, équipe direction, organigramme DGPBP, Guinée",
     canonical: "/about/equipe-gestion",
@@ -413,14 +413,14 @@ export default function EquipeGestion({ meta }) {
     <AppLayout seoData={seoData}>
       <Head>
         {/* Métadonnées de base pour la page Organisation */}
-        <title>Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public</title>
+        <title>Organisation et Structure - DGPBP | Patrimoine Bâti Public</title>
         <meta name="description" content="Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG. Directions techniques, services d'appui et équipe dirigeante." />
         <meta name="keywords" content="organisation DGPBP, structure DGPBP, directions techniques, services appui, équipe direction, organigramme DGPBP, Guinée" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta name="googlebot" content="index, follow" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public" />
+        <meta property="og:title" content="Organisation et Structure - DGPBP | Patrimoine Bâti Public" />
         <meta property="og:description" content="Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG." />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="/about/equipe-gestion" />
@@ -428,7 +428,7 @@ export default function EquipeGestion({ meta }) {
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public" />
+        <meta name="twitter:title" content="Organisation et Structure - DGPBP | Patrimoine Bâti Public" />
         <meta name="twitter:description" content="Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG." />
         <meta name="twitter:image" content="/images/our-team/Souadou-Balde-DG.jpg" />
         
