@@ -29,7 +29,7 @@ export default function Contact({ meta }) {
   const seoData = {
     title: "Contact PBP - Patrimoine Bâti Public de Guinée",
     description: "Contactez Le Patrimoine Bâti Public de Guinée. Adresse, téléphone, email et formulaire de contact pour vos demandes et questions sur le patrimoine immobilier public.",
-    keywords: "contact PBP, téléphone PBP, email PBP, adresse PBP, Conakry Guinée, formulaire contact patrimoine public, service client DGPBP, coordonnées direction générale",
+    keywords: "contact PBP, téléphone PBP, email PBP, adresse PBP, Conakry Guinée, formulaire contact patrimoine public, service client PBP, coordonnées direction générale",
     canonical: "/contact",
     type: "ContactPage"
   };

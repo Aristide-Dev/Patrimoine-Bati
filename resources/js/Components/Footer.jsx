@@ -301,7 +301,7 @@ const Footer = () => {
             </div>
           </div>
           <p className="text-gray-200 text-xl backdrop-blur-sm bg-white/5 px-6 py-2 rounded-full"> 
-            © {new Date().getFullYear()} <span className="font-medium text-white">DGPBP</span> - Tous droits réservés
+            © {new Date().getFullYear()} <span className="font-medium text-white">PBP</span> - Tous droits réservés
           </p>
         </motion.div>
       </div>
