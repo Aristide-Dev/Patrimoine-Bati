@@ -13,7 +13,7 @@ const pageData = {
   meta: {
     title: 'PBP - Patrimoine Bâti Public de Guinée | Accueil',
     description: 'Direction Générale du Patrimoine Bâti Public de Guinée : gestion innovante et durable du patrimoine immobilier de l\'État guinéen. Logements administratifs, valorisation immobilière, baux commerciaux et services publics.',
-    keywords: 'DGPBP, patrimoine bâti Guinée, immobilier public Conakry, logements administratifs Guinée, valorisation immobilière État, baux commerciaux publics, service public Guinée, gestion patrimoine État guinéen, DGPBP Conakry, ministère patrimoine Guinée',
+    keywords: 'PBP - SAU, patrimoine bâti Guinée, immobilier public Conakry, logements administratifs Guinée, valorisation immobilière État, baux commerciaux publics, service public Guinée, gestion patrimoine État guinéen, PBP - SAU Conakry, ministère patrimoine Guinée',
     ogImage: '/images/hero/home.jpg',
     ogType: 'website',
     articleSection: 'Accueil',
@@ -27,10 +27,10 @@ const pageData = {
     cta2: 'Découvrir nos services',
   },
   presentation: {
-    title: 'La Direction Générale du Patrimoine Bâti Public',
+    title: 'Le Patrimoine Bâti Public',
     subtitle: 'Valorisons notre héritage commun',
     description:
-      'La DGPBP est l\'institution dédiée à la gestion, la valorisation et la modernisation du patrimoine immobilier de l\'État guinéen. Notre mission, essentielle dans la transformation de l\'État, repose sur une gouvernance rigoureuse et une vision innovante.',
+      'Le PBP - SAU est l\'institution dédiée à la gestion, la valorisation et la modernisation du patrimoine immobilier de l\'État guinéen. Notre mission, essentielle dans la transformation de l\'État, repose sur une gouvernance rigoureuse et une vision innovante.',
     missions: [
       {
         title: 'Gestion Stratégique',
@@ -81,7 +81,7 @@ const pageData = {
     title: 'Nos Actions',
     subtitle: 'Des missions claires pour valoriser le patrimoine public',
     description:
-      'La DGPBP met en œuvre une gestion intégrée et moderne du patrimoine immobilier de l\'État, en s\'appuyant sur des stratégies innovantes et durables.',
+      'Le PBP met en œuvre une gestion intégrée et moderne du patrimoine immobilier de l\'État, en s\'appuyant sur des stratégies innovantes et durables.',
     areas: [
       {
         icon: 'ClipboardList',
@@ -157,7 +157,7 @@ const pageData = {
       excerpt:
         'Attribution de 50 nouveaux logements administratifs dans la commune de Kaloum.',
       content:
-        'Afin d\'améliorer les conditions de vie des fonctionnaires, la DGPBP met à disposition 50 nouveaux logements administratifs, renforçant ainsi notre engagement envers un service public de qualité.',
+        'Afin d\'améliorer les conditions de vie des fonctionnaires, Le PBP met à disposition 50 nouveaux logements administratifs, renforçant ainsi notre engagement envers un service public de qualité.',
       date: '2024-03-10',
       image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2073&auto=format&fit=crop',
       category: 'Logements',
@@ -295,7 +295,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
             ],
             "publisher": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP",
+              "name": "PBP",
               "logo": {
                 "@type": "ImageObject",
                 "url": `${meta.canonicalUrl}/images/logo/pbp_sau_logo_transparent_blanc.png`
@@ -309,7 +309,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "name": "Statistiques DGPBP",
+            "name": "Statistiques PBP",
             "description": "Chiffres clés du patrimoine bâti public de Guinée",
             "numberOfItems": stats.length,
             "itemListElement": stats.map((stat, index) => ({
@@ -331,8 +331,8 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "name": "Services DGPBP",
-            "description": "Services offerts par la Direction Générale du Patrimoine Bâti Public",
+            "name": "Services PBP",
+            "description": "Services offerts par Le Patrimoine Bâti Public",
             "numberOfItems": activities.areas.length,
             "itemListElement": activities.areas.map((area, index) => ({
               "@type": "ListItem",
@@ -343,7 +343,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
                 "description": area.description,
                 "provider": {
                   "@type": "GovernmentOrganization",
-                  "name": "DGPBP"
+                  "name": "PBP"
                 },
                 "areaServed": {
                   "@type": "Country",
@@ -375,7 +375,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
       </section>
 
       {/* Présentation Section */}
-      <section className="py-24 bg-white" aria-label="Présentation de la DGPBP" itemScope itemType="https://schema.org/AboutPage">
+      <section className="py-24 bg-white" aria-label="Présentation de Le PBP" itemScope itemType="https://schema.org/AboutPage">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <motion.div
@@ -420,7 +420,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
               <div className="aspect-w-4 aspect-h-3 rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src={presentation.image}
-                  alt="Présentation du patrimoine public guinéen - Bâtiments administratifs de la DGPBP"
+                  alt="Présentation du patrimoine public guinéen - Bâtiments administratifs de Le PBP"
                   className="object-cover w-full h-full"
                   loading="lazy"
                   width="800"
@@ -586,8 +586,8 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
                       >
                         Lire la suite
                       </a>
-                      <meta itemProp="author" content="DGPBP" />
-                      <meta itemProp="publisher" content="DGPBP" />
+                      <meta itemProp="author" content="PBP" />
+                      <meta itemProp="publisher" content="PBP" />
                     </div>
                   </article>
                 ))}
@@ -783,7 +783,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
                 Notre Engagement pour un Patrimoine Durable
               </h2>
               <p className="text-lg text-gray-600" itemProp="description">
-                La DGPBP s'engage dans une démarche de développement durable pour
+                Le PBP s'engage dans une démarche de développement durable pour
                 préserver et valoriser le patrimoine bâti public. Notre approche
                 combine innovation technologique et respect de l'environnement.
               </p>
@@ -818,7 +818,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
             >
               <img
                 src="/images/ccf_3.jpeg"
-                alt="Engagement durable DGPBP - Développement durable et patrimoine public"
+                alt="Engagement durable PBP - Développement durable et patrimoine public"
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
                 width="600"
@@ -830,7 +830,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
       </section>
 
       {/* Contact Section - Nouveau design */}
-      <section className="py-20 bg-blue-900 text-white" aria-label="Contact DGPBP" itemScope itemType="https://schema.org/ContactPage">
+      <section className="py-20 bg-blue-900 text-white" aria-label="Contact PBP" itemScope itemType="https://schema.org/ContactPage">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <motion.h2
@@ -859,7 +859,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
               <a 
                 href="tel:+224655358284" 
                 className="inline-flex items-center px-8 py-4 bg-white text-blue-900 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
-                aria-label="Appeler la DGPBP au +224 655 358 284"
+                aria-label="Appeler Le PBP au +224 655 358 284"
                 itemProp="telephone"
               >
                 <Icons.Phone className="mr-2" size={20} aria-hidden="true" />
@@ -868,7 +868,7 @@ export default function Home({ regions, prefectures, communes, typesBien, zones 
               <a 
                 href={route('contact.index')} 
                 className="inline-flex items-center px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white/10 transition-colors font-semibold"
-                aria-label="Contacter la DGPBP par formulaire"
+                aria-label="Contacter Le PBP par formulaire"
               >
                 <Icons.Mail className="mr-2" size={20} aria-hidden="true" />
                 Nous écrire

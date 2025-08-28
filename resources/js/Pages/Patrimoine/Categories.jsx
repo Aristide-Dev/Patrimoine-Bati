@@ -148,7 +148,7 @@ export default function Categories({ meta }) {
             },
             "publisher": {
               "@type": "Organization",
-              "name": "DGPBP",
+              "name": "PBP",
               "logo": {
                 "@type": "ImageObject",
                 "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"

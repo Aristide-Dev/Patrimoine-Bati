@@ -11,12 +11,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function AppLayout({ 
   children,
   title = "PBP - Patrimoine Bâti Public de Guinée",
-  description = "La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l'entretien et la valorisation du patrimoine immobilier de l'État guinéen. Services publics, gestion immobilière, valorisation du patrimoine.",
-  keywords = "DGPBP, patrimoine bâti, Guinée, immobilier public, gestion immobilière, État guinéen, service public, administration, valorisation patrimoine, bâtiments publics, infrastructure publique, Conakry",
+  description = "Le Patrimoine Bâti Public (PBP- SAU) de Guinée assure la gestion, l'entretien et la valorisation du patrimoine immobilier de l'État guinéen. Services publics, gestion immobilière, valorisation du patrimoine.",
+  keywords = "PBP- SAU, patrimoine bâti, Guinée, immobilier public, gestion immobilière, État guinéen, service public, administration, valorisation patrimoine, bâtiments publics, infrastructure publique, Conakry",
   ogImage = "/images/logo/pbp_sau_logo_transparent_blanc.png",
   canonicalUrl,
   ogType = "website",
-  twitterCreator = "@dgpbp",
+  twitterCreator = "@pbp",
   datePublished,
   dateModified,
   articleSection,
@@ -211,14 +211,14 @@ export default function AppLayout({
             "@context": "https://schema.org",
             "@type": "GovernmentOrganization",
             "name": "PBP - Patrimoine Bâti Public",
-            "alternateName": ["DGPBP", "Direction Générale du Patrimoine Bâti Public"],
+            "alternateName": ["PBP - SAU", "Direction Générale du Patrimoine Bâti Public"],
             "url": safeUrl,
             "logo": {
               "@type": "ImageObject",
               "url": `${safeUrl}/images/logo/pbp_sau_logo_transparent_blanc.png`,
               "width": 400,
               "height": 400,
-              "caption": "Logo DGPBP"
+              "caption": "Logo PBP - SAU"
             },
             "description": seoConfig.description,
             "image": absoluteImageUrl,
@@ -283,7 +283,7 @@ export default function AppLayout({
             "image": absoluteImageUrl,
             "publisher": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP",
+              "name": "PBP - SAU",
               "logo": {
                 "@type": "ImageObject",
                 "url": `${safeUrl}/images/logo/pbp_sau_logo_transparent_blanc.png`
@@ -294,7 +294,7 @@ export default function AppLayout({
             "inLanguage": "fr-GN",
             "isPartOf": {
               "@type": "WebSite",
-              "name": "DGPBP",
+              "name": "PBP - SAU",
               "url": safeUrl
             }
           })}
@@ -310,7 +310,7 @@ export default function AppLayout({
             "description": seoConfig.description,
             "publisher": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP"
+              "name": "PBP - SAU"
             },
             "potentialAction": {
               "@type": "SearchAction",

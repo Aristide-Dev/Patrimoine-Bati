@@ -73,14 +73,14 @@ export default function MotDirectrice() {
     <AppLayout>
       <Head>
         {/* Métadonnées de base pour la page Mot de la Directrice */}
-        <title>Mot de la Directrice - Madame Souadou Baldé | DGPBP Guinée</title>
+        <title>Mot de la Directrice - Madame Souadou Baldé | PBP Guinée</title>
         <meta name="description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État selon le Décret N°D/0275/PRG/CNRD/SGG." />
-        <meta name="keywords" content="Souadou Baldé, Directrice Générale DGPBP, leadership Guinée, vision patrimoine public, direction gouvernementale Guinée, administration publique Conakry, transformation digitale gouvernement, décret 2022" />
+        <meta name="keywords" content="Souadou Baldé, Directrice Générale PBP, leadership Guinée, vision patrimoine public, direction gouvernementale Guinée, administration publique Conakry, transformation digitale gouvernement, décret 2022" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta name="googlebot" content="index, follow" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Mot de la Directrice - Madame Souadou Baldé | DGPBP Guinée" />
+        <meta property="og:title" content="Mot de la Directrice - Madame Souadou Baldé | PBP Guinée" />
         <meta property="og:description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État." />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="/about/mot-directrice" />
@@ -88,7 +88,7 @@ export default function MotDirectrice() {
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Mot de la Directrice - Madame Souadou Baldé | DGPBP Guinée" />
+        <meta name="twitter:title" content="Mot de la Directrice - Madame Souadou Baldé | PBP Guinée" />
         <meta name="twitter:description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État." />
         <meta name="twitter:image" content="/images/hero/Souadou-Balde.png" />
         
@@ -100,7 +100,7 @@ export default function MotDirectrice() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
-            "name": "Mot de la Directrice - Madame Souadou Baldé | DGPBP Guinée",
+            "name": "Mot de la Directrice - Madame Souadou Baldé | PBP Guinée",
             "description": "Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État.",
             "url": "/about/mot-directrice",
             "mainEntity": {
@@ -145,7 +145,7 @@ export default function MotDirectrice() {
             },
             "publisher": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP",
+              "name": "PBP",
               "logo": {
                 "@type": "ImageObject",
                 "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
@@ -178,7 +178,7 @@ export default function MotDirectrice() {
             "image": {
               "@type": "ImageObject",
               "url": "/images/hero/Souadou-Balde.png",
-              "caption": "Madame Souadou Baldé, Directrice Générale de la DGPBP"
+              "caption": "Madame Souadou Baldé, Directrice Générale de Le PBP"
             },
             "gender": "Female",
             "nationality": "Guinéenne",
@@ -192,8 +192,8 @@ export default function MotDirectrice() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "name": "Vision DGPBP - Piliers de Transformation",
-            "description": "Les quatre piliers fondamentaux de la vision de transformation de la DGPBP",
+            "name": "Vision PBP - Piliers de Transformation",
+            "description": "Les quatre piliers fondamentaux de la vision de transformation de Le PBP",
             "numberOfItems": 4,
             "itemListElement": [
               {
@@ -205,7 +205,7 @@ export default function MotDirectrice() {
                   "description": "Concevoir et mettre en œuvre une politique innovante de conservation et de gestion du Parc Immobilier Bâti de l'État.",
                   "inDefinedTermSet": {
                     "@type": "DefinedTermSet",
-                    "name": "Piliers de Vision DGPBP"
+                    "name": "Piliers de Vision PBP"
                   }
                 }
               },
@@ -218,7 +218,7 @@ export default function MotDirectrice() {
                   "description": "Mettre en place une plateforme numérique de gestion immobilière et moderniser nos processus.",
                   "inDefinedTermSet": {
                     "@type": "DefinedTermSet",
-                    "name": "Piliers de Vision DGPBP"
+                    "name": "Piliers de Vision PBP"
                   }
                 }
               },
@@ -231,7 +231,7 @@ export default function MotDirectrice() {
                   "description": "Garantir une gestion irréprochable du patrimoine public dans le respect des principes éthiques.",
                   "inDefinedTermSet": {
                     "@type": "DefinedTermSet",
-                    "name": "Piliers de Vision DGPBP"
+                    "name": "Piliers de Vision PBP"
                   }
                 }
               },
@@ -244,7 +244,7 @@ export default function MotDirectrice() {
                   "description": "Assurer l'administration, la gestion, l'extension et la conservation optimale du patrimoine immobilier.",
                   "inDefinedTermSet": {
                     "@type": "DefinedTermSet",
-                    "name": "Piliers de Vision DGPBP"
+                    "name": "Piliers de Vision PBP"
                   }
                 }
               }
@@ -339,7 +339,7 @@ export default function MotDirectrice() {
                 hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center group transform hover:-translate-y-1"
               >
                 <Building2 className="mr-3 group-hover:scale-110 transition-transform" />
-                À Propos de la DGPBP
+                À Propos de Le PBP
               </a>
             </motion.div>
           </motion.div>
@@ -417,10 +417,10 @@ export default function MotDirectrice() {
                   {/* Introduction */}
                   <div className="space-y-6">
                     <p className="text-xl leading-relaxed">
-                      Bienvenue sur le site officiel de la Direction Générale du Patrimoine Bâti Public de la république de Guinée
+                      Bienvenue sur le site officiel de Le Patrimoine Bâti Public de la république de Guinée
                     </p>
                     <p className="leading-relaxed">
-                      C'est avec un grand plaisir que je vous souhaite la bienvenue sur le portail numérique de la Direction Générale du Patrimoine Bâti Public (DGPBP).
+                      C'est avec un grand plaisir que je vous souhaite la bienvenue sur le portail numérique de Le Patrimoine Bâti Public (PBP).
                     </p>
                   </div>
 
@@ -428,7 +428,7 @@ export default function MotDirectrice() {
                   <div className="space-y-6">
                     <p className="leading-relaxed">
                       Institution publique, placée sous l'autorité du Ministre Secrétaire Général de la Présidence de la République, 
-                      la DGPBP est chargée de mettre en œuvre la politique nationale en matière de gestion, de valorisation et de 
+                      Le PBP est chargée de mettre en œuvre la politique nationale en matière de gestion, de valorisation et de 
                       préservation du patrimoine immobilier de l'État. Qu'il s'agisse des édifices administratifs, des logements 
                       publics ou des représentations diplomatiques, notre responsabilité couvre l'ensemble des biens bâtis appartenant 
                       à la République, tant sur le territoire national qu'à l'étranger.
@@ -457,7 +457,7 @@ export default function MotDirectrice() {
                   {/* Transformation et objectifs */}
                   <div className="space-y-6">
                     <p className="leading-relaxed">
-                      La DGPBP est aujourd'hui engagée dans une profonde transformation. Avec l'appui des autorités nationales et de nos 
+                      Le PBP est aujourd'hui engagée dans une profonde transformation. Avec l'appui des autorités nationales et de nos 
                       partenaires, nous portons une ambition claire : Repositionner l'État au cœur de la gestion du patrimoine bâti, 
                       en conciliant excellence opérationnelle, transition numérique, transparence et efficacité.
                     </p>
@@ -673,7 +673,7 @@ export default function MotDirectrice() {
               alliant tradition et innovation pour servir au mieux notre nation."
             </blockquote>
             <p className="text-xl text-white/90">
-              - Madame Souadou Baldé, Directrice Générale DGPBP
+              - Madame Souadou Baldé, Directrice Générale PBP
             </p>
           </div>
 
@@ -702,7 +702,7 @@ export default function MotDirectrice() {
               font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center group"
             >
               <Building2 className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
-              À Propos de la DGPBP
+              À Propos de Le PBP
               <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>

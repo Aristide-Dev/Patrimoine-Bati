@@ -699,7 +699,7 @@ export default function Historic({ meta }) {
                   </span>
                 </h2>
                 <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-                  La Direction Générale du Patrimoine Bâti Public œuvre pour la préservation et la valorisation 
+                  Le Patrimoine Bâti Public œuvre pour la préservation et la valorisation 
                   du patrimoine historique guinéen. Ces sites témoignent de notre riche histoire, 
                   de la résistance héroïque de nos ancêtres aux réalisations de la Guinée moderne.
                 </p>

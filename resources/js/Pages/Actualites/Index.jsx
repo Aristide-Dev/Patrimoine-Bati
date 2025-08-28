@@ -19,9 +19,9 @@ export default function ActualitesPage() {
 
   // Données SEO optimisées pour la page Actualités
   const seoData = {
-    title: "Actualités DGPBP - Dernières Nouvelles et Événements du Patrimoine Public Guinéen",
-    description: "Découvrez les dernières actualités, événements et initiatives de la Direction Générale du Patrimoine Bâti Public de Guinée. Communiqués, rapports, séminaires et projets de développement du patrimoine immobilier public.",
-    keywords: "actualités DGPBP, nouvelles patrimoine Guinée, événements DGPBP, communiqués patrimoine public, rapports DGPBP, séminaires patrimoine, projets immobilier Guinée, nouvelles Conakry",
+    title: "Actualités PBP - Dernières Nouvelles et Événements du Patrimoine Public Guinéen",
+    description: "Découvrez les dernières actualités, événements et initiatives de Le Patrimoine Bâti Public de Guinée. Communiqués, rapports, séminaires et projets de développement du patrimoine immobilier public.",
+    keywords: "actualités PBP, nouvelles patrimoine Guinée, événements PBP, communiqués patrimoine public, rapports PBP, séminaires patrimoine, projets immobilier Guinée, nouvelles Conakry",
     canonical: "/actualites",
     type: "CollectionPage"
   };
@@ -87,8 +87,8 @@ export default function ActualitesPage() {
             "url": seoData.canonical,
             "mainEntity": {
               "@type": "ItemList",
-              "name": "Articles et Actualités DGPBP",
-              "description": "Collection des derniers articles, actualités et événements de la DGPBP",
+              "name": "Articles et Actualités PBP",
+              "description": "Collection des derniers articles, actualités et événements de Le PBP",
               "numberOfItems": articles.total || 0,
               "itemListElement": articles.data?.slice(0, 10).map((article, index) => ({
                 "@type": "ListItem",
@@ -102,7 +102,7 @@ export default function ActualitesPage() {
                   "dateModified": article.updated_at,
                   "author": {
                     "@type": "Organization",
-                    "name": "DGPBP"
+                    "name": "PBP"
                   },
                   "publisher": {
                     "@type": "Organization",
@@ -137,7 +137,7 @@ export default function ActualitesPage() {
             },
             "publisher": {
               "@type": "Organization",
-              "name": "DGPBP",
+              "name": "PBP",
               "logo": {
                 "@type": "ImageObject",
                 "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
@@ -173,7 +173,7 @@ export default function ActualitesPage() {
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-6xl font-bold text-white mb-6">Actualités & Événements</h1>
               <p className="text-xl text-white/90 mb-12">
-                Découvrez les dernières actualités et initiatives de la DGPBP
+                Découvrez les dernières actualités et initiatives de Le PBP
               </p>
 
               <div className="flex flex-col md:flex-row items-center gap-2">

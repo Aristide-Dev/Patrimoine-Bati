@@ -4,18 +4,18 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="{{ config('app.description', 'La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
-        <meta name="author" content="DGPBP">
+        <meta name="description" content="{{ config('app.description', 'Le Patrimoine Bâti Public (PBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
+        <meta name="author" content="PBP">
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
         <meta name="format-detection" content="telephone=no">
         <meta name="theme-color" content="#1a365d" media="(prefers-color-scheme: light)">
         <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)">
         <meta name="color-scheme" content="light dark">
-        <meta name="application-name" content="{{ config('app.name', 'DGPBP') }}">
+        <meta name="application-name" content="{{ config('app.name', 'PBP') }}">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="default">
-        <meta name="apple-mobile-web-app-title" content="{{ config('app.name', 'DGPBP') }}">
+        <meta name="apple-mobile-web-app-title" content="{{ config('app.name', 'PBP') }}">
 
         {{-- Métadonnées géographiques et linguistiques --}}
         <meta name="language" content="fr">
@@ -55,7 +55,7 @@
             }
         </style>
 
-        <title inertia>{{ config('app.name', 'DGPBP') }}</title>
+        <title inertia>{{ config('app.name', 'PBP') }}</title>
 
         {{-- Favicons optimisés --}}
         <link rel="icon" href="/PBP.ico" sizes="any">
@@ -79,12 +79,12 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         @endif
 
-        {{-- Open Graph optimisé pour DGPBP --}}
-        <meta property="og:site_name" content="{{ config('app.name', 'DGPBP') }}">
+        {{-- Open Graph optimisé pour PBP --}}
+        <meta property="og:site_name" content="{{ config('app.name', 'PBP') }}">
         <meta property="og:locale" content="{{ str_replace('_', '-', app()->getLocale()) }}">
         <meta property="og:type" content="website">
-        <meta property="og:title" content="{{ config('app.name', 'DGPBP') }} - Direction Générale du Patrimoine Bâti Public">
-        <meta property="og:description" content="{{ config('app.description', 'La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
+        <meta property="og:title" content="{{ config('app.name', 'PBP') }} - Direction Générale du Patrimoine Bâti Public">
+        <meta property="og:description" content="{{ config('app.description', 'Le Patrimoine Bâti Public (PBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
         <meta property="og:url" content="{{ url()->current() }}">
         <meta property="og:image" content="{{ url('/images/logo/pbp_sau_logo_transparent_blanc.png') }}">
         <meta property="og:image:width" content="1200">
@@ -93,10 +93,10 @@
 
         {{-- Twitter Card --}}
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@dgpbp">
-        <meta name="twitter:creator" content="@dgpbp">
-        <meta name="twitter:title" content="{{ config('app.name', 'DGPBP') }} - Direction Générale du Patrimoine Bâti Public">
-        <meta name="twitter:description" content="{{ config('app.description', 'La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
+        <meta name="twitter:site" content="@PBP">
+        <meta name="twitter:creator" content="@PBP">
+        <meta name="twitter:title" content="{{ config('app.name', 'PBP') }} - Direction Générale du Patrimoine Bâti Public">
+        <meta name="twitter:description" content="{{ config('app.description', 'Le Patrimoine Bâti Public (PBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen.') }}">
         <meta name="twitter:image" content="{{ url('/images/logo/pbp_sau_logo_transparent_blanc.png') }}">
 
         {{-- DNS Prefetch optimisé --}}
@@ -120,16 +120,16 @@
             </div>
         </noscript>
 
-        {{-- Schema.org JSON-LD pour DGPBP --}}
+        {{-- Schema.org JSON-LD pour PBP --}}
         <script type="application/ld+json">
         {
             "@context": "https://schema.org",
             "@type": "GovernmentOrganization",
             "name": "PBP - Patrimoine Bâti Public",
-            "alternateName": "DGPBP",
+            "alternateName": "PBP",
             "url": "{{ url('/') }}",
             "logo": "{{ asset('/images/logo/pbp_sau_logo_transparent_blanc.png') }}",
-            "description": "La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l'entretien et la valorisation du patrimoine immobilier de l'État guinéen.",
+            "description": "Le Patrimoine Bâti Public (PBP) de Guinée assure la gestion, l'entretien et la valorisation du patrimoine immobilier de l'État guinéen.",
             "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Conakry",
