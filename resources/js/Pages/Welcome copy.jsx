@@ -35,7 +35,7 @@ const news = [
     title: "Lancement du programme de digitalisation",
     date: "15 Mars 2024",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
-    excerpt: "La PBP lance son programme de transformation numérique des régies financières."
+    excerpt: "Le PBP lance son programme de transformation numérique des régies financières."
   },
   {
     id: 2,
@@ -320,7 +320,7 @@ export default function Welcome() {
                 "Ministre en charge du plan et du développement économique",
                 "Ministre en charge des télécommunications et de l’économie numérique",
                 "Gouverneur de la Banque Centrale de la République de Guinée (BCRG)",
-                "Coordinateur général de la PBP Rapporteur du Comité de pilotage",
+                "Coordinateur général du PBP Rapporteur du Comité de pilotage",
                 "Personnalité qualifiée indépendante",
                 "Personnalité qualifiée indépendante",
               ].map((texte, idx) => (

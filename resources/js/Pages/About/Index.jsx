@@ -25,7 +25,7 @@ const timelineEvents = [
   },
   {
     year: "2022",
-    title: "Direction Générale du Patrimoine Bâti Public",
+    title: "Patrimoine Bâti Public",
     description: "Restructuration avec autonomie de gestion et financière suivant le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022."
   }
 ];
@@ -137,23 +137,23 @@ export default function About() {
     <AppLayout>
       <Head>
         {/* Métadonnées de base pour la page À propos */}
-        <title>À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée</title>
-        <meta name="description" content="Découvrez la Direction Générale du Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022. Institution dédiée à la gestion du patrimoine immobilier de l'État guinéen." />
-        <meta name="keywords" content="DGPBP attributions, mission DGPBP, patrimoine bâti public Guinée, gestion immobilière État, administration publique Conakry, Direction Générale patrimoine, services publics Guinée, décret 2022" />
+        <title>À propos du PBP - Patrimoine Bâti Public de Guinée</title>
+        <meta name="description" content="Découvrez Le Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022. Institution dédiée à la gestion du patrimoine immobilier de l'État guinéen." />
+        <meta name="keywords" content="PBP attributions, mission PBP, patrimoine bâti public Guinée, gestion immobilière État, administration publique Conakry, Direction Générale patrimoine, services publics Guinée, décret 2022" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta name="googlebot" content="index, follow" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée" />
-        <meta property="og:description" content="Découvrez la Direction Générale du Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022." />
+        <meta property="og:title" content="À propos du PBP - Patrimoine Bâti Public de Guinée" />
+        <meta property="og:description" content="Découvrez Le Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022." />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="/about" />
         <meta property="og:image" content="/images/about03.jpg" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée" />
-        <meta name="twitter:description" content="Découvrez la Direction Générale du Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022." />
+        <meta name="twitter:title" content="À propos du PBP - Patrimoine Bâti Public de Guinée" />
+        <meta name="twitter:description" content="Découvrez Le Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022." />
         <meta name="twitter:image" content="/images/about03.jpg" />
         
         {/* Canonical */}
@@ -164,12 +164,12 @@ export default function About() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
-            "name": "À propos de la DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
-            "description": "Découvrez la Direction Générale du Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022.",
+            "name": "À propos du PBP - Patrimoine Bâti Public de Guinée",
+            "description": "Découvrez Le Patrimoine Bâti Public de Guinée, ses attributions, missions et organisation définie par le Décret N°D/0275/PRG/CNRD/SGG du 06 Juin 2022.",
             "url": "/about",
             "mainEntity": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+              "name": "PBP - Patrimoine Bâti Public",
               "foundingDate": "1959",
               "description": "Direction Générale dotée de l'autonomie de gestion et de l'autonomie financière, rattachée par délégation au Ministre Secrétaire Général de la Présidence de la République",
               "address": {
@@ -202,10 +202,10 @@ export default function About() {
             },
             "publisher": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP",
+              "name": "PBP",
               "logo": {
                 "@type": "ImageObject",
-                "url": "/images/logo/logo-pbp.png"
+                "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
               }
             },
             "datePublished": "2022-06-06T00:00:00.000Z",
@@ -218,8 +218,8 @@ export default function About() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "name": "Historique DGPBP",
-            "description": "Chronologie des étapes importantes de la Direction Générale du Patrimoine Bâti Public",
+            "name": "Historique PBP",
+            "description": "Chronologie des étapes importantes de Le Patrimoine Bâti Public",
             "numberOfItems": timelineEvents.length,
             "itemListElement": timelineEvents.map((event, index) => ({
               "@type": "ListItem",
@@ -231,7 +231,7 @@ export default function About() {
                 "startDate": `${event.year}-01-01`,
                 "organizer": {
                   "@type": "GovernmentOrganization",
-                  "name": "DGPBP"
+                  "name": "PBP"
                 }
               }
             }))
@@ -243,8 +243,8 @@ export default function About() {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "name": "Valeurs DGPBP",
-            "description": "Les valeurs fondamentales de la Direction Générale du Patrimoine Bâti Public",
+            "name": "Valeurs PBP",
+            "description": "Les valeurs fondamentales de Le Patrimoine Bâti Public",
             "numberOfItems": values.length,
             "itemListElement": values.map((value, index) => ({
               "@type": "ListItem",
@@ -255,7 +255,7 @@ export default function About() {
                 "description": value.description,
                 "inDefinedTermSet": {
                   "@type": "DefinedTermSet",
-                  "name": "Valeurs DGPBP"
+                  "name": "Valeurs PBP"
                 }
               }
             }))
@@ -297,7 +297,7 @@ export default function About() {
             >
               À Propos de la
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-100 to-blue-100 ml-4">
-                DGPBP
+                PBP
               </span>
             </motion.h1>
             
@@ -308,7 +308,7 @@ export default function About() {
               transition={{ delay: 0.5, duration: 0.5 }}
               itemProp="description"
             >
-              Direction Générale du Patrimoine Bâti Public : Institution dédiée à la conception, 
+              Patrimoine Bâti Public : Institution dédiée à la conception, 
               l'élaboration et la mise en œuvre de la politique gouvernementale en matière de 
               conservation et de gestion du Parc Immobilier Bâti de l'État.
             </motion.p>
@@ -380,7 +380,7 @@ export default function About() {
               className="text-xl text-gray-600 max-w-3xl mx-auto"
             >
               Sous l'autorité du Président de la République et rattachée par délégation au 
-              Ministre Secrétaire Général de la Présidence, la DGPBP est dotée de l'autonomie 
+              Ministre Secrétaire Général de la Présidence, Le PBP est dotée de l'autonomie 
               de gestion et de l'autonomie financière.
             </motion.p>
           </motion.div>
@@ -435,7 +435,7 @@ export default function About() {
               className="text-xl text-gray-600 max-w-3xl mx-auto"
             >
               Le Parc Immobilier Bâti de l'État comprend diverses catégories de bâtiments 
-              placés sous la gestion de la Direction Générale du Patrimoine Bâti Public
+              placés sous la gestion de Le Patrimoine Bâti Public
             </motion.p>
           </motion.div>
 

@@ -260,9 +260,9 @@ export default function EquipeGestion({ meta }) {
 
   // Données SEO optimisées
   const seoData = {
-    title: "Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public",
-    description: "Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG. Directions techniques, services d'appui et équipe dirigeante.",
-    keywords: "organisation DGPBP, structure DGPBP, directions techniques, services appui, équipe direction, organigramme DGPBP, Guinée",
+    title: "Organisation et Structure - PBP | Patrimoine Bâti Public",
+    description: "Découvrez l'organisation et la structure de Le Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG. Directions techniques, services d'appui et équipe dirigeante.",
+    keywords: "organisation PBP, structure PBP, directions techniques, services appui, équipe direction, organigramme PBP, Guinée",
     canonical: "/about/equipe-gestion",
     type: "AboutPage"
   };
@@ -413,23 +413,23 @@ export default function EquipeGestion({ meta }) {
     <AppLayout seoData={seoData}>
       <Head>
         {/* Métadonnées de base pour la page Organisation */}
-        <title>Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public</title>
-        <meta name="description" content="Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG. Directions techniques, services d'appui et équipe dirigeante." />
-        <meta name="keywords" content="organisation DGPBP, structure DGPBP, directions techniques, services appui, équipe direction, organigramme DGPBP, Guinée" />
+        <title>Organisation et Structure - PBP | Patrimoine Bâti Public</title>
+        <meta name="description" content="Découvrez l'organisation et la structure de Le Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG. Directions techniques, services d'appui et équipe dirigeante." />
+        <meta name="keywords" content="organisation PBP, structure PBP, directions techniques, services appui, équipe direction, organigramme PBP, Guinée" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta name="googlebot" content="index, follow" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public" />
-        <meta property="og:description" content="Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG." />
+        <meta property="og:title" content="Organisation et Structure - PBP | Patrimoine Bâti Public" />
+        <meta property="og:description" content="Découvrez l'organisation et la structure de Le Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG." />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="/about/equipe-gestion" />
         <meta property="og:image" content="/images/our-team/Souadou-Balde-DG.jpg" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Organisation et Structure - DGPBP | Direction Générale du Patrimoine Bâti Public" />
-        <meta name="twitter:description" content="Découvrez l'organisation et la structure de la Direction Générale du Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG." />
+        <meta name="twitter:title" content="Organisation et Structure - PBP | Patrimoine Bâti Public" />
+        <meta name="twitter:description" content="Découvrez l'organisation et la structure de Le Patrimoine Bâti Public de Guinée selon le Décret N°D/0275/PRG/CNRD/SGG." />
         <meta name="twitter:image" content="/images/our-team/Souadou-Balde-DG.jpg" />
         
         {/* Canonical */}
@@ -440,19 +440,19 @@ export default function EquipeGestion({ meta }) {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
-            "name": "Organisation et Structure - DGPBP",
-            "description": "Organisation et structure de la Direction Générale du Patrimoine Bâti Public de Guinée",
+            "name": "Organisation et Structure - PBP",
+            "description": "Organisation et structure de Le Patrimoine Bâti Public de Guinée",
             "url": "/about/equipe-gestion",
             "mainEntity": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+              "name": "PBP - Patrimoine Bâti Public",
               "employees": equipeDirection.map(membre => ({
                 "@type": "Person",
                 "name": membre.nom,
                 "jobTitle": membre.poste,
                 "worksFor": {
                   "@type": "GovernmentOrganization",
-                  "name": "DGPBP"
+                  "name": "PBP"
                 }
               }))
             }
@@ -528,7 +528,7 @@ export default function EquipeGestion({ meta }) {
                 hover:bg-white hover:text-slate-900 transition-all duration-300 flex items-center justify-center group transform hover:-translate-y-1"
               >
                 <Building2 className="mr-3 group-hover:scale-110 transition-transform" />
-                À Propos de la DGPBP
+                À Propos du PBP
               </a>
             </motion.div>
           </motion.div>
@@ -918,7 +918,7 @@ export default function EquipeGestion({ meta }) {
               font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center group"
               >
               <Building2 className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
-                À Propos de la DGPBP
+                À Propos du PBP
               <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform" />
               </a>
           </div>

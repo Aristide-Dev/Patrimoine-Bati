@@ -347,7 +347,7 @@ export default function Historic({ meta }) {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={seoData.canonical} />
         <meta property="og:image" content="/images/historic/patrimoine-historique-guinee.jpg" />
-        <meta property="og:site_name" content="DGPBP - Direction Générale du Patrimoine Bâti Public" />
+        <meta property="og:site_name" content="PBP - Patrimoine Bâti Public" />
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -429,7 +429,7 @@ export default function Historic({ meta }) {
             },
             "publisher": {
               "@type": "GovernmentOrganization",
-              "name": "Direction Générale du Patrimoine Bâti Public",
+              "name": "Patrimoine Bâti Public",
               "alternateName": "DGPBP",
               "url": "https://dgpbp.gov.gn",
               "logo": {
@@ -699,7 +699,7 @@ export default function Historic({ meta }) {
                   </span>
                 </h2>
                 <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-                  La Direction Générale du Patrimoine Bâti Public œuvre pour la préservation et la valorisation 
+                  Le Patrimoine Bâti Public œuvre pour la préservation et la valorisation 
                   du patrimoine historique guinéen. Ces sites témoignent de notre riche histoire, 
                   de la résistance héroïque de nos ancêtres aux réalisations de la Guinée moderne.
                 </p>

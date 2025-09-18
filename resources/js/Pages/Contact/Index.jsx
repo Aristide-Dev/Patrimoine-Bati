@@ -27,9 +27,9 @@ export default function Contact({ meta }) {
 
   // Données SEO optimisées pour la page Contact
   const seoData = {
-    title: "Contact DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
-    description: "Contactez la Direction Générale du Patrimoine Bâti Public de Guinée. Adresse, téléphone, email et formulaire de contact pour vos demandes et questions sur le patrimoine immobilier public.",
-    keywords: "contact DGPBP, téléphone DGPBP, email DGPBP, adresse DGPBP, Conakry Guinée, formulaire contact patrimoine public, service client DGPBP, coordonnées direction générale",
+    title: "Contact PBP - Patrimoine Bâti Public de Guinée",
+    description: "Contactez Le Patrimoine Bâti Public de Guinée. Adresse, téléphone, email et formulaire de contact pour vos demandes et questions sur le patrimoine immobilier public.",
+    keywords: "contact PBP, téléphone PBP, email PBP, adresse PBP, Conakry Guinée, formulaire contact patrimoine public, service client PBP, coordonnées direction générale",
     canonical: "/contact",
     type: "ContactPage"
   };
@@ -49,12 +49,12 @@ export default function Contact({ meta }) {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ContactPage",
-            "name": "Contact DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
-            "description": "Contactez la Direction Générale du Patrimoine Bâti Public de Guinée. Adresse, téléphone, email et formulaire de contact pour vos demandes et questions sur le patrimoine immobilier public.",
+            "name": "Contact PBP - Patrimoine Bâti Public de Guinée",
+            "description": "Contactez Le Patrimoine Bâti Public de Guinée. Adresse, téléphone, email et formulaire de contact pour vos demandes et questions sur le patrimoine immobilier public.",
             "url": "/contact",
             "mainEntity": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+              "name": "PBP - Patrimoine Bâti Public",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": DGPBP.contactInfo.address || "Conakry",
@@ -93,10 +93,10 @@ export default function Contact({ meta }) {
             },
             "publisher": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP",
+              "name": "PBP - SAU",
               "logo": {
                 "@type": "ImageObject",
-                "url": "/images/logo/logo-pbp.png"
+                "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
               }
             }
           })}
@@ -107,14 +107,14 @@ export default function Contact({ meta }) {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "GovernmentOrganization",
-            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+            "name": "PBP - Patrimoine Bâti Public",
             "url": "/",
             "logo": {
               "@type": "ImageObject",
-              "url": "/images/logo/logo-pbp.png",
-              "caption": "Logo DGPBP"
+              "url": "/images/logo/pbp_sau_logo_transparent_blanc.png",
+              "caption": "Logo PBP - SAU"
             },
-            "description": "Direction Générale du Patrimoine Bâti Public de Guinée - Gestion du patrimoine immobilier de l'État",
+            "description": "Patrimoine Bâti Public de Guinée - Gestion du patrimoine immobilier de l'État",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": DGPBP.contactInfo.address || "Conakry",
@@ -168,12 +168,12 @@ export default function Contact({ meta }) {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "Formulaire de contact DGPBP",
-            "description": "Formulaire de contact pour envoyer un message à la Direction Générale du Patrimoine Bâti Public de Guinée",
+            "name": "Formulaire de contact PBP - SAU",
+            "description": "Formulaire de contact pour envoyer un message à Le Patrimoine Bâti Public de Guinée",
             "url": "/contact",
             "mainEntity": {
               "@type": "ContactForm",
-              "name": "Formulaire de contact DGPBP",
+              "name": "Formulaire de contact PBP - SAU",
               "description": "Envoyez-nous un message via ce formulaire",
               "target": "/contact",
               "httpMethod": "POST",
@@ -216,10 +216,10 @@ export default function Contact({ meta }) {
 
         <main className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
             {/* Carte avec ombre et arrondi */}
-            <section className="mb-16 rounded-xl overflow-hidden shadow-lg" aria-label="Localisation DGPBP" itemScope itemType="https://schema.org/Place">
+            <section className="mb-16 rounded-xl overflow-hidden shadow-lg" aria-label="Localisation PBP - SAU" itemScope itemType="https://schema.org/Place">
             <h2 className="text-2xl font-bold text-gray-900 mb-8 px-6 pt-6">Notre localisation</h2>
             <Map />
-            <meta itemProp="name" content="DGPBP - Direction Générale du Patrimoine Bâti Public" />
+            <meta itemProp="name" content="PBP - Patrimoine Bâti Public" />
             <meta itemProp="address" content={DGPBP.contactInfo.address || "Conakry, Guinée"} />
             </section>
 
@@ -300,7 +300,7 @@ export default function Contact({ meta }) {
             <section className="lg:col-span-2" aria-label="Formulaire de contact">
                 <Card className="p-8 shadow-lg">
                 <h3 className="text-2xl font-semibold text-gray-900 mb-6">Envoyez-nous un message</h3>
-                <form onSubmit={handleSubmit} className="space-y-6" noValidate role="form" aria-label="Formulaire de contact DGPBP">
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate role="form" aria-label="Formulaire de contact PBP - SAU">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <Label htmlFor="nom" required className="text-gray-700">Nom complet</Label>

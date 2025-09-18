@@ -148,10 +148,10 @@ export default function Categories({ meta }) {
             },
             "publisher": {
               "@type": "Organization",
-              "name": "DGPBP",
+              "name": "PBP",
               "logo": {
                 "@type": "ImageObject",
-                "url": "/images/logo/logo-pbp.png"
+                "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
               }
             }
           })}
@@ -166,7 +166,7 @@ export default function Categories({ meta }) {
             "description": "Données statistiques sur la répartition du patrimoine bâti public de Guinée par catégories",
             "creator": {
               "@type": "Organization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public"
+              "name": "PBP - Patrimoine Bâti Public"
             },
             "includedInDataCatalog": {
               "@type": "DataCatalog",

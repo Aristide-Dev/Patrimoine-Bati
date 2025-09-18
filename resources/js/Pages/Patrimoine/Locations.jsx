@@ -189,10 +189,10 @@ export default function Locations({ meta }) {
             },
             "publisher": {
               "@type": "Organization",
-              "name": "DGPBP",
+              "name": "PBP",
               "logo": {
                 "@type": "ImageObject",
-                "url": "/images/logo/logo-pbp.png"
+                "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
               }
             }
           })}
@@ -207,7 +207,7 @@ export default function Locations({ meta }) {
             "description": "Base de données géolocalisées des édifices publics de Guinée par région",
             "creator": {
               "@type": "Organization",
-              "name": "DGPBP - Direction Générale du Patrimoine Bâti Public"
+              "name": "PBP - Patrimoine Bâti Public"
             },
             "spatialCoverage": {
               "@type": "Place",

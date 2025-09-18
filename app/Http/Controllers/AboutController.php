@@ -11,7 +11,7 @@ class AboutController extends Controller
         return Inertia::render('About/Index', [
             'meta' => [
                 'title' => 'Présentation',
-                'description' => 'Présentation de la Direction Générale du Patrimoine Bâti Public'
+                'description' => 'Présentation de Le Patrimoine Bâti Public'
             ]
         ]);
     }
@@ -21,7 +21,7 @@ class AboutController extends Controller
         return Inertia::render('About/History', [
             'meta' => [
                 'title' => 'Historique',
-                'description' => 'Histoire de la Direction Générale du Patrimoine Bâti Public'
+                'description' => 'Histoire de Le Patrimoine Bâti Public'
             ]
         ]);
     }
@@ -50,8 +50,8 @@ class AboutController extends Controller
     {
         return Inertia::render('About/EquipeGestion', [
             'meta' => [
-                'title' => 'Notre équipe de gestion - DGPBP',
-                'description' => 'Découvrez l\'équipe dirigeante et les responsables de la Direction Générale du Patrimoine Bâti Public de Guinée'
+                'title' => 'Notre équipe de gestion - PBP',
+                'description' => 'Découvrez l\'équipe dirigeante et les responsables de Le Patrimoine Bâti Public de Guinée'
             ]
         ]);
     }
@@ -61,7 +61,7 @@ class AboutController extends Controller
         return Inertia::render('About/Gerants', [
             'meta' => [
                 'title' => 'Gérants Immobiliers',
-                'description' => 'Les gérants immobiliers de la Direction Générale du Patrimoine Bâti Public'
+                'description' => 'Les gérants immobiliers de Le Patrimoine Bâti Public'
             ]
         ]);
     }

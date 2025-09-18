@@ -302,13 +302,13 @@ const delay = ms => new Promise(
 
   return (
     <AppLayout>
-      <Head title="Médiathèque DGPBPG" />
+      <Head title="Médiathèque PBP - SAU" />
 
       {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-primary to-primary-800 py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl font-bold text-white mb-6">Médiathèque DGPBPG</h1>
+            <h1 className="text-5xl font-bold text-white mb-6">Médiathèque PBP - SAU</h1>
             <p className="text-xl text-white/90 mb-12">
               Explorez notre collection de photos et vidéos
             </p>

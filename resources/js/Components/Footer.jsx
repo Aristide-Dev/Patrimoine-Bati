@@ -10,7 +10,7 @@ import { DGPBP } from '@/utils/dgpbp';
 // Composant optimisé pour le préchargement des ressources critiques uniquement
 const PreloadCriticalResources = () => (
   <>
-    <link rel="preload" href="/images/logo/logo-pbp.png" as="image" fetchpriority="high" />
+    <link rel="preload" href="/images/logo/pbp_sau_logo_transparent_blanc.png" as="image" fetchpriority="high" />
   </>
 );
 
@@ -146,7 +146,7 @@ const Footer = () => {
               <div className="relative w-full">
                 <img
                   className="h-20 w-96 object-contain transform transition-all duration-500 group-hover:scale-110"
-                  src="/images/logo/logo-pbp.png"
+                  src="/images/logo/pbp_sau_logo_transparent_blanc.png"
                   alt="Logo PBP"
                   loading="eager"
                   fetchpriority="high"
@@ -155,7 +155,7 @@ const Footer = () => {
             </div>
             
             <p className="text-lg text-justify text-gray-100 md:text-left leading-relaxed backdrop-blur-sm bg-white/5 p-4 rounded-xl">
-              Direction Générale du Patrimoine Bâti Public - Gestion et valorisation du patrimoine immobilier de l'État
+              Patrimoine Bâti Public - Gestion et valorisation du patrimoine immobilier de l'État
             </p>
             
             <div className="group relative overflow-hidden rounded-xl w-full">
@@ -301,7 +301,7 @@ const Footer = () => {
             </div>
           </div>
           <p className="text-gray-200 text-xl backdrop-blur-sm bg-white/5 px-6 py-2 rounded-full"> 
-            © {new Date().getFullYear()} <span className="font-medium text-white">DGPBP</span> - Tous droits réservés
+            © {new Date().getFullYear()} <span className="font-medium text-white">PBP</span> - Tous droits réservés
           </p>
         </motion.div>
       </div>

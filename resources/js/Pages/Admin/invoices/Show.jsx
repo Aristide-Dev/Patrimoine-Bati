@@ -194,7 +194,7 @@ export default function InvoiceShow({ invoice }) {
                   <div>
                     <img src="/logo.png" alt="Logo" className="h-16 w-auto mb-4" />
                     <div className="mt-4 text-gray-600">
-                      <p>Direction Générale du Patrimoine Bâti Public</p>
+                      <p>Patrimoine Bâti Public</p>
                       <p>Commune de Kaloum</p>
                       <p>Conakry, Guinée</p>
                       <p>Tel: +224 XXX XX XX XX</p>

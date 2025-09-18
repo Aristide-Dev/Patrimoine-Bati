@@ -8,7 +8,7 @@ export const Logo = () => (
     className="h-16 w-auto"
   /> */}
   <img 
-    src="/images/logo/logo-PBP.png" 
+    src="/images/logo/pbp_sau_logo_transparent_blanc.png" 
     alt="Logo PBP" 
     className="h-16 w-36"
   />

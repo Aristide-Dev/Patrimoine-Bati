@@ -257,7 +257,7 @@ export default function Gerants() {
   return (
     <AppLayout>
       <Head>
-        <title>Gérants Immobiliers - DGPBP | Direction Générale du Patrimoine Bâti Public</title>
+        <title>Gérants Immobiliers - PBP | Patrimoine Bâti Public</title>
         <meta name="description" content="Découvrez les gérants immobiliers des communes de Conakry et des bâtiments spéciaux responsables de la gestion du patrimoine bâti public." />
       </Head>
 
@@ -455,7 +455,7 @@ export default function Gerants() {
               font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 inline-flex items-center group"
             >
               <Building2 className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" />
-              À Propos de la DGPBP
+              À Propos du PBP
               <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>

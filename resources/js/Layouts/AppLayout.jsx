@@ -10,13 +10,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function AppLayout({ 
   children,
-  title = "DGPBP - Direction Générale du Patrimoine Bâti Public de Guinée",
-  description = "La Direction Générale du Patrimoine Bâti Public (DGPBP) de Guinée assure la gestion, l'entretien et la valorisation du patrimoine immobilier de l'État guinéen. Services publics, gestion immobilière, valorisation du patrimoine.",
-  keywords = "DGPBP, patrimoine bâti, Guinée, immobilier public, gestion immobilière, État guinéen, service public, administration, valorisation patrimoine, bâtiments publics, infrastructure publique, Conakry",
-  ogImage = "/images/logo/logo-pbp.png",
+  title = "PBP - Patrimoine Bâti Public de Guinée",
+  description = "Le Patrimoine Bâti Public (PBP- SAU) de Guinée assure la gestion, l'entretien et la valorisation du patrimoine immobilier de l'État guinéen. Services publics, gestion immobilière, valorisation du patrimoine.",
+  keywords = "PBP- SAU, patrimoine bâti, Guinée, immobilier public, gestion immobilière, État guinéen, service public, administration, valorisation patrimoine, bâtiments publics, infrastructure publique, Conakry",
+  ogImage = "/images/logo/pbp_sau_logo_transparent_blanc.png",
   canonicalUrl,
   ogType = "website",
-  twitterCreator = "@dgpbp",
+  twitterCreator = "@pbp",
   datePublished,
   dateModified,
   articleSection,
@@ -94,7 +94,7 @@ export default function AppLayout({
         <title>{seoConfig.title}</title>
         <meta name="description" content={seoConfig.description} />
         <meta name="keywords" content={seoConfig.keywords} />
-        <meta name="author" content="DGPBP" />
+        <meta name="author" content="PBP" />
         <meta charSet="UTF-8" />
         
         {/* Directives pour les robots et les navigateurs */}
@@ -110,11 +110,11 @@ export default function AppLayout({
         <meta name="ICBM" content="9.509167, -13.712222" />
         
         {/* Métadonnées pour applications mobiles */}
-        <meta name="application-name" content="DGPBP" />
+        <meta name="application-name" content="PBP" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="DGPBP" />
+        <meta name="apple-mobile-web-app-title" content="PBP" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#1a365d" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#1e293b" media="(prefers-color-scheme: dark)" />
@@ -133,8 +133,8 @@ export default function AppLayout({
         <meta property="og:image" content={absoluteImageUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Logo DGPBP - Direction Générale du Patrimoine Bâti Public" />
-        <meta property="og:site_name" content="DGPBP" />
+        <meta property="og:image:alt" content="Logo PBP - Patrimoine Bâti Public" />
+        <meta property="og:site_name" content="PBP" />
         <meta property="og:locale" content="fr_GN" />
         
         {/* Article metadata pour les pages de contenu */}
@@ -142,8 +142,8 @@ export default function AppLayout({
           <>
             <meta property="article:published_time" content={seoConfig.datePublished} />
             <meta property="article:modified_time" content={seoConfig.dateModified} />
-            <meta property="article:author" content="DGPBP" />
-            <meta property="article:publisher" content="DGPBP" />
+            <meta property="article:author" content="PBP" />
+            <meta property="article:publisher" content="PBP" />
             {seoConfig.articleSection && <meta property="article:section" content={seoConfig.articleSection} />}
             <meta property="article:tag" content="patrimoine bâti, Guinée, service public" />
           </>
@@ -155,9 +155,9 @@ export default function AppLayout({
         <meta name="twitter:title" content={seoConfig.title} />
         <meta name="twitter:description" content={seoConfig.description} />
         <meta name="twitter:image" content={absoluteImageUrl} />
-        <meta name="twitter:image:alt" content="Logo DGPBP - Direction Générale du Patrimoine Bâti Public" />
+        <meta name="twitter:image:alt" content="Logo PBP - Patrimoine Bâti Public" />
         <meta name="twitter:creator" content={seoConfig.twitterCreator} />
-        <meta name="twitter:site" content="@dgpbp" />
+        <meta name="twitter:site" content="@pbp" />
         
         {/* Canonical et langues alternatives */}
         <link rel="canonical" href={seoConfig.canonicalUrl || currentUrl} />
@@ -169,28 +169,28 @@ export default function AppLayout({
         {/* PWA Manifest et icônes */}
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/logo-pbp.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/logo-pbp.png" />
-        <link rel="icon" type="image/png" sizes="96x96" href="/images/logo/logo-pbp.png" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="60x60" href="/images/logo/logo-pbp.png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="/images/logo/logo-pbp.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="60x60" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="/images/logo/pbp_sau_logo_transparent_blanc.png" />
         
         {/* Métadonnées Safari */}
         <meta name="apple-touch-fullscreen" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <link rel="mask-icon" href="/images/logo/logo-pbp.png" color="#1a365d" />
+        <link rel="mask-icon" href="/images/logo/pbp_sau_logo_transparent_blanc.png" color="#1a365d" />
         
         {/* Métadonnées Windows */}
-        <meta name="msapplication-TileImage" content="/images/logo/logo-pbp.png" />
+        <meta name="msapplication-TileImage" content="/images/logo/pbp_sau_logo_transparent_blanc.png" />
         <meta name="msapplication-TileColor" content="#1a365d" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
@@ -202,7 +202,7 @@ export default function AppLayout({
         
         {/* Préchargement conditionnel uniquement pour la page d'accueil */}
         {url && typeof url.current === 'function' && url.current() === route('accueil') && (
-          <link rel="preload" href="/images/logo/logo-pbp.png" as="image" fetchpriority="high" />
+          <link rel="preload" href="/images/logo/pbp_sau_logo_transparent_blanc.png" as="image" fetchpriority="high" />
         )}
         
         {/* Schema.org JSON-LD amélioré */}
@@ -210,15 +210,15 @@ export default function AppLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "GovernmentOrganization",
-            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
-            "alternateName": ["DGPBP", "Direction Générale du Patrimoine Bâti Public"],
+            "name": "PBP - Patrimoine Bâti Public",
+            "alternateName": ["PBP - SAU", "Patrimoine Bâti Public"],
             "url": safeUrl,
             "logo": {
               "@type": "ImageObject",
-              "url": `${safeUrl}/images/logo/logo-pbp.png`,
+              "url": `${safeUrl}/images/logo/pbp_sau_logo_transparent_blanc.png`,
               "width": 400,
               "height": 400,
-              "caption": "Logo DGPBP"
+              "caption": "Logo PBP - SAU"
             },
             "description": seoConfig.description,
             "image": absoluteImageUrl,
@@ -283,10 +283,10 @@ export default function AppLayout({
             "image": absoluteImageUrl,
             "publisher": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP",
+              "name": "PBP - SAU",
               "logo": {
                 "@type": "ImageObject",
-                "url": `${safeUrl}/images/logo/logo-pbp.png`
+                "url": `${safeUrl}/images/logo/pbp_sau_logo_transparent_blanc.png`
               }
             },
             "datePublished": seoConfig.datePublished,
@@ -294,7 +294,7 @@ export default function AppLayout({
             "inLanguage": "fr-GN",
             "isPartOf": {
               "@type": "WebSite",
-              "name": "DGPBP",
+              "name": "PBP - SAU",
               "url": safeUrl
             }
           })}
@@ -305,12 +305,12 @@ export default function AppLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "DGPBP - Direction Générale du Patrimoine Bâti Public",
+            "name": "PBP - Patrimoine Bâti Public",
             "url": safeUrl,
             "description": seoConfig.description,
             "publisher": {
               "@type": "GovernmentOrganization",
-              "name": "DGPBP"
+              "name": "PBP - SAU"
             },
             "potentialAction": {
               "@type": "SearchAction",

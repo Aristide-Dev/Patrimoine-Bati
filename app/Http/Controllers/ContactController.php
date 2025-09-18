@@ -13,8 +13,8 @@ class ContactController extends Controller
     {
         return Inertia::render('Contact/Index', [
             'meta' => [
-                'title' => 'Contact - DGPBP',
-                'description' => 'Contactez la Direction Générale du Patrimoine Bâti Public de Guinée. Formulaire de contact, coordonnées et plan d\'accès.'
+                'title' => 'Contact - PBP',
+                'description' => 'Contactez Le Patrimoine Bâti Public de Guinée. Formulaire de contact, coordonnées et plan d\'accès.'
             ]
         ]);
     }
@@ -23,7 +23,7 @@ class ContactController extends Controller
     {
         return Inertia::render('Contact/Formulaire', [
             'meta' => [
-                'title' => 'Formulaire de Contact - DGPBP',
+                'title' => 'Formulaire de Contact - PBP',
                 'description' => 'Envoyez-nous un message via notre formulaire de contact sécurisé.'
             ]
         ]);
@@ -33,8 +33,8 @@ class ContactController extends Controller
     {
         return Inertia::render('Contact/Coordonnees', [
             'meta' => [
-                'title' => 'Nos Coordonnées - DGPBP', 
-                'description' => 'Retrouvez toutes les informations de contact de la DGPBP : adresse, téléphones, emails et horaires d\'ouverture.'
+                'title' => 'Nos Coordonnées - PBP', 
+                'description' => 'Retrouvez toutes les informations de contact du PBP : adresse, téléphones, emails et horaires d\'ouverture.'
             ]
         ]);
     }
@@ -43,7 +43,7 @@ class ContactController extends Controller
     {
         return Inertia::render('Contact/PlanAcces', [
             'meta' => [
-                'title' => 'Plan d\'Accès - DGPBP',
+                'title' => 'Plan d\'Accès - PBP',
                 'description' => 'Trouvez facilement nos bureaux avec notre plan d\'accès détaillé et les moyens de transport.'
             ]
         ]);

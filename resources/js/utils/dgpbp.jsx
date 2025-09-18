@@ -25,7 +25,7 @@ export const DGPBP = {
             { 
                 name: "Facebook", 
                 icon: Facebook, 
-                url: "https://www.facebook.com/patrimoinebatiguinee/",
+                url: "https://www.facebook.com/pbpsau/",
                 color: "#1877F2",
                 hoverBg: "hover:bg-[#1877F2]"
             },
