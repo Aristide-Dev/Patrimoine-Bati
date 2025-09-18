@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         // Obtenez les données réelles de la base de données si elles existent
         // Sinon, utilisez des données factices pour le développement
-
+        // dd(\Illuminate\Support\Facades\Hash::make('password'));
         // Données factices pour les régions
         
         $regions = $this->getRegions();

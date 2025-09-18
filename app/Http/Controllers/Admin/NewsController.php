@@ -11,10 +11,31 @@ use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $news = News::orderBy('published_at', 'desc')->paginate(10);
-        return inertia('Admin/News/Index', ['news' => $news]);
+        $query = News::query();
+
+        // Filtrage par catégorie
+        if ($request->filled('category') && $request->category !== 'all') {
+            $query->where('category', $request->category);
+        }
+
+        // Recherche par titre
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        // Tri
+        $sortBy = $request->get('sort_by', 'published_at');
+        $sortDirection = $request->get('sort_direction', 'desc');
+        $query->orderBy($sortBy, $sortDirection);
+
+        $news = $query->paginate(20)->withQueryString();
+
+        return inertia('Admin/News/Index', [
+            'news' => $news,
+            'filters' => $request->only(['search', 'category', 'sort_by', 'sort_direction'])
+        ]);
     }
 
     public function create()

@@ -8,43 +8,61 @@ import {
   Star, Clock, FileImage, MessageSquare
 } from 'lucide-react';
 
-export default function Index({ news }) {
-  const [searchTerm, setSearchTerm] = React.useState('');
-  const [sortConfig, setSortConfig] = React.useState({ key: 'published_at', direction: 'desc' });
-  const [selectedCategory, setSelectedCategory] = React.useState('all');
+export default function Index({ news, filters }) {
+  const [searchTerm, setSearchTerm] = React.useState(filters.search || '');
+  const [selectedCategory, setSelectedCategory] = React.useState(filters.category || 'all');
+  const [sortBy, setSortBy] = React.useState(filters.sort_by || 'published_at');
+  const [sortDirection, setSortDirection] = React.useState(filters.sort_direction || 'desc');
   const [showDeleteModal, setShowDeleteModal] = React.useState(false);
   const [itemToDelete, setItemToDelete] = React.useState(null);
 
-  const categories = ['all', ...new Set(news.data.map(item => item.category))];
+  // Récupérer les catégories uniques depuis toutes les données
+  const categories = ['all', ...new Set(news.data.map(item => item.category).filter(Boolean))];
 
-  const sortData = (key) => {
-    let direction = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
-    }
-    setSortConfig({ key, direction });
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+    router.get(route('admin.news.index'), {
+      search: value,
+      category: selectedCategory,
+      sort_by: sortBy,
+      sort_direction: sortDirection
+    }, {
+      preserveState: true,
+      replace: true
+    });
   };
 
-  const filteredAndSortedNews = React.useMemo(() => {
-    let filtered = news.data.filter(item => 
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedCategory === 'all' || item.category === selectedCategory)
-    );
+  const handleCategoryChange = (value) => {
+    setSelectedCategory(value);
+    router.get(route('admin.news.index'), {
+      search: searchTerm,
+      category: value,
+      sort_by: sortBy,
+      sort_direction: sortDirection
+    }, {
+      preserveState: true,
+      replace: true
+    });
+  };
 
-    if (sortConfig.key) {
-      filtered.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === 'asc' ? -1 : 1;
-        }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === 'asc' ? 1 : -1;
-        }
-        return 0;
-      });
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (sortBy === key && sortDirection === 'asc') {
+      direction = 'desc';
     }
-
-    return filtered;
-  }, [news.data, searchTerm, selectedCategory, sortConfig]);
+    setSortBy(key);
+    setSortDirection(direction);
+    
+    router.get(route('admin.news.index'), {
+      search: searchTerm,
+      category: selectedCategory,
+      sort_by: key,
+      sort_direction: direction
+    }, {
+      preserveState: true,
+      replace: true
+    });
+  };
 
   const handleDelete = (item) => {
     setItemToDelete(item);
@@ -77,9 +95,9 @@ export default function Index({ news }) {
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[
-              { label: 'Total', value: news.data.length, icon: Tag },
+              { label: 'Total', value: news.total, icon: Tag },
               { label: 'À la une', value: news.data.filter(n => n.featured).length, icon: Star },
-              { label: 'Vues totales', value: news.data.reduce((acc, n) => acc + n.views, 0), icon: Eye },
+              { label: 'Vues totales', value: news.data.reduce((acc, n) => acc + (n.views || 0), 0), icon: Eye },
               { label: 'Ce mois', value: news.data.filter(n => new Date(n.published_at).getMonth() === new Date().getMonth()).length, icon: Calendar }
             ].map((stat, idx) => (
               <div key={idx} className="bg-white rounded-xl p-6 shadow-sm">
@@ -105,7 +123,7 @@ export default function Index({ news }) {
                 placeholder="Rechercher par titre..."
                 className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => handleSearch(e.target.value)}
               />
             </div>
             <div className="relative">
@@ -113,7 +131,7 @@ export default function Index({ news }) {
               <select
                 className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary appearance-none"
                 value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
+                onChange={(e) => handleCategoryChange(e.target.value)}
               >
                 {categories.map(category => (
                   <option key={category} value={category}>
@@ -122,12 +140,30 @@ export default function Index({ news }) {
                 ))}
               </select>
             </div>
+            <div className="relative">
+              <ArrowUp className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <select
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary appearance-none"
+                value={`${sortBy}-${sortDirection}`}
+                onChange={(e) => {
+                  const [field, direction] = e.target.value.split('-');
+                  handleSort(field);
+                }}
+              >
+                <option value="published_at-desc">Date (récent)</option>
+                <option value="published_at-asc">Date (ancien)</option>
+                <option value="title-asc">Titre (A-Z)</option>
+                <option value="title-desc">Titre (Z-A)</option>
+                <option value="views-desc">Vues (plus vues)</option>
+                <option value="views-asc">Vues (moins vues)</option>
+              </select>
+            </div>
           </div>
         </div>
 
         {/* Liste des actualités */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredAndSortedNews.map((item) => (
+          {news.data.map((item) => (
             <div key={item.id} className="bg-white rounded-xl shadow-sm overflow-hidden group">
               <div className="relative">
                 {item.image ?(
@@ -202,13 +238,43 @@ export default function Index({ news }) {
           ))}
         </div>
 
-        {filteredAndSortedNews.length === 0 && (
+        {news.data.length === 0 && (
           <div className="text-center py-6 bg-white rounded-xl shadow-sm">
             <AlertCircle className="mx-auto h-12 w-12 text-gray-400" />
             <h3 className="mt-2 text-sm font-medium text-gray-900">Aucune actualité trouvée</h3>
             <p className="mt-1 text-sm text-gray-500">
               Commencez par créer une nouvelle actualité ou modifiez vos filtres.
             </p>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {news.links && news.links.length > 3 && (
+          <div className="mt-8 flex items-center justify-between">
+            <div className="text-sm text-gray-700">
+              Affichage de {news.from} à {news.to} sur {news.total} résultats
+            </div>
+            <div className="flex items-center space-x-2">
+              {news.links.map((link, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (link.url) {
+                      router.get(link.url, {}, { preserveState: true });
+                    }
+                  }}
+                  disabled={!link.url}
+                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    link.active
+                      ? 'bg-primary text-white'
+                      : link.url
+                      ? 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
+                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  }`}
+                  dangerouslySetInnerHTML={{ __html: link.label }}
+                />
+              ))}
+            </div>
           </div>
         )}
       </div>
