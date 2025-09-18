@@ -30,7 +30,7 @@ class NewsController extends Controller
         $sortDirection = $request->get('sort_direction', 'desc');
         $query->orderBy($sortBy, $sortDirection);
 
-        $news = $query->paginate(20)->withQueryString();
+        $news = $query->paginate(5)->withQueryString();
 
         return inertia('Admin/News/Index', [
             'news' => $news,
