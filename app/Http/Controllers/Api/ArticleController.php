@@ -21,7 +21,7 @@ class ArticleController extends Controller
                 $query->where('category', $category);
             })
             ->orderBy($request->get('sort', 'created_at'), $request->get('direction', 'desc'))
-            ->paginate($request->get('per_page', 1));
+            ->paginate($request->get('per_page', 6));
             
             // Décoder les tags en tableau pour chaque article
             $articles->getCollection()->transform(function ($article) {
@@ -29,7 +29,25 @@ class ArticleController extends Controller
                 return $article;
             });
 
-        return response()->json($articles);
+        return response()->json([
+            'data' => $articles->items(),
+            'current_page' => $articles->currentPage(),
+            'last_page' => $articles->lastPage(),
+            'per_page' => $articles->perPage(),
+            'total' => $articles->total(),
+            'from' => $articles->firstItem(),
+            'to' => $articles->lastItem(),
+            'has_more_pages' => $articles->hasMorePages(),
+            'meta' => [
+                'current_page' => $articles->currentPage(),
+                'last_page' => $articles->lastPage(),
+                'per_page' => $articles->perPage(),
+                'total' => $articles->total(),
+                'from' => $articles->firstItem(),
+                'to' => $articles->lastItem(),
+                'has_more_pages' => $articles->hasMorePages(),
+            ]
+        ]);
     }
     public function featured(Request $request)
     {

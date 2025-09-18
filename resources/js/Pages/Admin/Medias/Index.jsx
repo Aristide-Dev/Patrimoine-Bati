@@ -1,58 +1,88 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useForm, Head } from '@inertiajs/react';
+import React, { useState } from 'react';
+import { useForm, Head, router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { 
   Search, Filter, Grid, List, Image, Video, 
-  Download, Share2, Trash2, Edit, Plus, ChevronLeft, ChevronRight, X, ImageIcon, VideoIcon
+  Download, Share2, Trash2, Edit, Plus, ChevronLeft, ChevronRight, X, ImageIcon, VideoIcon,
+  ArrowUp, ArrowDown, Calendar, Tag, Eye, Star, Clock
 } from 'lucide-react';
 
-export default function MediaIndex({ categories = [] }) {
+export default function MediaIndex({ medias, categories = [], filters: initialFilters = {} }) {
 
   const { delete:destroy } = useForm({
     id: null,
   });
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [selectedMedia, setSelectedMedia] = useState(null);
-  const [medias, setMedias] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [view, setView] = useState('grid');
   const [filters, setFilters] = useState({
-    search: '',
-    type: 'all',
-    category: 'all',
+    search: initialFilters.search || '',
+    type: initialFilters.type || 'all',
+    category: initialFilters.category || 'all',
+    sort_by: initialFilters.sort_by || 'created_at',
+    sort_direction: initialFilters.sort_direction || 'desc',
   });
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12;
 
-  const fetchMedia = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get('/api/medias', {
-        params: {
-          type: filters.type !== 'all' ? filters.type : undefined,
-          category: filters.category !== 'all' ? filters.category : undefined,
-          search: filters.search || undefined,
-        },
-      });
-      setMedias(response.data);
-    } catch (error) {
-      console.error('Erreur lors du chargement des médias:', error);
-    } finally {
-      setLoading(false);
-    }
+  const handleSearch = (value) => {
+    setFilters({ ...filters, search: value });
+    router.get(route('admin.medias.index'), {
+      search: value,
+      type: filters.type,
+      category: filters.category,
+      sort_by: filters.sort_by,
+      sort_direction: filters.sort_direction
+    }, {
+      preserveState: true,
+      replace: true
+    });
   };
 
-  useEffect(() => {
-    fetchMedia();
-  }, [filters]);
+  const handleTypeChange = (value) => {
+    setFilters({ ...filters, type: value });
+    router.get(route('admin.medias.index'), {
+      search: filters.search,
+      type: value,
+      category: filters.category,
+      sort_by: filters.sort_by,
+      sort_direction: filters.sort_direction
+    }, {
+      preserveState: true,
+      replace: true
+    });
+  };
 
-  const paginatedMedia = medias.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const handleCategoryChange = (value) => {
+    setFilters({ ...filters, category: value });
+    router.get(route('admin.medias.index'), {
+      search: filters.search,
+      type: filters.type,
+      category: value,
+      sort_by: filters.sort_by,
+      sort_direction: filters.sort_direction
+    }, {
+      preserveState: true,
+      replace: true
+    });
+  };
 
-  const totalPages = Math.ceil(medias.length / itemsPerPage);
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (filters.sort_by === key && filters.sort_direction === 'asc') {
+      direction = 'desc';
+    }
+    setFilters({ ...filters, sort_by: key, sort_direction: direction });
+    
+    router.get(route('admin.medias.index'), {
+      search: filters.search,
+      type: filters.type,
+      category: filters.category,
+      sort_by: key,
+      sort_direction: direction
+    }, {
+      preserveState: true,
+      replace: true
+    });
+  };
 
   const handleDelete = async (id) => {
     setSelectedMedia(id);
@@ -62,7 +92,7 @@ export default function MediaIndex({ categories = [] }) {
   const confirmDelete = async () => {
     try {
       await destroy(`/admin-panel/medias/${selectedMedia}`);
-      fetchMedia();
+      router.reload();
       setDeleteModalVisible(false);
     } catch (error) {
       console.error('Erreur lors de la suppression:', error);
@@ -70,6 +100,11 @@ export default function MediaIndex({ categories = [] }) {
   };
 
   const handleShare = (media) => {
+    if (!media.url) {
+      alert('Aucune URL disponible pour ce média');
+      return;
+    }
+    
     const baseUrl = window.location.origin;
     const fullUrl = isExternalUrl(media.url) 
       ? media.url 
@@ -110,105 +145,137 @@ export default function MediaIndex({ categories = [] }) {
       )}
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* En-tête avec recherche et filtres */}
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Médiathèque</h1>
-          <a
-            href={route('admin.medias.create')}
-            className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition"
-          >
-            <Plus className="w-5 h-5 mr-2" />
-            Ajouter un média
-          </a>
+        {/* En-tête avec statistiques */}
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold text-gray-900">Médiathèque</h1>
+            <a
+              href={route('admin.medias.create')}
+              className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Ajouter un média
+            </a>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            {[
+              { label: 'Total', value: medias.total, icon: Tag },
+              { label: 'Images', value: medias.data.filter(m => m.type === 'image').length, icon: Image },
+              { label: 'Vidéos', value: medias.data.filter(m => m.type === 'video').length, icon: Video },
+              { label: 'Ce mois', value: medias.data.filter(m => new Date(m.created_at).getMonth() === new Date().getMonth()).length, icon: Calendar }
+            ].map((stat, idx) => (
+              <div key={idx} className="bg-white rounded-xl p-6 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-500">{stat.label}</p>
+                    <p className="text-2xl font-semibold mt-1">{stat.value}</p>
+                  </div>
+                  <stat.icon className="w-8 h-8 text-primary opacity-80" />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Barre de filtres */}
-        <div className="bg-white rounded-xl shadow-sm p-4 mb-8">
-          <div className="flex flex-wrap gap-4 items-center">
-            <div className="flex-1 min-w-[200px]">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Rechercher..."
-                  value={filters.search}
-                  onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-                />
-              </div>
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Rechercher par titre ou description..."
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
+                value={filters.search}
+                onChange={(e) => handleSearch(e.target.value)}
+              />
             </div>
-
-            <select
-              value={filters.type}
-              onChange={(e) => setFilters({ ...filters, type: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-            >
-              <option value="all">Tous les types</option>
-              <option value="image">Images</option>
-              <option value="video">Vidéos</option>
-            </select>
-
-            <select
-              value={filters.category}
-              onChange={(e) => setFilters({ ...filters, category: e.target.value })}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
-            >
-              <option value="all">Toutes les catégories</option>
-              {categories.map((category) => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-
-            <div className="flex items-center gap-2 border-l pl-4">
-              <button
-                onClick={() => setView('grid')}
-                className={`p-2 rounded-lg ${view === 'grid' ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
+            <div className="relative">
+              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <select
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary appearance-none"
+                value={filters.type}
+                onChange={(e) => handleTypeChange(e.target.value)}
               >
-                <Grid className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => setView('list')}
-                className={`p-2 rounded-lg ${view === 'list' ? 'bg-gray-100' : 'hover:bg-gray-50'}`}
+                <option value="all">Tous les types</option>
+                <option value="image">Images</option>
+                <option value="video">Vidéos</option>
+              </select>
+            </div>
+            <div className="relative">
+              <Tag className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <select
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary appearance-none"
+                value={filters.category}
+                onChange={(e) => handleCategoryChange(e.target.value)}
               >
-                <List className="w-5 h-5" />
-              </button>
+                <option value="all">Toutes les catégories</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="relative">
+              <ArrowUp className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <select
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary appearance-none"
+                value={`${filters.sort_by}-${filters.sort_direction}`}
+                onChange={(e) => {
+                  const [field, direction] = e.target.value.split('-');
+                  handleSort(field);
+                }}
+              >
+                <option value="created_at-desc">Date (récent)</option>
+                <option value="created_at-asc">Date (ancien)</option>
+                <option value="title-asc">Titre (A-Z)</option>
+                <option value="title-desc">Titre (Z-A)</option>
+                <option value="type-asc">Type (A-Z)</option>
+                <option value="type-desc">Type (Z-A)</option>
+              </select>
             </div>
           </div>
         </div>
 
         {/* Liste des médias */}
-        {loading ? (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md">
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 border-4 border-t-transparent border-primary rounded-full animate-spin"></div>
-            <p className="mt-4 text-lg font-semibold text-white animate-pulse">
-              Chargement en cours...
-            </p>
-          </div>
-        </div>
-        ) : view === 'grid' ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {paginatedMedia.map((media) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {medias.data.map((media) => (
               <div key={media.id} className="bg-white rounded-xl shadow-sm overflow-hidden group">
                 <div className="relative aspect-video">
                   {media.type === 'image' ? (
-                    <img
-                      src={isExternalUrl(media.url) ? media.url : `/storage/${media.url}`}
-                      alt={media.title}
-                      className="w-full h-full object-cover"
-                      onClick={() => setSelectedMedia(media)}
-                    />
+                    media.url ? (
+                      <img
+                        src={isExternalUrl(media.url) ? media.url : `/storage/${media.url}`}
+                        alt={media.title || 'Image'}
+                        className="w-full h-full object-cover"
+                        onClick={() => setSelectedMedia(media)}
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                    ) : null
                   ) : (
-                    <iframe
-                      className="w-full h-full object-cover"
-                      src={isExternalUrl(media.embed_url) ? media.embed_url : `/storage/${media.embed_url}`}
-                      title={media.title}
-                      frameBorder="0"
-                      allowFullScreen
-                    />
+                    media.embed_url ? (
+                      <iframe
+                        className="w-full h-full object-cover"
+                        src={isExternalUrl(media.embed_url) ? media.embed_url : `/storage/${media.embed_url}`}
+                        title={media.title || 'Vidéo'}
+                        frameBorder="0"
+                        allowFullScreen
+                      />
+                    ) : null
                   )}
+                  {/* Placeholder si pas d'image/vidéo */}
+                  <div className="absolute inset-0 bg-gray-200 flex items-center justify-center" style={{ display: media.url || media.embed_url ? 'none' : 'flex' }}>
+                    {media.type === 'image' ? (
+                      <Image className="w-12 h-12 text-gray-400" />
+                    ) : (
+                      <Video className="w-12 h-12 text-gray-400" />
+                    )}
+                  </div>
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <div className="flex gap-2">
                       <button
@@ -217,13 +284,15 @@ export default function MediaIndex({ categories = [] }) {
                       >
                         <Share2 className="w-5 h-5" />
                       </button>
-                      <a
-                        href={isExternalUrl(media.url) ? media.url : `/storage/${media.url}`}
-                        download
-                        className="p-2 bg-white rounded-full hover:bg-gray-100"
-                      >
-                        <Download className="w-5 h-5" />
-                      </a>
+                      {media.url && (
+                        <a
+                          href={isExternalUrl(media.url) ? media.url : `/storage/${media.url}`}
+                          download
+                          className="p-2 bg-white rounded-full hover:bg-gray-100"
+                        >
+                          <Download className="w-5 h-5" />
+                        </a>
+                      )}
                       <a
                         href={route('admin.medias.edit', media)}
                         className="p-2 bg-white rounded-full hover:bg-gray-100"
@@ -246,137 +315,67 @@ export default function MediaIndex({ categories = [] }) {
               </div>
             ))}
           </div>
-        ) : (
-          <table className="min-w-full bg-white rounded-xl shadow-sm overflow-hidden">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Média
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Type
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Catégorie
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Date
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Actions
-                </th>
-              </tr>
-            </thead>
 
-            <tbody className="bg-white divide-y divide-gray-200">
-                {paginatedMedia.map((media) => (
-                  <tr key={media.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="h-10 w-10 flex-shrink-0">
-                          {media.type === 'image' ? (
-                            <img
-                              src={isExternalUrl(media.url) ? media.url : `/storage/${media.url}`}
-                              alt={media.title}
-                              className="h-10 w-10 rounded-lg object-cover"
-                            />
-                          ) : (
-                            
-                            <iframe 
-                              className="h-10 w-10 rounded-lg object-cover" 
-                              src={isExternalUrl(media.embed_url) ? media.embed_url : `/storage/${media.embed_url}`}
-                              title="YouTube video player" 
-                              frameborder="0" 
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                              referrerpolicy="strict-origin-when-cross-origin" 
-                              allowfullscreen
-                              onClick={() => setSelectedMedia(media)}
-                            >
-                          </iframe>
-                            // <video
-                            //   src={media.url}
-                            //   className="h-10 w-10 rounded-lg object-cover"
-                            // />
-                          )}
-                        </div>
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{media.title}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                        {media.type === "video" ? (
-                          <VideoIcon className='text-red-500'/>
-                        ):(
-                          
-                          <ImageIcon className='text-blue-500'/>
-                        )}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {media.category}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(media.created_at).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex justify-end gap-2">
-                        <button
-                          onClick={() => handleShare(media)}
-                          className="text-gray-400 hover:text-gray-500"
-                        >
-                          <Share2 className="w-5 h-5" />
-                        </button>
-                        <a
-                          href={media.url}
-                          download
-                          className="text-gray-400 hover:text-gray-500"
-                        >
-                          <Download className="w-5 h-5" />
-                        </a>
-                        <button
-                          onClick={() => handleDelete(media.id)}
-                          className="text-red-400 hover:text-red-500"
-                        >
-                          <Trash2 className="w-5 h-5" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-          </table>
+        {medias.data.length === 0 && (
+          <div className="text-center py-6 bg-white rounded-xl shadow-sm">
+            <div className="mx-auto h-12 w-12 text-gray-400 mb-4">
+              <Image className="w-12 h-12 mx-auto" />
+            </div>
+            <h3 className="mt-2 text-sm font-medium text-gray-900">Aucun média trouvé</h3>
+            <p className="mt-1 text-sm text-gray-500">
+              Commencez par ajouter un nouveau média ou modifiez vos filtres.
+            </p>
+          </div>
         )}
 
         {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex justify-center mt-8">
-            <button
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              disabled={currentPage === 1}
-              className="p-2 rounded-lg border hover:bg-gray-50 disabled:opacity-50"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`px-4 py-2 rounded-lg ${
-                  currentPage === page ? 'bg-primary text-white' : 'hover:bg-gray-50'
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-            <button
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              disabled={currentPage === totalPages}
-              className="p-2 rounded-lg border hover:bg-gray-50 disabled:opacity-50"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+        {medias.links && medias.links.length > 3 && (
+          <div className="mt-8 flex items-center justify-between">
+            <div className="text-sm text-gray-700">
+              Affichage de {medias.from} à {medias.to} sur {medias.total} résultats
+            </div>
+            <div className="flex items-center space-x-2">
+              {medias.links.map((link, index) => {
+                // Parser le label pour extraire le texte et les icônes
+                const getLabelText = (label) => {
+                  if (typeof label === 'string') {
+                    // Supprimer les balises HTML et garder seulement le texte
+                    return label.replace(/<[^>]*>/g, '').trim();
+                  }
+                  return label;
+                };
+
+                const getLabelIcon = (label) => {
+                  if (typeof label === 'string') {
+                    if (label.includes('Previous')) return <ChevronLeft className="w-4 h-4" />;
+                    if (label.includes('Next')) return <ChevronRight className="w-4 h-4" />;
+                  }
+                  return null;
+                };
+
+                return (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      if (link.url) {
+                        router.get(link.url, {}, { preserveState: true });
+                      }
+                    }}
+                    disabled={!link.url}
+                    className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 ${
+                      link.active
+                        ? 'bg-primary text-white'
+                        : link.url
+                        ? 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
+                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    }`}
+                  >
+                    {getLabelIcon(link.label)}
+                    {getLabelText(link.label)}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

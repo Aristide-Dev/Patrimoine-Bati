@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link, usePage } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { Link, router } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { 
@@ -79,6 +79,7 @@ export default function Index({ news, filters }) {
 
   return (
     <AuthenticatedLayout>
+      <Head title="Actualités" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* En-tête avec statistiques */}
         <div className="mb-8">
@@ -255,25 +256,46 @@ export default function Index({ news, filters }) {
               Affichage de {news.from} à {news.to} sur {news.total} résultats
             </div>
             <div className="flex items-center space-x-2">
-              {news.links.map((link, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    if (link.url) {
-                      router.get(link.url, {}, { preserveState: true });
-                    }
-                  }}
-                  disabled={!link.url}
-                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                    link.active
-                      ? 'bg-primary text-white'
-                      : link.url
-                      ? 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
-                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  }`}
-                  dangerouslySetInnerHTML={{ __html: link.label }}
-                />
-              ))}
+              {news.links.map((link, index) => {
+                // Parser le label pour extraire le texte et les icônes
+                const getLabelText = (label) => {
+                  if (typeof label === 'string') {
+                    // Supprimer les balises HTML et garder seulement le texte
+                    return label.replace(/<[^>]*>/g, '').trim();
+                  }
+                  return label;
+                };
+
+                const getLabelIcon = (label) => {
+                  if (typeof label === 'string') {
+                    if (label.includes('Previous')) return <ArrowDown className="w-4 h-4" />;
+                    if (label.includes('Next')) return <ArrowUp className="w-4 h-4" />;
+                  }
+                  return null;
+                };
+
+                return (
+                  <button
+                    key={index}
+                    onClick={() => {
+                      if (link.url) {
+                        router.get(link.url, {}, { preserveState: true });
+                      }
+                    }}
+                    disabled={!link.url}
+                    className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1 ${
+                      link.active
+                        ? 'bg-primary text-white'
+                        : link.url
+                        ? 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
+                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    }`}
+                  >
+                    {getLabelIcon(link.label)}
+                    {getLabelText(link.label)}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}

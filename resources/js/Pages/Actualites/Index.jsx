@@ -1,10 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { Head } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
-import { Calendar, Search, ArrowRight, ChevronDown, Filter, Clock, Tag, Share2, Eye } from 'lucide-react';
+import { Calendar, Search, ArrowRight, ChevronDown, Filter, Clock, Tag, Share2, Eye, Loader2 } from 'lucide-react';
 
 export default function ActualitesPage() {
+  // Refs pour gérer le chargement automatique
+  const searchTimeoutRef = useRef(null);
+  const observerRef = useRef(null);
+  const loadMoreRef = useRef(null);
+
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState({
@@ -15,6 +20,17 @@ export default function ActualitesPage() {
     direction: "desc",
     currentPage: 1,
     itemsPerPage: 6,
+    isLoadingMore: false,
+    isAutoLoading: false,
+    pagination: {
+      current_page: 1,
+      last_page: 1,
+      per_page: 6,
+      total: 0,
+      from: 0,
+      to: 0,
+      has_more_pages: false
+    }
   });
 
   // Données SEO optimisées pour la page Actualités
@@ -26,8 +42,22 @@ export default function ActualitesPage() {
     type: "CollectionPage"
   };
 
-  const fetchArticles = useCallback(async () => {
-    setLoading(true);
+  const fetchArticles = useCallback(async (page = 1, append = false, isAutoLoad = false) => {
+    if (append) {
+      setState(prev => ({ 
+        ...prev, 
+        isLoadingMore: true,
+        isAutoLoading: isAutoLoad 
+      }));
+    } else {
+      setLoading(true);
+      setState(prev => ({ 
+        ...prev, 
+        currentPage: 1,
+        isAutoLoading: false 
+      }));
+    }
+
     try {
       const response = await axios.get('/api/articles', {
         params: {
@@ -36,20 +66,103 @@ export default function ActualitesPage() {
           sort: state.sortBy,
           direction: state.direction,
           per_page: state.itemsPerPage,
-          page: state.currentPage,
+          page: page,
         },
       });
-      setArticles(response.data);
+
+      const { data, ...pagination } = response.data;
+      
+      if (append) {
+        setArticles(prev => [...prev, ...data]);
+        setState(prev => ({
+          ...prev,
+          pagination: pagination,
+          currentPage: page,
+          isLoadingMore: false,
+          isAutoLoading: false
+        }));
+      } else {
+        setArticles(data);
+        setState(prev => ({
+          ...prev,
+          pagination: pagination,
+          currentPage: page,
+          isAutoLoading: false
+        }));
+      }
     } catch (error) {
       console.error('Erreur lors du chargement des articles:', error);
     } finally {
       setLoading(false);
     }
-  }, [state]);
+  }, [state.searchQuery, state.selectedCategory, state.sortBy, state.direction, state.itemsPerPage]);
 
+  // Fonction pour charger plus d'articles
+  const loadMore = useCallback((isAutoLoad = false) => {
+    if (state.pagination.has_more_pages && !state.isLoadingMore && !state.isAutoLoading) {
+      fetchArticles(state.pagination.current_page + 1, true, isAutoLoad);
+    }
+  }, [state.pagination.has_more_pages, state.isLoadingMore, state.isAutoLoading, state.pagination.current_page, fetchArticles]);
+
+  // Chargement initial des articles
   useEffect(() => {
-    fetchArticles();
-  }, [fetchArticles]);
+    fetchArticles(1, false);
+  }, []);
+
+  // Chargement des articles avec debounce pour la recherche
+  useEffect(() => {
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+    
+    const timeoutId = setTimeout(() => {
+      fetchArticles(1, false);
+    }, state.searchQuery ? 500 : 0);
+
+    searchTimeoutRef.current = timeoutId;
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [state.searchQuery, state.selectedCategory, state.sortBy, state.direction, fetchArticles]);
+
+  // Configuration de l'Intersection Observer pour le chargement automatique
+  useEffect(() => {
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    // Ne pas activer le chargement automatique si on est en mode recherche
+    if (state.searchQuery) {
+      return;
+    }
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const target = entries[0];
+        if (target.isIntersecting && state.pagination.has_more_pages && !state.isLoadingMore && !state.isAutoLoading) {
+          loadMore(true);
+        }
+      },
+      {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0.1
+      }
+    );
+
+    if (loadMoreRef.current) {
+      observerRef.current.observe(loadMoreRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [state.searchQuery, state.pagination.has_more_pages, state.isLoadingMore, state.isAutoLoading, loadMore]);
 
   const updateState = useCallback((updates) => {
     setState((prev) => ({ ...prev, ...updates }));
@@ -89,8 +202,8 @@ export default function ActualitesPage() {
               "@type": "ItemList",
               "name": "Articles et Actualités PBP",
               "description": "Collection des derniers articles, actualités et événements du PBP",
-              "numberOfItems": articles.total || 0,
-              "itemListElement": articles.data?.slice(0, 10).map((article, index) => ({
+              "numberOfItems": state.pagination.total || 0,
+              "itemListElement": articles?.slice(0, 10).map((article, index) => ({
                 "@type": "ListItem",
                 "position": index + 1,
                 "item": {
@@ -239,7 +352,7 @@ export default function ActualitesPage() {
             <>
               {/* Articles Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                {articles.data?.map((article) => (
+                {articles.map((article) => (
                   <article key={article.id} className="bg-white rounded-xl shadow-sm overflow-hidden group">
                     <div className="relative aspect-video">
                       <img
@@ -301,25 +414,76 @@ export default function ActualitesPage() {
                     </div>
                   </article>
                 ))}
+                
+                {/* Indicateur de chargement automatique en bas de la grille */}
+                {state.isAutoLoading && (
+                  <div className="col-span-full flex justify-center py-4">
+                    <div className="flex items-center space-x-2 text-gray-500">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span className="text-sm">Chargement automatique...</span>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* Pagination */}
-              {articles.meta?.last_page > 1 && (
-                <div className="mt-12 flex justify-center">
-                  <div className="flex items-center gap-2">
-                    {Array.from({ length: articles.meta.last_page }, (_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => updateState({ currentPage: i + 1 })}
-                        className={`px-4 py-2 rounded-lg transition-colors ${
-                          state.currentPage === i + 1
-                            ? 'bg-primary text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        }`}
-                      >
-                        {i + 1}
-                      </button>
-                    ))}
+              {/* Boutons de chargement - seulement si il y a plus d'articles à charger */}
+              {state.pagination.has_more_pages && (
+                <div className="flex flex-col items-center mt-8 space-y-4">
+                  {/* Indicateur de chargement automatique */}
+                  {state.isAutoLoading && (
+                    <div className="flex items-center px-6 py-3 bg-blue-50 text-blue-700 rounded-lg">
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      Chargement automatique...
+                    </div>
+                  )}
+
+                  {/* Bouton Charger plus (pagination manuelle) */}
+                  {!state.searchQuery && (
+                    <button
+                      onClick={() => loadMore(false)}
+                      disabled={state.isLoadingMore || state.isAutoLoading}
+                      className="flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50"
+                    >
+                      {state.isLoadingMore ? (
+                        <>
+                          <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                          Chargement...
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown className="w-5 h-5 mr-2" />
+                          Charger plus
+                        </>
+                      )}
+                    </button>
+                  )}
+
+                  {/* Élément de détection pour le chargement automatique */}
+                  {!state.searchQuery && (
+                    <div 
+                      ref={loadMoreRef}
+                      className="h-4 w-full"
+                      aria-hidden="true"
+                    />
+                  )}
+
+                  {/* Informations de pagination */}
+                  <div className="text-sm text-gray-600 text-center">
+                    Affichage de {state.pagination.from} à {state.pagination.to} sur {state.pagination.total} résultats
+                    {!state.searchQuery && (
+                      <span className="block text-xs text-gray-500 mt-1">
+                        Le chargement automatique est activé - faites défiler vers le bas
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Message de fin de liste - seulement si tous les articles sont chargés */}
+              {!state.pagination.has_more_pages && state.pagination.total > 0 && (
+                <div className="flex flex-col items-center mt-8 space-y-4">
+                  <div className="text-sm text-gray-600 text-center">
+                    Tous les articles ont été chargés ({state.pagination.total} résultats)
                   </div>
                 </div>
               )}

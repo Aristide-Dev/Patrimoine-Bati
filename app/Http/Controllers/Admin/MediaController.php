@@ -10,10 +10,35 @@ use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // $medias = Media::latest()->paginate(10);
-        // $medias = Media::latest()->get();
+        $query = Media::query();
+
+        // Filtrage par type
+        if ($request->filled('type') && $request->type !== 'all') {
+            $query->where('type', $request->type);
+        }
+
+        // Filtrage par catégorie
+        if ($request->filled('category') && $request->category !== 'all') {
+            $query->where('category', $request->category);
+        }
+
+        // Recherche par titre et description
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // Tri
+        $sortBy = $request->get('sort_by', 'created_at');
+        $sortDirection = $request->get('sort_direction', 'desc');
+        $query->orderBy($sortBy, $sortDirection);
+
+        $medias = $query->paginate(5)->withQueryString();
+
         $categories = [
             "Événements officiels",
             "Réunions",
@@ -23,7 +48,12 @@ class MediaController extends Controller
             "Reportages",
             "Autres",
         ];
-        return Inertia::render('Admin/Medias/Index', ['categories' =>$categories]);
+
+        return Inertia::render('Admin/Medias/Index', [
+            'medias' => $medias,
+            'categories' => $categories,
+            'filters' => $request->only(['search', 'type', 'category', 'sort_by', 'sort_direction'])
+        ]);
     }
 
     public function create()
@@ -33,6 +63,11 @@ class MediaController extends Controller
 
     public function store(Request $request)
     {
+        // Gestion de l'upload multiple
+        if ($request->hasFile('files')) {
+            return $this->storeMultiple($request);
+        }
+
         // Vérifier si au moins un champ est rempli
         if ($request->only(['title', 'description', 'category', 'url', 'file', 'embed_url', 'duration', 'published_at']) === []) {
             return back()->withErrors(['general' => 'Au moins un champ doit être rempli.']);
@@ -77,6 +112,61 @@ class MediaController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('admin.medias.index')
                 ->with('error', 'Une erreur s\'est produite lors de la création du média : ' . $e->getMessage());
+        }
+    }
+
+    public function storeMultiple(Request $request)
+    {
+        // Vérifier si au moins un champ est rempli (même logique que store)
+        if ($request->only(['title', 'description', 'category', 'files', 'published_at']) === []) {
+            return back()->withErrors(['general' => 'Au moins un champ doit être rempli.']);
+        }
+
+        $request->validate([
+            'files.*' => 'required|file|mimes:jpeg,png,jpg,gif,mp4,avi,mkv|max:10240',
+            'type' => 'required|in:image,video',
+            'title' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'category' => 'nullable|string|max:255',
+            'published_at' => 'nullable|date',
+        ]);
+
+        try {
+            $uploadedCount = 0;
+            $errors = [];
+
+            foreach ($request->file('files') as $file) {
+                try {
+                    $url = $file->store('uploads/media', 'public');
+                    
+                    // Utiliser le titre fourni ou le nom du fichier comme fallback
+                    $title = $request->title ?: pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                    
+                    Media::create([
+                        'type' => $request->type,
+                        'title' => $title,
+                        'url' => $url,
+                        'category' => $request->category,
+                        'description' => $request->description,
+                        'published_at' => $request->published_at,
+                    ]);
+                    
+                    $uploadedCount++;
+                } catch (\Exception $e) {
+                    $errors[] = "Erreur pour {$file->getClientOriginalName()}: " . $e->getMessage();
+                }
+            }
+
+            $message = "{$uploadedCount} média(s) créé(s) avec succès.";
+            if (!empty($errors)) {
+                $message .= " Erreurs: " . implode(', ', $errors);
+            }
+
+            return redirect()->route('admin.medias.index')
+                ->with('success', $message);
+        } catch (\Exception $e) {
+            return redirect()->route('admin.medias.index')
+                ->with('error', 'Une erreur s\'est produite lors de l\'upload multiple : ' . $e->getMessage());
         }
     }
 

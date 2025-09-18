@@ -81,7 +81,7 @@ export default function Show({ news }) {
 
             {/* Contenu principal */}
             <div className="prose max-w-none mb-8">
-              <div dangerouslySetInnerHTML={{ __html: news.content }} />
+              <div className="whitespace-pre-wrap">{news.content}</div>
             </div>
 
             {/* Tags */}

@@ -10,9 +10,11 @@ export default function MediaForm({ media = null }) {
     }, []);
 
     const [isFileUpload, setIsFileUpload] = useState(() => !isExternalUrl(media?.url || ""));
+    const [isMultipleUpload, setIsMultipleUpload] = useState(false);
     const [previewUrl, setPreviewUrl] = useState(() =>
         isExternalUrl(media?.url || "") ? media?.url : `/storage/${media?.url}` || null
     );
+    const [previewFiles, setPreviewFiles] = useState([]);
     const [isNewCategory, setIsNewCategory] = useState(false);
 
     const formatDate = (dateString) => {
@@ -50,6 +52,25 @@ export default function MediaForm({ media = null }) {
         }
     }, [setData]);
 
+    const handleMultipleFileChange = useCallback((e) => {
+        const files = Array.from(e.target.files);
+        if (files.length > 0) {
+            setData("files", files);
+            const previews = files.map(file => ({
+                file,
+                url: URL.createObjectURL(file),
+                name: file.name
+            }));
+            setPreviewFiles(previews);
+        }
+    }, [setData]);
+
+    const removePreviewFile = useCallback((index) => {
+        const newPreviews = previewFiles.filter((_, i) => i !== index);
+        setPreviewFiles(newPreviews);
+        setData("files", newPreviews.map(p => p.file));
+    }, [previewFiles, setData]);
+
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
         setData('processing', true);
@@ -76,7 +97,10 @@ export default function MediaForm({ media = null }) {
             category: data.category,
             published_at: data.published_at,
             ...(isFileUpload 
-                ? (data.file ? { file: data.file } : {}) 
+                ? (isMultipleUpload 
+                    ? (data.files ? { files: data.files } : {})
+                    : (data.file ? { file: data.file } : {})
+                ) 
                 : { url: data.url }
             ),
             ...(data.type === 'video' && {
@@ -186,10 +210,13 @@ export default function MediaForm({ media = null }) {
                                         <button
                                             key={method.label}
                                             type="button"
-                                            onClick={() => setIsFileUpload(method.value)}
+                                            onClick={() => {
+                                                setIsFileUpload(method.value);
+                                                setIsMultipleUpload(false);
+                                            }}
                                             aria-label={`Méthode: ${method.label}`}
                                             className={`flex items-center px-4 py-2 rounded-lg border ${
-                                                isFileUpload === method.value
+                                                isFileUpload === method.value && !isMultipleUpload
                                                     ? 'bg-primary text-white border-primary'
                                                     : 'border-gray-300 hover:bg-gray-50'
                                             }`}
@@ -199,6 +226,25 @@ export default function MediaForm({ media = null }) {
                                         </button>
                                     ))}
                                 </div>
+                                {isFileUpload && (
+                                    <div className="mt-2">
+                                        <label className="flex items-center">
+                                            <input
+                                                type="checkbox"
+                                                checked={isMultipleUpload}
+                                                onChange={(e) => {
+                                                    setIsMultipleUpload(e.target.checked);
+                                                    if (e.target.checked) {
+                                                        setPreviewUrl(null);
+                                                        setData("file", null);
+                                                    }
+                                                }}
+                                                className="mr-2"
+                                            />
+                                            <span className="text-sm text-gray-600">Upload multiple</span>
+                                        </label>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -250,49 +296,120 @@ export default function MediaForm({ media = null }) {
                         {/* Zone de téléchargement/URL */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
-                                {isFileUpload ? "Fichier *" : "URL *"}
+                                {isFileUpload ? (isMultipleUpload ? "Fichiers *" : "Fichier *") : "URL *"}
                             </label>
                             {isFileUpload ? (
                                 <div>
-                                    <input
-                                        type="file"
-                                        id="file-upload"
-                                        className="hidden"
-                                        accept={data.type === 'image' ? 'image/*' : 'video/*'}
-                                        onChange={handleFileChange}
-                                    />
-                                    <label
-                                        htmlFor="file-upload"
-                                        className="flex items-center justify-center space-y-2 cursor-pointer"
-                                    >
-                                        <Upload className="w-12 h-12 text-gray-400" />
-                                        <span className="text-sm text-gray-600">Cliquez pour sélectionner un fichier ou glissez-le ici</span>
-                                    </label>
-                                    {previewUrl && (
-                                        <div className="relative w-full h-48 mt-4">
-                                            {data.type === 'image' ? (
-                                                <img
-                                                    src={previewUrl}
-                                                    alt="Aperçu"
-                                                    className="w-full h-full object-cover rounded-lg"
-                                                />
-                                            ) : (
-                                                <video
-                                                    src={previewUrl}
-                                                    controls
-                                                    className="w-full h-full object-cover rounded-lg"
-                                                />
-                                            )}
-                                            <button
-                                                type="button"
-                                                onClick={() => {
-                                                    setPreviewUrl(null);
-                                                    setData("file", null);
-                                                }}
-                                                className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                                    {isMultipleUpload ? (
+                                        <div>
+                                            <input
+                                                type="file"
+                                                id="files-upload"
+                                                className="hidden"
+                                                accept={data.type === 'image' ? 'image/*' : 'video/*'}
+                                                multiple
+                                                onChange={handleMultipleFileChange}
+                                            />
+                                            <label
+                                                htmlFor="files-upload"
+                                                className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-primary transition-colors"
                                             >
-                                                <X className="w-4 h-4" />
-                                            </button>
+                                                <Upload className="w-12 h-12 text-gray-400 mb-4" />
+                                                <span className="text-sm text-gray-600 mb-2">
+                                                    Cliquez pour sélectionner plusieurs fichiers ou glissez-les ici
+                                                </span>
+                                                <span className="text-xs text-gray-500">
+                                                    Formats acceptés: {data.type === 'image' ? 'JPG, PNG, GIF' : 'MP4, AVI, MKV'}
+                                                </span>
+                                            </label>
+                                            
+                                            {previewFiles.length > 0 && (
+                                                <div className="mt-4">
+                                                    <h4 className="text-sm font-medium text-gray-700 mb-2">
+                                                        Fichiers sélectionnés ({previewFiles.length})
+                                                    </h4>
+                                                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                                                        {previewFiles.map((preview, index) => (
+                                                            <div key={index} className="relative">
+                                                                <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                                                                    {data.type === 'image' ? (
+                                                                        <img
+                                                                            src={preview.url}
+                                                                            alt={preview.name}
+                                                                            className="w-full h-full object-cover"
+                                                                        />
+                                                                    ) : (
+                                                                        <video
+                                                                            src={preview.url}
+                                                                            className="w-full h-full object-cover"
+                                                                            muted
+                                                                        />
+                                                                    )}
+                                                                </div>
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => removePreviewFile(index)}
+                                                                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                                                                >
+                                                                    <X className="w-3 h-3" />
+                                                                </button>
+                                                                <p className="text-xs text-gray-600 mt-1 truncate">
+                                                                    {preview.name}
+                                                                </p>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <input
+                                                type="file"
+                                                id="file-upload"
+                                                className="hidden"
+                                                accept={data.type === 'image' ? 'image/*' : 'video/*'}
+                                                onChange={handleFileChange}
+                                            />
+                                            <label
+                                                htmlFor="file-upload"
+                                                className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-primary transition-colors"
+                                            >
+                                                <Upload className="w-12 h-12 text-gray-400 mb-4" />
+                                                <span className="text-sm text-gray-600 mb-2">
+                                                    Cliquez pour sélectionner un fichier ou glissez-le ici
+                                                </span>
+                                                <span className="text-xs text-gray-500">
+                                                    Formats acceptés: {data.type === 'image' ? 'JPG, PNG, GIF' : 'MP4, AVI, MKV'}
+                                                </span>
+                                            </label>
+                                            {previewUrl && (
+                                                <div className="relative w-full h-48 mt-4">
+                                                    {data.type === 'image' ? (
+                                                        <img
+                                                            src={previewUrl}
+                                                            alt="Aperçu"
+                                                            className="w-full h-full object-cover rounded-lg"
+                                                        />
+                                                    ) : (
+                                                        <video
+                                                            src={previewUrl}
+                                                            controls
+                                                            className="w-full h-full object-cover rounded-lg"
+                                                        />
+                                                    )}
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setPreviewUrl(null);
+                                                            setData("file", null);
+                                                        }}
+                                                        className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                                                    >
+                                                        <X className="w-4 h-4" />
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>

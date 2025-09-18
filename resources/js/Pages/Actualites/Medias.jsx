@@ -1,14 +1,21 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Head } from '@inertiajs/react';
+import axios from 'axios';
 import AppLayout from '@/Layouts/AppLayout';
 import {
   PlayCircle, Calendar, X, Download, Share2, ChevronLeft, ChevronRight,
   Search, Filter, ChevronDown, Eye, ZoomIn, Facebook, Twitter, Linkedin,
-  Instagram, Grid, List, SortAsc, SortDesc, FileText, Image as ImageIcon
+  Instagram, Grid, List, SortAsc, SortDesc, FileText, Image as ImageIcon,
+  ChevronUp, Loader2
 } from 'lucide-react';
 import { Skeleton, MediaCardSkeleton, MediaModalSkeleton } from "@/Components/Skeleton";
 
 export default function MediaPage() {
+  // Refs pour éviter les appels API en double et gérer le scroll
+  const searchTimeoutRef = useRef(null);
+  const observerRef = useRef(null);
+  const loadMoreRef = useRef(null);
+
   // États
   const [state, setState] = useState({
     medias: [],
@@ -20,19 +27,39 @@ export default function MediaPage() {
     isFullscreen: false,
     showShareMenu: false,
     isLoading: false,
+    isLoadingMore: false,
+    isAutoLoading: false,
     viewMode: 'grid',
     sortBy: 'date',
     sortOrder: 'desc',
     showFilters: false,
     currentPage: 1,
-    itemsPerPage: 12,
+    itemsPerPage: 2,
     categories: ['Tous', 'Réunions', 'Formations', 'Événements', 'Présentations'],
-    selectedCategory: 'Tous'
+    selectedCategory: 'Tous',
+    pagination: {
+      current_page: 1,
+      last_page: 1,
+      per_page: 12,
+      total: 0,
+      from: 0,
+      to: 0,
+      has_more_pages: false
+    },
+    showAll: false
   });
+
 
   // Fonction utilitaire pour mettre à jour l'état
   const updateState = useCallback((updates) => {
-    setState(prev => ({ ...prev, ...updates }));
+    setState(prev => {
+      const newState = typeof updates === 'function' 
+        ? updates(prev) 
+        : { ...prev, ...updates };
+      
+      
+      return newState;
+    });
   }, []);
 
   
@@ -40,58 +67,160 @@ const delay = ms => new Promise(
   resolve => setTimeout(resolve, ms)
 );
 
-  // Gestion des filtres et de la recherche
-  const filteredMedia = useCallback(() => {
-    return state.medias.filter(media => {
-      const matchesSearch = media.title.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
-        media.category.toLowerCase().includes(state.searchQuery.toLowerCase());
-      const matchesCategory = state.selectedCategory === 'Tous' || media.category === state.selectedCategory;
-      const matchesType = state.activeTab === 'photo' ? media.type === 'image' : media.type === 'video';
-      return matchesSearch && matchesCategory && matchesType;
-    }).sort((a, b) => {
-      const order = state.sortOrder === 'asc' ? 1 : -1;
-      switch (state.sortBy) {
-        case 'title':
-          return order * a.title.localeCompare(b.title);
-        case 'date':
-          return order * (new Date(b.published_at) - new Date(a.published_at));
-        default:
-          return 0;
-      }
-    });
-  }, [state.medias, state.searchQuery, state.selectedCategory, state.activeTab, state.sortBy, state.sortOrder]);
+  // Fonction pour récupérer les médias depuis l'API
+  const fetchMedia = useCallback(async (page = 1, append = false, isAutoLoad = false) => {
 
-  // Pagination
-  const paginatedMedia = useCallback(() => {
-    const filtered = filteredMedia();
-    const start = (state.currentPage - 1) * state.itemsPerPage;
-    return filtered.slice(start, start + state.itemsPerPage);
-  }, [filteredMedia, state.currentPage, state.itemsPerPage]);
+    if (append) {
+      updateState({ 
+        isLoadingMore: true,
+        isAutoLoading: isAutoLoad 
+      });
+    } else {
+      updateState({ 
+        isLoading: true, 
+        currentPage: 1,
+        medias: [], // Réinitialiser les médias
+        isAutoLoading: false
+      });
+    }
 
-  // Chargement des médias
-  const fetchMedia = useCallback(async () => {
-    updateState({ isLoading: true });
-
-    await delay(5000);
     try {
       const response = await axios.get('/api/medias', {
         params: {
-          type: state.activeTab == 'photo' ? 'image' : state.activeTab,
+          type: state.activeTab === 'photo' ? 'image' : state.activeTab,
           category: state.selectedCategory !== 'Tous' ? state.selectedCategory : undefined,
           search: state.searchQuery || undefined,
+          sort_by: state.sortBy,
+          sort_order: state.sortOrder,
+          per_page: state.itemsPerPage,
+          page: page
         }
       });
-      updateState({ medias: response.data });
+
+
+      const { data, ...pagination } = response.data;
+      
+      updateState(prevState => {
+        const newMedias = append 
+          ? [...prevState.medias, ...data] 
+          : data;
+        
+
+        return {
+          ...prevState,
+          medias: newMedias,
+          pagination: pagination,
+          currentPage: page,
+          isLoading: false,
+          isLoadingMore: false,
+          isAutoLoading: false
+        };
+      });
     } catch (error) {
       console.error('Erreur lors du chargement des médias:', error);
-    } finally {
-      updateState({ isLoading: false });
+      updateState({ 
+        isLoading: false, 
+        isLoadingMore: false,
+        isAutoLoading: false,
+        medias: [] // Réinitialiser les médias en cas d'erreur
+      });
     }
-  }, [state.activeTab, state.selectedCategory, state.searchQuery]);
+  }, [state.activeTab, state.selectedCategory, state.searchQuery, state.sortBy, state.sortOrder, state.itemsPerPage]);
 
+  // Fonction pour charger plus de médias
+  const loadMore = useCallback((isAutoLoad = false) => {
+    if (state.pagination.has_more_pages && !state.isLoadingMore && !state.isAutoLoading) {
+      fetchMedia(state.pagination.current_page + 1, true, isAutoLoad);
+    }
+  }, [state.pagination.has_more_pages, state.isLoadingMore, state.isAutoLoading, state.pagination.current_page, fetchMedia]);
+
+  // Fonction pour basculer l'affichage complet
+  const toggleShowAll = useCallback(() => {
+    if (state.showAll) {
+      // Revenir à la pagination normale
+      fetchMedia(1, false);
+      updateState({ showAll: false });
+    } else {
+      // Charger tous les médias
+      updateState({ isLoading: true, showAll: true });
+      axios.get('/api/medias', {
+        params: {
+          type: state.activeTab === 'photo' ? 'image' : state.activeTab,
+          category: state.selectedCategory !== 'Tous' ? state.selectedCategory : undefined,
+          search: state.searchQuery || undefined,
+          sort_by: state.sortBy,
+          sort_order: state.sortOrder,
+          per_page: 1000 // Grand nombre pour récupérer tout
+        }
+      }).then(response => {
+        updateState(prevState => ({
+          ...prevState,
+          medias: response.data.data,
+          isLoading: false
+        }));
+      }).catch(error => {
+        console.error('Erreur lors du chargement de tous les médias:', error);
+        updateState({ isLoading: false });
+      });
+    }
+  }, [state.showAll, state.activeTab, state.selectedCategory, state.searchQuery, state.sortBy, state.sortOrder, fetchMedia]);
+
+  // Chargement des médias avec debounce pour la recherche
   useEffect(() => {
-    fetchMedia();
-  }, [fetchMedia]);
+
+    // Debounce pour la recherche
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+    
+    const timeoutId = setTimeout(() => {
+      fetchMedia(1, false);
+    }, state.searchQuery ? 500 : 0); // Pas de délai pour les autres filtres
+
+    searchTimeoutRef.current = timeoutId;
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, [state.activeTab, state.selectedCategory, state.sortBy, state.sortOrder, state.searchQuery, fetchMedia]);
+
+  // Configuration de l'Intersection Observer pour le chargement automatique
+  useEffect(() => {
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    // Ne pas activer le chargement automatique si on affiche tout ou si on est en mode recherche
+    if (state.showAll || state.searchQuery) {
+      return;
+    }
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const target = entries[0];
+        if (target.isIntersecting && state.pagination.has_more_pages && !state.isLoadingMore && !state.isAutoLoading) {
+          loadMore(true);
+        }
+      },
+      {
+        root: null,
+        rootMargin: '100px', // Commencer à charger 100px avant d'arriver à l'élément
+        threshold: 0.1
+      }
+    );
+
+    if (loadMoreRef.current) {
+      observerRef.current.observe(loadMoreRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, [state.showAll, state.searchQuery, state.pagination.has_more_pages, state.isLoadingMore, state.isAutoLoading, loadMore]);
 
   // Gestion du modal et de la navigation
   const handleMediaClick = useCallback((media, index) => {
@@ -118,21 +247,20 @@ const delay = ms => new Promise(
   }, []);
 
   const handleNavigation = useCallback((direction) => {
-    const filtered = filteredMedia();
     const newIndex = direction === 'next'
-      ? (state.currentIndex + 1) % filtered.length
-      : state.currentIndex === 0 ? filtered.length - 1 : state.currentIndex - 1;
+      ? (state.currentIndex + 1) % state.medias.length
+      : state.currentIndex === 0 ? state.medias.length - 1 : state.currentIndex - 1;
 
     updateState({
       currentIndex: newIndex,
-      selectedMedia: filtered[newIndex],
+      selectedMedia: state.medias[newIndex],
       isLoading: true,
       showShareMenu: false
     });
     
     // Préchargement de l'image suivante/précédente
-    const media = filtered[newIndex];
-    if (media.type === 'image') {
+    const media = state.medias[newIndex];
+    if (media && media.type === 'image') {
       const img = new Image();
       img.onload = () => updateState({ isLoading: false });
       img.onerror = () => {
@@ -143,7 +271,7 @@ const delay = ms => new Promise(
     } else {
       setTimeout(() => updateState({ isLoading: false }), 500);
     }
-  }, [state.currentIndex, filteredMedia]);
+  }, [state.currentIndex, state.medias]);
 
   // Fonction améliorée pour vérifier si une URL est externe
   const isExternalUrl = useCallback((url) => {
@@ -435,9 +563,109 @@ const delay = ms => new Promise(
               )
             ))
           ) : (
-            paginatedMedia().map((media, index) => renderMediaItem(media, index))
+            <>
+              {state.medias.length === 0 ? (
+                <div className="col-span-full text-center py-8 text-gray-500">
+                  Aucun média trouvé
+                </div>
+              ) : (
+                <>
+                  {state.medias.map((media, index) => renderMediaItem(media, index))}
+                  
+                  {/* Indicateur de chargement automatique en bas de la grille */}
+                  {!state.showAll && state.isAutoLoading && (
+                    <div className="col-span-full flex justify-center py-4">
+                      <div className="flex items-center space-x-2 text-gray-500">
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span className="text-sm">Chargement automatique...</span>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </>
           )}
         </div>
+
+        {/* Boutons de chargement et affichage - seulement si il y a plus de médias à charger */}
+        {state.pagination.has_more_pages && (
+          <div className="flex flex-col items-center mt-8 space-y-4">
+            {/* Bouton Afficher plus/moins */}
+            <button
+              onClick={toggleShowAll}
+              className="flex items-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors"
+            >
+              {state.showAll ? (
+                <>
+                  <ChevronUp className="w-5 h-5 mr-2" />
+                  Afficher moins
+                </>
+              ) : (
+                <>
+                  <ChevronDown className="w-5 h-5 mr-2" />
+                  Afficher tout
+                </>
+              )}
+            </button>
+
+            {/* Indicateur de chargement automatique */}
+            {!state.showAll && state.isAutoLoading && (
+              <div className="flex items-center px-6 py-3 bg-blue-50 text-blue-700 rounded-lg">
+                <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                Chargement automatique...
+              </div>
+            )}
+
+            {/* Bouton Charger plus (pagination manuelle) */}
+            {!state.showAll && !state.searchQuery && (
+              <button
+                onClick={() => loadMore(false)}
+                disabled={state.isLoadingMore || state.isAutoLoading}
+                className="flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50"
+              >
+                {state.isLoadingMore ? (
+                  <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    Chargement...
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-5 h-5 mr-2" />
+                    Charger plus
+                  </>
+                )}
+              </button>
+            )}
+
+            {/* Élément de détection pour le chargement automatique */}
+            {!state.showAll && !state.searchQuery && (
+              <div 
+                ref={loadMoreRef}
+                className="h-4 w-full"
+                aria-hidden="true"
+              />
+            )}
+
+            {/* Informations de pagination */}
+            <div className="text-sm text-gray-600 text-center">
+              Affichage de {state.pagination.from} à {state.pagination.to} sur {state.pagination.total} résultats
+              {!state.searchQuery && (
+                <span className="block text-xs text-gray-500 mt-1">
+                  Le chargement automatique est activé - faites défiler vers le bas
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Message de fin de liste - seulement si tous les médias sont chargés */}
+        {!state.pagination.has_more_pages && state.pagination.total > 0 && (
+          <div className="flex flex-col items-center mt-8 space-y-4">
+            <div className="text-sm text-gray-600 text-center">
+              Tous les médias ont été chargés ({state.pagination.total} résultats)
+            </div>
+          </div>
+        )}
 
       </div>
 

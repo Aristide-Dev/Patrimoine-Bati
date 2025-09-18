@@ -83,7 +83,7 @@ export default function ContentRenderer({ content, className = "" }) {
             e.target.nextSibling?.remove();
             const errorDiv = document.createElement('div');
             errorDiv.className = 'text-red-500 text-center p-4 border border-red-200 rounded-lg bg-red-50';
-            errorDiv.innerHTML = '⚠️ Impossible de charger l\'image';
+            errorDiv.textContent = '⚠️ Impossible de charger l\'image';
             e.target.parentNode.appendChild(errorDiv);
           }}
         />

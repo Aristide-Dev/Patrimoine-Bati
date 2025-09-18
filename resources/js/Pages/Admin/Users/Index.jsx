@@ -91,7 +91,7 @@ export default function Index({ users }) {
                                             }`}
                                             preserveScroll
                                         >
-                                            <span dangerouslySetInnerHTML={{ __html: link.label }}></span>
+                                            {link.label.replace(/<[^>]*>/g, '').trim()}
                                         </Link>
                                     ))}
                                 </div>
