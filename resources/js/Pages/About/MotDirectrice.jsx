@@ -72,15 +72,15 @@ export default function MotDirectrice() {
   return (
     <AppLayout>
       <Head>
-        {/* Métadonnées de base pour la page Mot de la Directrice */}
-        <title>Mot de la Directrice - Madame Souadou Baldé | PBP Guinée</title>
+        {/* Métadonnées de base pour la page Mots de la Directrice */}
+        <title>Mots de la Directrice - Madame Souadou Baldé | PBP Guinée</title>
         <meta name="description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État selon le Décret N°D/0275/PRG/CNRD/SGG." />
         <meta name="keywords" content="Souadou Baldé, Directrice Générale PBP, leadership Guinée, vision patrimoine public, direction gouvernementale Guinée, administration publique Conakry, transformation digitale gouvernement, décret 2022" />
         <meta name="robots" content="index, follow, max-image-preview:large" />
         <meta name="googlebot" content="index, follow" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Mot de la Directrice - Madame Souadou Baldé | PBP Guinée" />
+        <meta property="og:title" content="Mots de la Directrice - Madame Souadou Baldé | PBP Guinée" />
         <meta property="og:description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État." />
         <meta property="og:type" content="article" />
         <meta property="og:url" content="/about/mot-directrice" />
@@ -88,19 +88,19 @@ export default function MotDirectrice() {
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Mot de la Directrice - Madame Souadou Baldé | PBP Guinée" />
+        <meta name="twitter:title" content="Mots de la Directrice - Madame Souadou Baldé | PBP Guinée" />
         <meta name="twitter:description" content="Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État." />
         <meta name="twitter:image" content="/images/hero/Souadou-Balde.png" />
         
         {/* Canonical */}
         <link rel="canonical" href="/about/mot-directrice" />
         
-        {/* Schema.org JSON-LD pour la page Mot de la Directrice */}
+        {/* Schema.org JSON-LD pour la page Mots de la Directrice */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AboutPage",
-            "name": "Mot de la Directrice - Madame Souadou Baldé | PBP Guinée",
+            "name": "Mots de la Directrice - Madame Souadou Baldé | PBP Guinée",
             "description": "Message de Madame Souadou Baldé, Directrice Générale du Patrimoine Bâti Public de Guinée. Vision, engagement et stratégie pour la gestion optimale du patrimoine immobilier de l'État.",
             "url": "/about/mot-directrice",
             "mainEntity": {
@@ -138,7 +138,7 @@ export default function MotDirectrice() {
                 {
                   "@type": "ListItem",
                   "position": 3,
-                  "name": "Mot de la Directrice",
+                  "name": "Mots de la Directrice",
                   "item": "/about/mot-directrice"
                 }
               ]
@@ -294,11 +294,11 @@ export default function MotDirectrice() {
             
             <motion.h1
               variants={fadeIn}
-              className="mt-8 uppercase text-3xl md:text-6xl lg:text-7xl font-extrabold text-white mb-8 leading-tight tracking-tight shadow-2xl"
+              className="mt-8 uppercase text-3xl md:text-5xl font-extrabold text-white mb-8 leading-tight tracking-tight shadow-2xl"
             >
-              Mot de la
+              Mots de bienvenue de Madame
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-100 to-blue-100 ml-4">
-                Directrice
+              la Directrice Générale
               </span>
             </motion.h1>
             
@@ -408,7 +408,7 @@ export default function MotDirectrice() {
             >
               <motion.div variants={fadeIn}>
                 <h2 className="text-4xl font-bold text-gray-900 mb-8">
-                  Mot de Bienvenue de
+                  Mots de Bienvenue de
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-blue-600 ml-3">
                     Madame la Directrice Générale
                   </span>
@@ -417,10 +417,10 @@ export default function MotDirectrice() {
                   {/* Introduction */}
                   <div className="space-y-6">
                     <p className="text-xl leading-relaxed">
-                      Bienvenue sur le site officiel de Le Patrimoine Bâti Public de la république de Guinée
+                      Bienvenue sur le site officiel du Patrimoine Bâti Public de la République de Guinée
                     </p>
                     <p className="leading-relaxed">
-                      C'est avec un grand plaisir que je vous souhaite la bienvenue sur le portail numérique de Le Patrimoine Bâti Public (PBP).
+                      C'est avec un grand plaisir que je vous souhaite la bienvenue sur le portail numérique du Patrimoine Bâti Public (PBP).
                     </p>
                   </div>
 
@@ -428,7 +428,7 @@ export default function MotDirectrice() {
                   <div className="space-y-6">
                     <p className="leading-relaxed">
                       Institution publique, placée sous l'autorité du Ministre Secrétaire Général de la Présidence de la République, 
-                      Le PBP est chargée de mettre en œuvre la politique nationale en matière de gestion, de valorisation et de 
+                      Le PBP est chargé de mettre en œuvre la politique nationale en matière de gestion, de valorisation et de 
                       préservation du patrimoine immobilier de l'État. Qu'il s'agisse des édifices administratifs, des logements 
                       publics ou des représentations diplomatiques, notre responsabilité couvre l'ensemble des biens bâtis appartenant 
                       à la République, tant sur le territoire national qu'à l'étranger.
@@ -457,7 +457,7 @@ export default function MotDirectrice() {
                   {/* Transformation et objectifs */}
                   <div className="space-y-6">
                     <p className="leading-relaxed">
-                      Le PBP est aujourd'hui engagée dans une profonde transformation. Avec l'appui des autorités nationales et de nos 
+                      Le PBP est aujourd'hui engagé dans une profonde transformation. Avec l'appui des autorités nationales et de nos 
                       partenaires, nous portons une ambition claire : Repositionner l'État au cœur de la gestion du patrimoine bâti, 
                       en conciliant excellence opérationnelle, transition numérique, transparence et efficacité.
                     </p>

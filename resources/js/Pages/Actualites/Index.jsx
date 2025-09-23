@@ -36,7 +36,7 @@ export default function ActualitesPage() {
   // Données SEO optimisées pour la page Actualités
   const seoData = {
     title: "Actualités PBP - Dernières Nouvelles et Événements du Patrimoine Public Guinéen",
-    description: "Découvrez les dernières actualités, événements et initiatives de Le Patrimoine Bâti Public de Guinée. Communiqués, rapports, séminaires et projets de développement du patrimoine immobilier public.",
+    description: "Découvrez les dernières actualités, événements et initiatives du Patrimoine Bâti Public de Guinée. Communiqués, rapports, séminaires et projets de développement du patrimoine immobilier public.",
     keywords: "actualités PBP, nouvelles patrimoine Guinée, événements PBP, communiqués patrimoine public, rapports PBP, séminaires patrimoine, projets immobilier Guinée, nouvelles Conakry",
     canonical: "/actualites",
     type: "CollectionPage"

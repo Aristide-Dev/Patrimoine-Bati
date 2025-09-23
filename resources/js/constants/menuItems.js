@@ -32,7 +32,7 @@ export const menuItems = [
     actif: 'about.*',
     children: [
       { label: 'Présentation', href: 'about.index', icon: Building2 },
-      { label: 'Mot de la Directrice', href: 'about.mot-directrice', icon: MessageSquare },
+      { label: 'Mots de la Directrice', href: 'about.mot-directrice', icon: MessageSquare },
       { label: 'Notre équipe de gestion', href: 'about.equipe-gestion', icon: Users },
       { label: 'Gérants Immobiliers', href: 'about.gerants', icon: MapPin },
     ]
