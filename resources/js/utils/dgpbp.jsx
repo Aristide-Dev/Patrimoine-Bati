@@ -13,9 +13,9 @@ export const DGPBP = {
             "+224655358284",
             "+224611981928",
         ],
-        email: "info@dgpbpguinee.com",
+        email: "info@pbpguinee.com",
         emails: [
-            "info@dgpbpguinee.com",
+            "info@pbpguinee.com",
         ],
         hours: {
             weekdays: "Lundi - Vendredi",
