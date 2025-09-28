@@ -2,9 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import SimpleSEO from '@/Components/SimpleSEO';
 import { Calendar, Search, ArrowRight, ChevronDown, Filter, Clock, Tag, Share2, Eye } from 'lucide-react';
+import { Link } from '@inertiajs/react';
 
 export default function ActualitesPage({ news, seo }) {
-  const [articles, setArticles] = useState(news || []);
+  const [articles, setArticles] = useState(news?.data || []);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
     searchQuery: "",
@@ -12,8 +13,8 @@ export default function ActualitesPage({ news, seo }) {
     showFilters: false,
     sortBy: "created_at",
     direction: "desc",
-    currentPage: 1,
-    itemsPerPage: 6,
+    currentPage: news?.current_page || 1,
+    itemsPerPage: news?.per_page || 12,
   });
 
   // Données SEO optimisées pour la page Actualités
@@ -42,8 +43,8 @@ export default function ActualitesPage({ news, seo }) {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: articles.data.find(a => a.id === articleId)?.title,
-          url: window.location.origin + '/articles/' + articleId,
+          title: articles.find(a => a.id === articleId)?.title,
+          url: window.location.origin + '/actualites/' + articleId,
         });
       } catch (error) {
         console.error('Erreur lors du partage:', error);
@@ -181,24 +182,69 @@ export default function ActualitesPage({ news, seo }) {
 
                         <div className="flex items-center gap-2">
                           <button
-                            onClick={() => handleShare(article.id)}
+                            onClick={() => handleShare(article.slug)}
                             className="p-2 text-gray-400 hover:text-primary transition-colors"
                           >
                             <Share2 className="w-5 h-5" />
                           </button>
-                          <a
+                          <Link
                             href={route('news.show', {slug:article.slug})}
                             className="flex items-center text-primary hover:text-primary-dark"
                           >
                             Lire
                             <ArrowRight className="w-4 h-4 ml-1" />
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>
                   </article>
                 ))}
               </div>
+
+              {/* Pagination */}
+              {news?.last_page > 1 && (
+                <div className="mt-12 flex justify-center">
+                  <div className="flex items-center gap-2">
+                    {/* Bouton Précédent */}
+                    {news?.current_page > 1 && (
+                      <button
+                        onClick={() => window.location.href = `/actualites?page=${news.current_page - 1}`}
+                        className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                      >
+                        Précédent
+                      </button>
+                    )}
+
+                    {/* Numéros de pages */}
+                    {Array.from({ length: Math.min(5, news.last_page) }, (_, i) => {
+                      const pageNum = i + 1;
+                      return (
+                        <button
+                          key={pageNum}
+                          onClick={() => window.location.href = `/actualites?page=${pageNum}`}
+                          className={`px-4 py-2 rounded-lg transition-colors ${
+                            news.current_page === pageNum
+                              ? 'bg-primary text-white'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          }`}
+                        >
+                          {pageNum}
+                        </button>
+                      );
+                    })}
+
+                    {/* Bouton Suivant */}
+                    {news?.current_page < news?.last_page && (
+                      <button
+                        onClick={() => window.location.href = `/actualites?page=${news.current_page + 1}`}
+                        className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                      >
+                        Suivant
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
             </>
           )}
         </div>

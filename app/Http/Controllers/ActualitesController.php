@@ -15,13 +15,21 @@ class ActualitesController extends Controller
 
     public function index(): Response
     {
+        // Configuration SEO pour la page des actualités
         $this->setSeoMeta(
             'Actualités - PBP',
             'Découvrez les dernières actualités du Patrimoine Bâti Public de Guinée. Informations sur nos activités, projets et développements.',
             ['actualités', 'PBP', 'patrimoine bâti', 'Guinée', 'nouvelles']
         );
 
+        // Récupérer les actualités publiées
+        $news = News::where('published_at', '<=', now())
+            ->whereNotNull('published_at')
+            ->orderBy('published_at', 'desc')
+            ->paginate(12);
+
         return Inertia::render('Actualites/Index', [
+            'news' => $news,
             'seo' => $this->getSeoData(),
         ]);
     }
