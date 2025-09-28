@@ -101,7 +101,7 @@ export default function NewsIndex({ news, filters, seo }) {
                                     </p>
                                     
                                     <Link
-                                        href={`/actualites/${article.slug}`}
+                                        href={route('news.show', {slug:article.slug})}
                                         className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
                                     >
                                         Lire la suite
