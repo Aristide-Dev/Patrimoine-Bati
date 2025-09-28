@@ -50,11 +50,11 @@ export const menuItems = [
   {
     label: 'Actualité',
     icon: Newspaper,
-    actif: 'actualites.*', // route('actualites.index')
+    actif: 'news.*', // route('news.index')
     children: [
-      { label: 'Actualités', href: 'actualites.index', icon: MessageSquare }, // route('actualites.articles')
-      { label: 'Rapports et Publications', href: 'actualites.rapports', icon: FileText }, // route('actualites.rapports')
-      { label: 'Médias', href: 'actualites.medias', icon: Image }, // route('actualites.medias')
+      { label: 'Actualités', href: 'news.index', icon: MessageSquare }, // route('news.index') → /actualites
+      { label: 'Rapports et Publications', href: 'reports.index', icon: FileText }, // route('reports.index') → /actualites/rapports
+      { label: 'Médias', href: 'medias.index', icon: Image }, // route('medias.index') → /actualites/medias
     ]
   },
   {

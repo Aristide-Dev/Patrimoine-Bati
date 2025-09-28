@@ -6,12 +6,22 @@ use App\Models\Contact;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Http\Traits\SeoTools;
 
 class ContactController extends Controller
 {
+    use SeoTools;
+
     public function index(Request $request)
     {
+        $this->setSeoMeta(
+            'Contact - PBP',
+            'Contactez le Patrimoine Bâti Public de Guinée. Adresse : PORTS CONTENEURS DE CONAKRY, KALOUM. Téléphone : +224 655 358 284. Email : info@pbpguinee.com',
+            ['contact', 'PBP', 'patrimoine bâti', 'Guinée', 'Conakry', 'Kaloum', 'téléphone', 'email']
+        );
+
         return Inertia::render('Contact/Index', [
+            'seo' => $this->getSeoData(),
             'meta' => [
                 'title' => 'Contact - PBP',
                 'description' => 'Contactez Le Patrimoine Bâti Public de Guinée. Formulaire de contact, coordonnées et plan d\'accès.'
@@ -21,7 +31,14 @@ class ContactController extends Controller
 
     public function formulaire(): Response
     {
+        $this->setSeoMeta(
+            'Formulaire de Contact - PBP',
+            'Envoyez-nous un message via notre formulaire de contact sécurisé du Patrimoine Bâti Public de Guinée.',
+            ['formulaire contact', 'message', 'PBP', 'patrimoine bâti', 'Guinée']
+        );
+
         return Inertia::render('Contact/Formulaire', [
+            'seo' => $this->getSeoData(),
             'meta' => [
                 'title' => 'Formulaire de Contact - PBP',
                 'description' => 'Envoyez-nous un message via notre formulaire de contact sécurisé.'
@@ -31,7 +48,14 @@ class ContactController extends Controller
 
     public function coordonnees(): Response
     {
+        $this->setSeoMeta(
+            'Nos Coordonnées - PBP',
+            'Retrouvez toutes les informations de contact du PBP : adresse aux Ports Conteneurs de Conakry, Kaloum, téléphones +224 655 358 284 et +224 611 981 928, email info@pbpguinee.com et horaires d\'ouverture.',
+            ['coordonnées', 'contact', 'adresse', 'téléphone', 'email', 'horaires', 'PBP', 'Conakry', 'Kaloum']
+        );
+
         return Inertia::render('Contact/Coordonnees', [
+            'seo' => $this->getSeoData(),
             'meta' => [
                 'title' => 'Nos Coordonnées - PBP', 
                 'description' => 'Retrouvez toutes les informations de contact du PBP : adresse, téléphones, emails et horaires d\'ouverture.'
@@ -41,7 +65,14 @@ class ContactController extends Controller
 
     public function planAcces(): Response
     {
+        $this->setSeoMeta(
+            'Plan d\'Accès - PBP',
+            'Trouvez facilement nos bureaux aux Ports Conteneurs de Conakry, Kaloum avec notre plan d\'accès détaillé et les moyens de transport.',
+            ['plan accès', 'itinéraire', 'bureaux', 'PBP', 'Conakry', 'Kaloum', 'ports conteneurs', 'transport']
+        );
+
         return Inertia::render('Contact/PlanAcces', [
+            'seo' => $this->getSeoData(),
             'meta' => [
                 'title' => 'Plan d\'Accès - PBP',
                 'description' => 'Trouvez facilement nos bureaux avec notre plan d\'accès détaillé et les moyens de transport.'

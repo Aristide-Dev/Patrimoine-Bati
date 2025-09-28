@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppLayout from '@/Layouts/AppLayout';
 import { Head } from '@inertiajs/react';
 import { Castle, MapPin, Camera, History, Award, Users, Clock, Star, } from 'lucide-react';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import SEO from '@/Components/SEO';
 
-export default function Historic({ meta }) {
+export default function Historic({ meta, seo }) {
+  // État pour gérer la période sélectionnée
+  const [selectedPeriod, setSelectedPeriod] = useState(null);
+
   // Animations avec Framer Motion
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -157,7 +161,10 @@ export default function Historic({ meta }) {
       sites: 2,
       color: "from-amber-500 to-orange-500",
       icon: Castle,
-      textColor: "text-amber-600"
+      textColor: "text-amber-600",
+      category: "traditional",
+      borderColor: "border-amber-500",
+      bgColor: "bg-amber-50"
     },
     {
       period: "Résistances et conquête",
@@ -166,7 +173,10 @@ export default function Historic({ meta }) {
       sites: 3,
       color: "from-red-500 to-rose-500",
       icon: Award,
-      textColor: "text-red-600"
+      textColor: "text-red-600",
+      category: "resistance",
+      borderColor: "border-red-500",
+      bgColor: "bg-red-50"
     },
     {
       period: "Époque coloniale",
@@ -175,7 +185,10 @@ export default function Historic({ meta }) {
       sites: 2,
       color: "from-blue-500 to-indigo-500",
       icon: History,
-      textColor: "text-blue-600"
+      textColor: "text-blue-600",
+      category: "cultural",
+      borderColor: "border-blue-500",
+      bgColor: "bg-blue-50"
     },
     {
       period: "Guinée indépendante",
@@ -184,9 +197,54 @@ export default function Historic({ meta }) {
       sites: 1,
       color: "from-emerald-500 to-green-500",
       icon: Users,
-      textColor: "text-emerald-600"
+      textColor: "text-emerald-600",
+      category: "independence",
+      borderColor: "border-emerald-500",
+      bgColor: "bg-emerald-50"
     }
   ];
+
+  // Fonction pour gérer le clic sur une période
+  const handlePeriodClick = (period) => {
+    if (selectedPeriod === period.period) {
+      // Si la même période est cliquée, désélectionner
+      setSelectedPeriod(null);
+    } else {
+      // Sélectionner la nouvelle période
+      setSelectedPeriod(period.period);
+    }
+  };
+
+  // Fonction pour déterminer si un site correspond à la période sélectionnée
+  const getSiteBorderStyle = (site) => {
+    if (!selectedPeriod) return "";
+    
+    const period = historicalPeriods.find(p => p.period === selectedPeriod);
+    if (!period) return "";
+    
+    if (site.category === period.category) {
+      return `border-4 ${period.borderColor} ${period.bgColor} shadow-lg transform scale-105`;
+    }
+    
+    return "opacity-50";
+  };
+
+  // Fonction pour réorganiser les sites selon la période sélectionnée
+  const getSortedSites = () => {
+    if (!selectedPeriod) {
+      return historicSites; // Ordre normal si aucune période sélectionnée
+    }
+    
+    const period = historicalPeriods.find(p => p.period === selectedPeriod);
+    if (!period) return historicSites;
+    
+    // Séparer les sites correspondants et non-correspondants
+    const matchingSites = historicSites.filter(site => site.category === period.category);
+    const nonMatchingSites = historicSites.filter(site => site.category !== period.category);
+    
+    // Retourner les sites correspondants en premier, puis les autres
+    return [...matchingSites, ...nonMatchingSites];
+  };
 
   const totalSites = historicSites.length;
   const totalVisitors = historicSites.reduce((sum, site) => {
@@ -225,7 +283,10 @@ export default function Historic({ meta }) {
   );
 
   const SiteCard = ({ site }) => (
-    <div className="group relative">
+    <motion.div 
+      className={`group relative transition-all duration-500 ${getSiteBorderStyle(site)}`}
+      whileHover={{ scale: 1.02 }}
+    >
       <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-primary-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
       <div className="relative bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
         <div className="relative h-64 overflow-hidden">
@@ -296,15 +357,24 @@ export default function Historic({ meta }) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 
   const PeriodCard = ({ period, index }) => {
     const Icon = period.icon;
+    const isSelected = selectedPeriod === period.period;
+    
     return (
       <div className="group relative h-full">
         <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-primary-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
-        <div className={`relative h-full bg-gradient-to-br ${period.color} rounded-xl p-8 text-white shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2`}>
+        <motion.button
+          onClick={() => handlePeriodClick(period)}
+          className={`relative h-full w-full bg-gradient-to-br ${period.color} rounded-xl p-8 text-white shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 ${
+            isSelected ? 'ring-4 ring-white ring-opacity-50 scale-105' : ''
+          }`}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
           <div className="flex items-center justify-between mb-6">
             <Icon className="h-10 w-10 text-white/90" />
             <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
@@ -316,137 +386,79 @@ export default function Historic({ meta }) {
           <p className="text-white/90 text-lg font-medium mb-4">{period.timespan}</p>
           <p className="text-white/80 text-base leading-relaxed">{period.description}</p>
           
-          <div className="mt-6 flex items-center">
-            <Clock className="h-5 w-5 mr-3" />
-            <span className="text-sm font-medium">Période #{index + 1}</span>
+          <div className="mt-6 flex items-center justify-between">
+            <div className="flex items-center">
+              <Clock className="h-5 w-5 mr-3" />
+              <span className="text-sm font-medium">Période #{index + 1}</span>
+            </div>
+            {isSelected && (
+              <div className="bg-white/30 backdrop-blur-sm rounded-full px-3 py-1">
+                <span className="text-sm font-bold">Sélectionnée</span>
+              </div>
+            )}
           </div>
-        </div>
+        </motion.button>
       </div>
     );
   };
 
   return (
-    <AppLayout 
-      title={seoData.title}
-      description={seoData.description}
-      keywords={seoData.keywords}
-      canonical={seoData.canonical}
-      type={seoData.type}
-    >
-      <Head>
-        {/* Métadonnées de base pour le patrimoine historique */}
-        <title>{seoData.title}</title>
-        <meta name="description" content={seoData.description} />
-        <meta name="keywords" content={seoData.keywords} />
-        <meta name="robots" content="index, follow, max-image-preview:large" />
-        <meta name="googlebot" content="index, follow" />
-        
-        {/* Open Graph */}
-        <meta property="og:title" content={seoData.title} />
-        <meta property="og:description" content={seoData.description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={seoData.canonical} />
-        <meta property="og:image" content="/images/historic/patrimoine-historique-guinee.jpg" />
-        <meta property="og:site_name" content="PBP - Patrimoine Bâti Public" />
-        
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={seoData.title} />
-        <meta name="twitter:description" content={seoData.description} />
-        <meta name="twitter:image" content="/images/historic/patrimoine-historique-guinee.jpg" />
-        
-        {/* Canonical */}
-        <link rel="canonical" href={seoData.canonical} />
+    <AppLayout>
+      <SEO 
+        title={seo?.title || seoData.title}
+        description={seo?.description || seoData.description}
+        keywords={seo?.keywords || seoData.keywords}
+        canonical={seo?.canonical || seoData.canonical}
+        type={seo?.type || seoData.type}
+        image="/images/historic/patrimoine-historique-guinee.jpg"
+        organization={{
+          type: "GovernmentOrganization",
+          name: "PBP - Patrimoine Bâti Public de Guinée",
+          contact_phone: "+224 655 358 284",
+          contact_email: "info@pbpguinee.com",
+          address: "PORTS CONTENEURS DE CONAKRY, Kaloum, Conakry, GN"
+        }}
+      />
 
-        {/* Schema.org JSON-LD pour le patrimoine historique */}
+      {/* JSON-LD supplémentaire pour le patrimoine historique */}
+      <Head>
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": seoData.title,
-            "description": seoData.description,
-            "url": "https://dgpbp.gov.gn" + seoData.canonical,
-            "mainEntity": {
-              "@type": "ItemList",
-              "name": "Sites Historiques du Patrimoine Guinéen",
-              "description": "Collection authentique des principaux monuments et sites historiques de République de Guinée",
-              "numberOfItems": historicSites.length,
-              "itemListElement": historicSites.map((site, index) => ({
-                "@type": "ListItem",
-                "position": index + 1,
-                "item": {
-                  "@type": "HistoricalBuilding",
-                  "name": site.name,
-                  "description": site.description,
-                  "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": site.location,
-                    "addressRegion": site.region,
-                    "addressCountry": "GN"
-                  },
-                  "geo": {
-                    "@type": "GeoCoordinates",
-                    "latitude": site.coordinates.lat,
-                    "longitude": site.coordinates.lng
-                  },
-                  "dateCreated": site.year,
-                  "historicalSignificance": site.importance,
-                  "maintenanceStatus": site.status,
-                  "image": site.image,
-                  "architect": site.architect,
-                  "material": site.materials,
-                  "culturalHeritage": site.heritage
-                }
-              }))
-            },
-            "about": {
-              "@type": "Thing",
-              "name": "Patrimoine Historique de République de Guinée",
-              "description": "Ensemble des monuments, sites archéologiques et lieux de mémoire d'importance historique et culturelle nationale"
-            },
-            "breadcrumb": {
-              "@type": "BreadcrumbList",
-              "itemListElement": [
-                {
-                  "@type": "ListItem",
-                  "position": 1,
-                  "name": "Accueil",
-                  "item": "https://dgpbp.gov.gn/"
+            "@type": "ItemList",
+            "name": "Sites Historiques du Patrimoine Guinéen",
+            "description": "Collection authentique des principaux monuments et sites historiques de République de Guinée",
+            "numberOfItems": historicSites.length,
+            "itemListElement": historicSites.map((site, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "item": {
+                "@type": "HistoricalBuilding",
+                "name": site.name,
+                "description": site.description,
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": site.location,
+                  "addressRegion": site.region,
+                  "addressCountry": "GN"
                 },
-                {
-                  "@type": "ListItem",
-                  "position": 2,
-                  "name": "Patrimoine Bâti",
-                  "item": "https://dgpbp.gov.gn/patrimoine"
+                "geo": {
+                  "@type": "GeoCoordinates",
+                  "latitude": site.coordinates.lat,
+                  "longitude": site.coordinates.lng
                 },
-                {
-                  "@type": "ListItem",
-                  "position": 3,
-                  "name": "Patrimoine Historique",
-                  "item": "https://dgpbp.gov.gn/patrimoine/historique"
-                }
-              ]
-            },
-            "publisher": {
-              "@type": "GovernmentOrganization",
-              "name": "Patrimoine Bâti Public",
-              "alternateName": "DGPBP",
-              "url": "https://dgpbp.gov.gn",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://dgpbp.gov.gn/images/logo/logo-dgpbp.png"
-              },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Ministère des Travaux Publics",
-                "addressLocality": "Conakry",
-                "addressCountry": "GN"
+                "dateCreated": site.year,
+                "historicalSignificance": site.importance,
+                "maintenanceStatus": site.status,
+                "image": site.image,
+                "architect": site.architect,
+                "material": site.materials,
+                "culturalHeritage": site.heritage
               }
-            }
+            }))
           })}
         </script>
 
-        {/* Schema.org pour la données touristiques */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -461,7 +473,7 @@ export default function Historic({ meta }) {
             "touristType": ["Tourisme culturel", "Tourisme historique", "Patrimoine UNESCO"],
             "availableLanguage": ["fr", "fr-GN"],
             "isAccessibleForFree": true,
-            "hasMap": "https://dgpbp.gov.gn/patrimoine/carte"
+            "hasMap": "https://pbpguinee.com/patrimoine/carte"
           })}
         </script>
       </Head>
@@ -512,7 +524,9 @@ export default function Historic({ meta }) {
               itemProp="description"
             >
               Découvrez l'héritage authentique de la République de Guinée : des monuments emblématiques 
-              aux sites de résistance, explorez l'histoire vivante de notre nation
+              aux sites de résistance anticoloniale, explorez l'histoire vivante de notre nation. 
+              Du mausolée Ahmed Sékou Touré au Fort de Boké, en passant par la mosquée de Dinguiraye d'El Hadj Omar Tall, 
+              plongez dans le patrimoine historique et culturel guinéen préservé par le PBP.
             </motion.p>
             
             <motion.div 
@@ -627,6 +641,23 @@ export default function Historic({ meta }) {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Du XIe siècle à nos jours, parcourez les grandes périodes qui ont façonné le patrimoine guinéen
             </p>
+            {/* {selectedPeriod && (
+              <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4 max-w-2xl mx-auto">
+                <div className="flex items-center justify-between">
+                  <p className="text-blue-800 font-medium">
+                    <span className="font-bold">Astuce :</span> Cliquez sur une période pour voir les sites correspondants s'illuminer et se réorganiser !
+                    <br />
+                    <span className="text-sm">Période sélectionnée : <span className="font-bold">{selectedPeriod}</span></span>
+                  </p>
+                  <button
+                    onClick={() => setSelectedPeriod(null)}
+                    className="ml-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium hover:bg-blue-700 transition-colors"
+                  >
+                    Réinitialiser
+                  </button>
+                </div>
+              </div>
+            )} */}
           </motion.div>
 
           <motion.div 
@@ -662,6 +693,21 @@ export default function Historic({ meta }) {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Explorez les lieux emblématiques qui témoignent de la richesse historique et culturelle de la Guinée
             </p>
+            {/* {selectedPeriod && (
+              <div className="mt-6 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 max-w-3xl mx-auto">
+                <p className="text-blue-800 font-medium text-center">
+                  <span className="font-bold">Sites de la période "{selectedPeriod}"</span>
+                  <br />
+                  <span className="text-sm">
+                    {(() => {
+                      const period = historicalPeriods.find(p => p.period === selectedPeriod);
+                      const matchingSites = period ? historicSites.filter(site => site.category === period.category) : [];
+                      return `${matchingSites.length} site${matchingSites.length > 1 ? 's' : ''} correspondant${matchingSites.length > 1 ? 's' : ''} mis en évidence et réorganisés en premier`;
+                    })()}
+                  </span>
+                </p>
+              </div>
+            )} */}
           </motion.div>
 
           <motion.div 
@@ -672,13 +718,71 @@ export default function Historic({ meta }) {
             viewport={{ once: true }}
             itemScope 
             itemType="https://schema.org/ItemList"
+            layout
           >
-            {historicSites.map((site, index) => (
-              <motion.div key={site.id} variants={fadeIn}>
-                <SiteCard site={site} />
-              </motion.div>
-            ))}
+            <AnimatePresence mode="popLayout">
+              {getSortedSites().map((site, index) => (
+                <motion.div 
+                  key={site.id} 
+                  variants={fadeIn}
+                  layout
+                  transition={{ 
+                    duration: 0.6, 
+                    ease: "easeInOut",
+                    layout: { duration: 0.5 }
+                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                >
+                  <SiteCard site={site} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </motion.div>
+        </section>
+
+        {/* Section SEO avec mots-clés supplémentaires */}
+        <section className="bg-white py-16" aria-label="Patrimoine historique et culturel de Guinée">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                Patrimoine Historique et Culturel de Guinée
+              </h2>
+              <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                La République de Guinée possède un patrimoine historique exceptionnel, témoin de son riche passé. 
+                Du XIe siècle avec l'empire du Mali aux royaumes précoloniaux, en passant par la résistance anticoloniale 
+                menée par Samory Touré et El Hadj Omar Tall, jusqu'à l'indépendance sous Ahmed Sékou Touré, 
+                chaque période a laissé des monuments et sites historiques d'importance nationale et internationale.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl">
+                <h3 className="text-xl font-semibold text-blue-900 mb-3">Architecture Coloniale Française</h3>
+                <p className="text-blue-800">
+                  Fort de Boké, musée national de Conakry, bâtiments administratifs coloniaux. 
+                  Témoins de l'époque coloniale française en Guinée.
+                </p>
+              </div>
+              
+              <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-6 rounded-xl">
+                <h3 className="text-xl font-semibold text-emerald-900 mb-3">Architecture Islamique Soudanaise</h3>
+                <p className="text-emerald-800">
+                  Grande mosquée de Dinguiraye d'El Hadj Omar Tall, mosquées historiques du Fouta-Djalon. 
+                  Patrimoine religieux et architectural islamique.
+                </p>
+              </div>
+              
+              <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-6 rounded-xl">
+                <h3 className="text-xl font-semibold text-amber-900 mb-3">Architecture Traditionnelle Mandingue</h3>
+                <p className="text-amber-800">
+                  Site de Gberedou-Hamana, architecture vernaculaire mandingue, mares sacrées. 
+                  Civilisation mandingue préservée.
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* Section Informative avec design amélioré */}

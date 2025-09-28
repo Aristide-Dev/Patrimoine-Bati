@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { menuItems } from '../../constants/menuItems';
-import { usePage } from '@inertiajs/react';
+import { usePage, Link } from '@inertiajs/react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const DesktopNav = () => {
@@ -74,7 +74,7 @@ export const DesktopNav = () => {
             onMouseLeave={() => handleItemHover(item.label, false)}
           >
             {!item.children ? (
-              <motion.a
+              <Link
                 href={item.href && item.href !== '#' ? route(item.href) : '#'}
                 className={`flex items-center px-4 py-2 rounded-lg text-md font-medium
                   ${isActive ? 
@@ -90,7 +90,7 @@ export const DesktopNav = () => {
                   </motion.div>
                 )}
                 <span>{item.label}</span>
-              </motion.a>
+              </Link>
             ) : (
               <>
                 <motion.button
@@ -141,7 +141,7 @@ export const DesktopNav = () => {
                       {item.children.map((child, index) => {
                         const isChildActive = child.href && child.href !== '#' && isActiveRoute(child.href);
                         return (
-                          <motion.a
+                          <Link
                             key={child.label}
                             href={child.href && child.href !== '#' ? route(child.href) : '#'}
                             className={`flex items-center px-4 py-3 text-sm transition-all duration-300 relative group
@@ -168,7 +168,7 @@ export const DesktopNav = () => {
                             )}
                             <span>{child.label}</span>
                             <ChevronRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          </motion.a>
+                          </Link>
                         );
                       })}
                     </motion.div>

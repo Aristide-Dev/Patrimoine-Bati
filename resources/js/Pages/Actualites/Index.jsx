@@ -1,493 +1,152 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import axios from 'axios';
-import { Head } from '@inertiajs/react';
+import React from 'react';
+import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/Layouts/AppLayout';
-import { Calendar, Search, ArrowRight, ChevronDown, Filter, Clock, Tag, Share2, Eye, Loader2 } from 'lucide-react';
+import SEO from '@/Components/SEO';
+import { Calendar, User, ArrowRight } from 'lucide-react';
 
-export default function ActualitesPage() {
-  // Refs pour gérer le chargement automatique
-  const searchTimeoutRef = useRef(null);
-  const observerRef = useRef(null);
-  const loadMoreRef = useRef(null);
-
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [state, setState] = useState({
-    searchQuery: "",
-    selectedCategory: "all",
-    showFilters: false,
-    sortBy: "created_at",
-    direction: "desc",
-    currentPage: 1,
-    itemsPerPage: 6,
-    isLoadingMore: false,
-    isAutoLoading: false,
-    pagination: {
-      current_page: 1,
-      last_page: 1,
-      per_page: 6,
-      total: 0,
-      from: 0,
-      to: 0,
-      has_more_pages: false
-    }
-  });
-
-  // Données SEO optimisées pour la page Actualités
-  const seoData = {
-    title: "Actualités PBP - Dernières Nouvelles et Événements du Patrimoine Public Guinéen",
-    description: "Découvrez les dernières actualités, événements et initiatives du Patrimoine Bâti Public de Guinée. Communiqués, rapports, séminaires et projets de développement du patrimoine immobilier public.",
-    keywords: "actualités PBP, nouvelles patrimoine Guinée, événements PBP, communiqués patrimoine public, rapports PBP, séminaires patrimoine, projets immobilier Guinée, nouvelles Conakry",
-    canonical: "/actualites",
-    type: "CollectionPage"
-  };
-
-  const fetchArticles = useCallback(async (page = 1, append = false, isAutoLoad = false) => {
-    if (append) {
-      setState(prev => ({ 
-        ...prev, 
-        isLoadingMore: true,
-        isAutoLoading: isAutoLoad 
-      }));
-    } else {
-      setLoading(true);
-      setState(prev => ({ 
-        ...prev, 
-        currentPage: 1,
-        isAutoLoading: false 
-      }));
-    }
-
-    try {
-      const response = await axios.get('/api/articles', {
-        params: {
-          search: state.searchQuery,
-          category: state.selectedCategory === "all" ? "" : state.selectedCategory,
-          sort: state.sortBy,
-          direction: state.direction,
-          per_page: state.itemsPerPage,
-          page: page,
-        },
-      });
-
-      const { data, ...pagination } = response.data;
-      
-      if (append) {
-        setArticles(prev => [...prev, ...data]);
-        setState(prev => ({
-          ...prev,
-          pagination: pagination,
-          currentPage: page,
-          isLoadingMore: false,
-          isAutoLoading: false
-        }));
-      } else {
-        setArticles(data);
-        setState(prev => ({
-          ...prev,
-          pagination: pagination,
-          currentPage: page,
-          isAutoLoading: false
-        }));
-      }
-    } catch (error) {
-      console.error('Erreur lors du chargement des articles:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [state.searchQuery, state.selectedCategory, state.sortBy, state.direction, state.itemsPerPage]);
-
-  // Fonction pour charger plus d'articles
-  const loadMore = useCallback((isAutoLoad = false) => {
-    if (state.pagination.has_more_pages && !state.isLoadingMore && !state.isAutoLoading) {
-      fetchArticles(state.pagination.current_page + 1, true, isAutoLoad);
-    }
-  }, [state.pagination.has_more_pages, state.isLoadingMore, state.isAutoLoading, state.pagination.current_page, fetchArticles]);
-
-  // Chargement initial des articles
-  useEffect(() => {
-    fetchArticles(1, false);
-  }, []);
-
-  // Chargement des articles avec debounce pour la recherche
-  useEffect(() => {
-    if (searchTimeoutRef.current) {
-      clearTimeout(searchTimeoutRef.current);
-    }
-    
-    const timeoutId = setTimeout(() => {
-      fetchArticles(1, false);
-    }, state.searchQuery ? 500 : 0);
-
-    searchTimeoutRef.current = timeoutId;
-
-    return () => {
-      if (searchTimeoutRef.current) {
-        clearTimeout(searchTimeoutRef.current);
-      }
-    };
-  }, [state.searchQuery, state.selectedCategory, state.sortBy, state.direction, fetchArticles]);
-
-  // Configuration de l'Intersection Observer pour le chargement automatique
-  useEffect(() => {
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
-
-    // Ne pas activer le chargement automatique si on est en mode recherche
-    if (state.searchQuery) {
-      return;
-    }
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        const target = entries[0];
-        if (target.isIntersecting && state.pagination.has_more_pages && !state.isLoadingMore && !state.isAutoLoading) {
-          loadMore(true);
-        }
-      },
-      {
-        root: null,
-        rootMargin: '100px',
-        threshold: 0.1
-      }
-    );
-
-    if (loadMoreRef.current) {
-      observerRef.current.observe(loadMoreRef.current);
-    }
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, [state.searchQuery, state.pagination.has_more_pages, state.isLoadingMore, state.isAutoLoading, loadMore]);
-
-  const updateState = useCallback((updates) => {
-    setState((prev) => ({ ...prev, ...updates }));
-  }, []);
-
-  const handleShare = useCallback(async (articleId) => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: articles.data.find(a => a.id === articleId)?.title,
-          url: window.location.origin + '/articles/' + articleId,
-        });
-      } catch (error) {
-        console.error('Erreur lors du partage:', error);
-      }
-    }
-  }, [articles]);
-
+export default function NewsIndex({ news, filters, seo }) {
   return (
-    <AppLayout 
-      title={seoData.title}
-      description={seoData.description}
-      keywords={seoData.keywords}
-      canonical={seoData.canonical}
-      type={seoData.type}
-    >
-      <Head>
-        {/* Schema.org JSON-LD pour la page Actualités */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": seoData.title,
-            "description": seoData.description,
-            "url": seoData.canonical,
-            "mainEntity": {
-              "@type": "ItemList",
-              "name": "Articles et Actualités PBP",
-              "description": "Collection des derniers articles, actualités et événements du PBP",
-              "numberOfItems": state.pagination.total || 0,
-              "itemListElement": articles?.slice(0, 10).map((article, index) => ({
-                "@type": "ListItem",
-                "position": index + 1,
-                "item": {
-                  "@type": "NewsArticle",
-                  "headline": article.title,
-                  "description": article.excerpt,
-                  "url": `/actualites/${article.slug}`,
-                  "datePublished": article.published_at,
-                  "dateModified": article.updated_at,
-                  "author": {
-                    "@type": "Organization",
-                    "name": "PBP"
-                  },
-                  "publisher": {
-                    "@type": "Organization",
-                    "name": "PBP - Patrimoine Bâti Public",
-                    "logo": {
-                      "@type": "ImageObject",
-                      "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
-                    }
-                  },
-                  "image": article.image ? `/storage/${article.image}` : "/images/logo/pbp_sau_logo_transparent_blanc.png",
-                  "keywords": article.tags?.join(", ") || "",
-                  "articleSection": article.category || "Actualités"
-                }
-              })) || []
-            },
-            "breadcrumb": {
-              "@type": "BreadcrumbList",
-              "itemListElement": [
-                {
-                  "@type": "ListItem",
-                  "position": 1,
-                  "name": "Accueil",
-                  "item": "/"
-                },
-                {
-                  "@type": "ListItem",
-                  "position": 2,
-                  "name": "Actualités",
-                  "item": "/actualites"
-                }
-              ]
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "PBP",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "/images/logo/pbp_sau_logo_transparent_blanc.png"
-              }
-            }
-          })}
-        </script>
+        <AppLayout>
+            <SEO 
+                title={seo?.title}
+                description={seo?.description}
+                keywords={seo?.keywords}
+                canonical={seo?.canonical}
+                type={seo?.type}
+            />
 
-        {/* Schema.org pour la fonction de recherche */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "PBP - Patrimoine Bâti Public",
-            "url": "/",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "/actualites?search={search_term_string}"
-              },
-              "query-input": "required name=search_term_string"
-            }
-          })}
-        </script>
-      </Head>
-      
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        {/* Hero Section */}
-        <div className="bg-gradient-to-t from-primary to-primary-800 relative overflow-hidden">
-          <div className="absolute inset-0 bg-pattern opacity-10"></div>
-          <div className="relative container mx-auto px-4 py-24">
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-6xl font-bold text-white mb-6">Actualités & Événements</h1>
-              <p className="text-xl text-white/90 mb-12">
-                Découvrez les dernières actualités et initiatives du PBP
-              </p>
+            <div className="min-h-screen bg-gray-50">
+                {/* Header */}
+                <div className="bg-white shadow-sm">
+                    <div className="container mx-auto px-4 py-8">
+                        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                            Actualités PBP
+                        </h1>
+                        <p className="text-gray-600 max-w-2xl">
+                            Découvrez les dernières actualités du Patrimoine Bâti Public de Guinée. 
+                            Informations sur nos activités, projets et développements.
+                        </p>
+                    </div>
+                </div>
 
-              <div className="flex flex-col md:flex-row items-center gap-2">
-                <div className="relative flex-1 w-full">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60" />
+                {/* Filtres */}
+                <div className="container mx-auto px-4 py-6">
+                    <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+                        <form method="GET" className="flex flex-col sm:flex-row gap-4">
+                            <div className="flex-1">
                   <input
                     type="text"
-                    placeholder="Rechercher des articles..."
-                    className="w-full bg-white/10 backdrop-blur-sm text-white placeholder-white/60 px-12 py-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/20"
-                    value={state.searchQuery}
-                    onChange={(e) => updateState({ searchQuery: e.target.value, currentPage: 1 })}
+                                    name="search"
+                                    placeholder="Rechercher dans les actualités..."
+                                    defaultValue={filters?.search || ''}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
-
-                <div className="relative">
-                  <button
-                    onClick={() => updateState({ showFilters: !state.showFilters })}
-                    className="flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-6 py-4 rounded-xl hover:bg-white/20 transition-colors"
-                  >
-                    <Filter size={20} />
-                    Filtrer
-                    <ChevronDown size={16} className={`transform transition-transform ${state.showFilters ? 'rotate-180' : ''}`} />
-                  </button>
-
-                  {state.showFilters && (
-                    <div className="absolute z-50 right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2">
-                      <div className="px-4 py-2 border-b border-gray-100">
-                        <h3 className="font-semibold text-gray-900">Trier par</h3>
+                            <div className="sm:w-48">
+                                <select
+                                    name="category"
+                                    defaultValue={filters?.category || 'all'}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                >
+                                    <option value="all">Toutes les catégories</option>
+                                    <option value="actualites">Actualités</option>
+                                    <option value="communiques">Communiqués</option>
+                                    <option value="rapports">Rapports</option>
+                                </select>
                       </div>
-                      {[
-                        { value: 'created_at', label: 'Date' },
-                        { value: 'views', label: 'Popularité' },
-                        { value: 'title', label: 'Titre' },
-                      ].map(option => (
                         <button
-                          key={option.value}
-                          className={`w-full px-4 py-2 text-left hover:bg-gray-50 bg-primary-200 ${
-                            state.sortBy === option.value ? 'text-primary font-medium' : 'text-gray-700'
-                          }`}
-                          onClick={() => updateState({ 
-                            sortBy: option.value,
-                            showFilters: false,
-                            currentPage: 1
-                          })}
-                        >
-                          {option.label}
+                                type="submit"
+                                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                            >
+                                Filtrer
                         </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
+                        </form>
         </div>
 
-        <div className="container mx-auto px-4 py-16">
-          {loading ? (
-            <div className="flex justify-center items-center min-h-[400px]">
-              <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
-            </div>
-          ) : (
-            <>
-              {/* Articles Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                {articles.map((article) => (
-                  <article key={article.id} className="bg-white rounded-xl shadow-sm overflow-hidden group">
-                    <div className="relative aspect-video">
-                      <img
-                        src={"/storage/"+article.image}
+                    {/* Liste des actualités */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {news.data.map((article) => (
+                            <article 
+                                key={article.id}
+                                className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+                            >
+                                {article.featured_image && (
+                                    <div className="aspect-video bg-gray-200">
+                                        <img
+                                            src={`/storage/${article.featured_image}`}
                         alt={article.title}
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm">
-                          {article.category}
-                        </span>
-                        <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm">
-                          {article.tags.join(', ')}
-                        </span>
+                                            className="w-full h-full object-cover"
+                                        />
                       </div>
-                    </div>
+                                )}
 
                     <div className="p-6">
-                      <div className="flex items-center text-sm text-gray-500 mb-3">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        {new Date(article.published_at).toLocaleDateString()}
+                                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                                        <div className="flex items-center gap-1">
+                                            <Calendar className="w-4 h-4" />
+                                            {new Date(article.published_at).toLocaleDateString('fr-FR')}
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            <User className="w-4 h-4" />
+                                            PBP
+                                        </div>
                       </div>
 
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                                    <h2 className="text-xl font-semibold text-gray-900 mb-3 line-clamp-2">
                         {article.title}
-                      </h3>
-
-                      <p className="text-gray-600 mb-4 line-clamp-2">{article.excerpt}</p>
-
-                      <div className="flex items-center justify-between pt-4 border-t">
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <span className="flex items-center">
-                            <Eye className="w-4 h-4 mr-1" />
-                            {article.views}
-                          </span>
-                          <span className="flex items-center">
-                            <Clock className="w-4 h-4 mr-1" />
-                            {article.read_time} min
-                          </span>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() => handleShare(article.id)}
-                            className="p-2 text-gray-400 hover:text-primary transition-colors"
-                          >
-                            <Share2 className="w-5 h-5" />
-                          </button>
-                          <a
-                            href={route('actualites.show', {slug:article.slug})}
-                            className="flex items-center text-primary hover:text-primary-dark"
-                          >
-                            Lire
-                            <ArrowRight className="w-4 h-4 ml-1" />
-                          </a>
-                        </div>
-                      </div>
+                                    </h2>
+                                    
+                                    <p className="text-gray-600 mb-4 line-clamp-3">
+                                        {article.excerpt || article.content?.substring(0, 150) + '...'}
+                                    </p>
+                                    
+                                    <Link
+                                        href={`/actualites/${article.slug}`}
+                                        className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium"
+                                    >
+                                        Lire la suite
+                                        <ArrowRight className="w-4 h-4" />
+                                    </Link>
                     </div>
                   </article>
                 ))}
-                
-                {/* Indicateur de chargement automatique en bas de la grille */}
-                {state.isAutoLoading && (
-                  <div className="col-span-full flex justify-center py-4">
-                    <div className="flex items-center space-x-2 text-gray-500">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span className="text-sm">Chargement automatique...</span>
-                    </div>
-                  </div>
-                )}
               </div>
 
-              {/* Boutons de chargement - seulement si il y a plus d'articles à charger */}
-              {state.pagination.has_more_pages && (
-                <div className="flex flex-col items-center mt-8 space-y-4">
-                  {/* Indicateur de chargement automatique */}
-                  {state.isAutoLoading && (
-                    <div className="flex items-center px-6 py-3 bg-blue-50 text-blue-700 rounded-lg">
-                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Chargement automatique...
+                    {/* Pagination */}
+                    {news.links && (
+                        <div className="mt-8 flex justify-center">
+                            <nav className="flex items-center gap-2">
+                                {news.links.map((link, index) => (
+                                    <Link
+                                        key={index}
+                                        href={link.url || '#'}
+                                        className={`px-3 py-2 rounded-lg text-sm font-medium ${
+                                            link.active
+                                                ? 'bg-blue-600 text-white'
+                                                : link.url
+                                                ? 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
+                                                : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                                        }`}
+                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                    />
+                                ))}
+                            </nav>
                     </div>
                   )}
 
-                  {/* Bouton Charger plus (pagination manuelle) */}
-                  {!state.searchQuery && (
-                    <button
-                      onClick={() => loadMore(false)}
-                      disabled={state.isLoadingMore || state.isAutoLoading}
-                      className="flex items-center px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50"
-                    >
-                      {state.isLoadingMore ? (
-                        <>
-                          <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                          Chargement...
-                        </>
-                      ) : (
-                        <>
-                          <ChevronDown className="w-5 h-5 mr-2" />
-                          Charger plus
-                        </>
-                      )}
-                    </button>
-                  )}
-
-                  {/* Élément de détection pour le chargement automatique */}
-                  {!state.searchQuery && (
-                    <div 
-                      ref={loadMoreRef}
-                      className="h-4 w-full"
-                      aria-hidden="true"
-                    />
-                  )}
-
-                  {/* Informations de pagination */}
-                  <div className="text-sm text-gray-600 text-center">
-                    Affichage de {state.pagination.from} à {state.pagination.to} sur {state.pagination.total} résultats
-                    {!state.searchQuery && (
-                      <span className="block text-xs text-gray-500 mt-1">
-                        Le chargement automatique est activé - faites défiler vers le bas
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* Message de fin de liste - seulement si tous les articles sont chargés */}
-              {!state.pagination.has_more_pages && state.pagination.total > 0 && (
-                <div className="flex flex-col items-center mt-8 space-y-4">
-                  <div className="text-sm text-gray-600 text-center">
-                    Tous les articles ont été chargés ({state.pagination.total} résultats)
-                  </div>
-                </div>
-              )}
-            </>
+                    {/* Message si aucune actualité */}
+                    {news.data.length === 0 && (
+                        <div className="text-center py-12">
+                            <div className="text-gray-400 mb-4">
+                                <Calendar className="w-16 h-16 mx-auto" />
+                            </div>
+                            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                                Aucune actualité trouvée
+                            </h3>
+                            <p className="text-gray-600">
+                                Essayez de modifier vos critères de recherche.
+                            </p>
+                        </div>
           )}
         </div>
       </div>

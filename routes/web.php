@@ -12,10 +12,12 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ActualitesController;
-use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\MediaController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
-use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\MediaController as AdminMediaController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\InvoiceController;
@@ -33,14 +35,23 @@ Route::get('/about/gerants', [AboutController::class, 'gerants'])->name('about.g
 
 
 
-// Actualités et Ressources
+// Actualités et Ressources avec SEO optimisé
 Route::prefix('actualites')->group(function() {
-    Route::get('/', [ActualitesController::class, 'index'])->name('actualites.index');
-
+    Route::get('/', [NewsController::class, 'index'])->name('news.index');
+    
+    Route::get('/medias', [MediaController::class, 'index'])->name('medias.index');
+    Route::get('/medias/{slug}', [MediaController::class, 'show'])->name('medias.show');
+    
+    // Routes SEO pour rapports et publications
+    Route::get('/rapports', [ActualitesController::class, 'rapports'])->name('reports.index');
+    
+    // Routes existantes pour compatibilité
+    Route::get('/legacy', [ActualitesController::class, 'index'])->name('actualites.index');
     Route::get('/communiques-ateliers-seminaires', [ActualitesController::class, 'communiques'])->name('actualites.communiques');
     Route::get('/rapports-publications', [ActualitesController::class, 'rapports'])->name('actualites.rapports');
-    Route::get('/medias', [ActualitesController::class, 'medias'])->name('actualites.medias');
-    Route::get('/{slug}', [ActualitesController::class, 'show'])->name('actualites.show');
+    Route::get('/legacy-medias', [ActualitesController::class, 'medias'])->name('actualites.medias');
+    Route::get('/legacy/{slug}', [ActualitesController::class, 'show'])->name('actualites.show');
+    Route::get('/{slug}', [NewsController::class, 'show'])->name('news.show');
 });
 
 // Demandes
@@ -77,8 +88,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('admin-panel')->name('admin.')->middleware(['auth'])->group(function () {
-    Route::resource('news', NewsController::class);
-    Route::resource('medias', MediaController::class);
+    Route::resource('news', AdminNewsController::class);
+    Route::resource('medias', AdminMediaController::class);
     Route::resource('reports', ReportController::class);
     Route::resource('users', UserController::class);
     Route::resource('property-managers', PropertyManagerController::class);

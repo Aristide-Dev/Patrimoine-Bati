@@ -4,11 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Http\Traits\SeoTools;
 
 class ParcImmobilierController extends Controller
 {
+    use SeoTools;
+
     public function index()
     {
+        $this->setSeoMeta(
+            'Parc Immobilier Public - PBP',
+            'Découvrez le parc immobilier public de Guinée géré par le PBP : statistiques, biens disponibles, logements administratifs et baux commerciaux.',
+            ['parc immobilier', 'biens publics', 'logements administratifs', 'baux commerciaux', 'statistiques', 'PBP', 'Guinée']
+        );
         $statistiques = [
             'totalBiens' => 1254,
             'biensOccupes' => 879,
@@ -162,6 +170,7 @@ class ParcImmobilierController extends Controller
         ];
 
         return Inertia::render('Demandes/ParcImmobilier', [
+            'seo' => $this->getSeoData(),
             'statistiques' => $statistiques
         ]);
     }

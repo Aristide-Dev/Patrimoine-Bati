@@ -10,11 +10,20 @@ use App\Models\TypeBien;
 use App\Models\Prefecture;
 use App\Models\Commune;
 use App\Models\Commodite;
+use App\Http\Traits\SeoTools;
 
 class DemandeController extends Controller
 {
+    use SeoTools;
+
     public function formulaire()
     {
+        $this->setSeoMeta(
+            'Formulaire de Demande - PBP',
+            'Déposez votre demande de logement administratif ou de bail commercial auprès du Patrimoine Bâti Public de Guinée.',
+            ['demande', 'logement administratif', 'bail commercial', 'PBP', 'patrimoine bâti', 'Guinée']
+        );
+
         return Inertia::render('Demandes/NewDemande');
         $formData = [
             'typesDemande' => [
@@ -48,7 +57,9 @@ class DemandeController extends Controller
             ]
         ];
 
-        return Inertia::render('Demandes/Formulaire', $formData);
+        return Inertia::render('Demandes/Formulaire', array_merge($formData, [
+            'seo' => $this->getSeoData(),
+        ]));
     }
 
     public function store(Request $request)

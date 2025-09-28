@@ -15,6 +15,13 @@ Schedule::command('news:update-reading-times')
     ->runInBackground() // Exécute en arrière-plan
     ->appendOutputTo(storage_path('logs/reading-times-update.log')); // Logs
 
+// Planifier la génération du sitemap
+Schedule::command('sitemap:generate')
+    ->daily() // Exécute tous les jours à minuit
+    ->withoutOverlapping() // Évite les exécutions simultanées
+    ->runInBackground() // Exécute en arrière-plan
+    ->appendOutputTo(storage_path('logs/sitemap-generation.log')); // Logs
+
 // Autres options de planification disponibles :
 // ->hourly()                    // Toutes les heures
 // ->daily()                     // Tous les jours à minuit

@@ -9,11 +9,17 @@ use App\Models\Prefecture;
 use App\Models\Commune;
 use App\Models\TypeBien;
 use App\Models\Zone;
+use App\Http\Traits\SeoTools;
 
 class HomeController extends Controller
 {
+    use SeoTools;
+
     public function index()
     {
+        // Configuration SEO pour la page d'accueil
+        $this->setHomeSeoMeta();
+        
         // Obtenez les données réelles de la base de données si elles existent
         // Sinon, utilisez des données factices pour le développement
         // dd(\Illuminate\Support\Facades\Hash::make('password'));
@@ -33,6 +39,7 @@ class HomeController extends Controller
             'prefectures' => $prefectures,
             'typesBien' => $typesBien,
             'zones' => $zones,
+            'seo' => $this->getSeoData(),
         ]);
     }
 } 
