@@ -66,6 +66,12 @@ class NewsController extends Controller
         // Configuration SEO pour l'actualité
         $this->setNewsSeoMeta($news);
 
+        // Incrémenter les vues AVANT de passer les données
+        $news->increment('views');
+        
+        // Rafraîchir l'article pour avoir le nombre de vues mis à jour
+        $news->refresh();
+
         // Actualités similaires
         $relatedNews = News::where('published_at', '<=', now())
             ->whereNotNull('published_at')

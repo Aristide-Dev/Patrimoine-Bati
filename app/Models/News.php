@@ -24,6 +24,7 @@ class News extends Model
             'tags' => 'array',
             'published_at' => 'date',
             'featured' => 'boolean',
+            'views' => 'integer',
         ];
     }
 
