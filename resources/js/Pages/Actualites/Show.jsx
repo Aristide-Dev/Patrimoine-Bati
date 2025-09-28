@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { usePage } from "@inertiajs/react";
 import AppLayout from "@/Layouts/AppLayout";
 import ContentRenderer from '@/Components/LexicalEditor/ContentRenderer';
@@ -7,7 +7,7 @@ import SimpleSEO from '@/Components/SimpleSEO';
 import { 
   Calendar, Tag, Clock, Share2, Facebook, Twitter, 
   Linkedin, Copy, ChevronLeft, ChevronRight,
-  Eye, ThumbsUp, Bookmark, Printer
+  Eye, ThumbsUp, Bookmark, Printer, MessageCircle
 } from "lucide-react";
 
 export default function ArticleDetails({ news, newsContent, relatedNews, seo }) {
@@ -20,28 +20,70 @@ export default function ArticleDetails({ news, newsContent, relatedNews, seo }) 
   // Utiliser les données existantes
   const article = news;
   const similarArticles = relatedNews || [];
+  
+  // Référence pour le menu de partage
+  const shareMenuRef = useRef(null);
+  
+  // Gestion du clic à l'extérieur pour fermer le menu
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (shareMenuRef.current && !shareMenuRef.current.contains(event.target)) {
+        setShowShareMenu(false);
+      }
+    };
+
+    if (showShareMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showShareMenu]);
 
   // Gestion du partage
   const handleShare = (platform) => {
-    const shareData = {
-      title: article.title,
-      text: article.excerpt,
-      url: url
-    };
+    const currentUrl = window.location.href;
+    const shareTitle = article.title || 'Article PBP';
+    const shareText = article.excerpt || 'Découvrez cet article du Patrimoine Bâti Public de Guinée';
 
     const shareUrls = {
-      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title)}&url=${encodeURIComponent(url)}`,
-      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
-      whatsapp: `https://wa.me/?text=${encodeURIComponent(`${article.title} ${url}`)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,
+      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(currentUrl)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`,
+      whatsapp: `https://wa.me/?text=${encodeURIComponent(`${currentUrl}`)}`,
     };
 
     if (platform === 'copy') {
-      navigator.clipboard.writeText(url);
-      alert("Lien copié dans le presse-papiers !");
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(currentUrl).then(() => {
+          alert("Lien copié dans le presse-papiers !");
+        }).catch(() => {
+          // Fallback pour les navigateurs plus anciens
+          const textArea = document.createElement('textarea');
+          textArea.value = currentUrl;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          alert("Lien copié dans le presse-papiers !");
+        });
+      } else {
+        // Fallback pour les navigateurs plus anciens
+        const textArea = document.createElement('textarea');
+        textArea.value = currentUrl;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert("Lien copié dans le presse-papiers !");
+      }
     } else if (shareUrls[platform]) {
-      window.open(shareUrls[platform], '_blank');
+      window.open(shareUrls[platform], '_blank', 'width=600,height=400');
     }
+    
+    // Fermer le menu de partage après action
+    setShowShareMenu(false);
   };
 
   // Gestion de l'impression
@@ -161,7 +203,7 @@ export default function ArticleDetails({ news, newsContent, relatedNews, seo }) 
                 </button>
               </div>
 
-              <div className="relative">
+              <div className="relative" ref={shareMenuRef}>
                 <button
                   onClick={() => setShowShareMenu(!showShareMenu)}
                   className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-700 transition-colors"
@@ -171,18 +213,18 @@ export default function ArticleDetails({ news, newsContent, relatedNews, seo }) 
                 </button>
 
                 {showShareMenu && (
-                  <div className="absolute -top-60 right-0 mt-2 w-48 bg-gray-200 rounded-xl shadow-lg py-2 z-10">
+                  <div className="absolute -top-60 right-0 mt-2 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 z-50">
                     {[
                       { icon: Facebook, label: 'Facebook', platform: 'facebook' },
                       { icon: Twitter, label: 'Twitter', platform: 'twitter' },
                       { icon: Linkedin, label: 'LinkedIn', platform: 'linkedin' },
-                      { icon: Linkedin, label: 'WhatsApp', platform: 'whatsapp' },
+                      { icon: MessageCircle, label: 'WhatsApp', platform: 'whatsapp' },
                       { icon: Copy, label: 'Copier le lien', platform: 'copy' },
                     ].map(({ icon: Icon, label, platform }) => (
                       <button
                         key={platform}
                         onClick={() => handleShare(platform)}
-                        className="w-full px-4 py-2 flex items-center hover:bg-primary-700 text-gray-800 hover:text-white transition-colors"
+                        className="w-full px-4 py-2 flex items-center hover:bg-gray-100 text-gray-800 transition-colors"
                       >
                         <Icon className="w-5 h-5 mr-3" />
                         {label}
