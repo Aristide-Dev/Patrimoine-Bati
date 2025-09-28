@@ -37,12 +37,9 @@ Route::get('/about/gerants', [AboutController::class, 'gerants'])->name('about.g
 
 // Actualités et Ressources avec SEO optimisé
 Route::prefix('actualites')->group(function() {
+    // Routes spécifiques AVANT les routes génériques
     Route::get('/', [NewsController::class, 'index'])->name('news.index');
-    
     Route::get('/medias', [MediaController::class, 'index'])->name('medias.index');
-    Route::get('/medias/{slug}', [MediaController::class, 'show'])->name('medias.show');
-    
-    // Routes SEO pour rapports et publications
     Route::get('/rapports', [ActualitesController::class, 'rapports'])->name('reports.index');
     
     // Routes existantes pour compatibilité
@@ -50,7 +47,12 @@ Route::prefix('actualites')->group(function() {
     Route::get('/communiques-ateliers-seminaires', [ActualitesController::class, 'communiques'])->name('actualites.communiques');
     Route::get('/rapports-publications', [ActualitesController::class, 'rapports'])->name('actualites.rapports');
     Route::get('/legacy-medias', [ActualitesController::class, 'medias'])->name('actualites.medias');
+    
+    // Routes avec paramètres - AVANT les routes génériques
+    Route::get('/medias/{slug}', [MediaController::class, 'show'])->name('medias.show');
     Route::get('/legacy/{slug}', [ActualitesController::class, 'show'])->name('actualites.show');
+    
+    // Route générique EN DERNIER pour capturer les slugs d'actualités
     Route::get('/{slug}', [NewsController::class, 'show'])->name('news.show');
 });
 

@@ -23,11 +23,37 @@ export default function SEO({
     const defaultDescription = 'Le Patrimoine Bâti Public (PBP) de Guinée assure la gestion, l\'entretien et la valorisation du patrimoine immobilier de l\'État guinéen. Situé aux Ports Conteneurs de Conakry, Kaloum.';
     const defaultKeywords = ['patrimoine bâti', 'Guinée', 'service public', 'immobilier', 'État', 'Conakry', 'Kaloum', 'PBP'];
     
+    // Fonction pour obtenir l'URL de base de manière sécurisée
+    const getBaseUrl = () => {
+        if (typeof window !== 'undefined') {
+            return window.location.origin;
+        }
+        return 'https://pbpguinee.com'; // URL par défaut pour le SSR
+    };
+    
+    // Fonction pour nettoyer les valeurs et éviter les Symboles
+    const sanitizeValue = (value) => {
+        if (value === null || value === undefined) return null;
+        if (typeof value === 'symbol') return value.toString();
+        if (typeof value === 'string') return value;
+        if (typeof value === 'number') return value.toString();
+        if (typeof value === 'boolean') return value.toString();
+        if (Array.isArray(value)) return value.map(sanitizeValue);
+        if (typeof value === 'object') {
+            const sanitized = {};
+            for (const [key, val] of Object.entries(value)) {
+                sanitized[key] = sanitizeValue(val);
+            }
+            return sanitized;
+        }
+        return String(value);
+    };
+    
     // Utiliser les valeurs fournies ou les valeurs par défaut
-    const seoTitle = title || defaultTitle;
-    const seoDescription = description || defaultDescription;
-    const seoKeywords = keywords.length > 0 ? keywords : defaultKeywords;
-    const seoImage = image || `${window.location.origin}/images/logo/pbp-logo.png`;
+    const seoTitle = sanitizeValue(title) || defaultTitle;
+    const seoDescription = sanitizeValue(description) || defaultDescription;
+    const seoKeywords = Array.isArray(keywords) && keywords.length > 0 ? keywords.map(sanitizeValue) : defaultKeywords;
+    const seoImage = sanitizeValue(image) || `${getBaseUrl()}/images/logo/pbp-logo.png`;
     
     // Configuration Open Graph
     const ogData = {
@@ -56,8 +82,8 @@ export default function SEO({
         "@type": organization?.type || "GovernmentOrganization",
         "name": organization?.name || "PBP - Patrimoine Bâti Public de Guinée",
         "description": seoDescription,
-        "url": window.location.origin,
-        "logo": `${window.location.origin}/images/logo/pbp-logo.png`,
+        "url": getBaseUrl(),
+        "logo": `${getBaseUrl()}/images/logo/pbp-logo.png`,
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "PORTS CONTENEURS DE CONAKRY",
@@ -92,10 +118,12 @@ export default function SEO({
     
     // Ajouter les données d'article si fournies
     if (article) {
+        const sanitizedArticle = sanitizeValue(article);
+        
         jsonLd["@type"] = "Article";
         jsonLd["headline"] = seoTitle;
-        jsonLd["datePublished"] = article.published_at;
-        jsonLd["dateModified"] = article.updated_at;
+        jsonLd["datePublished"] = sanitizedArticle.published_at;
+        jsonLd["dateModified"] = sanitizedArticle.updated_at;
         jsonLd["author"] = {
             "@type": "GovernmentOrganization",
             "name": "PBP - Patrimoine Bâti Public de Guinée"
@@ -105,18 +133,18 @@ export default function SEO({
             "name": "PBP - Patrimoine Bâti Public de Guinée",
             "logo": {
                 "@type": "ImageObject",
-                "url": `${window.location.origin}/images/logo/pbp-logo.png`
+                "url": `${getBaseUrl()}/images/logo/pbp-logo.png`
             }
         };
         
         // Ajouter les données Open Graph pour les articles
         ogData.type = 'article';
         ogData.article = {
-            published_time: article.published_at,
-            modified_time: article.updated_at,
+            published_time: sanitizedArticle.published_at,
+            modified_time: sanitizedArticle.updated_at,
             author: 'PBP - Patrimoine Bâti Public de Guinée',
-            section: article.section || 'Actualités',
-            tag: article.tags || ['patrimoine bâti', 'Guinée', 'service public']
+            section: sanitizedArticle.section || 'Actualités',
+            tag: Array.isArray(sanitizedArticle.tags) ? sanitizedArticle.tags : ['patrimoine bâti', 'Guinée', 'service public']
         };
     }
     
@@ -138,17 +166,20 @@ export default function SEO({
             <meta property="og:locale" content={ogData.locale} />
             
             {/* Données Open Graph pour les articles */}
-            {article && (
-                <>
-                    <meta property="article:published_time" content={article.published_at} />
-                    <meta property="article:modified_time" content={article.updated_at} />
-                    <meta property="article:author" content="PBP - Patrimoine Bâti Public de Guinée" />
-                    <meta property="article:section" content={article.section || 'Actualités'} />
-                    {article.tags && article.tags.map((tag, index) => (
-                        <meta key={index} property="article:tag" content={tag} />
-                    ))}
-                </>
-            )}
+            {article && (() => {
+                const sanitizedArticle = sanitizeValue(article);
+                return (
+                    <>
+                        <meta property="article:published_time" content={sanitizedArticle.published_at} />
+                        <meta property="article:modified_time" content={sanitizedArticle.updated_at} />
+                        <meta property="article:author" content="PBP - Patrimoine Bâti Public de Guinée" />
+                        <meta property="article:section" content={sanitizedArticle.section || 'Actualités'} />
+                        {sanitizedArticle.tags && Array.isArray(sanitizedArticle.tags) && sanitizedArticle.tags.map((tag, index) => (
+                            <meta key={index} property="article:tag" content={sanitizeValue(tag)} />
+                        ))}
+                    </>
+                );
+            })()}
             
             {/* Twitter Card */}
             <meta name="twitter:card" content={twitterData.card} />

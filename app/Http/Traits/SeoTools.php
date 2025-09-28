@@ -49,7 +49,10 @@ trait SeoTools
     protected function setNewsSeoMeta($news): void
     {
         $title = $news->title . ' - PBP';
-        $description = $news->excerpt ?? substr(strip_tags($news->content), 0, 160);
+        
+        // Créer une description SEO à partir du contenu Lexical
+        $description = $this->createSeoDescription($news);
+        
         $canonical = route('news.show', $news->slug);
         
         $this->setSeoMeta($title, $description, ['actualités', 'PBP', 'patrimoine bâti'], $canonical);
@@ -87,7 +90,7 @@ trait SeoTools
     protected function setMediaSeoMeta($media): void
     {
         $title = $media->title . ' - PBP';
-        $description = $media->excerpt ?? substr(strip_tags($media->content), 0, 160);
+        $description = $media->excerpt ?? 'Découvrez ce média du Patrimoine Bâti Public de Guinée.';
         $canonical = route('medias.show', $media->slug);
         
         $this->setSeoMeta($title, $description, ['médias', 'PBP', 'patrimoine bâti'], $canonical);
@@ -108,7 +111,7 @@ trait SeoTools
     protected function setReportSeoMeta($report): void
     {
         $title = $report->title . ' - PBP';
-        $description = $report->excerpt ?? substr(strip_tags($report->content), 0, 160);
+        $description = $report->excerpt ?? 'Découvrez ce rapport du Patrimoine Bâti Public de Guinée.';
         $canonical = route('reports.show', $report->slug);
         
         $this->setSeoMeta($title, $description, ['rapports', 'publications', 'PBP', 'patrimoine bâti'], $canonical);
@@ -190,6 +193,151 @@ trait SeoTools
      */
     protected function getSeoData(): array
     {
-        return $this->seoData;
+        return $this->cleanSeoData($this->seoData);
+    }
+
+    /**
+     * Crée une description SEO optimisée à partir du contenu
+     *
+     * @param object $news
+     * @return string
+     */
+    private function createSeoDescription($news)
+    {
+        // Priorité 1: Utiliser l'excerpt s'il existe
+        if (!empty($news->excerpt)) {
+            return $news->excerpt;
+        }
+
+        // Priorité 2: Extraire le texte du contenu Lexical
+        $contentText = $this->extractTextFromLexicalContent($news->content);
+        
+        if (!empty($contentText)) {
+            // Limiter à 160 caractères pour le SEO
+            $description = substr($contentText, 0, 160);
+            
+            // S'assurer que la description se termine proprement
+            if (strlen($contentText) > 160) {
+                $lastSpace = strrpos($description, ' ');
+                if ($lastSpace !== false && $lastSpace > 120) {
+                    $description = substr($description, 0, $lastSpace);
+                }
+                $description .= '...';
+            }
+            
+            return $description;
+        }
+
+        // Priorité 3: Description par défaut
+        return 'Découvrez cet article du Patrimoine Bâti Public de Guinée.';
+    }
+
+    /**
+     * Extrait le texte du contenu Lexical de manière sécurisée
+     *
+     * @param string|null $content
+     * @return string
+     */
+    private function extractTextFromLexicalContent($content)
+    {
+        if (!$content) {
+            return '';
+        }
+
+        // Vérifier si c'est du contenu Lexical (JSON)
+        if (is_string($content) && (str_starts_with(trim($content), '{') || str_starts_with(trim($content), '['))) {
+            try {
+                $lexicalData = json_decode($content, true);
+                
+                // Si c'est un état Lexical valide
+                if ($lexicalData && isset($lexicalData['root']) && isset($lexicalData['root']['children'])) {
+                    return $this->extractTextFromLexicalNodes($lexicalData['root']['children']);
+                } else {
+                    // Si le JSON n'est pas un état Lexical, retourner le contenu tel quel
+                    return $content;
+                }
+            } catch (\Exception $e) {
+                // Si le parsing JSON échoue, retourner le contenu tel quel
+                return $content;
+            }
+        } else {
+            // Contenu HTML ou texte brut
+            return strip_tags($content);
+        }
+    }
+
+    /**
+     * Extrait le texte des nœuds Lexical en ignorant les images
+     *
+     * @param array $nodes
+     * @return string
+     */
+    private function extractTextFromLexicalNodes($nodes)
+    {
+        $text = '';
+
+        if (!is_array($nodes)) {
+            return $text;
+        }
+
+        foreach ($nodes as $node) {
+            if (!is_array($node)) {
+                continue;
+            }
+
+            // Ignorer les nœuds d'image
+            if (isset($node['type']) && $node['type'] === 'image') {
+                continue;
+            }
+
+            // Extraire le texte des nœuds de texte
+            if (isset($node['type']) && $node['type'] === 'text' && isset($node['text'])) {
+                $text .= $node['text'] . ' ';
+            }
+
+            // Traiter récursivement les nœuds enfants
+            if (isset($node['children']) && is_array($node['children'])) {
+                $text .= $this->extractTextFromLexicalNodes($node['children']);
+            }
+        }
+
+        return trim($text);
+    }
+
+    /**
+     * Nettoie les données SEO pour éviter les Symboles
+     *
+     * @param array $data
+     * @return array
+     */
+    private function cleanSeoData($data)
+    {
+        if (!is_array($data)) {
+            return $data;
+        }
+
+        $cleanData = [];
+
+        foreach ($data as $key => $value) {
+            // Nettoyer la clé
+            $cleanKey = is_string($key) ? $key : (string) $key;
+
+            // Nettoyer la valeur
+            if (is_null($value)) {
+                $cleanData[$cleanKey] = null;
+            } elseif (is_string($value)) {
+                $cleanData[$cleanKey] = $value;
+            } elseif (is_numeric($value)) {
+                $cleanData[$cleanKey] = $value;
+            } elseif (is_bool($value)) {
+                $cleanData[$cleanKey] = $value;
+            } elseif (is_array($value)) {
+                $cleanData[$cleanKey] = $this->cleanSeoData($value);
+            } else {
+                $cleanData[$cleanKey] = (string) $value;
+            }
+        }
+
+        return $cleanData;
     }
 }
