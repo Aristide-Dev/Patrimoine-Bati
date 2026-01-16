@@ -109,14 +109,14 @@ class DemandeController extends Controller
     {
         // Structure administrative de la Guinée
         $regions = $this->getRegions();
-        
+
         $prefectures = $this->getPrefectures();
-        
-        
+
+
         $typesBien = $this->getTypesBien();
-        
+
         $zones = $this->getZones();
-        
+
         return Inertia::render('Demandes/Rechercher', [
             'regions' => $regions,
             'prefectures' => $prefectures,
@@ -428,54 +428,13 @@ class DemandeController extends Controller
     {
         // Simuler un délai pour l'effet de chargement
         sleep(1);
-        
+
         // Récupérer et nettoyer les filtres
         $filters = $request->all();
-        
+
         // Filtrer les biens
-        $resultats = collect($this->getBiensFictifs())->filter(function ($bien) use ($filters) {
-            $match = true;
-            
-            // Filtre par région
-            if (!empty($filters['region']) && $filters['region'] !== 'toutes') {
-                $match = $bien['region'] === $filters['region'];
-            }
-            
-            // Filtre par préfecture
-            if ($match && !empty($filters['prefecture']) && $filters['prefecture'] !== 'toutes') {
-                $match = $bien['prefecture'] === $filters['prefecture'];
-            }
-            
-            // Filtre par commune
-            if ($match && !empty($filters['commune']) && $filters['commune'] !== 'toutes') {
-                $match = $bien['commune'] === $filters['commune'];
-            }
-            
-            // Filtre par type de bien
-            if ($match && !empty($filters['typeBien']) && $filters['typeBien'] !== 'tous') {
-                $match = $bien['type'] === $filters['typeBien'];
-            }
-            
-            // Filtre par surface
-            if ($match && !empty($filters['surface']) && is_array($filters['surface'])) {
-                $surfaceMin = $filters['surface'][0];
-                $surfaceMax = $filters['surface'][1];
-                $match = $bien['surface'] >= $surfaceMin && $bien['surface'] <= $surfaceMax;
-            }
-            
-            // Filtre par disponibilité
-            if ($match && !empty($filters['disponibilite']) && $filters['disponibilite'] !== 'tous') {
-                $match = $bien['disponibilite'] === $filters['disponibilite'];
-            }
-            
-            // Filtre par type de transaction (location/achat)
-            if ($match && !empty($filters['type'])) {
-                $match = $bien['type_transaction'] === $filters['type'];
-            }
-            
-            return $match;
-        })->values()->all();
-        
+        $resultats = collect();
+
         return response()->json($resultats);
     }
 
@@ -650,13 +609,13 @@ class DemandeController extends Controller
             ['id' => 'terrain', 'nom' => 'Terrain'],
             ['id' => 'immeuble', 'nom' => 'Immeuble'],
         ];
-        
+
         $prefectures = [
             ['id' => 'conakry', 'nom' => 'Conakry', 'region_id' => 'conakry'],
             ['id' => 'kindia', 'nom' => 'Kindia', 'region_id' => 'kindia'],
             ['id' => 'boke', 'nom' => 'Boké', 'region_id' => 'boke'],
         ];
-        
+
         $communes = [
             ['id' => 'kaloum', 'nom' => 'Kaloum', 'prefecture_id' => 'conakry'],
             ['id' => 'dixinn', 'nom' => 'Dixinn', 'prefecture_id' => 'conakry'],
@@ -664,7 +623,7 @@ class DemandeController extends Controller
             ['id' => 'ratoma', 'nom' => 'Ratoma', 'prefecture_id' => 'conakry'],
             ['id' => 'matoto', 'nom' => 'Matoto', 'prefecture_id' => 'conakry'],
         ];
-        
+
         $commodites = [
             ['id' => 'parking', 'nom' => 'Parking'],
             ['id' => 'securite', 'nom' => 'Sécurité 24h/24'],
@@ -677,7 +636,7 @@ class DemandeController extends Controller
             ['id' => 'eau', 'nom' => 'Eau courante'],
             ['id' => 'internet', 'nom' => 'Internet haut débit'],
         ];
-        
+
         // Générer des biens similaires fictifs
         $biensSimilaires = [];
         for ($i = 1; $i <= 3; $i++) {
@@ -694,7 +653,7 @@ class DemandeController extends Controller
                 'commune' => 'ratoma',
             ];
         }
-        
+
         return Inertia::render('Demandes/DetailBien', [
             'bien' => $bien,
             'typesBien' => $typesBien,
