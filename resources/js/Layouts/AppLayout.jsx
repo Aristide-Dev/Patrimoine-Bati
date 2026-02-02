@@ -238,7 +238,7 @@ export default function AppLayout({
               "availableLanguage": ["French"],
               "hoursAvailable": {
                 "@type": "OpeningHoursSpecification",
-                "dayOfWeek": DGPBP.contactInfo.hours?.weekdays || ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
                 "opens": DGPBP.contactInfo.hours?.weekhours?.split(" - ")[0] || "08:00",
                 "closes": DGPBP.contactInfo.hours?.weekhours?.split(" - ")[1] || "16:00"
               }
@@ -250,16 +250,8 @@ export default function AppLayout({
             },
             "areaServed": {
               "@type": "Country",
-              "name": "Guinée",
-              "iso": "GN"
+              "name": "Guinée"
             },
-            "serviceType": [
-              "Gestion du patrimoine immobilier public",
-              "Entretien des bâtiments publics", 
-              "Valorisation immobilière",
-              "Services administratifs publics",
-              "Maintenance des infrastructures publiques"
-            ],
             "foundingDate": "1958",
             "keywords": seoConfig.keywords,
             "sameAs": [
