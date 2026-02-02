@@ -113,6 +113,7 @@ export default function ArticleDetails({ news, newsContent, relatedNews, seo }) 
         description={seo?.description}
         keywords={seo?.keywords}
         canonical={seo?.canonical}
+        image={seo?.image}
       />
 
       <div className="max-w-4xl mx-auto px-4 py-16">

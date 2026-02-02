@@ -323,6 +323,9 @@ trait SeoTools
         
         $this->setSeoMeta($title, $description, ['actualités', 'nouvelles', 'événements', 'communiqués', 'rapports'], $canonical);
         
+        // Image principale de l'article (News utilise le champ "image")
+        $newsImageUrl = $news->image ? asset('storage/' . $news->image) : null;
+
         // Stocker des métadonnées supplémentaires pour les actualités
         session([
             'seo_type' => 'article',
@@ -330,13 +333,13 @@ trait SeoTools
             'seo_article_modified' => $news->updated_at->toISOString(),
             'seo_article_author' => 'PBP - Patrimoine Bâti Public de Guinée',
             'seo_article_section' => 'Actualités',
-            'seo_image' => $news->featured_image ? asset('storage/' . $news->featured_image) : null,
+            'seo_image' => $newsImageUrl,
         ]);
         
         // Préparer les données SEO pour Inertia.js
         $this->seoData = array_merge($this->seoData, [
             'type' => 'article',
-            'image' => $news->featured_image ? asset('storage/' . $news->featured_image) : null,
+            'image' => $newsImageUrl,
             'article' => [
                 'published_at' => $news->published_at?->toISOString(),
                 'updated_at' => $news->updated_at->toISOString(),

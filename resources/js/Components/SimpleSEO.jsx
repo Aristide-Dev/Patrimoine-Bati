@@ -9,7 +9,9 @@ export default function SimpleSEO({
     title, 
     description, 
     keywords = [], 
-    canonical = null
+    canonical = null,
+    /** URL absolue de l'image pour og:image / twitter:image (ex. image principale d'un article) */
+    image = null
 }) {
     const { url } = usePage();
     const currentUrl = canonical || url;
@@ -32,7 +34,14 @@ export default function SimpleSEO({
         return 'https://pbpguinee.com'; // URL par défaut pour le SSR
     };
     
-    const seoImage = `${getBaseUrl()}/images/logo/pbp-logo.png`;
+    // Image : celle fournie (article) ou logo par défaut ; toujours en URL absolue pour les robots
+    const defaultLogoUrl = `${getBaseUrl()}/images/logo/pbp-logo.png`;
+    const imageUrl = image && (image.startsWith('http') || image.startsWith('//'))
+        ? image
+        : image && image.startsWith('/')
+            ? `${getBaseUrl()}${image}`
+            : defaultLogoUrl;
+    const seoImage = image ? imageUrl : defaultLogoUrl;
     
     return (
         <Head>

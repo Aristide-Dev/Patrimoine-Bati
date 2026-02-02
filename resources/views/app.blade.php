@@ -24,9 +24,11 @@
             @if(session('seo_type'))
                 <meta property="og:type" content="{{ session('seo_type') }}">
             @endif
-            @if(session('seo_image'))
-                <meta property="og:image" content="{{ session('seo_image') }}">
-            @endif
+            {{-- Image de partage : image de l'article si présente, sinon logo (URL absolue pour les robots) --}}
+            <meta property="og:image" content="{{ session('seo_image') ?: asset('images/logo/pbp_sau_logo_transparent_blanc.png') }}">
+            <meta property="og:image:width" content="1200">
+            <meta property="og:image:height" content="630">
+            <meta property="og:image:alt" content="{{ session('seo_image') ? 'Image de l\'article - PBP' : 'Logo PBP - Patrimoine Bâti Public' }}">
             
             {{-- Twitter Card --}}
             <meta name="twitter:card" content="summary_large_image">
@@ -34,9 +36,8 @@
             <meta name="twitter:description" content="{{ session('seo_description') }}">
             <meta name="twitter:site" content="@pbpsau">
             <meta name="twitter:creator" content="@pbpsau">
-            @if(session('seo_image'))
-                <meta name="twitter:image" content="{{ session('seo_image') }}">
-            @endif
+            <meta name="twitter:image" content="{{ session('seo_image') ?: asset('images/logo/pbp_sau_logo_transparent_blanc.png') }}">
+            <meta name="twitter:image:alt" content="{{ session('seo_image') ? 'Image de l\'article - PBP' : 'Logo PBP - Patrimoine Bâti Public' }}">
         @else
             {{-- Métadonnées par défaut --}}
             <title>PBP - Patrimoine Bâti Public de Guinée</title>
